@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parameters namespace="Toyota" description="Toyota ELM Module (323/327)">
+
+  <parameter id="PID_A1">
+    <description lang="ru">
+      <name>PID_A1</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xA1</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_A2">
+    <description lang="ru">
+      <name>PID_A2</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xA2</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_A3">
+    <description lang="ru">
+      <name>PID_A3</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xA3</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_A8">
+    <description lang="ru">
+      <name>PID_A8</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xA8</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_A9">
+    <description lang="ru">
+      <name>PID_A9</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xA9</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_AA">
+    <description lang="ru">
+      <name>PID_AA</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xAA</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_AC">
+    <description lang="ru">
+      <name>PID_AC</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xAC</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B1">
+    <description lang="ru">
+      <name>PID_B1</name>
+      <unit>%</unit>
+      <description>Статус</description>
+    </description>
+    <address>
+      <byte>0xB1</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Положение педали газа №1</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Положение педали газа №2</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value>
+      get(0x01)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Запрос на изменения положения дроссельной заслонки</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value>
+      get(0x02)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Положение дроссельной заслонки №2</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value>
+      get(0x03)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Нагрузка мотора дроссельной заслонки при открытии</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value> 
+      get(0x04)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B2">
+    <description lang="ru">
+      <name>PID_B2</name>
+      <unit>В</unit>
+      <description>Нагрузка мотора дроссельной заслонки при закрытии</description>
+    </description>
+    <address>
+      <byte>0xB2</byte>
+    </address>
+    <value>
+      get(0x05)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+BYTE 3(b2) - Electro Magnetic Clutch
+BYTE 3(b3) - ETCS Actuator Power
+BYTE 3(b4) - Accelerator Idle Position
+BYTE 3(b5) - Throttle Idle Position    
+BYTE 3(b5) - Throttle MOT
+BYTE 3(b6) - Fail Safe Drive
+BYTE 3(b7) - Fail Safe Drive (Main CPU)
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Электромагнитное сцепление</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Питание исполнительного механизма системы EFI</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 2)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Положение педали газа не меняется</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 3)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Положение дросельной заслонки не меняется</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 4)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Работа двигателя с ошибками</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 5)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>-</unit>
+      <description>Работа двигателя с ошибками (Основной CPU)</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get_bit(0x00, 6)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>В</unit>
+      <description>Обучающееся значение при полностью закрытой др/заслонкой (нач)</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get(0x02)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>°</unit>
+      <description>Обучающееся значение при полностью отжатой педали газа</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get(0x03)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>А</unit>
+      <description>Ток двигателя дросельной заслонки</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get(0x04)
+    </value>
+  </parameter>
+
+  <parameter id="PID_B3">
+    <description lang="ru">
+      <name>PID_B3</name>
+      <unit>А</unit>
+      <description>Ток привода э/м сцепления</description>
+    </description>
+    <address>
+      <byte>0xB3</byte>
+    </address>
+    <value>
+      get(0x05)
+    </value>
+  </parameter>
+
+  <parameter id="ATFTemp">
+    <description lang="ru">
+      <name>ATF Temp</name>
+      <unit>°C</unit>
+      <description>Температура жидкости АКПП</description>
+    </description>
+    <address>
+      <byte>0xB4</byte>
+    </address>
+    <value>
+      get(0x0) - 40
+    </value>
+  </parameter>
+
+  <parameter id="PID_C3">
+    <description lang="ru">
+      <name>PID_C3</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xC3</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_D1">
+    <description lang="ru">
+      <name>PID_D1</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xD1</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_DA">
+    <description lang="ru">
+      <name>PID_DA</name>
+      <unit>°</unit>
+      <description>Задание фазы распредвала</description>
+    </description>
+    <address>
+      <byte>0xDA</byte>
+    </address>
+    <value>
+      get(0x00) * 2.5
+    </value>
+  </parameter>
+
+  <parameter id="PID_DA">
+    <description lang="ru">
+      <name>PID_DA</name>
+      <unit>°</unit>
+      <description>Фаза распредвала</description>
+    </description>
+    <address>
+      <byte>0xDA</byte>
+    </address>
+    <value>
+      get(0x02) * 2.5
+    </value>
+  </parameter>
+
+  <parameter id="PID_DA">
+    <description lang="ru">
+      <name>PID_DA</name>
+      <unit>°</unit>
+      <description>OVC Duty Ratio</description>
+    </description>
+    <address>
+      <byte>0xDA</byte>
+    </address>
+    <value>
+      get(0x04) * 2.5
+    </value>
+  </parameter>
+
+  <parameter id="PID_E1">
+    <description lang="ru">
+      <name>PID_E1</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xE1</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E2">
+    <description lang="ru">
+      <name>PID_E2</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xE2</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="FuelPressure">
+    <description lang="ru">
+      <name>PID_E3</name>
+      <unit>МПа</unit>
+      <description>Давление топлива</description>
+    </description>
+    <address>
+      <byte>0xE3</byte>
+    </address>
+    <value>
+      get(0x00) * 816 / 255
+    </value>
+  </parameter>
+
+  <parameter id="InjectorPulseWidth">
+    <description lang="en">
+      <name>Inj.pulse</name>
+      <unit>ms</unit>
+      <description>Injector Pulse Width</description>
+    </description>
+    <description lang="ru">
+      <name>Имп. форсунки</name>
+      <unit>мс</unit>
+      <description>Длительность импульса открытия форсунки</description>
+    </description>
+    <address>
+      <byte>0xE4</byte>
+    </address>
+    <value>
+      (get(0x00) * (32.60/255))
+    </value>
+  </parameter>
+
+  <parameter id="IdleDutyCycle">
+    <description lang="en">
+      <name>Idle Cycle</name>
+      <unit>%</unit>
+      <description>Idle Air Control Duty Cycle</description>
+    </description>
+    <address>
+      <byte>0xE6</byte>
+    </address>
+    <value>
+      (get(0x00) * (99.4/255))
+    </value>
+  </parameter>
+
+  <parameter id="PID_E7">
+    <description lang="ru">
+      <name>PID_E7</name>
+      <unit>HEX</unit>
+      <description>Шаг системы EGR</description>
+    </description>
+    <address>
+      <byte>0xE7</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Датчик давления в системе гидроусилителя руля</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Стоп-сигнал 1</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 2)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Датчик электрической загрузки</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 3)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Положение АКПП "N" или "P"</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 4)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Система климатконтроля</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 5)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Дросельная заслонка полностю закрыта</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 6)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Стартер</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x00, 7)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Отсечка топлива от управления температурой климатконтролем</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x01, 0)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Отсечка топлива от закрытой дроссельной заслонки</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x01, 1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Сигнал сдвига от гидро/электро усилителя руля</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x02, 0)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Стоп-сигнал 2</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x02, 6)
+    </value>
+  </parameter>
+
+  <parameter id="PID_E8">
+    <description lang="ru">
+      <name>PID_E8</name>
+      <unit>-</unit>
+      <description>Сигнал остановки двигателя</description>
+    </description>
+    <address>
+      <byte>0xE8</byte>
+    </address>
+    <value>
+      get_bit(0x02, 7)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EC">
+    <description lang="ru">
+      <name>PID_EC</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xEC</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_ED">
+    <description lang="ru">
+      <name>PID_ED</name>
+      <unit>°C</unit>
+      <description>Температура EGR</description>
+    </description>
+    <address>
+      <byte>0xED</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV A/C Cut</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x01)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Variable Intake</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x02)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Fuel Pressure UP</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x03)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV EGR System</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x04)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Intake Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x05)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Fuel Pump Relay</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x06)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Secondary Air</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x07)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV SCV</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x08)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV A/C Idle Up</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x11)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Fuel Pump / Spd</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x12)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Boost Pressure Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x13)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV A/C Clutch Relay</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x14)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV EVAP Purge</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x15)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Vapor Presure</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x16)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV VVT2 Control Bank 2</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x17)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV VVT2 Intake Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x18)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Super Charger Control Relay</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x21)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV VVT Control Bank 1</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x22)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Automatic Oil Supply</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x24)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Air Bleed</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x25)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Intake Air Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x26)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Exhaust Gas Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x27)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Exaust ByPass VC</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x28)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Canister Pressure Control</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x31)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Tank Pressure ByPass</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x32)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV VVTL Control Bank 1</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x33)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV VVTL Control Bank 2</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x34)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV AICV</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x35)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Engine Cooling</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x36)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Vent Value</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x37)
+    </value>
+  </parameter>
+
+  <parameter id="PID_EF">
+    <description lang="ru">
+      <name>PID_EF</name>
+      <unit>-</unit>
+      <description>VSV Pump for EVAP System</description>
+    </description>
+    <address>
+      <byte>0xEF</byte>
+    </address>
+    <value>
+      get(0x38)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F7">
+    <description lang="ru">
+      <name>PID_F7</name>
+      <unit>HEX</unit>
+      <description>-</description>
+    </description>
+    <address>
+      <byte>0xF7</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="ShiftPosition">
+    <description lang="ru">
+      <name>Передача</name>
+      <unit>-</unit>
+      <description>№ передачи АКПП</description>
+    </description>
+    <description lang="en">
+      <name>ATShift</name>
+      <unit>-</unit>
+      <description>AT Shift Position</description>
+    </description>
+    <address>
+      <byte>0xF8</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "L"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 1-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "2"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 2-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "R"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 3-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Режим АКПП - "PWR"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 4-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Переключатель АКПП - "OverDrive"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 5-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Режим АКПП - "Kick Down"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 6-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Стоп-сигнал</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 7-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Блокировка 4-й скорости системой круиз-контроль</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x00, 8-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "3"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 1-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "D"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 3-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Положение селектора АКПП - "Snow"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 4-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Режим АКПП - "Sport"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 5-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Режим АКПП - "Sport Shift Down"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 6-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_F9">
+    <description lang="ru">
+      <name>PID_F9</name>
+      <unit>-</unit>
+      <description>Режим АКПП - "Sport Shift Up"</description>
+    </description>
+    <address>
+      <byte>0xF9</byte>
+    </address>
+    <value>
+      get_bit(0x01, 7-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLN</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 1-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLU</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 2-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLT</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 3-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLD</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 4-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLC</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 5-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан SLS</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 6-1)
+    </value>
+  </parameter>
+
+  <parameter id="PID_FB">
+    <description lang="ru">
+      <name>PID_FB</name>
+      <unit>-</unit>
+      <description>Электромагнитный клапан DSU</description>
+    </description>
+    <address>
+      <byte>0xFB</byte>
+    </address>
+    <value>
+      get_bit(0x00, 7-1)
+    </value>
+  </parameter>
+
+</parameters>

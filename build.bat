@@ -1,0 +1,1 @@
+c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=AnyCPU hobd.csproj

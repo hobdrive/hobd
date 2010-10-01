@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 3.2.0.5777
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobd", "hobd.csproj", "{E0F56424-BEBA-4BD9-8B06-20571D599CC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "fleuxdesktop\trunk\Fleux.Net\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
+		Debug|WINCE = Debug|WINCE
+		Release|WINCE = Release|WINCE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.Build.0 = Debug|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.ActiveCfg = Debug|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.Build.0 = Release|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.ActiveCfg = Release|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|WINCE.Build.0 = Debug|WINCE
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|WINCE.ActiveCfg = Debug|WINCE
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|WINCE.Build.0 = Release|WINCE
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|WINCE.ActiveCfg = Release|WINCE
+	EndGlobalSection
+EndGlobal

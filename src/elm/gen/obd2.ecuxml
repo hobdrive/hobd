@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parameters namespace='OBD2' description="OBD-II standard ELM Module (323/327)">
+  
+  <parameter id="PID_03">
+    <description lang="ru">
+      <name>PID_03</name>
+      <unit>-</unit>
+      <description>Топливная система, статус</description>
+    </description>
+    <address>
+      <byte>0x03</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_04">
+    <description lang="ru">
+      <name>PID_04</name>
+      <unit>%</unit>
+      <description>Расчетная нагрузка на двигатель</description>
+    </description>
+    <address>
+      <byte>0x04</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_05">
+    <description lang="ru">
+      <name>PID_05</name>
+      <unit>°С</unit>
+      <description>Температура охлаждающей жидкости</description>
+    </description>
+    <address>
+      <byte>0x05</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_06">
+    <description lang="ru">
+      <name>PID_06</name>
+      <unit>%</unit>
+      <description>Кратковременная топливная коррекция</description>
+    </description>
+    <address>
+      <byte>0x06</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_07">
+    <description lang="ru">
+      <name>PID_07</name>
+      <unit>%</unit>
+      <description>Долговременная топливная коррекция</description>
+    </description>
+    <address>
+      <byte>0x07</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_0A">
+    <description lang="ru">
+      <name>PID_0A</name>
+      <unit>кПа</unit>
+      <description>Давление топлива</description>
+    </description>
+    <address>
+      <byte>0x0A</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_0B">
+    <description lang="ru">
+      <name>PID_0B</name>
+      <unit>кПа</unit>
+      <description>Абсолютное давление во впускном коллекторе</description>
+    </description>
+    <address>
+      <byte>0x0B</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_0C">
+    <description lang="ru">
+      <name>PID_0C</name>
+      <unit>об/мин</unit>
+      <description>Обороты двигателя</description>
+    </description>
+    <address>
+      <byte>0x0C</byte>
+    </address>
+    <value>
+      get(0x10)
+    </value>
+  </parameter>
+
+  <parameter id="SPEED">
+    <description lang="ru">
+      <name>Скорость</name><unit>км/час</unit><description>Скорость автомобиля</description>
+    </description>
+    <address> <byte>0x0D</byte> </address>
+    <value> get(0x00) </value>
+  </parameter>
+
+  <parameter id="SPEED_MI">
+    <description>
+      <name>Speed</name><unit>mph</unit><description>Speed</description>
+    </description>
+    <address> <byte>0x0D</byte> </address>
+    <value> get(0x00) / 1.65 </value>
+  </parameter>
+
+  <parameter id="PID_0E">
+    <description lang="ru">
+      <name>PID_0E</name>
+      <unit>°</unit>
+      <description>Угол опережения зажигания</description>
+    </description>
+    <address>
+      <byte>0x0E</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_0F">
+    <description lang="ru">
+      <name>PID_0F</name>
+      <unit>°C</unit>
+      <description>Температура воздуха на впуске</description>
+    </description>
+    <address>
+      <byte>0x0F</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_10">
+    <description lang="ru">
+      <name>PID_10</name>
+      <unit>гр/сек</unit>
+      <description>Расход воздуха на впуске</description>
+    </description>
+    <address>
+      <byte>0x10</byte>
+    </address>
+    <value>
+      get(0x10)
+    </value>
+  </parameter>
+
+  <parameter id="PID_11">
+    <description lang="ru">
+      <name>PID_11</name>
+      <unit>%</unit>
+      <description>Положение дросельной заслонки</description>
+    </description>
+    <address>
+      <byte>0x11</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_14">
+    <description lang="ru">
+      <name>PID_14</name>
+      <unit>В</unit>
+      <description>U датчика кислорода №1</description>
+    </description>
+    <address>
+      <byte>0x14</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+  <parameter id="PID_14">
+    <description lang="ru">
+      <name>PID_14</name>
+      <unit>%</unit>
+      <description>Кратковременная топливная коррекция по датчику №1</description>
+    </description>
+    <address>
+      <byte>0x14</byte>
+    </address>
+    <value>
+      get(0x10)
+    </value>
+  </parameter>
+
+  <parameter id="PID_02">
+    <description lang="ru">
+      <name>PID_02</name>
+      <unit>-</unit>
+      <description>Ошибка ECU</description>
+    </description>
+    <address>
+      <byte>0x02</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
+</parameters>
