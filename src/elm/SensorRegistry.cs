@@ -3,14 +3,14 @@
 namespace hobd
 {
 
-public class PIDRegistry
+public class SensorRegistry
 {
     
-    public PIDRegistry()
+    public SensorRegistry()
     {
     }
     
-    public void add(PID pid)
+    public void add(Sensor pid)
     {
     
     }

@@ -6,7 +6,7 @@
 <xsl:output indent="yes" method="text" encoding="utf-8"/>
 
 <xsl:param name='ns' select='/parameters/@namespace'/>
-<xsl:param name='class' select='concat($ns, "PIDs")'/>
+<xsl:param name='class' select='concat($ns, "Sensors")'/>
 
 <xsl:template match="/">
 /*********************************************************
@@ -21,16 +21,16 @@ using System;
   List of PIDs generated:
 <xsl:apply-templates select='/parameters/parameter' mode='list'/>
 */
-public class <xsl:value-of select='$class'/> : BasicPIDs
+public class <xsl:value-of select='$class'/> : BasicSensors
 {
 
     public <xsl:value-of select='$class'/>()
     {
     }
 
-    override protected void registerPIDs(PIDRegistry registry)
+    override protected void registerSensors(SensorRegistry registry)
     {
-        base.registerPIDs(registry);
+        base.registerSensors(registry);
 
         <xsl:apply-templates select='/parameters/parameter'/>
 
@@ -45,7 +45,7 @@ public class <xsl:value-of select='$class'/> : BasicPIDs
         // <xsl:value-of select='description/name'/>
         // <xsl:value-of select='description/description'/>
         // <xsl:value-of select='description/unit'/>
-        registry.add(new SimplePID("<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>", <xsl:value-of select='address/byte'/>)
+        registry.add(new SimpleSensor("<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>", <xsl:value-of select='address/byte'/>)
                         {
                             value = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; }
                         });

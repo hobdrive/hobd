@@ -12,7 +12,7 @@
     <DeployDirSuffix>hobd</DeployDirSuffix>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
-    <ApplicationIcon>hobd.ico</ApplicationIcon>
+    <ApplicationIcon>Images/hobd.ico</ApplicationIcon>
     <RootNamespace>hobd</RootNamespace>
     <AssemblyName>hobd</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -74,12 +74,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\item.icon.png" />
     <Compile Include="src\DynamicElement.cs" />
-    <Compile Include="src\elm\BasicPIDs.cs" />
-    <Compile Include="src\elm\OBDPIDs.cs" />
-    <Compile Include="src\elm\PID.cs" />
-    <Compile Include="src\elm\PIDRegistry.cs" />
-    <Compile Include="src\elm\SimplePID.cs" />
-    <Compile Include="src\elm\ToyotaPIDs.cs" />
+    <Compile Include="src\elm\BasicSensors.cs" />
+    <Compile Include="src\elm\OBDSensors.cs" />
+    <Compile Include="src\elm\Sensor.cs" />
+    <Compile Include="src\elm\SensorRegistry.cs" />
+    <Compile Include="src\elm\SimpleSensor.cs" />
+    <Compile Include="src\elm\ToyotaSensors.cs" />
     <Compile Include="src\engine\IStream.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\util\Logger.cs" />

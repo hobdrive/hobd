@@ -2,9 +2,9 @@
 <project default="ecu" basedir=".">
 
   <target name="ecu">
-    <xslt in='toyota-obd2.ecuxml' out='../ToyotaPIDs.cs' style='ecuxml2cs.xsl'>
+    <xslt in='toyota-obd2.ecuxml' out='../ToyotaSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
-    <xslt in='obd2.ecuxml' out='../OBDPIDs.cs' style='ecuxml2cs.xsl'>
+    <xslt in='obd2.ecuxml' out='../OBDSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
   </target>
 

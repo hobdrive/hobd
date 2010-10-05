@@ -3,7 +3,7 @@
 namespace hobd
 {
 
-public interface PID
+public interface Sensor
 {
     double getValue();
 }
