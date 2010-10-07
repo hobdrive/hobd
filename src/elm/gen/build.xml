@@ -4,7 +4,7 @@
   <target name="ecu">
     <xslt in='toyota-obd2.ecuxml' out='../ToyotaSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
-    <xslt in='obd2.ecuxml' out='../OBDSensors.cs' style='ecuxml2cs.xsl'>
+    <xslt in='obd2.ecuxml' out='../OBD2Sensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
   </target>
 

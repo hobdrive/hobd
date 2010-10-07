@@ -11,7 +11,7 @@ public class SerialStream: IStream
     SerialPort port;
     Queue portQueue = new Queue();
 
-    SerialStream()
+    public SerialStream()
     {}
 
     public void Open(String url)
@@ -30,7 +30,7 @@ public class SerialStream: IStream
 
         try {
             port.Open();
-        }catch(Exception e){
+        }catch(Exception){
             port = null;
         }
     }

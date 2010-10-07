@@ -21,19 +21,31 @@ using System;
   List of PIDs generated:
 <xsl:apply-templates select='/parameters/parameter' mode='list'/>
 */
-public class <xsl:value-of select='$class'/> : BasicSensors
+public class <xsl:value-of select='$class'/> : SensorProvider
 {
 
     public <xsl:value-of select='$class'/>()
     {
     }
-
-    override protected void registerSensors(SensorRegistry registry)
+    
+    public string GetName()
     {
-        base.registerSensors(registry);
+        return "<xsl:value-of select='$class'/>";
+    }
 
+    public string GetDescription()
+    {
+        return "<xsl:value-of select='$class'/>";
+    }
+    
+    public string GetDescription(string lang)
+    {
+        return GetDescription();
+    }
+
+    public void Activate(SensorRegistry registry)
+    {
         <xsl:apply-templates select='/parameters/parameter'/>
-
     }
 
 }
@@ -45,7 +57,10 @@ public class <xsl:value-of select='$class'/> : BasicSensors
         // <xsl:value-of select='description/name'/>
         // <xsl:value-of select='description/description'/>
         // <xsl:value-of select='description/unit'/>
-        registry.add(new SimpleSensor("<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>", <xsl:value-of select='address/byte'/>)
+        registry.Add(new OBD2Sensor("<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>",
+                                    "<xsl:value-of select='description/name'/>",
+                                    "<xsl:value-of select='description/name'/>", // !!!
+                                    <xsl:value-of select='address/byte'/>)
                         {
                             value = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; }
                         });

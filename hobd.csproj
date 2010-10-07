@@ -74,13 +74,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\item.icon.png" />
     <Compile Include="src\DynamicElement.cs" />
-    <Compile Include="src\elm\BasicSensors.cs" />
-    <Compile Include="src\elm\OBDSensors.cs" />
+    <Compile Include="src\elm\SensorProvider.cs" />
+    <Compile Include="src\elm\OBD2Sensors.cs" />
     <Compile Include="src\elm\Sensor.cs" />
     <Compile Include="src\elm\SensorRegistry.cs" />
-    <Compile Include="src\elm\SimpleSensor.cs" />
+    <Compile Include="src\elm\OBD2Sensor.cs" />
     <Compile Include="src\elm\ToyotaSensors.cs" />
+    <Compile Include="src\engine\Engine.cs" />
     <Compile Include="src\engine\IStream.cs" />
+    <Compile Include="src\engine\OBD2Engine.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\util\Logger.cs" />
     <None Include="src\elm\gen\build.bat" />
@@ -117,7 +119,7 @@
     </Compile>
     <Compile Include="src\PanoramaPage1.cs" />
     <Compile Include="src\ListPage1.cs" />
-    <Compile Include="src\Program.cs" />
+    <Compile Include="src\HOBD.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src" />

@@ -24,14 +24,14 @@ namespace hobd
             panorama.TextTitle("/hobd", g => 
                                        g.Style(MetroTheme.PhoneTextExtraLargeStyle)
                                        .Color(Color.FromArgb(103, 103, 103))
-                                       .DrawText(" v0.1 ")
+                                       .DrawText(" v0.1 " + state)
                                );
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg");
 
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
             panorama.AddSection(this.CreateHorizontalFeaturedSection());
-            panorama.AddSection(this.CreateMenuSection());
+            //panorama.AddSection(this.CreateMenuSection());
             this.theForm.Menu = null;
             this.theForm.FormBorderStyle = FormBorderStyle.None;
             this.theForm.WindowState = FormWindowState.Maximized;
@@ -41,18 +41,34 @@ namespace hobd
 
             //this.theForm.Location = new Point(-40,-40);
             
+            HOBD.Registry.AddListener("OBD2.SPEED", SensorChanged);
+            
             new System.Threading.Thread(new ThreadStart(() =>
                            {
 								while (true) {
-                                    if (panorama.IsDisposed) break;
-                                    panorama.Invoke(new Action(panorama.Invalidate));
-									Thread.Sleep(200);
+                                    Redraw();
+									Thread.Sleep(2000);
 						        }
-                           })).Start();
+                           }));
+        }
+        
+        public void SensorChanged(Sensor sensor)
+        {
+            speed.Text = "" + Math.Round( sensor.GetValue() ) + "km";
+            Redraw();
+        }
+        
+        public void Redraw()
+        {
+            if (panorama.IsDisposed) return;
+            state = ((OBD2Engine)HOBD.engine).State;
+            panorama.Invoke(new Action(panorama.Invalidate));
         }
 
         int layoutX = 480;
         int layoutY = 272;
+        DynamicElement speed;
+        string state = "";
 
         private IPanoramaSection CreateMenuSection()
         {
@@ -64,12 +80,14 @@ namespace hobd
                                Columns = new MeasureDefinition[] { layoutX/3, layoutX/3, layoutX/3 },
                                Rows = new MeasureDefinition[] { layoutY/3, layoutY/3, layoutY/3 }
                            };
+            
             grid[0, 0] = new DynamicElement("panorama") { Style = style, HandleTapAction = () => Application.Exit() };
             grid[1, 0] = new DynamicElement("gestures") { Style = style, HandleTapAction = () => this.Navigate("one") };
             grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ListPage1()) };
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = MetroTheme.PhoneTextNormalStyle };
 
-            grid[1, 2] = new DynamicElement("10km") { Style = MetroTheme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
+            speed = new DynamicElement("10km") { Style = MetroTheme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
+            grid[1, 2] = speed;
 
             /*
             grid[4, 0] = new TextElement("exit") {
