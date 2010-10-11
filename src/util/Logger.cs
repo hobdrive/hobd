@@ -5,7 +5,8 @@ namespace hobd{
 
 public class Logger
 {
-
+    public const bool TRACE = true;
+    
     static StreamWriter fs = new StreamWriter(new FileStream("log.txt", FileMode.Append));
     
     public static void trace(String s)

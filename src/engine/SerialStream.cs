@@ -30,8 +30,9 @@ public class SerialStream: IStream
 
         try {
             port.Open();
-        }catch(Exception){
+        }catch(Exception e){
             port = null;
+            throw e;
         }
     }
     
@@ -41,8 +42,6 @@ public class SerialStream: IStream
         byte[] buf = new byte[128];
         int read = port.Read(buf, 0, 128 );
         portQueue.Enqueue(buf);
-
-        Logger.trace("Data Received:"+read);
     }
 
     public void Close()

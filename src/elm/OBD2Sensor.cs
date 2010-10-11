@@ -14,7 +14,7 @@ public class OBD2Sensor : Sensor
     IEnumerable<string> aliases;
     public Func<OBD2Sensor, double> value;
 
-    public double v;
+    public byte[] data_raw;
     
     public OBD2Sensor(string id, string name, string descr, int command)
     {
@@ -59,17 +59,23 @@ public class OBD2Sensor : Sensor
         }
     }
     
+    public int Command
+    {
+        get{
+            return command;
+        }
+    }
     
     
     
     public double get(int idx)
     {
-        return v;
+        return data_raw[idx];
     }
 
     public double get_bit(int idx, int bit)
     {
-        return v;
+        return (data_raw[idx] & (1<<bit)) != 0 ? 1 : 0;
     }
     
 }

@@ -99,9 +99,9 @@
     </value>
   </parameter>
 
-  <parameter id="PID_0C">
+  <parameter id="RPM">
     <description lang="ru">
-      <name>PID_0C</name>
+      <name>RPM</name>
       <unit>об/мин</unit>
       <description>Обороты двигателя</description>
     </description>
@@ -109,7 +109,7 @@
       <byte>0x0C</byte>
     </address>
     <value>
-      get(0x10)
+      (get(0)*256 + get(1)) / 4
     </value>
   </parameter>
 

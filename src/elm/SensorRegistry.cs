@@ -8,8 +8,7 @@ public class SensorListener
 {
     public Sensor sensor;
     public List<Action<Sensor>> listeners = new List<Action<Sensor>>();
-    public int period;
-    public int nextreading;
+    public int period = 0;
 }
 
 public class SensorRegistry
@@ -49,7 +48,7 @@ public class SensorRegistry
         else
             return null;
     }
-    public ICollection<SensorListener> ActiveSensors
+    public SensorListener[] ActiveSensors
     {
         get{
             if (activeSensors_array == null){
@@ -80,6 +79,8 @@ public class SensorRegistry
      */
 	public void AddListener(Sensor sensor, Action<Sensor> listener, int period)
 	{
+	    if (sensor == null)
+	        throw new NullReferenceException("No such sensor");
 	    SensorListener sl = null;
 	    try{
 	        sl = activeSensors[sensor];

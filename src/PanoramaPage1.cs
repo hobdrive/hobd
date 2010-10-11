@@ -24,7 +24,7 @@ namespace hobd
             panorama.TextTitle("/hobd", g => 
                                        g.Style(MetroTheme.PhoneTextExtraLargeStyle)
                                        .Color(Color.FromArgb(103, 103, 103))
-                                       .DrawText(" v0.1 " + state)
+                                       .DrawText(" v0.1 ")
                                );
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg");
 
@@ -41,7 +41,8 @@ namespace hobd
 
             //this.theForm.Location = new Point(-40,-40);
             
-            HOBD.Registry.AddListener("OBD2.SPEED", SensorChanged);
+            HOBD.Registry.AddListener("OBD2.SPEED", SensorChanged, 0);
+            HOBD.Registry.AddListener("OBD2.RPM", SensorChanged, 0);
             
             new System.Threading.Thread(new ThreadStart(() =>
                            {
@@ -54,7 +55,10 @@ namespace hobd
         
         public void SensorChanged(Sensor sensor)
         {
-            speed.Text = "" + Math.Round( sensor.GetValue() ) + "km";
+            if (sensor.ID == "OBD2.SPEED")
+                speed.Text = "" + Math.Round( sensor.GetValue() ) + "km ";
+            else
+                speed.Text += sensor.GetValue();
             Redraw();
         }
         
