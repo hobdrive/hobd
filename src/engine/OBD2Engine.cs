@@ -144,17 +144,21 @@ public class OBD2Engine : Engine
     
     void HandleReply(byte[] msg)
     {
-        if (Logger.TRACE) Logger.trace(State + ": " + Encoding.ASCII.GetString(msg).Trim());
+        string smsg = Encoding.ASCII.GetString(msg);
+        if (Logger.TRACE) Logger.trace(State + ": " + smsg.Trim());
         
         switch(State){
             case ST_INIT:
-                versionInfo = Encoding.ASCII.GetString(msg).Trim();
+                versionInfo = smsg.Trim();
                 break;
             case ST_ATZ:
                 SetState(ST_ATE0);
                 break;
             case ST_ATE0:
-                SetState(ST_ATL0);
+                if (smsg.Contains("OK"))
+                {
+                    SetState(ST_ATL0);
+                }
                 break;
             case ST_ATL0:
                 SetState(ST_SENSOR);
@@ -185,10 +189,18 @@ public class OBD2Engine : Engine
                 osensor.data_raw = msgraw.ToArray();
                 nextReadings[currentSensorIndex] = DateTime.Now.AddMilliseconds(currentSensorListener.period);
                 
-                foreach(Action<Sensor> l in currentSensorListener.listeners){
-                    l(currentSensorListener.sensor);
+                if (osensor.data_raw.Length > 1 && osensor.data_raw[0] == 0x41 && osensor.data_raw[1] == osensor.Command)
+                {
+                    foreach(Action<Sensor> l in currentSensorListener.listeners){
+                        try{
+                            l(currentSensorListener.sensor);
+                        }catch(Exception e)
+                        {
+                            if (Logger.TRACE) Logger.trace("Listener fail on: "+osensor.ID);
+                        }
+                    }
+                    SetState(ST_SENSOR);
                 }
-                SetState(ST_SENSOR);
                 break;
         }
     }
@@ -198,6 +210,7 @@ public class OBD2Engine : Engine
     
     void HandleState()
     {
+        
         if (State == ST_SENSOR)
         {
             Thread.Sleep(50);
@@ -205,26 +218,34 @@ public class OBD2Engine : Engine
             return;
         }
         
-        if (!stream.HasData())
+        if (stream.HasData())
+        {
+            byte[] data = stream.Read();
+            if (position + data.Length < buffer.Length)
+            {
+                Array.Copy(data, 0, buffer, position, data.Length);
+                position = position + data.Length;
+            }else{
+                position = 0;
+            }
+            data = null;
+        }
+
+        if (position == 0)
         {
             Thread.Sleep(50);
             return;
         }
         
-        byte[] data = stream.Read();
-        Array.Copy(data, 0, buffer, position, data.Length);
-        int old_position = position;
-        position = position + data.Length;
-        data = null;
-
-        for(int isearch = old_position; isearch < position; isearch++)
+        for(int isearch = 0; isearch < position; isearch++)
         {
             // end of reply found
             if (buffer[isearch] == '>'){
                 byte[] msg = new byte[isearch];
                 Array.Copy(buffer, 0, msg, 0, isearch);
+                isearch++;
                 Array.Copy(buffer, isearch, buffer, 0, position-isearch);
-                position = 0;
+                position = position-isearch;
                 HandleReply(msg);
                 break;
             }
@@ -243,7 +264,7 @@ public class OBD2Engine : Engine
             
             if (DateTime.Now.Subtract(stateTS).TotalMilliseconds > 2000) {
                 // Restart the hanged connection
-                //SetState(ST_INIT);
+                SetState(ST_INIT);
 			}
             
         }

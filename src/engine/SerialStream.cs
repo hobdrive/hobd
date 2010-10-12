@@ -36,11 +36,13 @@ public class SerialStream: IStream
         }
     }
     
+    byte[] sbuf = new byte[128];
     private void DataReceviedHandler(object sender, SerialDataReceivedEventArgs e)
     {
         SerialPort port = (SerialPort)sender;
-        byte[] buf = new byte[128];
-        int read = port.Read(buf, 0, 128 );
+        int read = port.Read(sbuf, 0, 128 );
+        byte[] buf = new byte[read];
+        Array.Copy(sbuf, buf, read);
         portQueue.Enqueue(buf);
     }
 
@@ -63,8 +65,13 @@ public class SerialStream: IStream
     
     public void Write(byte[] array, int offset, int length)
     {
-        if(port != null)
-            port.Write(array, offset, length);
+        try{
+            if(port != null)
+                port.Write(array, offset, length);
+        }catch(Exception e)
+        {
+            return;
+        }
     }
 }
 
