@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Reflection;
+using System.Threading;
+
 namespace hobd
 {
     using System;
@@ -10,9 +12,9 @@ namespace hobd
     using Fleux.UIElements;
     using Fleux.UIElements.Grid;
 
-    public class PanoramaPage1 : PanoramaPage
+    public class HomePage : PanoramaPage
     {
-        public PanoramaPage1()
+        public HomePage()
         {
             RightMenu.DisplayText = "Exit";
             RightMenu.OnClickAction = () => Application.Exit();
@@ -21,21 +23,39 @@ namespace hobd
 
         private void InitializePanorama()
         {
-            panorama.TextTitle("/hobd", g => 
-                                       g.Style(MetroTheme.PhoneTextExtraLargeStyle)
-                                       .Color(Color.FromArgb(103, 103, 103))
-                                       .DrawText(" v0.1 ")
-                               );
-            panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg");
+
+            panorama.DrawTitleAction = gr =>
+               {   gr
+                   .Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
+                   .Color(HOBD.theme.PhoneSubtleBrush)
+                   .Bold(false)
+                   .MoveX(0).MoveY(0)
+                   .DrawText("/hobd")
+                   .Style(HOBD.theme.PhoneTextExtraLargeStyle)
+                   .Color(HOBD.theme.PhoneSubtleBrush)
+                   .DrawText(" v0.1 ");
+                   if (panorama.TitleWidth == 0)
+                   {
+                       panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
+                   }
+               };
+            panorama.SectionTitleDelta = 10;
+            panorama.SectionContentDelta = 40;
+            panorama.TitleWidth = 400;
+            panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", 512, 250, Assembly.GetCallingAssembly());
 
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
             panorama.AddSection(this.CreateHorizontalFeaturedSection());
             //panorama.AddSection(this.CreateMenuSection());
             this.theForm.Menu = null;
+#if WINCE
             this.theForm.FormBorderStyle = FormBorderStyle.None;
             this.theForm.WindowState = FormWindowState.Maximized;
-
+#else
+            this.theForm.Width = 480;
+            this.theForm.Height = 272;
+#endif
             //MessageBox.Show("dpi:"+this.theForm.CreateGraphics().DpiX);
             //MessageBox.Show("width:"+this.theForm.Width+" height:"+this.theForm.Height);
 
@@ -58,24 +78,24 @@ namespace hobd
             if (sensor.ID == "OBD2.SPEED")
                 speed.Text = "" + Math.Round( sensor.GetValue() ) + "km ";
             else
-                speed.Text += sensor.GetValue();
+                rpm.Text = sensor.GetValue() + "rpm";
             Redraw();
         }
         
         public void Redraw()
         {
             if (panorama.IsDisposed) return;
-            state = ((OBD2Engine)HOBD.engine).State;
             panorama.Invoke(new Action(panorama.Invalidate));
         }
 
-        int layoutX = 480;
-        int layoutY = 272;
         DynamicElement speed;
-        string state = "";
+        DynamicElement rpm;
 
         private IPanoramaSection CreateMenuSection()
         {
+            int layoutX = 480;
+            int layoutY = 272 - panorama.SectionContentDelta;
+            
             var style = new TextStyle(MetroTheme.PhoneTextLargeStyle.FontFamily, MetroTheme.PhoneFontSizeMediumLarge, MetroTheme.PanoramaNormalBrush);
             var section = new TouchPanoramaSection("welcome");
 
@@ -91,7 +111,10 @@ namespace hobd
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = MetroTheme.PhoneTextNormalStyle };
 
             speed = new DynamicElement("10km") { Style = MetroTheme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
-            grid[1, 2] = speed;
+            grid[1, 1] = speed;
+            
+            rpm = new DynamicElement("") { Style = MetroTheme.PhoneTextLargeStyle, HandleTapAction = () => Application.Exit() };
+            grid[1, 2] = rpm;
 
             /*
             grid[4, 0] = new TextElement("exit") {
