@@ -8,6 +8,7 @@ namespace hobd
     {
         public static Engine engine;
         public static SensorRegistry Registry;
+        public static HOBDTheme theme = new HOBDTheme();
         
         [STAThread]
         private static void Main(string[] args)
@@ -17,7 +18,7 @@ namespace hobd
             HOBD.engine = new OBD2Engine();
             
             IStream stream = new SerialStream();
-            engine.Init(stream, "COM5");
+            engine.Init(stream, "COM7");
             
             Registry = new SensorRegistry();
             Registry.RegisterProvider(new OBD2Sensors());
@@ -30,9 +31,10 @@ namespace hobd
             FleuxApplication.TargetDesignDpi = 96;
 #else
             // desktop - scale DPI
-            FleuxApplication.TargetDesignDpi = 96 * 480 / 800;
+            FleuxApplication.TargetDesignDpi = 96 ;//* 480 / 800;
+            
 #endif
-            FleuxApplication.Run(new PanoramaPage1());
+            FleuxApplication.Run(new HomePage());
             
             engine.Deactivate();
 

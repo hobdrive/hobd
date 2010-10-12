@@ -84,6 +84,7 @@
     <Compile Include="src\engine\IStream.cs" />
     <Compile Include="src\engine\OBD2Engine.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
+    <Compile Include="src\HOBDTheme.cs" />
     <Compile Include="src\util\Logger.cs" />
     <None Include="src\elm\gen\build.bat" />
     <None Include="src\elm\gen\build.xml" />
@@ -117,7 +118,7 @@
     <Compile Include="src\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\PanoramaPage1.cs" />
+    <Compile Include="src\HomePage.cs" />
     <Compile Include="src\ListPage1.cs" />
     <Compile Include="src\HOBD.cs" />
   </ItemGroup>
