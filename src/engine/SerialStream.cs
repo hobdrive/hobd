@@ -68,7 +68,7 @@ public class SerialStream: IStream
         try{
             if(port != null)
                 port.Write(array, offset, length);
-        }catch(Exception e)
+        }catch(Exception)
         {
             return;
         }

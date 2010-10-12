@@ -26,6 +26,8 @@ public class OBD2Engine : Engine
     public string State {get; private set;}
     public string Error {get; private set;}
     
+    public int statSensorsRead = 0;
+    
     public OBD2Engine()
     {
     }
@@ -191,12 +193,13 @@ public class OBD2Engine : Engine
                 
                 if (osensor.data_raw.Length > 1 && osensor.data_raw[0] == 0x41 && osensor.data_raw[1] == osensor.Command)
                 {
+                    statSensorsRead++;
                     foreach(Action<Sensor> l in currentSensorListener.listeners){
                         try{
                             l(currentSensorListener.sensor);
                         }catch(Exception e)
                         {
-                            if (Logger.TRACE) Logger.trace("Listener fail on: "+osensor.ID);
+                            if (Logger.TRACE) Logger.trace("Listener fail on: "+osensor.ID+ ": "+e.Message);
                         }
                     }
                     SetState(ST_SENSOR);

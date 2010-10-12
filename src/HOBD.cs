@@ -9,11 +9,21 @@ namespace hobd
         public static Engine engine;
         public static SensorRegistry Registry;
         public static HOBDTheme theme = new HOBDTheme();
+
+        static string appPath;
+        public static string AppPath {
+            get{
+                if (appPath == null){
+                    appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+                    if (appPath.StartsWith("file:\\")) appPath = appPath.Substring(6);
+                }
+                return appPath;
+            }
+        }
         
         [STAThread]
         private static void Main(string[] args)
         {
-
 
             HOBD.engine = new OBD2Engine();
             

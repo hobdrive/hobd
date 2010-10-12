@@ -7,7 +7,7 @@ public class Logger
 {
     public const bool TRACE = true;
     
-    static StreamWriter fs = new StreamWriter(new FileStream("log.txt", FileMode.Append));
+    static StreamWriter fs = new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
     
     public static void trace(String s)
     {
@@ -16,7 +16,7 @@ public class Logger
     
     static void log(string level, string s)
     {
-        s = "["+level+"] "+DateTime.Now.ToShortTimeString() + ":    " + s;
+        s = "["+level+"] "+DateTime.Now.ToLongTimeString() + ":    " + s;
         System.Console.WriteLine(s);
         fs.Write(s+"\n");
         fs.Flush();    
