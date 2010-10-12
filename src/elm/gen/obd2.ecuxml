@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <parameters namespace='OBD2' description="OBD-II standard ELM Module (323/327)">
   
+  <parameter id="PID_02">
+    <description lang="ru">
+      <name>PID_02</name>
+      <unit>-</unit>
+      <description>Ошибка ECU</description>
+    </description>
+    <address>
+      <byte>0x02</byte>
+    </address>
+    <value>
+      get(0x00)
+    </value>
+  </parameter>
+
   <parameter id="PID_03">
     <description lang="ru">
       <name>PID_03</name>
@@ -15,88 +29,84 @@
     </value>
   </parameter>
 
-  <parameter id="PID_04">
-    <description lang="ru">
-      <name>PID_04</name>
+  <parameter id="EngineLoad">
+    <description lang="en">
+      <name>EngineLoad</name>
       <unit>%</unit>
       <description>Расчетная нагрузка на двигатель</description>
     </description>
-    <address>
-      <byte>0x04</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x04</byte> </address>
+    <value> get(0x00) </value>
   </parameter>
 
-  <parameter id="PID_05">
+  <parameter id="CoolantTemp">
     <description lang="ru">
-      <name>PID_05</name>
+      <name>CoolantTemp</name>
       <unit>°С</unit>
       <description>Температура охлаждающей жидкости</description>
     </description>
-    <address>
-      <byte>0x05</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x05</byte> </address>
+    <value> get(0x00) </value>
   </parameter>
 
-  <parameter id="PID_06">
+  <parameter id="STFT1">
     <description lang="ru">
-      <name>PID_06</name>
+      <name>STFT1</name>
       <unit>%</unit>
       <description>Кратковременная топливная коррекция</description>
     </description>
-    <address>
-      <byte>0x06</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x06</byte> </address>
+    <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
-  <parameter id="PID_07">
+  <parameter id="LTFT1">
     <description lang="ru">
-      <name>PID_07</name>
+      <name>LTFT1</name>
       <unit>%</unit>
       <description>Долговременная топливная коррекция</description>
     </description>
-    <address>
-      <byte>0x07</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x07</byte> </address>
+    <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
-  <parameter id="PID_0A">
+  <parameter id="STFT2">
     <description lang="ru">
-      <name>PID_0A</name>
+      <name>STFT2</name>
+      <unit>%</unit>
+      <description>Кратковременная топливная коррекция банк2</description>
+    </description>
+    <address> <byte>0x06</byte> </address>
+    <value> (get(0)-128) * 100/128 </value>
+  </parameter>
+
+  <parameter id="LTFT2">
+    <description lang="ru">
+      <name>LTFT2</name>
+      <unit>%</unit>
+      <description>Долговременная топливная коррекция банк2</description>
+    </description>
+    <address> <byte>0x07</byte> </address>
+    <value> (get(0)-128) * 100/128 </value>
+  </parameter>
+
+  <parameter id="FuelPressure">
+    <description lang="ru">
+      <name>FuelPressure</name>
       <unit>кПа</unit>
       <description>Давление топлива</description>
     </description>
-    <address>
-      <byte>0x0A</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x0A</byte> </address>
+    <value> get(0)*3 </value>
   </parameter>
 
-  <parameter id="PID_0B">
+  <parameter id="IntakeManifoldPressure">
     <description lang="ru">
-      <name>PID_0B</name>
+      <name>Intake Manifold Pressure</name>
       <unit>кПа</unit>
       <description>Абсолютное давление во впускном коллекторе</description>
     </description>
-    <address>
-      <byte>0x0B</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x0B</byte> </address>
+    <value> get(0) </value>
   </parameter>
 
   <parameter id="RPM">
@@ -105,23 +115,22 @@
       <unit>об/мин</unit>
       <description>Обороты двигателя</description>
     </description>
-    <address>
-      <byte>0x0C</byte>
-    </address>
-    <value>
-      (get(0)*256 + get(1)) / 4
-    </value>
+    <address> <byte>0x0C</byte> </address>
+    <value> (get(0)*256 + get(1)) / 4 </value>
   </parameter>
 
-  <parameter id="SPEED">
+  <parameter id="Speed">
     <description lang="ru">
       <name>Скорость</name><unit>км/час</unit><description>Скорость автомобиля</description>
+    </description>
+    <description lang="en">
+      <name>Speed</name><unit>km/h</unit><description>Vehicle speed</description>
     </description>
     <address> <byte>0x0D</byte> </address>
     <value> get(0x00) </value>
   </parameter>
 
-  <parameter id="SPEED_MI">
+  <parameter id="Speed_miles">
     <description>
       <name>Speed</name><unit>mph</unit><description>Speed</description>
     </description>
@@ -129,74 +138,60 @@
     <value> get(0x00) / 1.65 </value>
   </parameter>
 
-  <parameter id="PID_0E">
+  <parameter id="TimingAdvance">
     <description lang="ru">
-      <name>PID_0E</name>
+      <name>TimingAdvance</name>
       <unit>°</unit>
       <description>Угол опережения зажигания</description>
     </description>
-    <address>
-      <byte>0x0E</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x0E</byte> </address>
+    <value> get(0x00)/2 - 64 </value>
   </parameter>
 
-  <parameter id="PID_0F">
+  <parameter id="IntakeAirTemp">
     <description lang="ru">
-      <name>PID_0F</name>
+      <name>IntakeAirTemp</name>
       <unit>°C</unit>
       <description>Температура воздуха на впуске</description>
     </description>
-    <address>
-      <byte>0x0F</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x0F</byte> </address>
+    <value> get(0x00) - 40 </value>
   </parameter>
 
-  <parameter id="PID_10">
+  <parameter id="MAF">
     <description lang="ru">
-      <name>PID_10</name>
+      <name>MAF</name>
       <unit>гр/сек</unit>
       <description>Расход воздуха на впуске</description>
     </description>
-    <address>
-      <byte>0x10</byte>
-    </address>
-    <value>
-      get(0x10)
-    </value>
+    <address> <byte>0x10</byte> </address>
+    <value> ((get(0)*256)+get(1)) / 100 </value>
   </parameter>
 
-  <parameter id="PID_11">
+  <parameter id="ThrottlePosition">
     <description lang="ru">
-      <name>PID_11</name>
+      <name>ThrottlePosition</name>
       <unit>%</unit>
       <description>Положение дросельной заслонки</description>
     </description>
-    <address>
-      <byte>0x11</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x11</byte> </address>
+    <value> get(0)*100 / 255 </value>
   </parameter>
+
+  <!--
+  Commanded secondary air sta
+  Oxygen sensors present
+
+  -->
 
   <parameter id="PID_14">
     <description lang="ru">
       <name>PID_14</name>
       <unit>В</unit>
-      <description>U датчика кислорода №1</description>
+      <description>V датчика кислорода №1</description>
     </description>
-    <address>
-      <byte>0x14</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x14</byte> </address>
+    <value> get(0) </value>
   </parameter>
 
   <parameter id="PID_14">
@@ -205,26 +200,20 @@
       <unit>%</unit>
       <description>Кратковременная топливная коррекция по датчику №1</description>
     </description>
-    <address>
-      <byte>0x14</byte>
-    </address>
-    <value>
-      get(0x10)
-    </value>
+    <address> <byte>0x14</byte> </address>
+    <value> get(1) </value>
   </parameter>
+  <!-- 15,16,17 -->
+  <!-- 18,19,1A, 1B - bank2 -->
 
-  <parameter id="PID_02">
+  <parameter id="AirTemp">
     <description lang="ru">
-      <name>PID_02</name>
-      <unit>-</unit>
-      <description>Ошибка ECU</description>
+      <name>AirTemp</name>
+      <unit>°С</unit>
+      <description>Температура окружающей среды</description>
     </description>
-    <address>
-      <byte>0x02</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0x46</byte> </address>
+    <value> get(0) - 40 </value>
   </parameter>
 
 </parameters>

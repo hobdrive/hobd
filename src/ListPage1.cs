@@ -28,7 +28,7 @@
                                  new RelayingItemTemplate(g =>
                                                               {
                                                                   g.DrawImage("banner.png", 0, 0);
-                                                                  MetroTheme.DrawPageTitleAction(g,
+                                                                  HOBD.theme.DrawPageTitleAction(g,
                                                                                                  "FLEUX SAMPLE",
                                                                                                  "list page");
                                                               }),
@@ -63,11 +63,11 @@
             return new RelayingItemTemplate(g => g
                     .DrawImage(icon, 40, 0)
                     .PenWidth(3)
-                    .Style(MetroTheme.PhoneTextNormalStyle)
+                    .Style(HOBD.theme.PhoneTextNormalStyle)
                     .MoveTo(icon.Width + 60, 0)
                     .DrawMultiLineText(text, g.Width - g.X)
                     .MoveX(icon.Width + 60)
-                    .Style(MetroTheme.PhoneTextSmallStyle).Color(MetroTheme.PhoneAccentBrush)
+                    .Style(HOBD.theme.PhoneTextSmallStyle).Color(HOBD.theme.PhoneAccentBrush)
                     .DrawText("This is just a sample text!")
                     .MoveY(g.Bottom + 10));
         }

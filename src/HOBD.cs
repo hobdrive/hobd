@@ -9,6 +9,11 @@ namespace hobd
         public static Engine engine;
         public static SensorRegistry Registry;
         public static HOBDTheme theme = new HOBDTheme();
+        public static string Version {
+            get{ 
+                return "0.1";
+            }
+        }
 
         static string appPath;
         public static string AppPath {

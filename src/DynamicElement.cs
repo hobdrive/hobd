@@ -22,7 +22,7 @@ public class DynamicElement : Fleux.UIElements.IUIElement
     
     public void Draw(IDrawingGraphics drawingGraphics)
     {
-        drawingGraphics.Style(this.Style);
+        if (this.Style != null) drawingGraphics.Style(this.Style);
         drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
         drawingGraphics.MoveTo(0,0).Style(this.Style).DrawText(this.Text);
     }

@@ -11,7 +11,7 @@ public class Logger
     
     public static void trace(String s)
     {
-        log("TRACE", s);
+        if (TRACE) log("TRACE", s);
     }
     
     static void log(string level, string s)

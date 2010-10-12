@@ -1,5 +1,8 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Threading;
+using System.Xml;
+using System.Linq;
 
 namespace hobd
 {
@@ -33,7 +36,7 @@ namespace hobd
                    .DrawText("/hobd")
                    .Style(HOBD.theme.PhoneTextExtraLargeStyle)
                    .Color(HOBD.theme.PhoneSubtleBrush)
-                   .DrawText(" v0.1 ");
+                   .DrawText("v"+HOBD.Version);
                    if (panorama.TitleWidth == 0)
                    {
                        panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
@@ -44,6 +47,8 @@ namespace hobd
             panorama.TitleWidth = 400;
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", 512, 250, Assembly.GetCallingAssembly());
 
+            this.LoadSections();
+            
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
             panorama.AddSection(this.CreateHorizontalFeaturedSection());
@@ -63,16 +68,11 @@ namespace hobd
             
             HOBD.Registry.AddListener("OBD2.SPEED", SensorChanged, 0);
             HOBD.Registry.AddListener("OBD2.RPM", SensorChanged, 0);
-            
-            new System.Threading.Thread(new ThreadStart(() =>
-                           {
-								while (true) {
-                                    Redraw();
-									Thread.Sleep(2000);
-						        }
-                           }));
         }
         
+        DynamicElement speed;
+        DynamicElement rpm;
+
         public void SensorChanged(Sensor sensor)
         {
             if (sensor.ID == "OBD2.SPEED")
@@ -88,15 +88,86 @@ namespace hobd
             panorama.Invoke(new Action(panorama.Invalidate));
         }
 
-        DynamicElement speed;
-        DynamicElement rpm;
+        char[] seps = {',', ' '};
+        
+        private void LoadSections()
+        {
+            int layoutX = 480;
+            int layoutY = 272 - panorama.SectionContentDelta;
 
+            var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
+
+            try{
+                XmlReaderSettings xrs = new XmlReaderSettings();
+                xrs.IgnoreWhitespace = true;
+                //xrs.
+                XmlReader reader = XmlReader.Create(Path.Combine(HOBD.AppPath, "default-landscape.layout"), xrs);
+                reader.Read();
+                reader.ReadStartElement("ui");
+                
+                while( reader.IsStartElement("section") ){
+
+                    var section = new TouchPanoramaSection(reader.GetAttribute("name"));
+
+                    reader.ReadStartElement("section");
+                    
+                    if (reader.IsStartElement("grid")){
+                        var rows = reader.GetAttribute("rows");
+                        var cols = reader.GetAttribute("cols");
+
+                        var rows_a = rows.Split(seps).Select(r => int.Parse(r));
+                        var cols_a = cols.Split(seps).Select(r => int.Parse(r));
+                        
+                        var grid = new Grid
+                           {
+                               Columns = cols_a.Select(r => new MeasureDefinition(r)).ToArray(),
+                               Rows = rows_a.Select(r => new MeasureDefinition(r)).ToArray(),
+                           };
+                        
+                        int crow = 0, ccol = 0;
+                        
+                        reader.ReadStartElement("grid");
+                        while(reader.IsStartElement("item")){
+                            var item_id = reader.GetAttribute("id");
+                            reader.ReadStartElement("item");                            
+                            //reader.ReadEndElement();
+                            
+                            var item = new DynamicElement(item_id){ Style = style };
+                            
+                            grid.Add(crow, ccol, item);
+                            
+                            ccol++;
+                            if (ccol == cols_a.Count()){
+                                ccol = 0;
+                                crow++;
+                            }
+                            if (crow == rows_a.Count()){
+                                break;
+                            }
+                            
+                        }
+                        section.Add(grid, 10, 0, layoutX, layoutY);
+                        
+                        reader.ReadEndElement();
+                    }
+                    this.panorama.AddSection(section);
+
+                    reader.ReadEndElement();
+                }
+                
+                reader.ReadEndElement();
+                
+            }catch(XmlException e){
+            }
+            
+        }
+        
         private IPanoramaSection CreateMenuSection()
         {
             int layoutX = 480;
             int layoutY = 272 - panorama.SectionContentDelta;
             
-            var style = new TextStyle(MetroTheme.PhoneTextLargeStyle.FontFamily, MetroTheme.PhoneFontSizeMediumLarge, MetroTheme.PanoramaNormalBrush);
+            var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
             var section = new TouchPanoramaSection("welcome");
 
             var grid = new Grid
@@ -108,12 +179,12 @@ namespace hobd
             grid[0, 0] = new DynamicElement("panorama") { Style = style, HandleTapAction = () => Application.Exit() };
             grid[1, 0] = new DynamicElement("gestures") { Style = style, HandleTapAction = () => this.Navigate("one") };
             grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ListPage1()) };
-            //grid[3, 0] = new DynamicElement("more is coming...") { Style = MetroTheme.PhoneTextNormalStyle };
+            //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
 
-            speed = new DynamicElement("10km") { Style = MetroTheme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
+            speed = new DynamicElement("10km") { Style = HOBD.theme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
             grid[1, 1] = speed;
             
-            rpm = new DynamicElement("") { Style = MetroTheme.PhoneTextLargeStyle, HandleTapAction = () => Application.Exit() };
+            rpm = new DynamicElement("") { Style = HOBD.theme.PhoneTextLargeStyle, HandleTapAction = () => Application.Exit() };
             grid[1, 2] = rpm;
 
             /*
@@ -140,9 +211,9 @@ namespace hobd
             var img2 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("squareimg.png");
             var img3 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("thumbnail2.png");
 
-            var titleStyle = new TextStyle(MetroTheme.PhoneFontFamilySemiBold, MetroTheme.PhoneFontSizeLarge, Color.White);
-            var subtitleStyle = MetroTheme.PhoneTextBlockBase;
-            var moreStyle = new TextStyle(MetroTheme.PhoneTextLargeStyle.FontFamily, MetroTheme.PhoneFontSizeMediumLarge, MetroTheme.PanoramaNormalBrush);
+            var titleStyle = new TextStyle(HOBD.theme.PhoneFontFamilySemiBold, HOBD.theme.PhoneFontSizeLarge, Color.White);
+            var subtitleStyle = HOBD.theme.PhoneTextBlockBase;
+            var moreStyle = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
 
             var section = new TouchPanoramaSection("small");
 

@@ -86,6 +86,8 @@
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\HOBDTheme.cs" />
     <Compile Include="src\util\Logger.cs" />
+    <None Include="config\default-landscape.layout" />
+    <None Include="config\default.vehicles" />
     <None Include="src\elm\gen\build.bat" />
     <None Include="src\elm\gen\build.xml" />
     <None Include="src\elm\gen\ecuxml2cs.xsl" />
@@ -104,9 +106,6 @@
     <EmbeddedResource Include="Images\thumbnail3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fleux.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Images\banner.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +122,7 @@
     <Compile Include="src\HOBD.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="config" />
     <Folder Include="src" />
     <Folder Include="src\elm" />
     <Folder Include="src\elm\gen" />

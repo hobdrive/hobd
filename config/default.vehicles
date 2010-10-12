@@ -1,0 +1,15 @@
+<hobd>
+
+  <vehicle name="Pontiac Vibe/Toyota Matrix 1.8">
+    <liters>1.8</liters>
+    <veff>0.95</veff>
+    <cylinders>4</cylinders>
+    <injector-ccpm>0.00223725490196078</injector-ccpm>
+
+    <network-logging enabled='true'>
+      <token> xxx </token>
+    </network-logging>
+
+  </vehicle>
+
+</hobd>
