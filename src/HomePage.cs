@@ -23,6 +23,8 @@ namespace hobd
         int layoutX = 480;
         int layoutY = 272;
         
+        Dictionary<Sensor, SensorTextElement> sensorUIMap = new Dictionary<Sensor, SensorTextElement>();
+        
             
         public HomePage()
         {
@@ -58,6 +60,7 @@ namespace hobd
                };
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", 512, 250, Assembly.GetCallingAssembly());
 
+            HOBD.Registry.RemoveListener(SensorChanged);
             this.LoadSections();
             
             panorama.AddSection(this.CreateMenuSection());
@@ -94,9 +97,12 @@ namespace hobd
 
         public void SensorChanged(Sensor sensor)
         {
+            
+            var sensorUI =  sensorUIMap[sensor];
+            sensorUI.Text = sensor.GetValue() + sensor.Units;
             if (sensor.ID == "Speed")
                 speed.Text = "" + Math.Round( sensor.GetValue() ) + "km ";
-            else
+            if (sensor.ID == "RPM")
                 rpm.Text = sensor.GetValue() + "rpm";
             Redraw();
         }
@@ -197,7 +203,8 @@ namespace hobd
                 if (sensor != null)
                 {
                     var sensorItem = new SensorTextElement(attrs);
-                    //Sensor sensorItem
+                    sensorUIMap.Add(sensor, sensorItem);
+                    HOBD.Registry.AddListener(sensor, this.SensorChanged);
                     return sensorItem;
                 }
             }catch(Exception e)
