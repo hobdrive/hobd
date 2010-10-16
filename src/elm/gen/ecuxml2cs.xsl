@@ -57,7 +57,7 @@ public class <xsl:value-of select='$class'/> : SensorProvider
         // <xsl:value-of select='description/name'/>
         // <xsl:value-of select='description/description'/>
         // <xsl:value-of select='description/unit'/>
-        registry.Add(new OBD2Sensor("<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>",
+        registry.Add(new OBD2Sensor("<xsl:value-of select='@id'/>",
                                     "<xsl:value-of select='description/name'/>",
                                     "<xsl:value-of select='description/name'/>", // !!!
                                     <xsl:value-of select='address/byte'/>)

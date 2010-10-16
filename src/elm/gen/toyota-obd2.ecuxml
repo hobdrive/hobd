@@ -481,12 +481,8 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
       <unit>мс</unit>
       <description>Длительность импульса открытия форсунки</description>
     </description>
-    <address>
-      <byte>0xE4</byte>
-    </address>
-    <value>
-      (get(0x00) * (32.60/255))
-    </value>
+    <address> <byte>0xE4</byte> </address>
+    <value> (get(0x00) * (32.60/255)) </value>
   </parameter>
 
   <parameter id="IdleDutyCycle">

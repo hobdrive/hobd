@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using Fleux.Core;
+
 using Fleux.Core.GraphicsHelpers;
 using Fleux.Styles;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
 
-namespace hobd{
-
-public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElement
+namespace hobd
 {
-    public string Text {get; set; }
+
+public class SensorTextElement: IUIElement, IDimensionAwareElement
+{
+    string text;
     int width;
     int height;
 
-    public DynamicElement(string text)
+    public SensorTextElement(Dictionary<string, string> attrs)
     {
-        this.Text = text;
+        this.text = attrs["id"];
         this.Style = HOBD.theme.PhoneTextNormalStyle;
+        //var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
     }
 
     public TouchableElementState TouchableState { get; set; }
@@ -33,8 +36,8 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
         drawingGraphics.DrawRectangle(0, 0, width, height);
         
         drawingGraphics.Style(this.Style);
-        drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
-        drawingGraphics.MoveTo(0,0).Style(this.Style).DrawText(this.Text);
+        drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.text);
+        drawingGraphics.MoveTo(0,0).Style(this.Style).DrawText(this.text);
     }
 
     public void HandleTap(System.Drawing.Point point)
@@ -53,4 +56,5 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
     }
     
 }
+
 }

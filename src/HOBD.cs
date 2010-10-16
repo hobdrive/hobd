@@ -46,7 +46,7 @@ namespace hobd
             FleuxApplication.TargetDesignDpi = 96;
 #else
             // desktop - scale DPI
-            FleuxApplication.TargetDesignDpi = 96 ;//* 480 / 800;
+            FleuxApplication.TargetDesignDpi = 96/2 ;//* 480 / 800;
             
 #endif
             FleuxApplication.Run(new HomePage());

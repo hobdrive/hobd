@@ -371,6 +371,17 @@ public class HOBDTheme
                 this.PhoneForegroundBrush);
         }
     }
+    
+    public virtual TextStyle PhoneTextStatusStyle
+    {
+        get
+        {
+            return new TextStyle(this.PhoneTextLargeStyle.FontFamily,
+                                 this.PhoneFontSizeSmall,
+                                 this.PhoneSubtleBrush);
+        }
+    }
+
 
     // TitleHeader
     public virtual Action<IDrawingGraphics, string, string> DrawPanoramaTitleAction
