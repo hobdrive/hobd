@@ -12,13 +12,13 @@ namespace hobd
 
 public class SensorTextElement: IUIElement, IDimensionAwareElement
 {
-    string text;
+    public string Text {get; set;}
     int width;
     int height;
 
     public SensorTextElement(Dictionary<string, string> attrs)
     {
-        this.text = attrs["id"];
+        this.Text = attrs["id"];
         this.Style = HOBD.theme.PhoneTextNormalStyle;
         //var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
     }
@@ -36,8 +36,8 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         drawingGraphics.DrawRectangle(0, 0, width, height);
         
         drawingGraphics.Style(this.Style);
-        drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.text);
-        drawingGraphics.MoveTo(0,0).Style(this.Style).DrawText(this.text);
+        drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
+        drawingGraphics.MoveTo(0,0).Style(this.Style).DrawText(this.Text);
     }
 
     public void HandleTap(System.Drawing.Point point)
