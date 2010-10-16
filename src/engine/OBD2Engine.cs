@@ -202,8 +202,8 @@ public class OBD2Engine : Engine
                             if (Logger.TRACE) Logger.trace("Listener fail on: "+osensor.ID+ ": "+e.Message);
                         }
                     }
-                    SetState(ST_SENSOR);
                 }
+                SetState(ST_SENSOR);
                 break;
         }
     }
