@@ -56,13 +56,14 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 <xsl:template match='parameter'>
         // <xsl:value-of select='description/name'/>
         // <xsl:value-of select='description/description'/>
-        // <xsl:value-of select='description/unit'/>
-        registry.Add(new OBD2Sensor("<xsl:value-of select='@id'/>",
-                                    "<xsl:value-of select='description/name'/>",
-                                    "<xsl:value-of select='description/name'/>", // !!!
-                                    <xsl:value-of select='address/byte'/>)
+        registry.Add(new OBD2Sensor()
                         {
-                            value = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; }
+                            ID = "<xsl:value-of select='@id'/>",
+                            Name = "<xsl:value-of select='description/name'/>",
+                            Description = "<xsl:value-of select='description/name'/>", // !!!
+                            Command = <xsl:value-of select='address/byte'/>,
+                            Units = "<xsl:value-of select='description/unit'/>",
+                            value = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; },
                         });
 </xsl:template>
 
