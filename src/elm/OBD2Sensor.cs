@@ -6,23 +6,13 @@ namespace hobd
 
 public class OBD2Sensor : Sensor
 {
-    string id;
-    string name;
-    string descr;
-    int command;
-    
-    IEnumerable<string> aliases;
     public Func<OBD2Sensor, double> value;
 
     public byte[] data_raw;
     
-    public OBD2Sensor(string id, string name, string descr, int command)
+    public OBD2Sensor()
     {
-        this.id = id;
-        this.name = name;
-        this.descr = descr;
-        this.command = command;
-        this.aliases = new List<string>();
+        this.Aliases = new List<string>();
     }
         
     public double GetValue()
@@ -32,21 +22,24 @@ public class OBD2Sensor : Sensor
     
     public string ID
     {
-        get{
-            return id;
-        }
+        get;
+        internal set;
     }
     public string Name
     {
-        get{
-            return name;
-        }
+        get;
+        internal set;
+
     }
     public string Description
     {
-        get{
-            return descr;
-        }
+        get;
+        internal set;
+    }
+    public string Units
+    {
+        get;
+        internal set;
     }
     public string GetDescription(string lang)
     {
@@ -54,16 +47,14 @@ public class OBD2Sensor : Sensor
     }
     public IEnumerable<string> Aliases
     {
-        get{
-            return aliases;
-        }
+        get;
+        internal set;
     }
     
     public int Command
     {
-        get{
-            return command;
-        }
+        get;
+        internal set;
     }
     
     

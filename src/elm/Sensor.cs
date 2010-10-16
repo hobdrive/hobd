@@ -20,6 +20,8 @@ public interface Sensor
     
     string GetDescription(string lang);
     
+    string Units{get;}
+    
     IEnumerable<string> Aliases{get;}
     
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace hobd
 {
@@ -123,6 +124,9 @@ public class SensorRegistry
      */
 	public void RemoveListener(Action<Sensor> listener)
 	{
+        foreach (var sl in activeSensors.Values) {
+            sl.listeners.RemoveAll((g) => {return g == listener;});
+        }
 	    activeSensors_array = null;
 	}
 
