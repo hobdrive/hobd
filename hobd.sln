@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-# SharpDevelop 3.2.0.5777
+# SharpDevelop 4.0.0.6361
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobd", "hobd.csproj", "{E0F56424-BEBA-4BD9-8B06-20571D599CC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "fleuxdesktop\trunk\Fleux.Net\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
@@ -12,6 +12,8 @@ Global
 		Release|AnyCPU = Release|AnyCPU
 		Debug|WINCE = Debug|WINCE
 		Release|WINCE = Release|WINCE
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
@@ -30,5 +32,9 @@ Global
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|WINCE.ActiveCfg = Debug|WINCE
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|WINCE.Build.0 = Release|WINCE
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|WINCE.ActiveCfg = Release|WINCE
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

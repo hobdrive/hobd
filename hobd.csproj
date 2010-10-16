@@ -85,6 +85,7 @@
     <Compile Include="src\engine\OBD2Engine.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\HOBDTheme.cs" />
+    <Compile Include="src\ui\SensorTextElement.cs" />
     <Compile Include="src\util\Logger.cs" />
     <None Include="config\default-landscape.layout" />
     <None Include="config\default.vehicles" />
@@ -128,6 +129,7 @@
     <Folder Include="src\elm\gen" />
     <Folder Include="src\engine" />
     <Folder Include="src\engine" />
+    <Folder Include="src\ui" />
     <Folder Include="src\util" />
     <ProjectReference Include="fleuxdesktop\trunk\Fleux.Net\Fleux\Fleux.csproj">
       <Project>{8526293A-9C66-48F6-A90D-FB2B7128BF08}</Project>
