@@ -43,15 +43,15 @@ namespace hobd
             panorama.SectionsPadding = 30;
             this.layoutX -= panorama.SectionsPadding;
             
+            var title = "/hobd";
+            
             panorama.DrawTitleAction = gr =>
                {   gr
+                   //.Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
+                   //.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(title)
                    .Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
-                   .Color(HOBD.theme.PhoneSubtleBrush)
-                   .Bold(false)
-                   .MoveX(0).MoveY(0)
-                   .DrawText("/hobd")
-                   .Style(HOBD.theme.PhoneTextExtraLargeStyle)
-                   .Color(HOBD.theme.PhoneSubtleBrush)
+                   .MoveX(0).MoveY(0).DrawText(title)
+                   .Style(HOBD.theme.PhoneTextPanoramaSubTitleStyle)
                    .DrawText("v"+HOBD.Version);
                    if (panorama.TitleWidth == 0)
                    {
@@ -71,8 +71,8 @@ namespace hobd
             //panorama.sec
             
             panorama.Add(new DynamicElement("State:") { Style = HOBD.theme.PhoneTextStatusStyle },
-                         10.ToPixels(), (layoutY-40).ToPixels(),
-                         layoutX.ToPixels(), 40.ToPixels());
+                         10.ToPixels(), (layoutY-20).ToPixels(),
+                         layoutX.ToPixels(), 20.ToPixels());
             
             
             this.theForm.Menu = null;

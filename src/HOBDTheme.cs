@@ -45,7 +45,7 @@ public class HOBDTheme
 
     public virtual Color PhoneSubtleBrush
     {
-        get { return Color.FromArgb(103, 103, 103); }
+        get { return Color.FromArgb( unchecked( (int)0xA0606060 )); }
     }
 
     public virtual Color PhoneContrastForegroundBrush
@@ -354,12 +354,18 @@ public class HOBDTheme
     {
         get
         {
-            return new TextStyle(
-                this.PhoneFontFamilyLight,
-                65,
-                this.PhoneForegroundBrush);
+            return new TextStyle(this.PhoneFontFamilyLight, 65, this.PhoneSubtleBrush);
         }
     }
+    
+    public virtual TextStyle PhoneTextPanoramaSubTitleStyle
+    {
+        get
+        {
+            return new TextStyle(this.PhoneFontFamilyLight, PhoneFontSizeExtraLarge, this.PhoneSubtleBrush);
+        }
+    }
+    
 
     public virtual TextStyle PhoneTextPanoramaSectionTitleStyle
     {
