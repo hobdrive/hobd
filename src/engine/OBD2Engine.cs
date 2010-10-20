@@ -26,8 +26,6 @@ public class OBD2Engine : Engine
     public string State {get; private set;}
     public string Error {get; private set;}
     
-    public int statSensorsRead = 0;
-    
     public OBD2Engine()
     {
     }
@@ -42,8 +40,11 @@ public class OBD2Engine : Engine
     
     void PurgeStream()
     {
+        Thread.Sleep(50);
         while(stream.HasData())
+        {
             stream.Read();
+        }
     }
     
     void SendCommand(string command)
@@ -59,6 +60,7 @@ public class OBD2Engine : Engine
     
     void SetState(string state2)
     {
+        
         State = state2;
         stateTS = DateTime.Now;
         
@@ -66,6 +68,7 @@ public class OBD2Engine : Engine
         
         switch(State){
             case ST_INIT:
+                fireStateNotify(STATE_INIT);
                 try{
                     stream.Close();
                     stream.Open(url);
@@ -75,6 +78,7 @@ public class OBD2Engine : Engine
                     SetState(ST_ERROR);
                     break;
                 }
+                SendCommand("");
                 PurgeStream();
                 SetState(ST_ATZ);
                 break;
@@ -89,6 +93,8 @@ public class OBD2Engine : Engine
                 break;
             case ST_SENSOR:
                 
+                fireStateNotify(STATE_READ);
+
                 var sls = Registry.ActiveSensors;
                 
                 if (sls.Length == 0)
@@ -130,7 +136,11 @@ public class OBD2Engine : Engine
                 }
                 break;
             case ST_SENSOR_ACK:
+                fireStateNotify(STATE_READ_DONE);
                 break;
+            case ST_ERROR:
+                fireStateNotify(STATE_ERROR);
+                break;                
         }
     }
     
@@ -193,7 +203,6 @@ public class OBD2Engine : Engine
                 
                 if (osensor.data_raw.Length > 1 && osensor.data_raw[0] == 0x41 && osensor.data_raw[1] == osensor.Command)
                 {
-                    statSensorsRead++;
                     foreach(Action<Sensor> l in currentSensorListener.listeners){
                         try{
                             l(currentSensorListener.sensor);
@@ -265,10 +274,15 @@ public class OBD2Engine : Engine
         
             HandleState();
             
-            if (DateTime.Now.Subtract(stateTS).TotalMilliseconds > 2000) {
-                // Restart the hanged connection
-                SetState(ST_INIT);
-			}
+            var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
+            // Restart the hanged connection after two seconds
+            if (diff_ms > 2000) {
+                // If ERROR, wait for a longer period before retrying
+                if (this.State != ST_ERROR || diff_ms > 10000)
+                {
+                    SetState(ST_INIT);
+                }
+			  }
             
         }
         thread_active = false;

@@ -23,8 +23,9 @@ namespace hobd
         int layoutX = 480;
         int layoutY = 272;
         
-        Dictionary<Sensor, SensorTextElement> sensorUIMap = new Dictionary<Sensor, SensorTextElement>();
+        Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
         
+        DynamicElement statusField;
             
         public HomePage()
         {
@@ -47,8 +48,6 @@ namespace hobd
             
             panorama.DrawTitleAction = gr =>
                {   gr
-                   //.Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
-                   //.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(title)
                    .Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
                    .MoveX(0).MoveY(0).DrawText(title)
                    .Style(HOBD.theme.PhoneTextPanoramaSubTitleStyle)
@@ -60,56 +59,83 @@ namespace hobd
                };
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", 512, 250, Assembly.GetCallingAssembly());
 
-            HOBD.Registry.RemoveListener(SensorChanged);
             this.LoadSections();
             
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
             panorama.AddSection(this.CreateHorizontalFeaturedSection());
-            //panorama.AddSection(this.CreateMenuSection());
             
-            //panorama.sec
-            
-            panorama.Add(new DynamicElement("State:") { Style = HOBD.theme.PhoneTextStatusStyle },
-                         10.ToPixels(), (layoutY-20).ToPixels(),
-                         layoutX.ToPixels(), 20.ToPixels());
-            
+            statusField = new DynamicElement("///hobd") { Style = HOBD.theme.PhoneTextStatusStyle };
+            panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
+            HOBD.engine.StateNotify += StateChanged;
             
             this.theForm.Menu = null;
 #if WINCE
             this.theForm.FormBorderStyle = FormBorderStyle.None;
             this.theForm.WindowState = FormWindowState.Maximized;
 #else
-            this.theForm.Width = 480*2;
-            this.theForm.Height = 272*2+30;
+            this.theForm.Width = 480.ToPixels();
+            this.theForm.Height = 272.ToPixels()+30;
 #endif
-            //MessageBox.Show("dpi:"+this.theForm.CreateGraphics().DpiX);
-            //MessageBox.Show("width:"+this.theForm.Width+" height:"+this.theForm.Height);
-
-            //this.theForm.Location = new Point(-40,-40);
-            
-            HOBD.Registry.AddListener("Speed", SensorChanged, 0);
-            HOBD.Registry.AddListener("RPM", SensorChanged, 0);
+            Logger.info("HomePage", "DPI: " + this.theForm.CreateGraphics().DpiX);
+            Logger.info("HomePage", "form width: "+this.theForm.Width+" height:"+this.theForm.Height);
         }
         
-        DynamicElement speed;
-        DynamicElement rpm;
-
+        public override void Dispose()
+        {
+            base.Dispose();
+            HOBD.engine.StateNotify -= StateChanged;
+            HOBD.Registry.RemoveListener(SensorChanged);
+        }
+        
+        
         public void SensorChanged(Sensor sensor)
         {
-            
-            var sensorUI =  sensorUIMap[sensor];
-            sensorUI.Text = sensor.GetValue() + sensor.Units;
-            if (sensor.ID == "Speed")
-                speed.Text = "" + Math.Round( sensor.GetValue() ) + "km ";
-            if (sensor.ID == "RPM")
-                rpm.Text = sensor.GetValue() + "rpm";
+            var sensorUIs = sensorUIMap[sensor];
+            foreach (var ui in sensorUIs) {
+                ui.Text = sensor.GetValue() + sensor.Units;
+            }
             Redraw();
+        }
+        
+        
+        private DateTime sensorRateMS = DateTime.Now;
+        private int sensorRate = 0;
+        private string sensorRateText = "";
+        
+        public void StateChanged(int state)
+        {
+            var status = "///hobd ";
+
+            if (state == Engine.STATE_INIT)
+                status += "INIT";
+            if (state == Engine.STATE_ERROR)
+                status += "ERROR";
+            
+            if (state == Engine.STATE_READ)
+            {
+                sensorRate++;
+                if (sensorRate > 5)
+                {
+                    var time = DateTime.Now;
+                    int ms = (int) time.Subtract(sensorRateMS).TotalMilliseconds / sensorRate;
+                    sensorRateMS = time;
+                    sensorRate = 0;
+                    sensorRateText = " " + (ms) + "ms";
+                }
+            }
+            status += " " + sensorRateText;
+                
+            statusField.Text = status;
+            
+            if (state == Engine.STATE_READ)
+                Redraw();
         }
         
         public void Redraw()
         {
             if (panorama.IsDisposed) return;
+            //if (panorama.animating) return;
             panorama.Invoke(new Action(panorama.Invalidate));
         }
 
@@ -203,7 +229,16 @@ namespace hobd
                 if (sensor != null)
                 {
                     var sensorItem = new SensorTextElement(attrs);
-                    sensorUIMap.Add(sensor, sensorItem);
+                    sensorItem.HandleTapAction = () => { sensorItem.Text = "clicked"; Redraw(); };
+                    
+                    List<SensorTextElement> ui_list = null;
+                    sensorUIMap.TryGetValue(sensor, out ui_list);
+                    if (ui_list == null){
+                        ui_list = new List<SensorTextElement>();
+                        sensorUIMap.Add(sensor, ui_list);
+                    }
+                    ui_list.Add(sensorItem);
+                    
                     HOBD.Registry.AddListener(sensor, this.SensorChanged);
                     return sensorItem;
                 }
@@ -243,12 +278,6 @@ namespace hobd
             grid[1, 0] = new DynamicElement("gestures") { Style = style, HandleTapAction = () => this.Navigate("one") };
             grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ListPage1()) };
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
-
-            speed = new DynamicElement("10km") { Style = HOBD.theme.PhoneTextExtraLargeStyle, HandleTapAction = () => Application.Exit() };
-            grid[1, 1] = speed;
-            
-            rpm = new DynamicElement("") { Style = HOBD.theme.PhoneTextLargeStyle, HandleTapAction = () => Application.Exit() };
-            grid[1, 2] = rpm;
 
             /*
             grid[4, 0] = new TextElement("exit") {

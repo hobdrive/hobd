@@ -10,6 +10,12 @@ public class Engine
     protected bool active = false;
     protected string url;
     
+    public const int STATE_INIT = 0;
+    public const int STATE_READ = 1;
+    public const int STATE_READ_DONE = 2;
+    public const int STATE_ERROR = 3;
+    public event Action<int> StateNotify;
+    
     public Engine()
     {
     
@@ -40,6 +46,12 @@ public class Engine
     public virtual bool IsActive()
     {
         return active;
+    }
+    
+    protected void fireStateNotify(int state)
+    {
+        if (this.StateNotify != null)
+            this.StateNotify(state);
     }
     
     private SensorRegistry registry;
