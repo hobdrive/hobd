@@ -1,15 +1,25 @@
 <hobd>
 
-  <vehicle name="Pontiac Vibe/Toyota Matrix 1.8">
-    <liters>1.8</liters>
-    <veff>0.95</veff>
+  <vehicle name="OBD-II compatible, 1.6">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <sensors>hobd.OBD2Sensors</sensors>
+    </obd>
+    <liters>1.6</liters>
     <cylinders>4</cylinders>
-    <injector-ccpm>0.00223725490196078</injector-ccpm>
+    <stoich>14.9</stoich>
+  </vehicle>
 
-    <network-logging enabled='true'>
-      <token> xxx </token>
-    </network-logging>
-
+  <vehicle name="Toyota Matrix/Voltz/Pontiac Vibe 1.8 (1ZZ-FE)">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ToyotaSensors</sensors>
+    </obd>
+    <liters>1.8</liters>
+    <cylinders>4</cylinders>
+    <stoich>14.9</stoich>
+    <injector-ccpm>134.23</injector-ccpm>
   </vehicle>
 
 </hobd>
