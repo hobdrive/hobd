@@ -1,4 +1,4 @@
-<hobd>
+<vehicles>
 
   <vehicle name="OBD-II compatible, 1.6">
     <obd>
@@ -22,4 +22,4 @@
     <injector-ccpm>134.23</injector-ccpm>
   </vehicle>
 
-</hobd>
+</vehicles>

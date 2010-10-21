@@ -5,10 +5,12 @@ namespace hobd{
 
 public class Logger
 {
-    public const bool TRACE = true;
-    public const bool INFO = true;
-    public const bool ERROR = true;
-    
+    public static bool DUMP = false;
+    public static bool TRACE = false;
+    public static bool INFO = false;
+    public static bool WARN = false;
+    public static bool ERROR = true;
+
     static StreamWriter fs = new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
     
     public static void error(String comp, String msg, Exception e)
@@ -36,16 +38,46 @@ public class Logger
         if (comp == null) comp = "";
         if (msg == null) msg = "";
         
-        msg = "["+level+"] ["+comp+"] "+DateTime.Now.ToLongTimeString() + ":    " + msg;
+        msg = "["+level+"] "+DateTime.Now.ToLongTimeString() + "["+comp+"]  " + msg;
         if (e != null)
         {
-            msg +=  " " + e.Message + e.StackTrace;
+            msg +=  "\n" + e.Message +"\n"+ e.StackTrace;
         }
         System.Console.WriteLine(msg);
         fs.Write(msg+"\n");
         fs.Flush();    
     }
 
+    
+    public static void SetLevel(string logLevel)
+    {
+        if (logLevel == "DUMP") {
+            DUMP = TRACE = INFO = WARN = ERROR = true;
+            return;
+        }
+        if (logLevel == "TRACE") {
+            DUMP = false;
+            TRACE = INFO = WARN = ERROR = true;
+            return;
+        }
+        if (logLevel == "INFO") {
+            DUMP = false;
+            TRACE = false;
+            INFO = WARN = ERROR = true;
+            return;
+        }
+        if (logLevel == "WARN") {
+            DUMP = TRACE = INFO = false;
+            WARN = ERROR = true;
+            return;
+        }
+        if (logLevel == "ERROR") {
+            DUMP = TRACE = INFO = WARN = false;
+            ERROR = true;
+            return;
+        }
+        SetLevel("WARN");
+    }
 }
 
 

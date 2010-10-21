@@ -1,14 +1,19 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
+
 using Fleux.Core;
 
 namespace hobd
 {
     sealed class HOBD
     {
+        public static ConfigData config;
         public static Engine engine;
         public static SensorRegistry Registry;
         public static HOBDTheme theme = new HOBDTheme();
+        
         public static string Version {
             get{ 
                 return "0.1";
@@ -30,28 +35,50 @@ namespace hobd
         private static void Main(string[] args)
         {
 
-            HOBD.engine = new OBD2Engine();
-            
-            IStream stream = new SerialStream();
-            engine.Init(stream, "COM7");
-            
-            Registry = new SensorRegistry();
-            Registry.RegisterProvider(new OBD2Sensors());
-            Registry.RegisterProvider(new ToyotaSensors());
-            engine.Registry = Registry;
-            engine.Activate();
-            
-//TODO: autoajust from screen size
+            try{
+                try{
+                    config = new ConfigData(Path.Combine(HOBD.AppPath, "config.xml"));
+                }catch(Exception e){
+                    Logger.error("HOBD", "failure loading config.xml, using defaults", e);
+                    config = new ConfigData();
+                }
+                
+                Logger.SetLevel(config.LogLevel);
+                
+                HOBD.engine = (Engine)Activator.CreateInstance(null, "hobd.OBD2Engine").Unwrap();
+                
+                IStream stream = null;
+                if (config.Port.StartsWith("btspp"))
+                    stream = new BluetoothStream();
+                else
+                    stream = new SerialStream();
+                
+                engine.Init(stream, config.Port);
+                
+                Registry = new SensorRegistry();
+                Registry.RegisterProvider(new OBD2Sensors());
+                Registry.RegisterProvider(new ToyotaSensors());
+                engine.Registry = Registry;
+                engine.Activate();
+                
+                //TODO: autoajust from screen size
+                int dpi_value;
 #if WINCE
-            FleuxApplication.TargetDesignDpi = 96;
+                dpi_value = 96;
 #else
-            // desktop - scale DPI
-            FleuxApplication.TargetDesignDpi = 96/2 ;//* 480 / 800;
-            
+                dpi_value = 96/2;
 #endif
-            FleuxApplication.Run(new HomePage());
-            
-            engine.Deactivate();
+                if (config.DPI != 0)
+                    dpi_value = config.DPI;
+    
+                FleuxApplication.TargetDesignDpi = dpi_value;
+                FleuxApplication.Run(new HomePage());
+                
+                engine.Deactivate();
+                config.Save();
+            }catch(Exception e){
+                Logger.error("HOBD", "fatal failure, exiting", e);
+            }
 
         }
         

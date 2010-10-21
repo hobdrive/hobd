@@ -8,11 +8,10 @@
   <vehicles>extra.vehicles</vehicles>
 
   <vehicle>Toyota Matrix/Voltz/Pontiac Vibe 1.8 (1ZZ-FE)</vehicle>
-  <drivehub>
-    <token>yourtoken</token>
-  </drivehub>
 
-  <dpi>92</dpi>
+  <drivehub-token>yourtoken</drivehub-token>
+
+  <!-- <dpi>92</dpi> -->
   <theme>hobd.HOBDTheme</theme>
   <layout>default-landscape.layout</layout>
 

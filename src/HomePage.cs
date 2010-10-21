@@ -78,7 +78,7 @@ namespace hobd
             this.theForm.Height = 272.ToPixels()+30;
 #endif
             Logger.info("HomePage", "DPI: " + this.theForm.CreateGraphics().DpiX);
-            Logger.info("HomePage", "form width: "+this.theForm.Width+" height:"+this.theForm.Height);
+            Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
         }
         
         public override void Dispose()
@@ -146,11 +146,11 @@ namespace hobd
             try{
                 XmlReaderSettings xrs = new XmlReaderSettings();
                 xrs.IgnoreWhitespace = true;
-                //xrs.
-                XmlReader reader = XmlReader.Create(Path.Combine(HOBD.AppPath, "default-landscape.layout"), xrs);
+
+                XmlReader reader = XmlReader.Create(Path.Combine(HOBD.AppPath, HOBD.config.Layout), xrs);
                 reader.Read();
                 reader.ReadStartElement("ui");
-                
+
                 while( reader.IsStartElement("section") ){
 
                     var section = new TouchPanoramaSection(reader.GetAttribute("name"));
@@ -210,10 +210,9 @@ namespace hobd
 
                     reader.ReadEndElement();
                 }
-                
-                reader.ReadEndElement();
-                
+                                
             }catch(XmlException e){
+                Logger.error("HomePage", "error creating layout", e);
             }
             
         }
