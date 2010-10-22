@@ -13,6 +13,11 @@ public class Logger
 
     static StreamWriter fs = new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
     
+    public static void error(String comp, String msg)
+    {
+        if (ERROR) error(comp, msg, null);
+    }
+
     public static void error(String comp, String msg, Exception e)
     {
         if (ERROR) log("ERROR", comp, msg, e);

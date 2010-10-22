@@ -9,49 +9,24 @@ namespace hobd
 
 public class ConfigVehicleData
 {
-    public string File{get; private set;}
+    public static ConfigVehicleData defaultVehicle = new ConfigVehicleData();
     
-    public string Name{get; private set;}
-    public string Engine{get; private set;}
+    public string File{get; set;}
     
-    List<string> sensors = new List<string>();
-    public IEnumerable<string> Sensors{ get{ return sensors;}}
+    public string Name{get; set;}
+    public string ECUEngine{get; set;}
+    
+    public List<string> Sensors{ get; set;}
     
     public Dictionary<string, string> parameters = new Dictionary<string, string>();
     public IDictionary<string, string> Parameters{ get{ return parameters;}}
     
-    public ConfigVehicleData(string file)
+    public ConfigVehicleData()
     {
-        try{
-            XmlReaderSettings xrs = new XmlReaderSettings();
-            xrs.IgnoreWhitespace = true;
-    
-            this.File = file;
-            XmlReader reader = XmlReader.Create(file, xrs);
-            
-            reader.ReadStartElement("vehicles");
-    
-            while( reader.IsStartElement("vehicle") ){
-                reader.ReadStartElement();
-                if ( reader.IsStartElement("obd") ){
-                    reader.ReadStartElement();
-                    this.Engine = reader.ReadElementString("engine");
-                    this.sensors.Add(reader.ReadElementString("sensors"));
-                }
-                reader.ReadEndElement();
-            }
-            reader.ReadEndElement();
-            reader.Close();
-        }catch(Exception e){
-            Logger.error(e);
-        }
+        Name = "Default Vehicle";
+        ECUEngine = "hobd.OBD2Engine";
+        Sensors = new List<string>();
     }
-    
-    public override string ToString()   
-    {
-        return this.Name;
-    }
-
 }
     
 public class ConfigData
@@ -59,8 +34,12 @@ public class ConfigData
     
     public string Port {get; set;}
     public string LogLevel  {get; set;}
+    
+    List<string> vehicle_files = new List<string>();
     List<ConfigVehicleData> vehicles = new List<ConfigVehicleData>();
+    Dictionary<string, ConfigVehicleData> vehicles_map = new Dictionary<string, ConfigVehicleData>();
     public IEnumerable<ConfigVehicleData> Vehicles {get{ return vehicles;}}
+    
     public string Vehicle {get; set;}
     public string Token {get; set;}
     public int DPI {get; private set;}
@@ -73,6 +52,7 @@ public class ConfigData
     {
         this.Port = "COM1";
         this.LogLevel = "ERROR";
+        this.Vehicle = "Default Vehicle";
         
         DPI = 0;
         Theme = "hobd.HOBDTheme";
@@ -111,8 +91,12 @@ public class ConfigData
                     break;
                 case "vehicles":
                     var v_file = reader.ReadElementContentAsString();
-                    ConfigVehicleData v = new ConfigVehicleData(Path.Combine(Path.GetDirectoryName(file), v_file));
-                    this.vehicles.Add(v);
+                    try{
+                        ReadVehicles(v_file);
+                        this.vehicle_files.Add(v_file);
+                    }catch(Exception e){
+                        Logger.error("ConfigData", "fault reading vehicle from " + v_file, e);
+                    }
                     break;
                 case "vehicle":
                     this.Vehicle = reader.ReadElementContentAsString();
@@ -140,6 +124,44 @@ public class ConfigData
         
     }
     
+    void ReadVehicles(string vfile)
+    {
+        XmlReaderSettings xrs = new XmlReaderSettings();
+        xrs.IgnoreWhitespace = true;
+
+        XmlReader reader = XmlReader.Create(Path.Combine(Path.GetDirectoryName(file), vfile), xrs);
+        
+        reader.ReadStartElement("vehicles");
+
+        while( reader.IsStartElement("vehicle") ){
+            ConfigVehicleData v = new ConfigVehicleData();
+            v.Name = reader.GetAttribute("name");
+            
+            reader.ReadStartElement();
+            if ( reader.IsStartElement("obd") ){
+                reader.ReadStartElement();
+                v.ECUEngine = reader.ReadElementString("engine");
+                while(reader.NodeType == XmlNodeType.Element)
+                {
+                    v.Sensors.Add(reader.ReadElementString("sensors"));
+                }
+                reader.ReadEndElement();
+            }
+            while (reader.NodeType != XmlNodeType.EndElement){
+                if (reader.NodeType == XmlNodeType.Element){
+                    var name = reader.Name;
+                    var val = reader.ReadElementString();
+                    v.Parameters.Add(name, val);
+                }
+            }
+            reader.ReadEndElement();
+            
+            this.vehicles.Add(v);
+            this.vehicles_map.Add(v.Name, v);
+        }
+        reader.Close();
+    }
+    
     public void Save()
     {
         XmlWriterSettings settings = new XmlWriterSettings();
@@ -154,7 +176,7 @@ public class ConfigData
 
             f.WriteElementString("port", this.Port);
 
-            vehicles.ForEach( (v) => f.WriteElementString("vehicles", v.File) );
+            vehicle_files.ForEach( (v) => f.WriteElementString("vehicles", v) );
 
             f.WriteElementString("vehicle", this.Vehicle);
             f.WriteElementString("drivehub-token", this.Token);
@@ -170,6 +192,13 @@ public class ConfigData
 
     }
     
+    
+    public ConfigVehicleData GetVehicle(string name)
+    {
+        ConfigVehicleData vehicle = null;
+        vehicles_map.TryGetValue(name, out vehicle);
+        return vehicle;
+    }
     
 }
 

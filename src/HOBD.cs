@@ -12,7 +12,7 @@ namespace hobd
         public static ConfigData config;
         public static Engine engine;
         public static SensorRegistry Registry;
-        public static HOBDTheme theme = new HOBDTheme();
+        public static HOBDTheme theme;
         
         public static string Version {
             get{ 
@@ -45,7 +45,14 @@ namespace hobd
                 
                 Logger.SetLevel(config.LogLevel);
                 
-                HOBD.engine = (Engine)Activator.CreateInstance(null, "hobd.OBD2Engine").Unwrap();
+                var vehicle = config.GetVehicle(config.Vehicle);
+                
+                if (vehicle == null){
+                    Logger.error("HOBD", "Bad configuration: can't find vehicle " + config.Vehicle);
+                    vehicle = ConfigVehicleData.defaultVehicle;
+                }
+                
+                HOBD.engine = (Engine)Activator.CreateInstance(null, vehicle.ECUEngine).Unwrap();
                 
                 IStream stream = null;
                 if (config.Port.StartsWith("btspp"))
@@ -54,10 +61,14 @@ namespace hobd
                     stream = new SerialStream();
                 
                 engine.Init(stream, config.Port);
-                
+                                
                 Registry = new SensorRegistry();
-                Registry.RegisterProvider(new OBD2Sensors());
-                Registry.RegisterProvider(new ToyotaSensors());
+                vehicle.Sensors.ForEach((s) =>
+                        {
+                            Logger.trace("HOBD", "RegisterProvider: "+ s);
+                            Registry.RegisterProvider((SensorProvider)Activator.CreateInstance(null, s).Unwrap());
+                        });
+                
                 engine.Registry = Registry;
                 engine.Activate();
                 
@@ -69,9 +80,9 @@ namespace hobd
                 dpi_value = 96/2;
 #endif
                 if (config.DPI != 0)
-                    dpi_value = config.DPI;
-    
+                    dpi_value = config.DPI;                
                 FleuxApplication.TargetDesignDpi = dpi_value;
+                HOBD.theme = (HOBDTheme)Activator.CreateInstance(null, config.Theme).Unwrap();                
                 FleuxApplication.Run(new HomePage());
                 
                 engine.Deactivate();
