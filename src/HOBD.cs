@@ -72,17 +72,13 @@ namespace hobd
                 engine.Registry = Registry;
                 engine.Activate();
                 
-                //TODO: autoajust from screen size
                 int dpi_value;
-#if WINCE
-                dpi_value = 96;
-#else
-                dpi_value = 96/2;
-#endif
+                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Height / 278);
                 if (config.DPI != 0)
-                    dpi_value = config.DPI;                
+                    dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;
                 HOBD.theme = (HOBDTheme)Activator.CreateInstance(null, config.Theme).Unwrap();                
+                
                 FleuxApplication.Run(new HomePage());
                 
                 engine.Deactivate();

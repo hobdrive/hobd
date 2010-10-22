@@ -77,7 +77,7 @@ namespace hobd
             this.theForm.Width = 480.ToPixels();
             this.theForm.Height = 272.ToPixels()+30;
 #endif
-            Logger.info("HomePage", "DPI: " + this.theForm.CreateGraphics().DpiX);
+            Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
             Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
         }
         
