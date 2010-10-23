@@ -54,9 +54,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Yaml">
-      <HintPath>lib\Yaml.dll</HintPath>
-    </Reference>
     <Reference Include="InTheHand.Net.Personal">
       <HintPath>lib\InTheHand.Net.Personal.dll</HintPath>
     </Reference>
@@ -73,18 +70,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\item.icon.png" />
-    <Compile Include="src\DynamicElement.cs" />
+    <Compile Include="src\ConfigData.cs" />
+    <Compile Include="src\elm\common\CommonSensors.cs" />
+    <Compile Include="src\elm\common\DistanceSensor.cs" />
+    <Compile Include="src\elm\CoreSensor.cs" />
+    <Compile Include="src\elm\IAccumulatorSensor.cs" />
     <Compile Include="src\elm\SensorProvider.cs" />
     <Compile Include="src\elm\OBD2Sensors.cs" />
     <Compile Include="src\elm\Sensor.cs" />
     <Compile Include="src\elm\SensorRegistry.cs" />
     <Compile Include="src\elm\OBD2Sensor.cs" />
     <Compile Include="src\elm\ToyotaSensors.cs" />
+    <Compile Include="src\engine\BlueToothStream.cs" />
     <Compile Include="src\engine\Engine.cs" />
     <Compile Include="src\engine\IStream.cs" />
     <Compile Include="src\engine\OBD2Engine.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\HOBDTheme.cs" />
+    <Compile Include="src\ui\DynamicElement.cs" />
     <Compile Include="src\ui\SensorTextElement.cs" />
     <Compile Include="src\util\Logger.cs" />
     <None Include="config\default-landscape.layout" />
@@ -126,6 +129,7 @@
     <Folder Include="config" />
     <Folder Include="src" />
     <Folder Include="src\elm" />
+    <Folder Include="src\elm\common" />
     <Folder Include="src\elm\gen" />
     <Folder Include="src\engine" />
     <Folder Include="src\engine" />
