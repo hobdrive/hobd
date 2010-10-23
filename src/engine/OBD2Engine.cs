@@ -14,6 +14,14 @@ public class OBD2Engine : Engine
     private bool thread_active = false;
     private DateTime stateTS;
     Thread worker;
+
+    int currentSensorIndex = -1;
+    SensorListener currentSensorListener = null;
+    DateTime[] nextReadings = null;
+
+    string versionInfo = "";
+    byte[] buffer = new byte[256];
+    int position = 0;
     
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
@@ -49,22 +57,24 @@ public class OBD2Engine : Engine
     
     void SendCommand(string command)
     {
-        Logger.trace("SendCommand:" + command);
+        Logger.trace("OBD2Engine", "SendCommand:" + command);
         byte[] arr = Encoding.ASCII.GetBytes(command+"\r");
         stream.Write(arr, 0, arr.Length);
     }
-    
-    int currentSensorIndex = -1;
-    SensorListener currentSensorListener = null;
-    DateTime[] nextReadings = null;
-    
+    void SendRaw(string command)
+    {
+        Logger.trace("OBD2Engine", "SendRaw:" + command);
+        byte[] arr = Encoding.ASCII.GetBytes(command);
+        stream.Write(arr, 0, arr.Length);
+    }
+        
     void SetState(string state2)
     {
         
         State = state2;
         stateTS = DateTime.Now;
         
-        Logger.trace("OBD2Engine.SetState " + State);
+        Logger.trace("OBD2Engine", " -> " + State);
         
         switch(State){
             case ST_INIT:
@@ -78,7 +88,6 @@ public class OBD2Engine : Engine
                     SetState(ST_ERROR);
                     break;
                 }
-                SendCommand("");
                 PurgeStream();
                 SetState(ST_ATZ);
                 break;
@@ -119,7 +128,7 @@ public class OBD2Engine : Engine
                     DateTime nr = nextReadings[currentSensorIndex];
                     
                     if (nr == null || nr < DateTime.Now){
-                        Logger.trace("SENSOR: " + currentSensorListener.sensor.ID);
+                        Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
                         if (currentSensorListener.sensor is OBD2Sensor){
                             var osensor = (OBD2Sensor)currentSensorListener.sensor;
                             SendCommand("01" + osensor.Command.ToString("X2"));
@@ -144,8 +153,6 @@ public class OBD2Engine : Engine
         }
     }
     
-    string versionInfo = "";
-
     byte to_h(byte a)
     {
         if (a >= 0x30 && a <= 0x39) return (byte)(a-0x30);
@@ -157,14 +164,17 @@ public class OBD2Engine : Engine
     void HandleReply(byte[] msg)
     {
         string smsg = Encoding.ASCII.GetString(msg);
-        if (Logger.TRACE) Logger.trace(State + ": " + smsg.Trim());
+        if (Logger.TRACE) Logger.trace("OBD2Engine", "HandleReply: " + smsg.Trim());
         
         switch(State){
             case ST_INIT:
                 versionInfo = smsg.Trim();
                 break;
             case ST_ATZ:
-                SetState(ST_ATE0);
+                if (smsg.Contains("ATZ"))
+                {
+                    SetState(ST_ATE0);
+                }
                 break;
             case ST_ATE0:
                 if (smsg.Contains("OK"))
@@ -173,7 +183,10 @@ public class OBD2Engine : Engine
                 }
                 break;
             case ST_ATL0:
-                SetState(ST_SENSOR);
+                if (smsg.Contains("OK"))
+                {
+                    SetState(ST_SENSOR);
+                }
                 break;
             case ST_SENSOR_ACK:
                 
@@ -210,10 +223,7 @@ public class OBD2Engine : Engine
                 break;
         }
     }
-    
-    byte[] buffer = new byte[256];
-    int position = 0;
-    
+        
     void HandleState()
     {
         
@@ -234,7 +244,9 @@ public class OBD2Engine : Engine
             }else{
                 position = 0;
             }
+            if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
             data = null;
+            stateTS = DateTime.Now;
         }
 
         if (position == 0)
@@ -252,6 +264,7 @@ public class OBD2Engine : Engine
                 isearch++;
                 Array.Copy(buffer, isearch, buffer, 0, position-isearch);
                 position = position-isearch;
+                // handle our extracted message
                 HandleReply(msg);
                 break;
             }
@@ -269,6 +282,10 @@ public class OBD2Engine : Engine
             HandleState();
             
             var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
+            // No reply. Ping the connection. Only OBDSim bugs?
+            if (diff_ms > 500) {
+                SendCommand("");
+            }
             // Restart the hanged connection after two seconds
             if (diff_ms > 2000) {
                 // If ERROR, wait for a longer period before retrying
