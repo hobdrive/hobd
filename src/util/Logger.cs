@@ -38,6 +38,12 @@ public class Logger
         if (TRACE) log("TRACE", "", msg, null);
     }
     
+    public static void dump(String comp, String msg)
+    {
+        if (DUMP) log("DUMP", comp, msg, null);
+    }
+
+
     static void log(string level, string comp, string msg, Exception e)
     {
         if (comp == null) comp = "";

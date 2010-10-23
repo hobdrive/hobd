@@ -81,6 +81,22 @@ public class SensorRegistry
             }
         }
     }
+    /**
+     * Triggers sensor suspend event for all sensors that supports it
+     */
+    public void TriggerSuspend()
+    {
+        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ) )
+            ((IAccumulatorSensor)s).Suspend();
+    }
+    /**
+     * Triggers sensor reset event for all sensors that supports it
+     */
+    public void TriggerReset()
+    {
+        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ) )
+            ((IAccumulatorSensor)s).Reset();
+    }
 
 	public void AddListener(string sensor, Action<Sensor> listener)
 	{

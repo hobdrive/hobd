@@ -54,6 +54,15 @@ public class Engine
             this.StateNotify(state);
     }
     
+    void OnEngineReset(int state)
+    {
+        if (state == STATE_INIT){
+            // Tells sensor that engine operation was delayed
+            // TriggerReset is possible too, but is a user-controlled action
+            Registry.TriggerSuspend();
+        }
+    }
+    
     private SensorRegistry registry;
     
     public SensorRegistry Registry
@@ -62,6 +71,7 @@ public class Engine
             if (active) throw new InvalidOperationException("Can't change Registry on active Engine");
             if (value == null) throw new InvalidOperationException("Can't set null Registry");
             registry = value;
+            StateNotify += OnEngineReset;
         }
         get{
             return registry;
