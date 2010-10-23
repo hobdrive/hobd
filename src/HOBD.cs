@@ -36,6 +36,7 @@ namespace hobd
         {
 
             try{
+
                 try{
                     config = new ConfigData(Path.Combine(HOBD.AppPath, "config.xml"));
                 }catch(Exception e){
@@ -46,7 +47,7 @@ namespace hobd
                 Logger.SetLevel(config.LogLevel);
                 
                 var vehicle = config.GetVehicle(config.Vehicle);
-                
+
                 if (vehicle == null){
                     Logger.error("HOBD", "Bad configuration: can't find vehicle " + config.Vehicle);
                     vehicle = ConfigVehicleData.defaultVehicle;
@@ -63,10 +64,16 @@ namespace hobd
                 engine.Init(stream, config.Port);
                                 
                 Registry = new SensorRegistry();
-                vehicle.Sensors.ForEach((s) =>
+                Registry.VehicleParameters = vehicle.Parameters;
+
+                vehicle.Sensors.ForEach((provider) =>
                         {
-                            Logger.trace("HOBD", "RegisterProvider: "+ s);
-                            Registry.RegisterProvider((SensorProvider)Activator.CreateInstance(null, s).Unwrap());
+                            Logger.trace("HOBD", "RegisterProvider: "+ provider);
+                            try{
+                                Registry.RegisterProvider((SensorProvider)Activator.CreateInstance(null, provider).Unwrap());
+                            }catch(Exception e){
+                                Logger.error("HOBD", "bad provider", e);
+                            }
                         });
                 
                 engine.Registry = Registry;

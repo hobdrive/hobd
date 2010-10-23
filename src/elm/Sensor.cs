@@ -10,7 +10,9 @@ namespace hobd
  */
 public interface Sensor
 {
-    double GetValue();
+    double Value{get;}
+
+    DateTime TimeStamp{get;}
     
     string ID{get;}
 
@@ -23,6 +25,11 @@ public interface Sensor
     string Units{get;}
     
     IEnumerable<string> Aliases{get;}
+    
+    /** Sensor itself may depend on other sensors,
+     *    or it may read vehicle parameters from registry.
+     */
+    void SetRegistry(SensorRegistry registry);
     
 }
     

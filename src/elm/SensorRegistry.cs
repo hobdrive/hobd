@@ -11,13 +11,18 @@ public class SensorListener
     public List<Action<Sensor>> listeners = new List<Action<Sensor>>();
     public int period = 0;
 }
-
+/**
+ * Active set of sensors.
+ * Provides ability to listen to sensor changes
+ */
 public class SensorRegistry
 {
     
     Dictionary<string, Sensor> sensors = new Dictionary<string, Sensor>();
     Dictionary<Sensor, SensorListener> activeSensors = new Dictionary<Sensor, SensorListener>();
     SensorListener[] activeSensors_array = null;
+    
+    public IDictionary<string, string> VehicleParameters {get;set;}
     
     public SensorRegistry()
     {
@@ -36,6 +41,7 @@ public class SensorRegistry
             sensors.Remove(alias);
             sensors.Add(alias, sensor);
         }
+        sensor.SetRegistry(this);
     }
     
     /**
@@ -60,7 +66,21 @@ public class SensorRegistry
         }
     }
     
-    
+    public void TriggerListeners(Sensor sensor)
+    {
+        SensorListener sl = null;
+        activeSensors.TryGetValue(sensor, out sl);
+        if (sl != null){
+            foreach(Action<Sensor> l in sl.listeners){
+                try{
+                    l(sensor);
+                }catch(Exception e)
+                {
+                    if (Logger.ERROR) Logger.error("SensorRegistry", "Listener fail on: "+sensor.ID, e);
+                }
+            }
+        }
+    }
 
 	public void AddListener(string sensor, Action<Sensor> listener)
 	{

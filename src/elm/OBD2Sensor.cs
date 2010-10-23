@@ -4,69 +4,35 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-public class OBD2Sensor : Sensor
+public class OBD2Sensor : CoreSensor
 {
-    public Func<OBD2Sensor, double> value;
-
-    public byte[] data_raw;
+    internal Func<OBD2Sensor, double> obdValue;
+    internal byte[] dataraw;
     
     public OBD2Sensor()
     {
-        this.Aliases = new List<string>();
-    }
-        
-    public double GetValue()
-    {
-        return value(this);
-    }
-    
-    public string ID
-    {
-        get;
-        internal set;
-    }
-    public string Name
-    {
-        get;
-        internal set;
-
-    }
-    public string Description
-    {
-        get;
-        internal set;
-    }
-    public string Units
-    {
-        get;
-        internal set;
-    }
-    public string GetDescription(string lang)
-    {
-        return Description;
-    }
-    public IEnumerable<string> Aliases
-    {
-        get;
-        internal set;
-    }
-    
-    public int Command
-    {
-        get;
-        internal set;
-    }
-    
-    
-    
-    public double get(int idx)
-    {
-        return data_raw[2+idx];
     }
 
-    public double get_bit(int idx, int bit)
+    public int Command { get; internal set; }
+    
+    public override double Value { get; protected set; }
+    
+    internal void SetValue(byte[] dataraw)
     {
-        return (data_raw[2+idx] & (1<<bit)) != 0 ? 1 : 0;
+        this.dataraw = dataraw;
+        this.Value = obdValue(this);
+        this.TimeStamp = DateTime.Now;
+        registry.TriggerListeners(this);
+    }
+    
+    internal double get(int idx)
+    {
+        return dataraw[2+idx];
+    }
+
+    internal double get_bit(int idx, int bit)
+    {
+        return (dataraw[2+idx] & (1<<bit)) != 0 ? 1 : 0;
     }
     
 }

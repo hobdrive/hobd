@@ -63,7 +63,7 @@ public class <xsl:value-of select='$class'/> : SensorProvider
                             Description = "<xsl:value-of select='description/name'/>", // !!!
                             Command = <xsl:value-of select='address/byte'/>,
                             Units = "<xsl:value-of select='description/unit'/>",
-                            value = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; },
+                            obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; },
                         });
 </xsl:template>
 

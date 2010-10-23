@@ -198,19 +198,13 @@ public class OBD2Engine : Engine
                 }
                 
                 var osensor = (OBD2Sensor)currentSensorListener.sensor;
-                osensor.data_raw = msgraw.ToArray();
+                byte[] dataraw = msgraw.ToArray();
+                
                 nextReadings[currentSensorIndex] = DateTime.Now.AddMilliseconds(currentSensorListener.period);
                 
-                if (osensor.data_raw.Length > 1 && osensor.data_raw[0] == 0x41 && osensor.data_raw[1] == osensor.Command)
+                if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
                 {
-                    foreach(Action<Sensor> l in currentSensorListener.listeners){
-                        try{
-                            l(currentSensorListener.sensor);
-                        }catch(Exception e)
-                        {
-                            if (Logger.TRACE) Logger.trace("Listener fail on: "+osensor.ID+ ": "+e.Message);
-                        }
-                    }
+                    osensor.SetValue(dataraw);
                 }
                 SetState(ST_SENSOR);
                 break;

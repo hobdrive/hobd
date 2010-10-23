@@ -18,7 +18,7 @@ public class ConfigVehicleData
     
     public List<string> Sensors{ get; set;}
     
-    public Dictionary<string, string> parameters = new Dictionary<string, string>();
+    Dictionary<string, string> parameters = new Dictionary<string, string>();
     public IDictionary<string, string> Parameters{ get{ return parameters;}}
     
     public ConfigVehicleData()
