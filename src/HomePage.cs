@@ -75,6 +75,10 @@ namespace hobd
 #endif
             Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
             Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
+
+            
+            HOBD.engine.Activate();
+
         }
         
         public override void Dispose()

@@ -77,7 +77,6 @@ namespace hobd
                         });
                 
                 engine.Registry = Registry;
-                engine.Activate();
                 
                 int dpi_value;
                 dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Height / 278);
@@ -92,6 +91,7 @@ namespace hobd
                 config.Save();
             }catch(Exception e){
                 Logger.error("HOBD", "fatal failure, exiting", e);
+                if (engine != null && engine.IsActive()) engine.Deactivate();
             }
 
         }
