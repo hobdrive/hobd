@@ -101,28 +101,20 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\thumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Images\squareimg.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Images\thumbnail2.png" />
     <EmbeddedResource Include="Images\thumbnail3.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\banner.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\banner.png" />
+    <EmbeddedResource Include="Images\config.jpg" />
+    <EmbeddedResource Include="Images\icon_bt.png" />
+    <EmbeddedResource Include="Images\icon_com.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\MainForm.cs" />
-    <Compile Include="src\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="src\HomePage.cs" />
-    <Compile Include="src\ListPage1.cs" />
+    <Compile Include="src\ConfigurationPage.cs" />
     <Compile Include="src\HOBD.cs" />
   </ItemGroup>
   <ItemGroup>
