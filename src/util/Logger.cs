@@ -11,7 +11,16 @@ public class Logger
     public static bool WARN = false;
     public static bool ERROR = true;
 
-    static StreamWriter fs = new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
+    static StreamWriter fs = InitFS();
+    
+    static StreamWriter InitFS()
+    {        
+        try{
+            return new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
+        }catch(Exception e){
+            return null;
+        }
+    }
     
     public static void error(String comp, String msg)
     {
@@ -55,8 +64,11 @@ public class Logger
             msg +=  "\n" + e.Message +"\n"+ e.StackTrace;
         }
         System.Console.WriteLine(msg);
-        fs.Write(msg+"\n");
-        fs.Flush();    
+        if (fs != null)
+        {
+            fs.Write(msg+"\n");
+            fs.Flush();    
+        }
     }
 
     
