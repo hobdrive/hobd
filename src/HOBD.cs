@@ -83,7 +83,7 @@ namespace hobd
                 if (config.DPI != 0)
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;
-                HOBD.theme = (HOBDTheme)Activator.CreateInstance(null, config.Theme).Unwrap();                
+                HOBD.theme = (HOBDTheme)Assembly.GetExecutingAssembly().CreateInstance(config.Theme);
                 
                 FleuxApplication.Run(new HomePage());
                 
