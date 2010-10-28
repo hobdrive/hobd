@@ -34,15 +34,11 @@ namespace hobd
 
         private void InitializePanorama()
         {
-            //RightMenu.DisplayText = "Exit";
-            //RightMenu.OnClickAction = () => Application.Exit();
-
             panorama.SectionTitleDelta = 0;
             panorama.SectionContentDelta = 40;
             panorama.TitleWidth = 400;
             
             panorama.SectionsPadding = 30;
-            this.layoutX -= panorama.SectionsPadding;
             
             var title = "/hobd";
             
@@ -74,8 +70,8 @@ namespace hobd
             this.theForm.FormBorderStyle = FormBorderStyle.None;
             this.theForm.WindowState = FormWindowState.Maximized;
 #else
-            this.theForm.Width = 480.ToPixels();
-            this.theForm.Height = 272.ToPixels()+30;
+            this.theForm.Width = layoutX.ToPixels();
+            this.theForm.Height = layoutY.ToPixels()+30;
 #endif
             Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
             Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
@@ -128,7 +124,7 @@ namespace hobd
                 
             statusField.Text = status;
             
-            if (state == Engine.STATE_READ)
+            if (state == Engine.STATE_INIT || state == Engine.STATE_ERROR )
                 Redraw();
         }
         
