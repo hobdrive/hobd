@@ -17,6 +17,7 @@ public class SensorListener
  */
 public class SensorRegistry
 {
+    object sync_listener = new object();
     
     Dictionary<string, Sensor> sensors = new Dictionary<string, Sensor>();
     Dictionary<Sensor, SensorListener> activeSensors = new Dictionary<Sensor, SensorListener>();
@@ -71,7 +72,7 @@ public class SensorRegistry
         SensorListener sl = null;
         activeSensors.TryGetValue(sensor, out sl);
         if (sl != null){
-            foreach(Action<Sensor> l in sl.listeners){
+            foreach(Action<Sensor> l in sl.listeners.ToArray()){
                 try{
                     l(sensor);
                 }catch(Exception e)
@@ -116,21 +117,25 @@ public class SensorRegistry
      */
 	public void AddListener(Sensor sensor, Action<Sensor> listener, int period)
 	{
-	    if (sensor == null)
-	        throw new NullReferenceException("No such sensor");
-	    SensorListener sl = null;
-	    try{
-	        sl = activeSensors[sensor];
-	    }catch(KeyNotFoundException){
-	        sl = new SensorListener();
-	        sl.sensor = sensor;
-	        sl.period = period;
-	        activeSensors.Add(sensor, sl);
+	    lock(sync_listener)
+	    {
+    	    if (sensor == null)
+    	        throw new NullReferenceException("No such sensor");
+    	    SensorListener sl = null;
+    	    try{
+    	        sl = activeSensors[sensor];
+    	    }catch(KeyNotFoundException){
+    	        sl = new SensorListener();
+    	        sl.sensor = sensor;
+    	        sl.period = period;
+    	        activeSensors.Add(sensor, sl);
+    	    }
+    	    if (sl.period > period)
+    	        sl.period = period;
+            sl.listeners.Add(listener);
+            sensor.NotifyAddListener(listener);
+            activeSensors_array = null;
 	    }
-	    if (sl.period > period)
-	        sl.period = period;
-        sl.listeners.Add(listener);
-        activeSensors_array = null;
 	}
 	
     /**
@@ -145,14 +150,15 @@ public class SensorRegistry
      */
 	public void RemoveListener(Sensor sensor, Action<Sensor> listener)
 	{
-	    SensorListener sl = activeSensors[sensor];
-	    if (sl != null)
+	    lock(sync_listener)
 	    {
+    	    SensorListener sl = activeSensors[sensor];
 	        sl.listeners.RemoveAll((g) => {return g == listener;});
 	        if(sl.listeners.Count == 0)
 	            activeSensors.Remove(sensor);
+            sensor.NotifyRemoveListener(listener);
+            activeSensors_array = null;
 	    }
-	    activeSensors_array = null;
 	}
 	
     /**
@@ -160,10 +166,16 @@ public class SensorRegistry
      */
 	public void RemoveListener(Action<Sensor> listener)
 	{
-        foreach (var sl in activeSensors.Values) {
-            sl.listeners.RemoveAll((g) => {return g == listener;});
-        }
-	    activeSensors_array = null;
+	    lock(sync_listener)
+	    {
+	        foreach (var sl in activeSensors.Values.ToArray()) {
+                sl.listeners.RemoveAll((g) => {return g == listener;});
+                sl.sensor.NotifyRemoveListener(listener);
+    	        if(sl.listeners.Count == 0)
+    	            activeSensors.Remove(sl.sensor);
+	        }
+    	    activeSensors_array = null;
+	    }
 	}
 
 }

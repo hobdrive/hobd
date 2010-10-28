@@ -31,6 +31,9 @@ public interface Sensor
      */
     void SetRegistry(SensorRegistry registry);
     
+    void NotifyAddListener(Action<Sensor> listener);
+    
+    void NotifyRemoveListener(Action<Sensor> listener);
 }
     
 }

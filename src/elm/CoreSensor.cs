@@ -7,6 +7,7 @@ namespace hobd
 public class CoreSensor : Sensor
 {
     protected SensorRegistry registry;
+    protected int listenerCount = 0;
         
     public CoreSensor()
     {
@@ -31,6 +32,16 @@ public class CoreSensor : Sensor
         this.registry = registry;
     }
         
+    
+    public virtual void NotifyAddListener(Action<Sensor> listener)
+    {
+        listenerCount++;
+    }
+    
+    public virtual void NotifyRemoveListener(Action<Sensor> listener)
+    {
+        listenerCount--;
+    }
 }
 
 }
