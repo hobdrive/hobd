@@ -40,13 +40,18 @@
   </parameter>
 
   <parameter id="CoolantTemp">
-    <description lang="ru">
+    <description>
       <name>CoolantTemp</name>
+      <unit>°С</unit>
+      <description>Engine coolant temperature</description>
+    </description>
+    <description lang="ru">
+      <name>Темп. атрифриза</name>
       <unit>°С</unit>
       <description>Температура охлаждающей жидкости</description>
     </description>
     <address> <byte>0x05</byte> </address>
-    <value> get(0x00) </value>
+    <value> get(0)-40 </value>
   </parameter>
 
   <parameter id="STFT1">

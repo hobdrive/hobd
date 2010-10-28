@@ -1160,20 +1160,14 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
   <parameter id="ShiftPosition">
     <description lang="ru">
       <name>Передача</name>
-      <unit>-</unit>
       <description>№ передачи АКПП</description>
     </description>
     <description lang="en">
       <name>ATShift</name>
-      <unit>-</unit>
       <description>AT Shift Position</description>
     </description>
-    <address>
-      <byte>0xF8</byte>
-    </address>
-    <value>
-      get(0x00)
-    </value>
+    <address> <byte>0xF8</byte> </address>
+    <value> get(0x00) </value>
   </parameter>
 
   <parameter id="PID_F9">
