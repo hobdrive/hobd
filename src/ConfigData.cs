@@ -43,6 +43,7 @@ public class ConfigData
     public string Vehicle {get; set;}
     public string Token {get; set;}
     public int DPI {get; private set;}
+    public string Language {get; set;}
     public string Theme {get; private set;}
     public string Layout {get; private set;}
     
@@ -55,6 +56,7 @@ public class ConfigData
         this.Vehicle = "Default Vehicle";
         
         DPI = 0;
+        Language = "en";
         Theme = "hobd.HOBDTheme";
         Layout = "default-landscape.layout";
     }    
@@ -107,6 +109,9 @@ public class ConfigData
                     break;                    
                 case "dpi":
                     this.DPI = reader.ReadElementContentAsInt();
+                    break;
+                case "language":
+                    this.Language = reader.ReadElementContentAsString();
                     break;
                 case "theme":
                     this.Theme = reader.ReadElementContentAsString();
@@ -183,6 +188,7 @@ public class ConfigData
 
             if (this.DPI != 0)
                 f.WriteElementString("dpi", this.DPI.ToString());
+            f.WriteElementString("language", this.Language);
             f.WriteElementString("theme", this.Theme);
             f.WriteElementString("layout", this.Layout);
 
