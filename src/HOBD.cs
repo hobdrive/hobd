@@ -53,7 +53,7 @@ namespace hobd
                     vehicle = ConfigVehicleData.defaultVehicle;
                 }
                 
-                HOBD.engine = (Engine)Activator.CreateInstance(null, vehicle.ECUEngine).Unwrap();
+                HOBD.engine = (Engine)Assembly.GetExecutingAssembly().CreateInstance(vehicle.ECUEngine);
                 
                 IStream stream = null;
                 if (config.Port.StartsWith("btspp"))
@@ -70,7 +70,7 @@ namespace hobd
                         {
                             Logger.trace("HOBD", "RegisterProvider: "+ provider);
                             try{
-                                Registry.RegisterProvider((SensorProvider)Activator.CreateInstance(null, provider).Unwrap());
+                                Registry.RegisterProvider((SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
                             }catch(Exception e){
                                 Logger.error("HOBD", "bad provider", e);
                             }
