@@ -300,50 +300,14 @@ public class HOBDTheme
 
     #region additional text styles
 
-    public virtual TextStyle PhoneTextPageTitle1Style
+    public virtual TextStyle PhoneTextPageTitleStyle
     {
-        get
-        {
-            var r = PhoneTextNormalStyle;
-            r.Thickness = new ThicknessStyle(0, 20, 0);
-            return r;
-        }
+        get{ return new TextStyle(this.PhoneFontFamilyLight, PhoneFontSizeExtraExtraLarge, this.PhoneSubtleBrush); }
     }
 
-    public virtual TextStyle PhoneTextPageTitle2Style
+    public virtual TextStyle PhoneTextPageSubTitleStyle
     {
-        get
-        {
-            var r = PhoneTextTitle1Style;
-            r.Thickness = new ThicknessStyle(0, 20, 0);
-            return r;
-        }
-    }
-
-    #endregion
-
-    #region Page Title Header
-
-    public virtual Action<IDrawingGraphics, string, string> DrawPageTitleAction
-    {
-        get
-        {
-            return (g, title, subtitle) => g
-                                               .Style(this.PhoneTextPageTitle1Style)
-                                               .MoveX(20).MoveY(20).DrawText(title)
-                                               .MoveX(20).MoveY(50).Style(this.PhoneTextPageTitle2Style).
-                                               DrawText(subtitle).MoveY(g.Bottom + 20);
-        }
-    }
-
-    public virtual IItemTemplate PageTitle(string title, string subTitle)
-    {
-        return new RelayingItemTemplate(g => DrawPageTitleAction(g, title, subTitle));
-    }
-
-    public virtual IItemTemplate PageTitle(Func<string> title, Func<string> subTitle)
-    {
-        return new RelayingItemTemplate(g => DrawPageTitleAction(g, title(), subTitle()));
+        get{ return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeLarge, this.PhoneForegroundBrush); }
     }
 
     #endregion
@@ -371,10 +335,7 @@ public class HOBDTheme
     {
         get
         {
-            return new TextStyle(
-                this.PhoneFontFamilyLight,
-                this.PhoneFontSizeExtraLarge,
-                this.PhoneForegroundBrush);
+            return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeExtraLarge, this.PhoneForegroundBrush);
         }
     }
     
@@ -388,34 +349,9 @@ public class HOBDTheme
         }
     }
 
-
-    // TitleHeader
-    public virtual Action<IDrawingGraphics, string, string> DrawPanoramaTitleAction
-    {
-        get
-        {
-            return (g, title, subtitle) => g
-                                               .Style(this.PhoneTextPanoramaTitleStyle).Bold(false)
-                                               .MoveX(0).MoveY(-90).DrawText(title)
-                                               .MoveX(0).MoveY(g.Bottom).Style(
-                                                   this.PhoneTextPanoramaSectionTitleStyle).DrawText(subtitle)
-                                               .MoveY(g.Bottom + 20);
-        }
-    }
-
     public virtual Color PanoramaNormalBrush
     {
         get { return Color.FromArgb(255, 255, 255); }   
-    }
-
-    public virtual IItemTemplate PanoramaTitle(string title, string subTitle)
-    {
-        return new RelayingItemTemplate(g => DrawPanoramaTitleAction(g, title, subTitle));
-    }
-
-    public virtual IItemTemplate PanoramaTitle(Func<string> title, Func<string> subTitle)
-    {
-        return new RelayingItemTemplate(g => DrawPanoramaTitleAction(g, title(), subTitle()));
     }
 
     #endregion
