@@ -36,6 +36,7 @@ namespace hobd
         {
 
             try{
+                Logger.trace("HOBD", "App start");
 
                 try{
                     config = new ConfigData(Path.Combine(HOBD.AppPath, "config.xml"));
@@ -79,7 +80,7 @@ namespace hobd
                 engine.Registry = Registry;
                 
                 int dpi_value;
-                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Height / 278);
+                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Height / 272);
                 if (config.DPI != 0)
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;
