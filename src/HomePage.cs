@@ -25,7 +25,7 @@ namespace hobd
         
         Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
         
-        DynamicElement statusField;
+        DynamicElement statusField, configField;
             
         public HomePage()
         {
@@ -64,6 +64,21 @@ namespace hobd
             statusField = new DynamicElement("///hobd") { Style = HOBD.theme.PhoneTextStatusStyle };
             panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
             HOBD.engine.StateNotify += StateChanged;
+
+            configField = new DynamicElement("///config") {
+                Style = HOBD.theme.PhoneTextStatusStyle,
+                HandleTapAction = () => {
+                    this.theForm.Invoke(new Action(() => {
+                        //this.theForm.Hide();
+                        //this.panorama.AnimateHidePage();
+                        //NavigateTo( new ConfigurationPage() );
+                        var cp = new ConfigurationPage();
+                        //cp.theForm.Show();
+                    }));
+                }
+            };
+            panorama.Add(configField, layoutX-60, (layoutY-20), 60, 20);
+
             
             this.theForm.Menu = null;
 #if WINCE
@@ -275,7 +290,7 @@ namespace hobd
             
             grid[0, 0] = new DynamicElement("panorama") { Style = style, HandleTapAction = () => Application.Exit() };
             grid[1, 0] = new DynamicElement("gestures") { Style = style, HandleTapAction = () => this.Navigate("one") };
-            grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ListPage1()) };
+            grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
 
             /*
