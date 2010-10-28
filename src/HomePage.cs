@@ -24,6 +24,7 @@ namespace hobd
         int layoutY = 272;
         
         Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
+        Dictionary<IPanoramaSection, List<Sensor>> sectionSensorMap = new Dictionary<IPanoramaSection, List<Sensor>>();
         
         DynamicElement statusField, configField;
             
@@ -60,6 +61,8 @@ namespace hobd
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
             panorama.AddSection(this.CreateHorizontalFeaturedSection());
+            
+            panorama.OnSectionChange += this.SectionChanged;
             
             statusField = new DynamicElement("///hobd") { Style = HOBD.theme.PhoneTextStatusStyle };
             panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
@@ -148,6 +151,21 @@ namespace hobd
                 Redraw();
         }
         
+        void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
+        {
+            List<Sensor> sensors = null;
+            sectionSensorMap.TryGetValue(section, out sensors);
+            
+            // remove from all sensors
+            HOBD.Registry.RemoveListener(this.SensorChanged);
+            
+            if (sensors != null){
+                foreach(Sensor s in sensors){
+                    HOBD.Registry.AddListener(s, this.SensorChanged);
+                }
+            }
+        }
+        
         public void Redraw()
         {
             if (panorama.IsDisposed) return;
@@ -200,7 +218,7 @@ namespace hobd
                             reader.ReadStartElement("item");
                             
                             // attrs
-                            var sensorItem = CreateItem(attrs);
+                            var sensorItem = CreateItem(attrs, section);
                             
                             if (sensorItem != null)
                             {
@@ -233,7 +251,7 @@ namespace hobd
             
         }
         
-        IUIElement CreateItem(Dictionary<string, string> attrs)
+        IUIElement CreateItem(Dictionary<string, string> attrs, IPanoramaSection section)
         {
             string id = "";
             try{
@@ -254,7 +272,14 @@ namespace hobd
                     }
                     ui_list.Add(sensorItem);
                     
-                    HOBD.Registry.AddListener(sensor, this.SensorChanged);
+                    List<Sensor> sensor_list = null;
+                    sectionSensorMap.TryGetValue(section, out sensor_list);
+                    if (sensor_list == null){
+                        sensor_list = new List<Sensor>();
+                        sectionSensorMap.Add(section, sensor_list);
+                    }
+                    sensor_list.Add(sensor);
+                    
                     return sensorItem;
                 }
             }catch(Exception e)
