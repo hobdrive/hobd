@@ -20,6 +20,7 @@ namespace hobd
     public class HomePage : PanoramaPage
     {
 
+        public static string Title = "/hobd";
         int layoutX = 480;
         int layoutY = 272;
         
@@ -83,6 +84,7 @@ namespace hobd
             panorama.Add(configField, layoutX-60, (layoutY-20), 60, 20);
 
             
+            this.theForm.Text = HomePage.Title;
             this.theForm.Menu = null;
 #if WINCE
             this.theForm.FormBorderStyle = FormBorderStyle.None;

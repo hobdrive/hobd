@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 using Fleux.Core;
 
@@ -30,11 +32,32 @@ namespace hobd
                 return appPath;
             }
         }
+#if WINCE
+        [DllImport("coredll", EntryPoint="FindWindowW", SetLastError = true)]
+		 private static extern int FindWindow(string cls, string name);
         
+        [DllImport("coredll", EntryPoint="SetForegroundWindow", SetLastError = true)]
+		 private static extern bool SetForegroundWindow(int handle); 
+#else
+        [DllImport("user32", EntryPoint="FindWindowA", SetLastError = true)]
+		 private static extern int FindWindow(string cls, string name); 
+        
+        [DllImport("user32", EntryPoint="SetForegroundWindow", SetLastError = true)]
+		 private static extern bool SetForegroundWindow(int handle); 
+#endif
+
         [STAThread]
         private static void Main(string[] args)
         {
 
+            int handle = FindWindow(null, HomePage.Title);
+            if (handle != 0)
+            {
+                MessageBox.Show("handle: "+handle);
+                SetForegroundWindow(handle);
+                return;
+            }
+                
             try{
                 Logger.trace("HOBD", "App start");
 
