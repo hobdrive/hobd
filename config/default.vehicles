@@ -1,6 +1,6 @@
 <vehicles>
 
-  <vehicle name="OBD-II compatible, 1.6">
+  <vehicle name="OBD-II compatible, 1.6l">
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
@@ -15,6 +15,7 @@
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
       <sensors>hobd.ToyotaSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
     </obd>
     <liters>1.8</liters>
     <cylinders>4</cylinders>

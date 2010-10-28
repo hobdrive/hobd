@@ -1,13 +1,14 @@
 <hobd>
 
-  <log-level>TRACE</log-level>
+  <!-- ERROR, WARN, INFO, TRACE, DUMP -->
+  <log-level>INFO</log-level>
 
   <port>COM7</port>
 
   <vehicles>default.vehicles</vehicles>
   <vehicles>extra.vehicles</vehicles>
 
-  <vehicle>Toyota Matrix/Voltz/Pontiac Vibe 1.8 (1ZZ-FE)</vehicle>
+  <vehicle>OBD-II compatible, 1.6l</vehicle>
 
   <drivehub-token>yourtoken</drivehub-token>
 
