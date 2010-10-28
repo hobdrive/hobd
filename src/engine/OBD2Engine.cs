@@ -12,7 +12,7 @@ namespace hobd
 public class OBD2Engine : Engine
 {
     private bool thread_active = false;
-    private DateTime stateTS;
+    private DateTime stateTS, lastReceiveTS;
     Thread worker;
 
     int currentSensorIndex = -1;
@@ -174,6 +174,8 @@ public class OBD2Engine : Engine
                 if (smsg.Contains("ATZ"))
                 {
                     SetState(ST_ATE0);
+                }else{
+                    SendCommand("ATZ");
                 }
                 break;
             case ST_ATE0:
@@ -246,7 +248,7 @@ public class OBD2Engine : Engine
             }
             if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
             data = null;
-            stateTS = DateTime.Now;
+            lastReceiveTS = DateTime.Now;
         }
 
         if (position == 0)
@@ -279,17 +281,24 @@ public class OBD2Engine : Engine
         
         while(this.active){
         
-            HandleState();
+            try{
+                HandleState();
+            }catch(Exception e){
+                Logger.error("OBD2Engine", "Run exception", e);
+                break;
+            }
             
-            var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
             // No reply. Ping the connection. Only OBDSim bugs?
-            if (diff_ms > 500) {
-                SendCommand("");
+            if (DateTime.Now.Subtract(lastReceiveTS).TotalMilliseconds > 500 && State != ST_ERROR) {
+                //SendCommand("AT");
+                SendRaw(" ");
+                lastReceiveTS = DateTime.Now;
             }
             // Restart the hanged connection after two seconds
-            if (diff_ms > 2000) {
+            var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
+            if (diff_ms > 5000) {
                 // If ERROR, wait for a longer period before retrying
-                if (this.State != ST_ERROR || diff_ms > 10000)
+                if (this.State != ST_ERROR || diff_ms > 20000)
                 {
                     SetState(ST_INIT);
                 }
