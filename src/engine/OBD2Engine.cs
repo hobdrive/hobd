@@ -163,7 +163,7 @@ public class OBD2Engine : Engine
     
     void HandleReply(byte[] msg)
     {
-        string smsg = Encoding.ASCII.GetString(msg);
+        string smsg = Encoding.ASCII.GetString(msg, 0, msg.Length);
         if (Logger.TRACE) Logger.trace("OBD2Engine", "HandleReply: " + smsg.Trim());
         
         switch(State){
