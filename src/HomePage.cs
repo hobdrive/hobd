@@ -53,7 +53,7 @@ namespace hobd
                        panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
                    }
                };
-            panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", 512, 250, Assembly.GetCallingAssembly());
+            panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", (int)(layoutX*1.5), (int)(layoutX*1.5/2), Assembly.GetExecutingAssembly());
 
             this.LoadSections();
             
@@ -108,7 +108,7 @@ namespace hobd
         {
             var sensorUIs = sensorUIMap[sensor];
             foreach (var ui in sensorUIs) {
-                ui.Text = sensor.Value + sensor.Units;
+                ui.Text = Math.Round(sensor.Value) + sensor.Units;
             }
             Redraw();
         }
@@ -130,7 +130,7 @@ namespace hobd
             if (state == Engine.STATE_READ)
             {
                 sensorRate++;
-                if (sensorRate > 5)
+                if (sensorRate > 2)
                 {
                     var time = DateTime.Now;
                     int ms = (int) time.Subtract(sensorRateMS).TotalMilliseconds / sensorRate;
@@ -139,8 +139,9 @@ namespace hobd
                     sensorRateText = " " + (ms) + "ms";
                 }
             }
-            status += " " + sensorRateText;
-                
+            if (state == Engine.STATE_READ || state == Engine.STATE_READ_DONE)
+                status += " " + sensorRateText;
+            
             statusField.Text = status;
             
             if (state == Engine.STATE_INIT || state == Engine.STATE_ERROR )
