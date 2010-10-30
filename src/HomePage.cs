@@ -130,7 +130,7 @@ namespace hobd
             if (state == Engine.STATE_INIT)
                 status += "INIT";
             if (state == Engine.STATE_ERROR)
-                status += "ERROR";
+                status += "ERROR " + HOBD.engine.Error;
             
             if (state == Engine.STATE_READ)
             {
