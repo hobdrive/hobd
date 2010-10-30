@@ -12,6 +12,8 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
     public static string MeterUnits = "m.";
     DateTime prevStamp;
     bool firstRun = true;
+
+    public int ListenInterval{get; set;}
         
     public DistanceSensor()
     {
@@ -19,20 +21,13 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
         Name = "DistanceRun";
         Description = "Total run distance";
         Units = DistanceSensor.MeterUnits;
+        ListenInterval = 5000;
     }
 
-    public override void NotifyAddListener(Action<Sensor> listener)
+    public override void SetRegistry(SensorRegistry registry)
     {
-        base.NotifyAddListener(listener);
-        if (listenerCount == 1)
-            registry.AddListener("Speed", OnSpeedChange);
-    }
-
-    public override void NotifyRemoveListener(Action<Sensor> listener)
-    {
-        base.NotifyRemoveListener(listener);
-        if (listenerCount == 0)
-            registry.RemoveListener("Speed", OnSpeedChange);
+        base.SetRegistry(registry);
+        registry.AddListener("Speed", OnSpeedChange, ListenInterval);
     }
 
     public void OnSpeedChange(Sensor speed)
