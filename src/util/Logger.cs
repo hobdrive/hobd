@@ -64,7 +64,7 @@ public class Logger
         msg = "["+level+"] "+ ts + "["+comp+"]  " + msg;
         if (e != null)
         {
-            msg +=  "\n" + e.Message +"\n"+ e.StackTrace;
+            msg +=  "\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
         }
         System.Console.WriteLine(msg);
         if (fs != null)
