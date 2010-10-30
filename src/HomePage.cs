@@ -25,7 +25,7 @@ namespace hobd
         int layoutY = 272;
         
         Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
-        Dictionary<IPanoramaSection, List<Sensor>> sectionSensorMap = new Dictionary<IPanoramaSection, List<Sensor>>();
+        Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
         
         DynamicElement statusField, configField;
             
@@ -58,6 +58,9 @@ namespace hobd
             panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", (int)(layoutX*1.5), (int)(layoutX*1.5/2), Assembly.GetExecutingAssembly());
 
             this.LoadSections();
+
+            // activate first section
+            this.SectionChanged(this.panorama, this.panorama.CurrentSection);
             
             panorama.AddSection(this.CreateMenuSection());
             panorama.AddSection(this.CreateFeaturedSection());
@@ -155,15 +158,15 @@ namespace hobd
         
         void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
         {
-            List<Sensor> sensors = null;
+            List<SensorListener> sensors = null;
             sectionSensorMap.TryGetValue(section, out sensors);
             
             // remove from all sensors
             HOBD.Registry.RemoveListener(this.SensorChanged);
             
             if (sensors != null){
-                foreach(Sensor s in sensors){
-                    HOBD.Registry.AddListener(s, this.SensorChanged);
+                foreach(SensorListener sl in sensors){
+                    HOBD.Registry.AddListener(sl.sensor, this.SensorChanged, sl.period);
                 }
             }
         }
@@ -274,13 +277,21 @@ namespace hobd
                     }
                     ui_list.Add(sensorItem);
                     
-                    List<Sensor> sensor_list = null;
+                    List<SensorListener> sensor_list = null;
                     sectionSensorMap.TryGetValue(section, out sensor_list);
                     if (sensor_list == null){
-                        sensor_list = new List<Sensor>();
+                        sensor_list = new List<SensorListener>();
                         sectionSensorMap.Add(section, sensor_list);
                     }
-                    sensor_list.Add(sensor);
+
+                    SensorListener sl = new SensorListener();
+                    sl.sensor = sensor;
+                    sl.period = 0;
+                    string period = null;
+                    if (attrs.TryGetValue("period", out period))
+                        sl.period = int.Parse(period);
+
+                    sensor_list.Add(sl);
                     
                     return sensorItem;
                 }

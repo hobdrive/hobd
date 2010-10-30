@@ -6,30 +6,30 @@
   <section name="General Info">
     <grid rows="60,100,50" cols="150,150,150">
       <item id="RPM" size='large' type='roverbar'/>
-      <item id="ShiftPosition" size='small' type='text'/>
-      <item id="FuelConsumption_short" size='small' type='chart'/>
+      <item id="ShiftPosition" size='small' type='text' period='4000'/>
+      <item id="FuelConsumption_short" size='small' type='chart' period='1000'/>
 
       <item/>
-      <item id="Speed" size='huge' type='roverbar'/>
+      <item id="Speed" size='huge' type='roverbar' period='1000'/>
       <item/>
 
-      <item id="CoolantTemp" size='small' type='text'/>
-      <item id="IntakeAirTemp" size='small' type='text'/>
-      <item id="AirTemp" size='normal' type='text'/>
+      <item id="CoolantTemp" size='small' type='text' period='10000'/>
+      <item id="IntakeAirTemp" size='small' type='text' period='10000'/>
+      <item id="AirTemp" size='normal' type='text' period='10000'/>
     </grid>
   </section>
 
   <section name="Trip computer">
     <grid rows="60,100,60" cols="150,150,150">
-      <item id="CoolantTemp" size='small' type='text'/>
-      <item id="EngineLoad" size='small' type='text'/>
+      <item id="CoolantTemp" size='small' type='text' period='10000'/>
+      <item id="EngineLoad" size='small' type='text' period='1000'/>
       <item/>
 
       <item id="FuelConsumption_instant" size='normal' type='chart'/>
       <item id="FuelConsumption_trip" size='huge' type='chart'/>
       <item id="FuelConsumption_short" size='normal' type='chart'/>
 
-      <item id="DistanceRun" size='small' type='roverbar'/>
+      <item id="DistanceRun" size='small' type='roverbar' period='10000'/>
       <item/>
       <item id="FuelConsumed" size='small' type='text'/>
     </grid>
@@ -49,9 +49,6 @@
       <item/>
       <item id="FuelConsumed" size='small' type='text'/>
     </grid>
-  </section>
-
-  <section name="D">
   </section>
 
 <ui>
