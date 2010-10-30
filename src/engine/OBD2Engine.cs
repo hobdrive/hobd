@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -22,6 +23,8 @@ public class OBD2Engine : Engine
     string versionInfo = "";
     byte[] buffer = new byte[256];
     int position = 0;
+
+    public const int ErrorThreshold = 20;
     
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
@@ -31,8 +34,11 @@ public class OBD2Engine : Engine
     public const string ST_SENSOR_ACK = "SENSOR_ACK";
     public const string ST_ERROR = "ERROR";
 
+    string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR" };
+
+    int subsequentErrors = 0;
+
     public string State {get; private set;}
-    public string Error {get; private set;}
     
     public OBD2Engine()
     {
@@ -220,6 +226,22 @@ public class OBD2Engine : Engine
                 if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
                 {
                     osensor.SetValue(dataraw);
+                    subsequentErrors = 0;
+                }else{
+                	string error = dataErrors.FirstOrDefault(e => smsg.Contains(e));
+                	if (error != null)
+                	{
+                	    // increase period for this 'bad' sensor
+                	    if (subsequentErrors == 0)
+                	    {
+                	        currentSensorListener.period = (currentSensorListener.period +100) * 2;
+                	    }
+                	    subsequentErrors++;
+                	}
+                }
+                if (subsequentErrors > ErrorThreshold) {
+                    Logger.error("OBD2Engine", "Connection error threshold");
+                    SetState(ST_INIT);
                 }
                 SetState(ST_SENSOR);
                 break;
@@ -285,7 +307,7 @@ public class OBD2Engine : Engine
                 HandleState();
             }catch(Exception e){
                 Logger.error("OBD2Engine", "Run exception", e);
-                break;
+                SetState(ST_INIT);
             }
             
             // No reply. Ping the connection. Only OBDSim bugs?
@@ -294,11 +316,11 @@ public class OBD2Engine : Engine
                 SendRaw(" ");
                 lastReceiveTS = DateTime.Now;
             }
-            // Restart the hanged connection after two seconds
+            // Restart the hanged connection after N seconds
             var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
-            if (diff_ms > 5000) {
+            if (diff_ms > 3000) {
                 // If ERROR, wait for a longer period before retrying
-                if (this.State != ST_ERROR || diff_ms > 20000)
+                if (this.State != ST_ERROR || diff_ms > 10000)
                 {
                     SetState(ST_INIT);
                 }

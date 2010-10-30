@@ -17,7 +17,7 @@ public class Logger
     {        
         try{
             return new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
-        }catch(Exception e){
+        }catch(Exception){
             return null;
         }
     }
@@ -58,7 +58,10 @@ public class Logger
         if (comp == null) comp = "";
         if (msg == null) msg = "";
         
-        msg = "["+level+"] "+DateTime.Now.ToLongTimeString() + "["+comp+"]  " + msg;
+        var nowms = DateTimeMs.NowMs;
+        var ts = nowms.ToLongTimeString() + "." + nowms.Millisecond.ToString().PadLeft(3, '0');
+
+        msg = "["+level+"] "+ ts + "["+comp+"]  " + msg;
         if (e != null)
         {
             msg +=  "\n" + e.Message +"\n"+ e.StackTrace;

@@ -119,7 +119,7 @@ namespace hobd
         }
         
         
-        private DateTime sensorRateMS = DateTime.Now;
+        private long sensorRateMS = DateTimeMs.Now;
         private int sensorRate = 0;
         private string sensorRateText = "";
         
@@ -135,10 +135,10 @@ namespace hobd
             if (state == Engine.STATE_READ)
             {
                 sensorRate++;
-                if (sensorRate > 2)
+                if (sensorRate > 10)
                 {
-                    var time = DateTime.Now;
-                    int ms = (int) time.Subtract(sensorRateMS).TotalMilliseconds / sensorRate;
+                    var time = DateTimeMs.Now;
+                    var ms = (time - sensorRateMS) / sensorRate;
                     sensorRateMS = time;
                     sensorRate = 0;
                     sensorRateText = " " + (ms) + "ms";

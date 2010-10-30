@@ -89,6 +89,7 @@
     <Compile Include="src\HOBDTheme.cs" />
     <Compile Include="src\ui\DynamicElement.cs" />
     <Compile Include="src\ui\SensorTextElement.cs" />
+    <Compile Include="src\util\DateTimeMs.cs" />
     <Compile Include="src\util\Logger.cs" />
     <None Include="config\default-landscape.layout" />
     <None Include="config\default.vehicles" />

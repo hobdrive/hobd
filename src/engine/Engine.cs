@@ -14,7 +14,13 @@ public class Engine
     public const int STATE_READ = 1;
     public const int STATE_READ_DONE = 2;
     public const int STATE_ERROR = 3;
+    
     public event Action<int> StateNotify;
+
+    /**
+     * Reason of the last error condition
+     */
+    public string Error {get; protected set;}
     
     public Engine()
     {
