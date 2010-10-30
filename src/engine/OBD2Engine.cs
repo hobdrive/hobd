@@ -18,7 +18,7 @@ public class OBD2Engine : Engine
 
     int currentSensorIndex = -1;
     SensorListener currentSensorListener = null;
-    DateTime[] nextReadings = null;
+    long[] nextReadings = null;
 
     string versionInfo = "";
     byte[] buffer = new byte[256];
@@ -129,11 +129,12 @@ public class OBD2Engine : Engine
                     currentSensorListener = sls[currentSensorIndex];
                     
                     if (nextReadings == null || nextReadings.Length < sls.Length){
-                        nextReadings = new DateTime[sls.Length];
+                        nextReadings = new long[sls.Length];
                     }
-                    DateTime nr = nextReadings[currentSensorIndex];
+                    long nextReading = nextReadings[currentSensorIndex];
                     
-                    if (nr == null || nr < DateTime.Now){
+                    if (nextReading == 0 || nextReading < DateTimeMs.Now)
+                    {
                         Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
                         if (currentSensorListener.sensor is OBD2Sensor){
                             var osensor = (OBD2Sensor)currentSensorListener.sensor;
@@ -221,7 +222,7 @@ public class OBD2Engine : Engine
                 var osensor = (OBD2Sensor)currentSensorListener.sensor;
                 byte[] dataraw = msgraw.ToArray();
                 
-                nextReadings[currentSensorIndex] = DateTime.Now.AddMilliseconds(currentSensorListener.period);
+                nextReadings[currentSensorIndex] = DateTimeMs.Now + currentSensorListener.period;
                 
                 if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
                 {
