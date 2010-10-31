@@ -59,7 +59,7 @@ namespace hobd
             }
                 
             try{
-                Logger.trace("HOBD", "App start");
+                Logger.log("INFO", "HOBD", "App start", null);
 
                 try{
                     config = new ConfigData(Path.Combine(HOBD.AppPath, "config.xml"));
