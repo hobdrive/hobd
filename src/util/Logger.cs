@@ -34,7 +34,7 @@ public class Logger
 
     public static void info(String comp, String msg)
     {
-        if (INFO) log("INFO", comp, msg, null);
+        if (INFO) log("INFO ", comp, msg, null);
     }
 
     public static void trace(String comp, String msg)
@@ -49,17 +49,17 @@ public class Logger
     
     public static void dump(String comp, String msg)
     {
-        if (DUMP) log("DUMP", comp, msg, null);
+        if (DUMP) log("DUMP ", comp, msg, null);
     }
 
 
-    static void log(string level, string comp, string msg, Exception e)
+    public static void log(string level, string comp, string msg, Exception e)
     {
         if (comp == null) comp = "";
         if (msg == null) msg = "";
         
         var nowms = DateTimeMs.NowMs;
-        var ts = nowms.ToLongTimeString() + "." + nowms.Millisecond.ToString().PadLeft(3, '0');
+        var ts = nowms.ToShortDateString().PadLeft(10) + " " + nowms.ToLongTimeString().PadLeft(8) + "." + nowms.Millisecond.ToString().PadLeft(3, '0');
 
         msg = "["+level+"] "+ ts + "["+comp+"]  " + msg;
         if (e != null)
