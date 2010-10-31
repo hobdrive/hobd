@@ -41,7 +41,7 @@ public class DateTimeMs
          // build a new DateTime with our calculated ms
          // we use a new DateTime because some devices fill ms with a non-zero garbage value
          DateTime now = DateTime.Now;
-         return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Month, now.Second, ms);
+         return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, ms);
        }
     }
 
