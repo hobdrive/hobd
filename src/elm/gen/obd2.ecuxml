@@ -31,12 +31,13 @@
 
   <parameter id="EngineLoad">
     <description lang="en">
-      <name>EngineLoad</name>
-      <unit>%</unit>
-      <description>Расчетная нагрузка на двигатель</description>
+      <name>EngineLoad</name><unit>%</unit><description>Calculated engine load value</description>
+    </description>
+    <description lang="ru">
+      <name>Нагрузка</name><unit>%</unit><description>Расчетная нагрузка на двигатель</description>
     </description>
     <address> <byte>0x04</byte> </address>
-    <value> get(0x00) </value>
+    <value> get(0) * 100 / 255 </value>
   </parameter>
 
   <parameter id="CoolantTemp">
@@ -55,6 +56,9 @@
   </parameter>
 
   <parameter id="STFT1">
+    <description>
+      <name>STFT1</name>      <unit>%</unit>      <description>Short term fuel trim</description>
+    </description>
     <description lang="ru">
       <name>STFT1</name>
       <unit>%</unit>
@@ -65,40 +69,44 @@
   </parameter>
 
   <parameter id="LTFT1">
+    <description>
+      <name>LTFT1</name>      <unit>%</unit>      <description>Long term fuel trim</description>
+    </description>
     <description lang="ru">
-      <name>LTFT1</name>
-      <unit>%</unit>
-      <description>Долговременная топливная коррекция</description>
+      <name>LTFT1</name>      <unit>%</unit>      <description>Долговременная топливная коррекция</description>
     </description>
     <address> <byte>0x07</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
   <parameter id="STFT2">
+    <description>
+      <name>STFT1</name>      <unit>%</unit>      <description>Short term fuel trim 2</description>
+    </description>
     <description lang="ru">
-      <name>STFT2</name>
-      <unit>%</unit>
-      <description>Кратковременная топливная коррекция банк2</description>
+      <name>STFT2</name>      <unit>%</unit>      <description>Кратковременная топливная коррекция банк2</description>
     </description>
     <address> <byte>0x06</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
   <parameter id="LTFT2">
+    <description>
+      <name>LTFT2</name>      <unit>%</unit>      <description>Long term fuel trim 2</description>
+    </description>
     <description lang="ru">
-      <name>LTFT2</name>
-      <unit>%</unit>
-      <description>Долговременная топливная коррекция банк2</description>
+      <name>LTFT2</name>      <unit>%</unit>      <description>Долговременная топливная коррекция банк2</description>
     </description>
     <address> <byte>0x07</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
   <parameter id="FuelPressure">
+    <description>
+      <name>FuelPressure</name>      <unit>кПа</unit>      <description>Fuel Pressure</description>
+    </description>
     <description lang="ru">
-      <name>FuelPressure</name>
-      <unit>кПа</unit>
-      <description>Давление топлива</description>
+      <name>Давление топлива</name>      <unit>кПа</unit>      <description>Давление топлива</description>
     </description>
     <address> <byte>0x0A</byte> </address>
     <value> get(0)*3 </value>
