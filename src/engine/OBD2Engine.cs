@@ -13,7 +13,8 @@ namespace hobd
 public class OBD2Engine : Engine
 {
     private bool thread_active = false;
-    private DateTime stateTS, lastReceiveTS;
+    private DateTime stateTS;
+    private long lastReceiveTS;
     Thread worker;
 
     int currentSensorIndex = -1;
@@ -89,8 +90,8 @@ public class OBD2Engine : Engine
                     stream.Close();
                     stream.Open(url);
                 }catch(Exception e){
-                    Error = e.ToString();
-                    Logger.trace(Error);
+                    Error = e.Message;
+                    Logger.error("OBD2Engine", Error, e);
                     SetState(ST_ERROR);
                     break;
                 }
@@ -135,13 +136,13 @@ public class OBD2Engine : Engine
                     
                     if (nextReading == 0 || nextReading < DateTimeMs.Now)
                     {
-                        Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
                         if (currentSensorListener.sensor is OBD2Sensor){
+                            Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
                             var osensor = (OBD2Sensor)currentSensorListener.sensor;
                             SendCommand("01" + osensor.Command.ToString("X2"));
                             SetState(ST_SENSOR_ACK);
+                            break;
                         }
-                        break;
                     }
                     
                     currentSensorIndex++;
@@ -201,6 +202,7 @@ public class OBD2Engine : Engine
                 
                 var msgraw = new List<byte>();
                 
+                // parse reply
                 for(int i = 0; i < msg.Length; i++)
                 {
                     var a = msg[i];
@@ -224,11 +226,16 @@ public class OBD2Engine : Engine
                 
                 nextReadings[currentSensorIndex] = DateTimeMs.Now + currentSensorListener.period;
                 
+                // proactively read next sensor!
+                SetState(ST_SENSOR);
+
                 if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
                 {
+                    // valid reply - set value, raise listeners
                     osensor.SetValue(dataraw);
                     subsequentErrors = 0;
                 }else{
+                    // search for known errors, increment counters
                 	string error = dataErrors.FirstOrDefault(e => smsg.Contains(e));
                 	if (error != null)
                 	{
@@ -240,11 +247,15 @@ public class OBD2Engine : Engine
                 	    subsequentErrors++;
                 	}
                 }
+                // act on too much errors
                 if (subsequentErrors > ErrorThreshold) {
                     Logger.error("OBD2Engine", "Connection error threshold");
                     SetState(ST_INIT);
+                    subsequentErrors = 0;
+                }else{
+                // normal logic - continue with next sensor
+                    //SetState(ST_SENSOR);
                 }
-                SetState(ST_SENSOR);
                 break;
         }
     }
@@ -252,6 +263,14 @@ public class OBD2Engine : Engine
     void HandleState()
     {
         
+        if (State == ST_ERROR)
+        {
+            Thread.Sleep(50);
+            return;
+        }
+
+        // Means no sensor reading was performed - we have
+        // to wait and search for another sensor
         if (State == ST_SENSOR)
         {
             Thread.Sleep(50);
@@ -271,9 +290,10 @@ public class OBD2Engine : Engine
             }
             if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
             data = null;
-            lastReceiveTS = DateTime.Now;
+            lastReceiveTS = DateTimeMs.Now;
         }
 
+        // nothing to read -  wait
         if (position == 0)
         {
             Thread.Sleep(50);
@@ -308,20 +328,20 @@ public class OBD2Engine : Engine
                 HandleState();
             }catch(Exception e){
                 Logger.error("OBD2Engine", "Run exception", e);
-                SetState(ST_INIT);
+                SetState(ST_ERROR);
             }
             
             // No reply. Ping the connection. Only OBDSim bugs?
-            if (DateTime.Now.Subtract(lastReceiveTS).TotalMilliseconds > 500 && State != ST_ERROR) {
+            if (DateTimeMs.Now - lastReceiveTS > 1000 && State != ST_ERROR) {
                 //SendCommand("AT");
                 SendRaw(" ");
-                lastReceiveTS = DateTime.Now;
+                lastReceiveTS = DateTimeMs.Now;
             }
             // Restart the hanged connection after N seconds
             var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
             if (diff_ms > 3000) {
                 // If ERROR, wait for a longer period before retrying
-                if (this.State != ST_ERROR || diff_ms > 10000)
+                if (this.State != ST_ERROR || diff_ms > 6000)
                 {
                     SetState(ST_INIT);
                 }
@@ -335,14 +355,12 @@ public class OBD2Engine : Engine
     {
         base.Deactivate();
         int counter = 10;
-        // TODO! WTF???
-        worker.Abort();
-        worker.Join();
-        stream.Close();
         while(thread_active && counter > 0){
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             counter--;
         }
+        // TODO! WTF???
+        worker.Abort();
     }
     
     
