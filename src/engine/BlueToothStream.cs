@@ -68,8 +68,9 @@ public class BluetoothStream: IStream
                     stream.ReadTimeout = 2;
                 }
             }
-        }catch(System.IO.IOException){
+        }catch(Exception e){
             bluetoothClient = null;
+            throw e;
         }
     }
     
@@ -79,6 +80,7 @@ public class BluetoothStream: IStream
         {
             bluetoothClient.Close();
             bluetoothClient = null;
+            stream.Close();
         }
 }
     
@@ -88,7 +90,7 @@ public class BluetoothStream: IStream
         {
             try{
                 return stream.DataAvailable;
-            }catch(System.IO.IOException){
+            }catch(Exception){
                 bluetoothClient = null;
                 return false;
             }
@@ -121,7 +123,7 @@ public class BluetoothStream: IStream
         {
             try{
                 stream.Write(array, offset, length);
-            }catch(System.IO.IOException){
+            }catch(Exception){
                 bluetoothClient = null;
             }
         }
