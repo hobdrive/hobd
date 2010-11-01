@@ -25,7 +25,7 @@ public class OBD2Engine : Engine
     byte[] buffer = new byte[256];
     int position = 0;
 
-    public const int ErrorThreshold = 20;
+    public const int ErrorThreshold = 10;
     
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
@@ -221,10 +221,14 @@ public class OBD2Engine : Engine
                     
                 }
                 
-                var osensor = (OBD2Sensor)currentSensorListener.sensor;
+                // saving local copy
+                var lsl = currentSensorListener;
+
+                var osensor = (OBD2Sensor)lsl.sensor;
+
                 byte[] dataraw = msgraw.ToArray();
                 
-                nextReadings[currentSensorIndex] = DateTimeMs.Now + currentSensorListener.period;
+                nextReadings[currentSensorIndex] = DateTimeMs.Now + lsl.period;
                 
                 // proactively read next sensor!
                 SetState(ST_SENSOR);
@@ -242,7 +246,8 @@ public class OBD2Engine : Engine
                 	    // increase period for this 'bad' sensor
                 	    if (subsequentErrors == 0)
                 	    {
-                	        currentSensorListener.period = (currentSensorListener.period +100) * 2;
+                            Logger.info("OBD2Engine", "sensor not responding, increasing period: "+osensor.ID);
+                	        lsl.period = (lsl.period +100) * 2;
                 	    }
                 	    subsequentErrors++;
                 	}
@@ -252,9 +257,6 @@ public class OBD2Engine : Engine
                     Logger.error("OBD2Engine", "Connection error threshold");
                     SetState(ST_INIT);
                     subsequentErrors = 0;
-                }else{
-                // normal logic - continue with next sensor
-                    //SetState(ST_SENSOR);
                 }
                 break;
         }
@@ -331,10 +333,14 @@ public class OBD2Engine : Engine
                 SetState(ST_ERROR);
             }
             
-            // No reply. Ping the connection. Only OBDSim bugs?
+            // No reply. Ping the connection.
             if (DateTimeMs.Now - lastReceiveTS > 1000 && State != ST_ERROR) {
+                Logger.trace("OBD2Engine", "No reply. PING???");
                 //SendCommand("AT");
-                SendRaw(" ");
+#if !WINCE
+                // Only OBDSim bugs??
+                //SendRaw(" ");
+#endif
                 lastReceiveTS = DateTimeMs.Now;
             }
             // Restart the hanged connection after N seconds
