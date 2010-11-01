@@ -13,18 +13,24 @@ namespace hobd
 public class SensorTextElement: IUIElement, IDimensionAwareElement
 {
     public string Text {get; set;}
+    public string Name = "";
+
     int width;
     int height;
 
-    public SensorTextElement(Dictionary<string, string> attrs)
+    public SensorTextElement(Sensor sensor, Dictionary<string, string> attrs)
     {
         this.Text = attrs["id"];
+
+        this.Name = sensor.Name;
+
         this.Style = HOBD.theme.PhoneTextNormalStyle;
+
         string textSize = null;
         attrs.TryGetValue("size", out textSize);
         
         if (textSize == "small")
-            this.Style.FontSize = HOBD.theme.PhoneFontSizeSmall;
+            this.Style.FontSize = HOBD.theme.PhoneFontSizeNormal;
         else if (textSize == "large")
             this.Style.FontSize = HOBD.theme.PhoneFontSizeLarge;
         else if (textSize == "huge")
@@ -43,11 +49,14 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     
     public void Draw(IDrawingGraphics drawingGraphics)
     {
-        drawingGraphics.Color(Color.FromArgb(100,100,100));
-        drawingGraphics.DrawRectangle(0, 0, width, height);
+        //drawingGraphics.Color(Color.FromArgb(100,100,100));
+        //drawingGraphics.DrawRectangle(0, 0, width, height);
         
         //drawingGraphics.Style(this.Style);
         //drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
+        
+        drawingGraphics.MoveTo(0,0).Style(HOBD.theme.PhoneTextSmallStyle).DrawCenterText(this.Name, width, 20);
+
         drawingGraphics.MoveTo(0,0).Style(this.Style).DrawCenterText(this.Text, width, height);
     }
 

@@ -266,7 +266,7 @@ namespace hobd
                 var sensor = HOBD.Registry.Sensor(id);
                 if (sensor != null)
                 {
-                    var sensorItem = new SensorTextElement(attrs);
+                    var sensorItem = new SensorTextElement(sensor, attrs);
                     sensorItem.HandleTapAction = () => { sensorItem.Text = "clicked"; Redraw(); };
                     
                     List<SensorTextElement> ui_list = null;
@@ -299,7 +299,7 @@ namespace hobd
             {
                 Logger.error("CreateItem", "Failed creating Sensor Element:", e);
             }
-            return new DynamicElement("n/a: "+id);
+            return new DynamicElement("n/a: "+id){ Style = HOBD.theme.PhoneTextSmallStyle };
         }
         
         
