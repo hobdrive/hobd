@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace hobd
+namespace hobd.elm.injector
 {
     
 public class InjectorSensors : SensorProvider

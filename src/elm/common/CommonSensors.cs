@@ -31,7 +31,9 @@ public class CommonSensors : SensorProvider
         registry.Add(new DistanceSensor());
 
         registry.Add(new FuelConsumedSensor());
-        
+
+        registry.Add(new FuelEconomyTripSensor());
+
     }
 }
 }

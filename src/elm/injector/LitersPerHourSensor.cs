@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace hobd
+namespace hobd.elm.injector
 {
 
 /**
- * Calculates total run distance based on speed interpolation
+ * Calculates liters per hour using injector pulse width sensor
+ * and injector efficiency constant
  */
 public class LitersPerHourSensor : CoreSensor
 {
@@ -71,6 +72,7 @@ public class LitersPerHourSensor : CoreSensor
 	 */
     public void OnSensorChange(Sensor s)
     {
+        TimeStamp = DateTimeMs.Now;
         Logger.trace("LitersPerHour", "rpm:"+rpm.Value + "ipw:"+ipw.Value);
         // liters per second
         Value = rpm.Value/60 * cylinders * ipw.Value * 0.001 * injectorccpm/60 / 1000;
