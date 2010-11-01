@@ -27,7 +27,11 @@ public class CommonSensors : SensorProvider
 
     public void Activate(SensorRegistry registry)
     {
+
         registry.Add(new DistanceSensor());
+
+        registry.Add(new FuelConsumedSensor());
+        
     }
 }
 }

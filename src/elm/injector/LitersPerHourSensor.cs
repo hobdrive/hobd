@@ -36,7 +36,9 @@ public class LitersPerHourSensor : CoreSensor
     public override void NotifyAddListener(Action<Sensor> listener)
     {
         base.NotifyAddListener(listener);
-        if (listenerCount > 0){
+        if (listenerCount == 1)
+        {
+            Logger.trace("LitersPerHour", "Register");
             ipw = registry.Sensor("InjectorPulseWidth");
             rpm = registry.Sensor("RPM");
             registry.AddListener(ipw, OnSensorChange, ListenInterval);
@@ -47,7 +49,9 @@ public class LitersPerHourSensor : CoreSensor
     public override void NotifyRemoveListener(Action<Sensor> listener)
     {
         base.NotifyRemoveListener(listener);
-        if (listenerCount == 0){
+        if (listenerCount == 0)
+        {
+            Logger.trace("LitersPerHour", "Unregister");
             registry.RemoveListener(OnSensorChange);
         }
     }
