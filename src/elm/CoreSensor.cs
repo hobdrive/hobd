@@ -15,7 +15,7 @@ public class CoreSensor : Sensor
     }
         
     public virtual double Value {get; protected set;}
-    public DateTime TimeStamp {get; internal set;}
+    public long TimeStamp {get; internal set;}
     
     public virtual string ID { get; internal set; }
     public virtual string Name { get; internal set; }

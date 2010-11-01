@@ -10,7 +10,7 @@ namespace hobd
 public class DistanceSensor : CoreSensor, IAccumulatorSensor
 {
     public static string MeterUnits = "m.";
-    DateTime prevStamp;
+    long prevStamp;
     bool firstRun = true;
 
     public int ListenInterval{get; set;}
@@ -38,7 +38,7 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
             firstRun = false;
             return;
         }
-        Value += speed.Value * 1000 / 3600 * (TimeStamp-prevStamp).TotalMilliseconds / 1000;
+        Value += speed.Value * 1000 / 3600 * (TimeStamp-prevStamp) / 1000;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }

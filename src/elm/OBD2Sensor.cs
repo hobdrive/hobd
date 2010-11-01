@@ -21,7 +21,7 @@ public class OBD2Sensor : CoreSensor
     {
         this.dataraw = dataraw;
         this.Value = obdValue(this);
-        this.TimeStamp = DateTime.Now;
+        this.TimeStamp = DateTimeMs.Now;
         registry.TriggerListeners(this);
     }
     

@@ -12,7 +12,7 @@ public interface Sensor
 {
     double Value{get;}
 
-    DateTime TimeStamp{get;}
+    long TimeStamp{get;}
     
     string ID{get;}
 
