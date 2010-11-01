@@ -54,7 +54,6 @@ public class ConfigData
         this.Port = "COM1";
         this.LogLevel = "ERROR";
         this.Vehicle = "OBD-II compatible, 1.6l";
-        this.vehicle_files.Add("default.vehicles");
 
         this.file = "config.xml";
         
@@ -67,6 +66,7 @@ public class ConfigData
     public ConfigData()
     {
         init();
+        this.vehicle_files.Add("default.vehicles");
     }
     
     public ConfigData(string file)
