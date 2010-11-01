@@ -153,10 +153,11 @@ public class SensorRegistry
 	    lock(sync_listener)
 	    {
     	    SensorListener sl = activeSensors[sensor];
-	        sl.listeners.RemoveAll((g) => {return g == listener;});
+	        var removed = sl.listeners.RemoveAll((g) => {return g == listener;});
+	        if (removed > 0)
+                sensor.NotifyRemoveListener(listener);
 	        if(sl.listeners.Count == 0)
 	            activeSensors.Remove(sensor);
-            sensor.NotifyRemoveListener(listener);
             activeSensors_array = null;
 	    }
 	}
@@ -169,8 +170,9 @@ public class SensorRegistry
 	    lock(sync_listener)
 	    {
 	        foreach (var sl in activeSensors.Values.ToArray()) {
-                sl.listeners.RemoveAll((g) => {return g == listener;});
-                sl.sensor.NotifyRemoveListener(listener);
+                var removed = sl.listeners.RemoveAll((g) => {return g == listener;});
+    	        if (removed > 0)
+                    sl.sensor.NotifyRemoveListener(listener);
     	        if(sl.listeners.Count == 0)
     	            activeSensors.Remove(sl.sensor);
 	        }
