@@ -129,7 +129,8 @@ public class OBD2Engine : Engine
                         
                     currentSensorListener = sls[currentSensorIndex];
                     
-                    if (nextReadings == null || nextReadings.Length < sls.Length){
+                    // recreate reading timers if layout was changed!
+                    if (nextReadings == null || nextReadings.Length != sls.Length){
                         nextReadings = new long[sls.Length];
                     }
                     long nextReading = nextReadings[currentSensorIndex];
