@@ -117,6 +117,7 @@
     <EmbeddedResource Include="Images\config.jpg" />
     <EmbeddedResource Include="Images\icon_bt.png" />
     <EmbeddedResource Include="Images\icon_com.png" />
+    <EmbeddedResource Include="Images\hobd.ico" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

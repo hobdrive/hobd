@@ -89,6 +89,10 @@ namespace hobd
             
             this.theForm.Text = HomePage.Title;
             this.theForm.Menu = null;
+
+            var asm = Assembly.GetExecutingAssembly();
+            var keyName = asm.GetManifestResourceNames().FirstOrDefault(p => p.EndsWith("hobd.ico"));
+            this.theForm.Icon = new Icon(asm.GetManifestResourceStream(keyName));
 #if WINCE
             this.theForm.FormBorderStyle = FormBorderStyle.None;
             this.theForm.WindowState = FormWindowState.Maximized;
