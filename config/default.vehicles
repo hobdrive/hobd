@@ -4,10 +4,12 @@
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.elm.maf.MAFSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
     </obd>
     <liters>1.6</liters>
     <cylinders>4</cylinders>
-    <stoich>14.9</stoich>
+    <stoich>14.7</stoich>
   </vehicle>
 
   <vehicle name="Toyota Matrix/Voltz/Pontiac Vibe 1.8 (1ZZ-FE)">
@@ -16,12 +18,12 @@
       <!-- Sensor definition Order is important! -->
       <sensors>hobd.OBD2Sensors</sensors>
       <sensors>hobd.ToyotaSensors</sensors>
-      <sensors>hobd.InjectorSensors</sensors>
+      <sensors>hobd.elm.injector.InjectorSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
     <liters>1.8</liters>
     <cylinders>4</cylinders>
-    <stoich>14.9</stoich>
+    <stoich>14.7</stoich>
     <injector-ccpm>134.23</injector-ccpm>
   </vehicle>
 

@@ -77,10 +77,13 @@
     <Compile Include="src\elm\common\CommonSensors.cs" />
     <Compile Include="src\elm\common\DistanceSensor.cs" />
     <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
+    <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />    
     <Compile Include="src\elm\CoreSensor.cs" />
     <Compile Include="src\elm\IAccumulatorSensor.cs" />
     <Compile Include="src\elm\injector\InjectorSensors.cs" />
     <Compile Include="src\elm\injector\LitersPerHourSensor.cs" />
+    <Compile Include="src\elm\maf\MAFSensors.cs" />
+    <Compile Include="src\elm\maf\LitersPerHourSensor.cs" />
     <Compile Include="src\elm\SensorProvider.cs" />
     <Compile Include="src\elm\OBD2Sensors.cs" />
     <Compile Include="src\elm\Sensor.cs" />

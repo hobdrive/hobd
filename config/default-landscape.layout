@@ -7,7 +7,7 @@
     <grid rows="60,100,50" cols="150,150,150">
       <item id="RPM" size='large' type='roverbar'/>
       <item id="ShiftPosition" size='small' type='text' period='4000'/>
-      <item id="FuelConsumption_short" size='small' type='chart' period='1000'/>
+      <item id="FuelEconomy_trip" size='small' type='chart'  precision='1'/>
 
       <item/>
       <item id="Speed" size='huge' type='roverbar' period='1000'/>
@@ -25,13 +25,13 @@
       <item id="EngineLoad" size='small' type='text' period='1000'/>
       <item id="LitersPerHour" period='1000' precision='1'/>
 
-      <item id="FuelConsumption_instant" size='normal' type='chart'/>
-      <item id="FuelConsumption_trip" size='huge' type='chart'/>
-      <item id="FuelConsumption_short" size='normal' type='chart'/>
+      <item id="FuelEconomy_instant" size='normal' type='chart' precision='1'/>
+      <item id="FuelEconomy_trip" size='huge' type='chart'  precision='1'/>
+      <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
 
       <item id="DistanceRun" size='normal' type='roverbar' period='10000'/>
       <item/>
-      <item id="FuelConsumed" size='normal' type='text'/>
+      <item id="FuelConsumed" size='normal' type='text' precision='3'/>
     </grid>
   </section>
 
@@ -41,9 +41,9 @@
       <item id="LTFT1" size='normal' type='barchart'/>
       <item/>
 
-      <item id="FuelConsumption_instant" size='normal' type='chart'/>
-      <item id="FuelConsumption_trip" size='huge' type='chart'/>
-      <item id="FuelConsumption_short" size='normal' type='chart'/>
+      <item />
+      <item />
+      <item />
 
       <item id="DistanceRun" size='small' type='roverbar'/>
       <item/>
