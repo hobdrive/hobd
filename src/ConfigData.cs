@@ -53,13 +53,16 @@ public class ConfigData
     {
         this.Port = "COM1";
         this.LogLevel = "ERROR";
-        this.Vehicle = "Default Vehicle";
+        this.Vehicle = "OBD-II compatible, 1.6l";
+        this.vehicle_files.Add("default.vehicles");
+
+        this.file = "config.xml";
         
         DPI = 0;
         Language = "en";
         Theme = "hobd.HOBDTheme";
         Layout = "default-landscape.layout";
-    }    
+    }
 
     public ConfigData()
     {
