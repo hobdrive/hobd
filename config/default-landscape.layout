@@ -23,7 +23,7 @@
     <grid rows="60,100,60" cols="150,150,150">
       <item id="CoolantTemp" size='small' type='text' period='10000'/>
       <item id="EngineLoad" size='small' type='text' period='1000'/>
-      <item/>
+      <item id="LitersPerHour" period='1000' precision='1'/>
 
       <item id="FuelConsumption_instant" size='normal' type='chart'/>
       <item id="FuelConsumption_trip" size='huge' type='chart'/>

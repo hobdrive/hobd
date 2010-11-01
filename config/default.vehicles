@@ -16,6 +16,7 @@
       <sensors>hobd.OBD2Sensors</sensors>
       <sensors>hobd.ToyotaSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
+      <sensors>hobd.InjectorSensors</sensors>
     </obd>
     <liters>1.8</liters>
     <cylinders>4</cylinders>

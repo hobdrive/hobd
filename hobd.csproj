@@ -50,12 +50,15 @@
     <DefineConstants>WINCE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="InTheHand.Net.Personal">
+      <HintPath>lib\wince\InTheHand.Net.Personal.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="InTheHand.Net.Personal">
-      <HintPath>lib\InTheHand.Net.Personal.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions">
@@ -75,6 +78,8 @@
     <Compile Include="src\elm\common\DistanceSensor.cs" />
     <Compile Include="src\elm\CoreSensor.cs" />
     <Compile Include="src\elm\IAccumulatorSensor.cs" />
+    <Compile Include="src\elm\injector\InjectorSensors.cs" />
+    <Compile Include="src\elm\injector\LitersPerHourSensor.cs" />
     <Compile Include="src\elm\SensorProvider.cs" />
     <Compile Include="src\elm\OBD2Sensors.cs" />
     <Compile Include="src\elm\Sensor.cs" />
@@ -124,6 +129,7 @@
     <Folder Include="src\elm" />
     <Folder Include="src\elm\common" />
     <Folder Include="src\elm\gen" />
+    <Folder Include="src\elm\injector" />
     <Folder Include="src\engine" />
     <Folder Include="src\engine" />
     <Folder Include="src\ui" />

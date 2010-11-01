@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
@@ -15,7 +16,15 @@ namespace hobd
         public static Engine engine;
         public static SensorRegistry Registry;
         public static HOBDTheme theme;
-        
+
+        public static NumberFormatInfo DefaultNumberFormat;
+
+        static HOBD()
+        {
+            DefaultNumberFormat = new NumberFormatInfo();
+            DefaultNumberFormat.NumberDecimalSeparator = ".";
+        }
+
         public static string Version {
             get{ 
                 return "0.1";
