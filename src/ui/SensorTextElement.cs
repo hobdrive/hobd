@@ -35,16 +35,18 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         else if (textSize == "large")
             this.Style.FontSize = HOBD.theme.PhoneFontSizeLarge;
         else if (textSize == "huge")
-            this.Style.FontSize = HOBD.theme.PhoneFontSizeExtraLarge;
+            this.Style.FontSize = HOBD.theme.PhoneFontSizeExtraExtraLarge;
         else 
-            this.Style.FontSize = HOBD.theme.PhoneFontSizeNormal;
+            this.Style.FontSize = HOBD.theme.PhoneFontSizeMediumLarge;
 
         string precision = null;
         attrs.TryGetValue("precision", out precision);
-        if (precision != null) {
-            int.TryParse(precision, out this.Precision);
+        if (precision != null) try {
+            this.Precision = int.Parse(precision);
+        }catch(Exception e){
+            Logger.error("SensorTextElement", "init", e);
         }
-            
+
         //var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
     }
 
