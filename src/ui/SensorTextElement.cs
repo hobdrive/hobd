@@ -14,6 +14,7 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
 {
     public string Text {get; set;}
     public string Name = "";
+    public int Precision;
 
     int width;
     int height;
@@ -37,6 +38,12 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
             this.Style.FontSize = HOBD.theme.PhoneFontSizeExtraLarge;
         else 
             this.Style.FontSize = HOBD.theme.PhoneFontSizeNormal;
+
+        string precision = null;
+        attrs.TryGetValue("precision", out precision);
+        if (precision != null) {
+            int.TryParse(precision, out this.Precision);
+        }
             
         //var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
     }

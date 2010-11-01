@@ -116,7 +116,7 @@ namespace hobd
         {
             var sensorUIs = sensorUIMap[sensor];
             foreach (var ui in sensorUIs) {
-                ui.Text = Math.Round(sensor.Value) + sensor.Units;
+                ui.Text = Math.Round(sensor.Value, ui.Precision) + sensor.Units;
             }
             Redraw();
         }
