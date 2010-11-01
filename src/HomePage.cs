@@ -185,6 +185,7 @@ namespace hobd
             try{
                 XmlReaderSettings xrs = new XmlReaderSettings();
                 xrs.IgnoreWhitespace = true;
+                xrs.IgnoreComments = true;
 
                 XmlReader reader = XmlReader.Create(Path.Combine(HOBD.AppPath, HOBD.config.Layout), xrs);
                 reader.Read();

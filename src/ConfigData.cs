@@ -75,6 +75,7 @@ public class ConfigData
         
         XmlReaderSettings xrs = new XmlReaderSettings();
         xrs.IgnoreWhitespace = true;
+        xrs.IgnoreComments = true;
 
         this.file = file;
         XmlReader reader = XmlReader.Create(file, xrs);
@@ -96,9 +97,9 @@ public class ConfigData
                     break;
                 case "vehicles":
                     var v_file = reader.ReadElementContentAsString();
+                    this.vehicle_files.Add(v_file);
                     try{
                         ReadVehicles(v_file);
-                        this.vehicle_files.Add(v_file);
                     }catch(Exception e){
                         Logger.error("ConfigData", "fault reading vehicle from " + v_file, e);
                     }
@@ -136,6 +137,7 @@ public class ConfigData
     {
         XmlReaderSettings xrs = new XmlReaderSettings();
         xrs.IgnoreWhitespace = true;
+        xrs.IgnoreComments = true;
 
         XmlReader reader = XmlReader.Create(Path.Combine(Path.GetDirectoryName(file), vfile), xrs);
         
