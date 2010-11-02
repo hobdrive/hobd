@@ -60,9 +60,7 @@
       <name>STFT1</name>      <unit>%</unit>      <description>Short term fuel trim</description>
     </description>
     <description lang="ru">
-      <name>STFT1</name>
-      <unit>%</unit>
-      <description>Кратковременная топливная коррекция</description>
+      <name>STFT1</name>      <unit>%</unit>      <description>Кратковременная топливная коррекция</description>
     </description>
     <address> <byte>0x06</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
@@ -123,21 +121,22 @@
   </parameter>
 
   <parameter id="RPM">
+    <description lang="en">
+      <name>RPM</name>      <unit>rpm</unit>      <description>Engine rotations per minute</description>
+    </description>
     <description lang="ru">
-      <name>RPM</name>
-      <unit>об/мин</unit>
-      <description>Обороты двигателя</description>
+      <name>RPM</name>      <unit>об/мин</unit> <description>Обороты двигателя</description>
     </description>
     <address> <byte>0x0C</byte> </address>
     <value> (get(0)*256 + get(1)) / 4 </value>
   </parameter>
 
   <parameter id="Speed">
-    <description lang="ru">
-      <name>Скорость</name><unit>км/час</unit><description>Скорость автомобиля</description>
-    </description>
     <description lang="en">
       <name>Speed</name><unit>km/h</unit><description>Vehicle speed</description>
+    </description>
+    <description lang="ru">
+      <name>Скорость</name><unit>км/час</unit><description>Скорость автомобиля</description>
     </description>
     <address> <byte>0x0D</byte> </address>
     <value> get(0x00) </value>
@@ -152,40 +151,44 @@
   </parameter>
 
   <parameter id="TimingAdvance">
+    <description>
+      <name>Timing Advance</name>     <unit>°</unit>      <description>Ignition timing advance</description>
+    </description>
     <description lang="ru">
-      <name>TimingAdvance</name>
-      <unit>°</unit>
-      <description>Угол опережения зажигания</description>
+      <name>TimingAdvance</name>      <unit>°</unit>      <description>Угол опережения зажигания</description>
     </description>
     <address> <byte>0x0E</byte> </address>
     <value> get(0x00)/2 - 64 </value>
   </parameter>
 
   <parameter id="IntakeAirTemp">
+    <description>
+      <name>Intake Air</name>      <unit>°C</unit>      <description>Intake air temperature</description>
+    </description>
     <description lang="ru">
-      <name>IntakeAirTemp</name>
-      <unit>°C</unit>
-      <description>Температура воздуха на впуске</description>
+      <name>Темп. впуска</name>      <unit>°C</unit>      <description>Температура воздуха на впуске</description>
     </description>
     <address> <byte>0x0F</byte> </address>
     <value> get(0x00) - 40 </value>
   </parameter>
 
   <parameter id="MAF">
+    <description>
+      <name>MAF</name>      <unit>gr/sec</unit>      <description>Mass air flow</description>
+    </description>
     <description lang="ru">
-      <name>MAF</name>
-      <unit>гр/сек</unit>
-      <description>Расход воздуха на впуске</description>
+      <name>MAF</name>      <unit>гр/сек</unit>      <description>Расход воздуха на впуске</description>
     </description>
     <address> <byte>0x10</byte> </address>
     <value> ((get(0)*256)+get(1)) / 100 </value>
   </parameter>
 
   <parameter id="ThrottlePosition">
+    <description>
+      <name>Throttle</name>      <unit>%</unit>      <description>Throttle position</description>
+    </description>
     <description lang="ru">
-      <name>Throttle Position</name>
-      <unit>%</unit>
-      <description>Положение дросельной заслонки</description>
+      <name>Заслонка</name>      <unit>%</unit>      <description>Положение дросельной заслонки</description>
     </description>
     <address> <byte>0x11</byte> </address>
     <value> get(0)*100 / 255 </value>
@@ -326,10 +329,11 @@
   </parameter>
 
   <parameter id="AirTemp">
+    <description>
+      <name>Air Temp</name>      <unit>°С</unit>      <description>Outside air temperature</description>
+    </description>
     <description lang="ru">
-      <name>AirTemp</name>
-      <unit>°С</unit>
-      <description>Температура окружающей среды</description>
+      <name>Темп. воздуха</name>      <unit>°С</unit>      <description>Температура окружающей среды</description>
     </description>
     <address> <byte>0x46</byte> </address>
     <value> get(0) - 40 </value>
