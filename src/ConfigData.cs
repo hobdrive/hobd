@@ -55,7 +55,7 @@ public class ConfigData
         this.LogLevel = "ERROR";
         this.Vehicle = "OBD-II compatible, 1.6l";
 
-        this.file = "config.xml";
+        this.file = Path.Combine(HOBD.AppPath, "config.xml");
         
         DPI = 0;
         Language = "en";
@@ -66,7 +66,14 @@ public class ConfigData
     public ConfigData()
     {
         init();
-        this.vehicle_files.Add("default.vehicles");
+        // default data init
+        var v_file = "default.vehicles";
+        this.vehicle_files.Add(v_file);
+        try{
+            ReadVehicles(v_file);
+        }catch(Exception e){
+            Logger.error("ConfigData", "fault reading vehicle from " + v_file, e);
+        }
     }
     
     public ConfigData(string file)
