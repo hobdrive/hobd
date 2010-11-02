@@ -15,9 +15,9 @@
     </value>
   </parameter>
 
-  <parameter id="PID_03">
+  <parameter id="FuelSystemStatus">
     <description lang="ru">
-      <name>PID_03</name>
+      <name>Fuel system status</name>
       <unit>-</unit>
       <description>Топливная система, статус</description>
     </description>
@@ -31,7 +31,7 @@
 
   <parameter id="EngineLoad">
     <description lang="en">
-      <name>EngineLoad</name><unit>%</unit><description>Calculated engine load value</description>
+      <name>Engine Load</name><unit>%</unit><description>Calculated engine load value</description>
     </description>
     <description lang="ru">
       <name>Нагрузка</name><unit>%</unit><description>Расчетная нагрузка на двигатель</description>
@@ -86,7 +86,7 @@
     <description lang="ru">
       <name>STFT2</name>      <unit>%</unit>      <description>Кратковременная топливная коррекция банк2</description>
     </description>
-    <address> <byte>0x06</byte> </address>
+    <address> <byte>0x08</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
@@ -97,7 +97,7 @@
     <description lang="ru">
       <name>LTFT2</name>      <unit>%</unit>      <description>Долговременная топливная коррекция банк2</description>
     </description>
-    <address> <byte>0x07</byte> </address>
+    <address> <byte>0x09</byte> </address>
     <value> (get(0)-128) * 100/128 </value>
   </parameter>
 
@@ -183,7 +183,7 @@
 
   <parameter id="ThrottlePosition">
     <description lang="ru">
-      <name>ThrottlePosition</name>
+      <name>Throttle Position</name>
       <unit>%</unit>
       <description>Положение дросельной заслонки</description>
     </description>
@@ -197,27 +197,133 @@
 
   -->
 
-  <parameter id="PID_14">
-    <description lang="ru">
-      <name>PID_14</name>
-      <unit>В</unit>
-      <description>V датчика кислорода №1</description>
+  <parameter id="Oxygen_b1s1">
+    <description>
+      <name>Oxygen bank1 sensor1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x14</byte> </address>
-    <value> get(0) </value>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b1s1_stft">
+    <description>
+      <name>Oxygen bank1 sensor1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x14</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
   </parameter>
 
-  <parameter id="PID_14">
-    <description lang="ru">
-      <name>PID_14</name>
-      <unit>%</unit>
-      <description>Кратковременная топливная коррекция по датчику №1</description>
+  <parameter id="Oxygen_b1s2">
+    <description>
+      <name>Oxygen bank1 sensor2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
-    <address> <byte>0x14</byte> </address>
-    <value> get(1) </value>
+    <address> <byte>0x15</byte> </address>
+    <value> get(0)*0.005 </value>
   </parameter>
-  <!-- 15,16,17 -->
-  <!-- 18,19,1A, 1B - bank2 -->
+  <parameter id="Oxygen_b1s2_stft">
+    <description>
+      <name>Oxygen bank1 sensor2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x15</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b1s3">
+    <description>
+      <name>Oxygen bank1 sensor3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x16</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b1s3_stft">
+    <description>
+      <name>Oxygen bank1 sensor3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x16</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b1s4">
+    <description>
+      <name>Oxygen bank1 sensor4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x17</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b1s4_stft">
+    <description>
+      <name>Oxygen bank1 sensor4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x17</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s1">
+    <description>
+      <name>Oxygen bank2 sensor1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x18</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b2s1_stft">
+    <description>
+      <name>Oxygen bank2 sensor1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x18</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s2">
+    <description>
+      <name>Oxygen bank2 sensor2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x19</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b2s2_stft">
+    <description>
+      <name>Oxygen bank2 sensor2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x19</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s3">
+    <description>
+      <name>Oxygen bank2 sensor3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x1A</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b2s3_stft">
+    <description>
+      <name>Oxygen bank2 sensor3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x1A</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s4">
+    <description>
+      <name>Oxygen bank2 sensor4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+    </description>
+    <address> <byte>0x1B</byte> </address>
+    <value> get(0)*0.005 </value>
+  </parameter>
+  <parameter id="Oxygen_b2s4_stft">
+    <description>
+      <name>Oxygen bank2 sensor4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+    </description>
+    <address> <byte>0x1B</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="RunTime">
+    <description lang="en">
+      <name>Run time</name><unit>sec</unit><description>Run time since engine start</description>
+    </description>
+    <address> <byte>0x1F</byte> </address>
+    <value> get(0)*256 + get(1) </value>
+  </parameter>
 
   <parameter id="AirTemp">
     <description lang="ru">

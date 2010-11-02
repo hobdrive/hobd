@@ -37,18 +37,18 @@
 
   <section name="Sensors">
     <grid rows="60,100,60" cols="150,150,150">
-      <item id="STFT1" size='normal' type='barchart'/>
-      <item id="LTFT1" size='normal' type='barchart'/>
-      <item/>
+      <item id="STFT1" size='large' type='barchart'/>
+      <item id="LTFT1" size='large' type='barchart'/>
+      <item id='RunTime' size='large'/>
 
-      <item />
-      <item />
-      <item />
+      <item id='Oxygen_b1s1' size='large' precision='1'/>
+      <item id='Oxygen_b1s2' size='large' precision='1'/>
+      <item id='MAF' size='large'/>
 
-      <item id="DistanceRun" size='small' type='roverbar'/>
-      <item/>
-      <item id="FuelConsumed" size='small' type='text'/>
-    </grid>
+      <item id='Oxygen_b1s1_stft' size='large'/>
+      <item id='Oxygen_b1s2_stft' size='large'/>
+      <item id='ThrottlePosition' size='large'/>
+    </grid> 
   </section>
 
 <ui>
