@@ -157,7 +157,10 @@ namespace hobd
             statusField.Text = status;
             
             if (state == Engine.STATE_INIT || state == Engine.STATE_ERROR )
+            {
+                HOBD.Registry.TriggerSuspend();
                 Redraw();
+            }
         }
         
         void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
@@ -332,9 +335,11 @@ namespace hobd
                                Rows = new MeasureDefinition[] { layoutY/3, layoutY/3, layoutY/3 }
                            };
             
-            grid[0, 0] = new DynamicElement("Exit") { Style = style, HandleTapAction = () => Application.Exit() };
+            grid[0, 0] = new DynamicElement("Reset trips") { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
             grid[1, 0] = new DynamicElement("Configuration") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
-            grid[2, 0] = new DynamicElement("TODO") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
+            grid[2, 0] = new DynamicElement("Exit") { Style = style, HandleTapAction = () => Application.Exit() };
+
+            grid[2, 1] = new DynamicElement("Minimize") { Style = style, HandleTapAction = () => { /* TODO */ } };
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
 
             /*
