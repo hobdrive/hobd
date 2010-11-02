@@ -63,8 +63,8 @@ namespace hobd
             this.SectionChanged(this.panorama, this.panorama.CurrentSection);
             
             panorama.AddSection(this.CreateMenuSection());
-            panorama.AddSection(this.CreateFeaturedSection());
-            panorama.AddSection(this.CreateHorizontalFeaturedSection());
+            //panorama.AddSection(this.CreateFeaturedSection());
+            //panorama.AddSection(this.CreateHorizontalFeaturedSection());
             
             panorama.OnSectionChange += this.SectionChanged;
             
@@ -120,7 +120,7 @@ namespace hobd
         {
             var sensorUIs = sensorUIMap[sensor];
             foreach (var ui in sensorUIs) {
-                ui.Text = Math.Round(sensor.Value, ui.Precision) + sensor.Units;
+                ui.Text = sensor.Value.ToString("F"+ui.Precision);
             }
             Redraw();
         }
@@ -324,7 +324,7 @@ namespace hobd
         {
            
             var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
-            var section = new TouchPanoramaSection("welcome");
+            var section = new TouchPanoramaSection("Settings");
 
             var grid = new Grid
                            {
@@ -332,9 +332,9 @@ namespace hobd
                                Rows = new MeasureDefinition[] { layoutY/3, layoutY/3, layoutY/3 }
                            };
             
-            grid[0, 0] = new DynamicElement("panorama") { Style = style, HandleTapAction = () => Application.Exit() };
-            grid[1, 0] = new DynamicElement("gestures") { Style = style, HandleTapAction = () => this.Navigate("one") };
-            grid[2, 0] = new DynamicElement("list page") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
+            grid[0, 0] = new DynamicElement("Exit") { Style = style, HandleTapAction = () => Application.Exit() };
+            grid[1, 0] = new DynamicElement("Configuration") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
+            grid[2, 0] = new DynamicElement("TODO") { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
             //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
 
             /*
