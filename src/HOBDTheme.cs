@@ -45,12 +45,12 @@ public class HOBDTheme
 
     public virtual Color PhoneSubtleBrush
     {
-        get { return Color.FromArgb( unchecked( (int)0xA0606060 )); }
+        get { return Color.FromArgb( unchecked( (int)0xA0706060 )); }
     }
 
     public virtual Color PhoneContrastForegroundBrush
     {
-        get { return Color.White; }
+        get { return Color.FromArgb( unchecked( (int)0xFFFFF0F0 )); }
     }
 
     #endregion
@@ -316,38 +316,30 @@ public class HOBDTheme
 
     public virtual TextStyle PhoneTextPanoramaTitleStyle
     {
-        get
-        {
-            return new TextStyle(this.PhoneFontFamilyLight, 65, this.PhoneSubtleBrush);
-        }
+        get{ return new TextStyle(this.PhoneFontFamilyLight, 65, this.PhoneSubtleBrush); }
     }
     
     public virtual TextStyle PhoneTextPanoramaSubTitleStyle
     {
-        get
-        {
-            return new TextStyle(this.PhoneFontFamilyLight, PhoneFontSizeExtraLarge, this.PhoneSubtleBrush);
-        }
+        get{ return new TextStyle(this.PhoneFontFamilyLight, PhoneFontSizeExtraLarge, this.PhoneSubtleBrush); }
     }
     
 
     public virtual TextStyle PhoneTextPanoramaSectionTitleStyle
     {
-        get
-        {
-            return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeExtraLarge, this.PhoneForegroundBrush);
-        }
+        get{ return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeExtraLarge, this.PhoneForegroundBrush); }
     }
     
     public virtual TextStyle PhoneTextStatusStyle
     {
-        get
-        {
-            return new TextStyle(this.PhoneTextLargeStyle.FontFamily,
-                                 this.PhoneFontSizeSmall,
-                                 this.PhoneSubtleBrush);
-        }
+        get{ return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeSmall, this.PhoneSubtleBrush); }
     }
+
+    public virtual TextStyle PhoneTextSensorDescrStyle
+    {
+        get{ return new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeSmall, Color.FromArgb( unchecked( (int)0xC0A09090 ))); }
+    }
+
 
     public virtual Color PanoramaNormalBrush
     {
