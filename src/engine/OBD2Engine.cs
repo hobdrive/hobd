@@ -237,7 +237,11 @@ public class OBD2Engine : Engine
                 if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
                 {
                     // valid reply - set value, raise listeners
-                    osensor.SetValue(dataraw);
+                    try{
+                        osensor.SetValue(dataraw);
+                    }catch(Exception e){
+                        Logger.error("OBD2Engine", "Fail parsing sensor value", e);
+                    }
                     subsequentErrors = 0;
                 }else{
                     // search for known errors, increment counters
