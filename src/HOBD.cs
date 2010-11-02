@@ -62,7 +62,7 @@ namespace hobd
             int handle = FindWindow(null, HomePage.Title);
             if (handle != 0)
             {
-                MessageBox.Show("handle: "+handle);
+                Logger.log("INFO", "HOBD", "App bring to foreground", null);
                 SetForegroundWindow(handle);
                 return;
             }

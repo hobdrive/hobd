@@ -118,17 +118,17 @@ public class HOBDTheme
 
     public virtual int PhoneFontSizeExtraLarge
     {
-        get { return 25; }
+        get { return 30; }
     }
 
     public virtual int PhoneFontSizeExtraExtraLarge
     {
-        get { return 31; }
+        get { return 40; }
     }
 
     public virtual int PhoneFontSizeHuge
     {
-        get { return 93; }
+        get { return 60; }
     }
 
     #endregion

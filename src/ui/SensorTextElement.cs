@@ -39,6 +39,8 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
             this.Style.FontSize = HOBD.theme.PhoneFontSizeLarge;
         else if (textSize == "huge")
             this.Style.FontSize = HOBD.theme.PhoneFontSizeExtraExtraLarge;
+        else if (textSize == "giant")
+            this.Style.FontSize = HOBD.theme.PhoneFontSizeHuge;            
         else 
             this.Style.FontSize = HOBD.theme.PhoneFontSizeMediumLarge;
 

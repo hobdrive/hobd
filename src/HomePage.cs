@@ -272,7 +272,7 @@ namespace hobd
                 if (sensor != null)
                 {
                     var sensorItem = new SensorTextElement(sensor, attrs);
-                    sensorItem.HandleTapAction = () => { sensorItem.Text = "clicked"; Redraw(); };
+                    sensorItem.HandleTapAction = () => { sensorItem.Text = sensor.Description; Redraw(); };
                     
                     List<SensorTextElement> ui_list = null;
                     sensorUIMap.TryGetValue(sensor, out ui_list);

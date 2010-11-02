@@ -87,7 +87,7 @@
  *.layout
 --------------
     item:
-      size: small, normal, large, huge
+      size: small, normal, large, huge, giant
       precision: number of digits in floating numbers
 
 
