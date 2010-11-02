@@ -26,7 +26,9 @@ public class LitersPerHourSensor : CoreSensor
         
         try{
             this.stoich = double.Parse(registry.VehicleParameters["stoich"], HOBD.DefaultNumberFormat);
-        }catch(Exception e){}
+        }catch(Exception e){
+            Logger.info("LitersPerHourSensor", "Using default stoich ratio", e);
+        }
     }
 
     public override void NotifyAddListener(Action<Sensor> listener)

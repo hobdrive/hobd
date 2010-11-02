@@ -37,6 +37,11 @@ public class Logger
         if (INFO) log("INFO ", comp, msg, null);
     }
 
+    public static void info(String comp, String msg, Exception e)
+    {
+        if (INFO) log("INFO ", comp, msg, e);
+    }
+
     public static void trace(String comp, String msg)
     {
         if (TRACE) log("TRACE", comp, msg, null);
