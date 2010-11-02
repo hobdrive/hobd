@@ -14,16 +14,19 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
 {
     public string Text {get; set;}
     public string Name = "";
-    public int Precision;
+    public string Units = "";
+    public int Precision = 0;
 
     int width;
     int height;
 
     public SensorTextElement(Sensor sensor, Dictionary<string, string> attrs)
     {
-        this.Text = attrs["id"];
+        this.Text = "-";
 
         this.Name = sensor.Name;
+
+        this.Units = sensor.Units;
 
         this.Style = HOBD.theme.PhoneTextNormalStyle;
 
@@ -64,9 +67,17 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         //drawingGraphics.Style(this.Style);
         //drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
         
-        drawingGraphics.MoveTo(0,0).Style(HOBD.theme.PhoneTextSmallStyle).DrawCenterText(this.Name, width, 20);
+        drawingGraphics
+          .MoveTo(0, 0)
+          .Style(HOBD.theme.PhoneTextSensorDescrStyle)
+          .DrawCenterText(this.Name + "("+this.Units+")", width, 20);
 
-        drawingGraphics.MoveTo(0,0).Style(this.Style).DrawCenterText(this.Text, width, height);
+        drawingGraphics
+          .MoveTo(0, 0)
+          .Style(this.Style)
+          .DrawCenterText(this.Text, width, height);
+
+        //drawingGraphics.MoveTo(0, height-20).Style(HOBD.theme.PhoneTextNormalStyle).DrawText(this.Units);
     }
 
     public void HandleTap(System.Drawing.Point point)
