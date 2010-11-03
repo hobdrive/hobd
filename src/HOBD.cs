@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Globalization;
 using System.Windows.Forms;
@@ -55,6 +56,16 @@ namespace hobd
 		 private static extern bool SetForegroundWindow(int handle); 
 #endif
 
+        static Dictionary<string, string> i18n = new Dictionary<string, string>();
+
+        public static string t(string v)
+        {
+            string lv = null;
+            if (!i18n.TryGetValue(v, out lv))
+                lv = v;
+            return lv;
+        }
+        
         [STAThread]
         private static void Main(string[] args)
         {
@@ -78,6 +89,27 @@ namespace hobd
                 }
                 
                 Logger.SetLevel(config.LogLevel);
+
+                
+                try{
+                    var sr = new StreamReader(new FileStream( Path.Combine(HOBD.AppPath, config.Language + ".lang"), FileMode.Open));
+                    while(true)
+                    {
+                        var line = sr.ReadLine();
+                        if (line == null)
+                            break;
+                        var idx = line.IndexOf("=");
+                        if (idx != -1){
+                           var key = line.Substring(0, idx).Trim();
+                           var val = line.Substring(idx+1).Trim();
+                           //Logger.trace("HOBD", key + val);
+                           i18n.Add(key, val);
+                        }
+                    }
+                    sr.Close();
+                }catch(Exception e){
+                    Logger.error("HOBD", "i18n init", e);
+                }
                 
                 var vehicle = config.GetVehicle(config.Vehicle);
 

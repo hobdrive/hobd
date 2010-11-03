@@ -3,11 +3,11 @@
   will work fine by using DPI automatic scaling
 -->
 <ui>
-  <section name="General Info">
+  <section name="General">
     <grid rows="60,100,50" cols="150,150,150">
       <item id="RPM" size='large' type='roverbar'/>
       <item id="ShiftPosition" size='small' type='text' period='4000'/>
-      <item id="FuelEconomy_trip" size='small' type='chart'  precision='1'/>
+      <item id="FuelEconomy_trip" size='normal' type='chart'  precision='1'/>
 
       <item/>
       <item id="Speed" size='huge' type='roverbar' period='1000'/>
@@ -26,12 +26,12 @@
       <item id="LitersPerHour" period='1000' precision='1'/>
 
       <item id="FuelEconomy_instant" size='normal' type='chart' precision='1'/>
-      <item id="FuelEconomy_trip" size='huge' type='chart'  precision='1'/>
+      <item id="FuelEconomy_trip" size='giant' type='chart'  precision='1'/>
       <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
 
-      <item id="DistanceRun" size='normal' type='roverbar' period='10000'/>
+      <item id="DistanceRun" size='large' type='roverbar' period='10000'/>
       <item/>
-      <item id="FuelConsumed" size='normal' type='text' precision='3'/>
+      <item id="FuelConsumed" size='large' type='text' precision='3'/>
     </grid>
   </section>
 

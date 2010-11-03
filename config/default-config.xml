@@ -12,7 +12,10 @@
 
   <drivehub-token>yourtoken</drivehub-token>
 
-  <!-- <dpi>92</dpi> -->
+  <!-- explicit DPI to choose display size -->
+  <dpi>92</dpi>
+  <!-- localization -->
+  <language>en</language>
   <theme>hobd.HOBDTheme</theme>
   <layout>default-landscape.layout</layout>
 
