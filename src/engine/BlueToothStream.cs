@@ -69,7 +69,11 @@ public class BluetoothStream: IStream
                 }
             }
         }catch(Exception e){
-            bluetoothClient = null;
+            if (bluetoothClient != null)
+            {
+                bluetoothClient.Close();
+                bluetoothClient = null;
+            }
             throw e;
         }
     }
