@@ -10,7 +10,7 @@
       <item id="FuelEconomy_trip" size='normal' type='chart' precision='1'/>
 
       <item/>
-      <item id="Speed" size='huge' type='roverbar' period='1000'/>
+      <item id="Speed" size='giant' type='roverbar' period='1000'/>
       <item/>
 
       <item id="CoolantTemp" size='small' type='text' period='10000'/>
