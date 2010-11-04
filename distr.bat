@@ -4,7 +4,7 @@ c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=WINCE /p:Configu
 
 :skip
 
-set VERSION=0.1
+set VERSION=0.2
 set Z="C:\Program Files\7-Zip\7z.exe"
 
 mkdir distr
@@ -15,6 +15,7 @@ copy bin\Release\hobd.exe distr\win32
 copy bin\Release\Fleux.dll distr\win32
 copy lib\win32\InTheHand.Net.Personal.dll distr\win32
 copy config\default* distr\win32
+copy config\*.lang distr\win32
 copy src\elm\gen\*.ecuxml distr\win32
 copy README.MD distr\win32
 del distr\win32\log.txt
@@ -25,6 +26,7 @@ copy bin\Release_ce\Fleux.dll distr\wince
 copy lib\wince\InTheHand.Net.Personal.dll distr\wince
 copy config\default* distr\wince
 copy src\elm\gen\*.ecuxml distr\wince
+copy config\*.lang distr\wince
 copy README.MD distr\wince
 del distr\wince\log.txt
 del distr\wince\config.xml
