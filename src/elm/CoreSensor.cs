@@ -18,12 +18,51 @@ public class CoreSensor : Sensor
     public long TimeStamp {get; internal set;}
     
     public virtual string ID { get; internal set; }
-    public virtual string Name { get; internal set; }
-    public virtual string Description { get; internal set; }
-    public virtual string Units { get; internal set; }
+    
+    Dictionary<string, string> name = new Dictionary<string, string>();
+    public virtual string Name { get{ return name["en"];} internal set{ name["en"] = value; } }
+    public virtual string GetName(string lang)
+    {
+        if (!name.ContainsKey(lang)) lang = "en";
+        return name[lang];
+    }
+    internal void SetName(string lang, string val)
+    {
+        if (lang == "" || lang == null) lang = "en";
+        name.Add(lang, val);
+        if (!name.ContainsKey("en"))
+            name.Add("en", val);
+    }
+
+
+    Dictionary<string, string> description = new Dictionary<string, string>();
+    public virtual string Description { get{ return description["en"];} internal set{ description["en"] = value; } }
     public virtual string GetDescription(string lang)
     {
-        return Description;
+        if (!description.ContainsKey(lang)) lang = "en";
+        return description[lang];
+    }
+    internal void SetDescription(string lang, string val)
+    {
+        if (lang == "" || lang == null) lang = "en";
+        description.Add(lang, val);
+        if (!description.ContainsKey("en"))
+            description.Add("en", val);
+    }
+
+    Dictionary<string, string> units = new Dictionary<string, string>();
+    public virtual string Units { get{ return units["en"];} internal set{ units["en"] = value; } }
+    public virtual string GetUnits(string lang)
+    {
+        if (!units.ContainsKey(lang)) lang = "en";
+        return units[lang];
+    }
+    internal void SetUnits(string lang, string val)
+    {
+        if (lang == "" || lang == null) lang = "en";
+        units.Add(lang, val);
+        if (!units.ContainsKey("en"))
+            units.Add("en", val);
     }
     
     public virtual IEnumerable<string> Aliases{ get; internal set; }
