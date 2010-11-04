@@ -24,9 +24,13 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     {
         this.Text = "-";
 
-        this.Name = sensor.Name;
+        this.Name = sensor.GetName(HOBD.config.Language);
 
-        this.Units = sensor.Units;
+        this.Units = sensor.GetUnits(HOBD.config.Language);
+
+        if (this.Units.StartsWith("convertible")){
+            this.Units = HOBD.t(this.Units);
+        }
 
         this.Style = HOBD.theme.PhoneTextNormalStyle;
 

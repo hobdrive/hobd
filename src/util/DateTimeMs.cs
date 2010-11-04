@@ -45,6 +45,9 @@ public class DateTimeMs
        }
     }
 
+    /**
+     * Number of milliseconds from 01.01.0001
+     */
     public static long Now
     {
        get
