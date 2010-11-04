@@ -7,3 +7,21 @@ Reset trips   = Сброс поездки
 Configuration = Настройки портов
 Exit          = Выйти
 Minimize      = Свернуть
+
+convertible.celsius = °С
+convertible.fahrenheit = F
+
+convertible.kph    = км/ч
+convertible.mph    = миль/ч
+
+convertible.lphour = л/ч
+convertible.mphour = миль/ч
+
+convertible.lph = л/100км
+convertible.mpg = миль/гал
+
+convertible.meters = м.
+convertible.miles = миль
+
+convertible.liters = л.
+convertible.gallons = галл.

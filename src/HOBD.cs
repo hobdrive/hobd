@@ -24,10 +24,11 @@ namespace hobd
         {
             DefaultNumberFormat = new NumberFormatInfo();
             DefaultNumberFormat.NumberDecimalSeparator = ".";
+            DefaultNumberFormat.PositiveInfinitySymbol = "∞";
         }
 
         public static string Version {
-            get{ 
+            get{
                 return "0.1";
             }
         }
@@ -65,6 +66,30 @@ namespace hobd
                 lv = v;
             return lv;
         }
+
+        private static void LoadLang(string lang)
+        {
+            try{
+                var sr = new StreamReader(new FileStream( Path.Combine(HOBD.AppPath, lang + ".lang"), FileMode.Open));
+                while(true)
+                {
+                    var line = sr.ReadLine();
+                    if (line == null)
+                        break;
+                    var idx = line.IndexOf("=");
+                    if (idx != -1){
+                       var key = line.Substring(0, idx).Trim();
+                       var val = line.Substring(idx+1).Trim();
+                       //Logger.trace("HOBD", key + val);
+                       i18n.Remove(key);
+                       i18n.Add(key, val);
+                    }
+                }
+                sr.Close();
+            }catch(Exception e){
+                Logger.error("HOBD", "i18n init", e);
+            }
+        }
         
         [STAThread]
         private static void Main(string[] args)
@@ -90,27 +115,12 @@ namespace hobd
                 
                 Logger.SetLevel(config.LogLevel);
 
-                
-                try{
-                    var sr = new StreamReader(new FileStream( Path.Combine(HOBD.AppPath, config.Language + ".lang"), FileMode.Open));
-                    while(true)
-                    {
-                        var line = sr.ReadLine();
-                        if (line == null)
-                            break;
-                        var idx = line.IndexOf("=");
-                        if (idx != -1){
-                           var key = line.Substring(0, idx).Trim();
-                           var val = line.Substring(idx+1).Trim();
-                           //Logger.trace("HOBD", key + val);
-                           i18n.Add(key, val);
-                        }
-                    }
-                    sr.Close();
-                }catch(Exception e){
-                    Logger.error("HOBD", "i18n init", e);
+                HOBD.LoadLang("en");
+                if (config.Language != "en")
+                {
+                    HOBD.LoadLang(config.Language);
                 }
-                
+
                 var vehicle = config.GetVehicle(config.Vehicle);
 
                 if (vehicle == null){

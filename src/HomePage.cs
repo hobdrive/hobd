@@ -125,7 +125,7 @@ namespace hobd
         {
             var sensorUIs = sensorUIMap[sensor];
             foreach (var ui in sensorUIs) {
-                ui.Text = sensor.Value.ToString("F"+ui.Precision);
+                ui.Text = sensor.Value.ToString("F"+ui.Precision, HOBD.DefaultNumberFormat);
             }
             Redraw();
         }
