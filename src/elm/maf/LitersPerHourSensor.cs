@@ -13,10 +13,6 @@ public class LitersPerHourSensor : CoreSensor
         
     public LitersPerHourSensor()
     {
-        ID = "LitersPerHour";
-        Name = "Liters Per Hour";
-        Description = "Liter Per Hour (MAF based)";
-        Units = "l/h";
         ListenInterval = 0;
     }
 

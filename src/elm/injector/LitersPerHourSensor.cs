@@ -18,10 +18,6 @@ public class LitersPerHourSensor : CoreSensor
         
     public LitersPerHourSensor()
     {
-        ID = "LitersPerHour";
-        Name = "Liters Per Hour";
-        Description = "Liter Per Hour (injector based)";
-        Units = "l/h";
         ListenInterval = 0;
     }
 
@@ -31,7 +27,6 @@ public class LitersPerHourSensor : CoreSensor
         
         this.cylinders = int.Parse(registry.VehicleParameters["cylinders"]);
         this.injectorccpm = double.Parse(registry.VehicleParameters["injector-ccpm"], HOBD.DefaultNumberFormat);
-        Logger.trace("LitersPerHour", "cyl:"+this.cylinders + "ccpm:"+this.injectorccpm);
     }
 
     public override void NotifyAddListener(Action<Sensor> listener)
@@ -39,7 +34,6 @@ public class LitersPerHourSensor : CoreSensor
         base.NotifyAddListener(listener);
         if (listenerCount == 1)
         {
-            Logger.trace("LitersPerHour", "Register");
             ipw = registry.Sensor("InjectorPulseWidth");
             rpm = registry.Sensor("RPM");
             registry.AddListener(ipw, OnSensorChange, ListenInterval);
@@ -52,7 +46,6 @@ public class LitersPerHourSensor : CoreSensor
         base.NotifyRemoveListener(listener);
         if (listenerCount == 0)
         {
-            Logger.trace("LitersPerHour", "Unregister");
             registry.RemoveListener(OnSensorChange);
         }
     }
@@ -73,7 +66,6 @@ public class LitersPerHourSensor : CoreSensor
     public void OnSensorChange(Sensor s)
     {
         TimeStamp = DateTimeMs.Now;
-        Logger.trace("LitersPerHour", "rpm:"+rpm.Value + "ipw:"+ipw.Value);
         // liters per second
         Value = rpm.Value/60 * cylinders * ipw.Value * 0.001 * injectorccpm/60 / 1000;
         // to hour
