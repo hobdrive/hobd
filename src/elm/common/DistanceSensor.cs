@@ -9,7 +9,6 @@ namespace hobd
  */
 public class DistanceSensor : CoreSensor, IAccumulatorSensor
 {
-    public static string MeterUnits = "m.";
     long prevStamp;
     bool firstRun = true;
 
@@ -17,17 +16,13 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
         
     public DistanceSensor()
     {
-        ID = "DistanceRun";
-        Name = "DistanceRun";
-        Description = "Total run distance";
-        Units = DistanceSensor.MeterUnits;
         ListenInterval = 5000;
     }
 
     public override void SetRegistry(SensorRegistry registry)
     {
         base.SetRegistry(registry);
-        registry.AddListener("Speed", OnSpeedChange, ListenInterval);
+        registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, ListenInterval);
     }
 
     public void OnSpeedChange(Sensor speed)

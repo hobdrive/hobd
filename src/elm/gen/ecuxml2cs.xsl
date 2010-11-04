@@ -17,10 +17,6 @@ namespace hobd{
 
 using System;
 
-/**
-  List of PIDs generated:
-<xsl:apply-templates select='/parameters/parameter' mode='list'/>
-*/
 public class <xsl:value-of select='$class'/> : SensorProvider
 {
 
@@ -35,7 +31,7 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 
     public string GetDescription()
     {
-        return "<xsl:value-of select='$class'/>";
+        return "<xsl:value-of select='/parameters/@description'/>";
     }
     
     public string GetDescription(string lang)
@@ -45,26 +41,64 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 
     public void Activate(SensorRegistry registry)
     {
+        CoreSensor s;
         <xsl:apply-templates select='/parameters/parameter'/>
     }
 
+    <xsl:apply-templates select='/parameters/parameter' mode='const'/>
 }
 
 }
+/**
+  List of PIDs generated:
+<xsl:apply-templates select='/parameters/parameter' mode='list'/>
+*/
 </xsl:template>
 
-<xsl:template match='parameter'>
-        // <xsl:value-of select='description/name'/>
-        // <xsl:value-of select='description/description'/>
-        registry.Add(new OBD2Sensor()
-                        {
-                            ID = "<xsl:value-of select='@id'/>",
-                            Name = "<xsl:value-of select='description/name'/>",
-                            Description = "<xsl:value-of select='description/name'/>", // !!!
-                            Command = <xsl:value-of select='address/byte'/>,
-                            Units = "<xsl:value-of select='description/unit'/>",
-                            obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit; return <xsl:value-of select='normalize-space(value)'/>; },
-                        });
+<xsl:template match='parameter[address]'>
+        // <xsl:value-of select='@id'/>
+        s = new OBD2Sensor()
+            {
+                obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
+                                    return <xsl:value-of select='normalize-space(value)'/>;
+                                  },
+                ID = "<xsl:value-of select='@id'/>",
+                Command = <xsl:value-of select='address/byte'/>,
+            };
+        <xsl:apply-templates select='description'/>
+        registry.Add(s);
+
+</xsl:template>
+
+<xsl:template match='parameter[class]'>
+        // <xsl:value-of select='@id'/>
+        s = new <xsl:value-of select='class'/>()
+            {
+                ID = "<xsl:value-of select='@id'/>",
+            };
+        <xsl:apply-templates select='description'/>
+        registry.Add(s);
+
+</xsl:template>
+
+<xsl:template match='parameter/description'>
+        s.SetName("<xsl:value-of select='@lang'/>", "<xsl:value-of select='name'/>");
+        s.SetDescription("<xsl:value-of select='@lang'/>", "<xsl:value-of select='translate(description, &apos;&quot;&apos;, "&apos;")'/>");
+        <xsl:if test='unit'>s.SetUnits("<xsl:value-of select='@lang'/>", "<xsl:value-of select='unit'/>");</xsl:if>
+</xsl:template>
+
+<xsl:template match='parameter' mode='const'>
+  <xsl:variable name='cid' select='@id'/>
+  
+  public const string <xsl:choose>
+     <xsl:when test='count(../parameter[@id = $cid]) > 1'>
+       <xsl:value-of select='@id'/>_<xsl:value-of select='count(preceding-sibling::parameter[@id = $cid])'/>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:value-of select='@id'/>
+     </xsl:otherwise>
+  </xsl:choose> = "<xsl:value-of select='@id'/>";
+
 </xsl:template>
 
 <xsl:template match='parameter' mode='list'>

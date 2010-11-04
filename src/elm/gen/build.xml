@@ -6,6 +6,16 @@
     </xslt>
     <xslt in='obd2.ecuxml' out='../OBD2Sensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
+    <xslt in='common.ecuxml' out='../common/CommonSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
+
+    <xslt in='lph_inj.ecuxml' out='../injector/InjectorSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
+    
+    <xslt in='lph_maf.ecuxml' out='../maf/MAFSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
+    
+    
   </target>
 
 </project>

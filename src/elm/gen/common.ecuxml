@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters namespace='Common' description="Common derived sensors">
+  
+  <parameter id="DistanceRun">
+    <description>
+      <name>Distance Run</name>
+      <unit>convertible.meters</unit>
+      <description>Total distance run on trip</description>
+    </description>
+    <description lang="ru">
+      <name>Пробег за поездку</name>
+      <description>Общий пробег за поездку</description>
+    </description>
+    <class>hobd.DistanceSensor</class>
+  </parameter>
+
+  <parameter id="FuelConsumed">
+    <description>
+      <name>Fuel Consumed</name>
+      <unit>convertible.liters</unit>
+      <description>Total fuel consumed</description>
+    </description>
+    <description lang="ru">
+      <name>Топлива израсходовано</name>
+      <description>Общий расход топлива за поездку</description>
+    </description>
+    <class>hobd.FuelConsumedSensor</class>
+  </parameter>
+
+  <parameter id="FuelEconomy_trip">
+    <description>
+      <name>Fuel Economy</name>
+      <unit>convertible.lph</unit>
+      <description>Total fuel economy on trip</description>
+    </description>
+    <description lang="ru">
+      <name>Расход топлива</name>
+      <description>Топливная эффективность за поездку</description>
+    </description>
+    <class>hobd.FuelEconomyTripSensor</class>
+  </parameter>
+
+</parameters>

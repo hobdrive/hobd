@@ -10,7 +10,6 @@ namespace hobd
  */
 public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
 {
-    public static string VolumeUnits = "l.";
     long prevStamp;
     bool firstRun = true;
 
@@ -18,10 +17,6 @@ public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
         
     public FuelConsumedSensor()
     {
-        ID = "FuelConsumed";
-        Name = "Fuel Consumed";
-        Description = "Total fuel consumed";
-        Units = FuelConsumedSensor.VolumeUnits;
         ListenInterval = 2000;
     }
 

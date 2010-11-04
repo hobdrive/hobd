@@ -6,16 +6,11 @@ namespace hobd
 
 public class FuelEconomyTripSensor : CoreSensor
 {
-    public static string EconomyUnits = "l/100km";
     Sensor distance, fuel;
     public int ListenInterval{get; set;}
         
     public FuelEconomyTripSensor()
     {
-        ID = "FuelEconomy_trip";
-        Name = "Fuel Economy";
-        Description = "Total fuel economy on trip";
-        Units = FuelEconomyTripSensor.EconomyUnits;
         ListenInterval = 2000;
     }
 
@@ -24,8 +19,8 @@ public class FuelEconomyTripSensor : CoreSensor
         base.NotifyAddListener(listener);
         if (listenerCount == 1)
         {
-            distance = registry.Sensor("DistanceRun");
-            fuel = registry.Sensor("FuelConsumed");
+            distance = registry.Sensor(CommonSensors.DistanceRun);
+            fuel = registry.Sensor(CommonSensors.FuelConsumed);
             registry.AddListener(distance, OnChange, ListenInterval);
             registry.AddListener(fuel, OnChange, ListenInterval);
         }
