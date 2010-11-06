@@ -1,18 +1,18 @@
 ﻿
-convertible.celsius = °С
-convertible.fahrenheit = F
+celsius = °С
+fahrenheit = F
 
-convertible.kph    = km/h
-convertible.mph    = mph
+kph    = km/h
+mph    = mph
 
-convertible.lph    = l/100km
-convertible.mpg    = mpg
+lph    = l/100km
+mpg    = mpg
 
-convertible.lphour = l/hour
-convertible.mphour = mi/hour
+lphour = l/hour
+ghour = gal/hour
 
-convertible.meters = m.
-convertible.miles  = mi.
+km     = km.
+miles  = mi.
 
-convertible.liters  = l.
-convertible.gallons = gal.
+liters  = l.
+gallons = gal.

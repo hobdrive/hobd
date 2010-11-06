@@ -44,6 +44,7 @@ public class ConfigData
     public string Token {get; set;}
     public int DPI {get; private set;}
     public string Language {get; set;}
+    public string Units {get; set;}
     public string Theme {get; private set;}
     public string Layout {get; private set;}
     
@@ -59,6 +60,7 @@ public class ConfigData
         
         DPI = 0;
         Language = "en";
+        Units = "metric";
         Theme = "hobd.HOBDTheme";
         Layout = "default-landscape.layout";
     }
@@ -123,6 +125,9 @@ public class ConfigData
                     break;
                 case "language":
                     this.Language = reader.ReadElementContentAsString();
+                    break;
+                case "units":
+                    this.Units = reader.ReadElementContentAsString();
                     break;
                 case "theme":
                     this.Theme = reader.ReadElementContentAsString();
@@ -201,6 +206,7 @@ public class ConfigData
             if (this.DPI != 0)
                 f.WriteElementString("dpi", this.DPI.ToString());
             f.WriteElementString("language", this.Language);
+            f.WriteElementString("units", this.Units);
             f.WriteElementString("theme", this.Theme);
             f.WriteElementString("layout", this.Layout);
 

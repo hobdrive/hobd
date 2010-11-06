@@ -17,7 +17,7 @@ namespace hobd
         public static Engine engine;
         public static SensorRegistry Registry;
         public static HOBDTheme theme;
-
+        public static UnitsConverter uConverter;
         public static NumberFormatInfo DefaultNumberFormat;
 
         static HOBD()
@@ -120,6 +120,8 @@ namespace hobd
                 {
                     HOBD.LoadLang(config.Language);
                 }
+
+                HOBD.uConverter = new UnitsConverter(HOBD.config.Units);
 
                 var vehicle = config.GetVehicle(config.Vehicle);
 

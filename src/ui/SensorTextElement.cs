@@ -15,7 +15,24 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     public string Text {get; set;}
     public string Name = "";
     public string Units = "";
+    string TUnits = "";
     public int Precision = 0;
+    bool needConversion = false;
+
+    double value;
+    public double Value {
+        get{
+            return value;
+        }
+        set{
+            this.value = value;
+            if (needConversion)
+            {
+                value = HOBD.uConverter.Convert(this.Units, value);
+            }
+            this.Text = value.ToString("F"+Precision, HOBD.DefaultNumberFormat);
+        }
+    }
 
     int width;
     int height;
@@ -27,10 +44,13 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         this.Name = sensor.GetName(HOBD.config.Language);
 
         this.Units = sensor.GetUnits(HOBD.config.Language);
-
-        if (this.Units.StartsWith("convertible")){
-            this.Units = HOBD.t(this.Units);
+        this.needConversion = HOBD.uConverter.NeedConversion(this.Units);
+        if (this.needConversion) {
+            this.TUnits = HOBD.uConverter.ConvertUnits(this.Units);
+        }else{
+            this.TUnits = this.Units;
         }
+        this.TUnits = HOBD.t(this.TUnits);
 
         this.Style = HOBD.theme.PhoneTextNormalStyle;
 
@@ -76,7 +96,7 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         drawingGraphics
           .MoveTo(0, 0)
           .Style(HOBD.theme.PhoneTextSensorDescrStyle)
-          .DrawCenterText(this.Name + "("+this.Units+")", width, 20);
+          .DrawCenterText(this.Name + " ("+this.TUnits+")", width, 20);
 
         drawingGraphics
           .MoveTo(0, 0)

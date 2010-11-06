@@ -38,7 +38,7 @@ public class FuelEconomyTripSensor : CoreSensor
     void OnChange(Sensor s)
     {
         TimeStamp = DateTimeMs.Now;
-        Value = fuel.Value / distance.Value * 100000;
+        Value = fuel.Value  * 100 / distance.Value;
         registry.TriggerListeners(this);
     }
 

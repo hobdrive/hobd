@@ -8,20 +8,21 @@ Configuration = Настройки портов
 Exit          = Выйти
 Minimize      = Свернуть
 
-convertible.celsius = °С
-convertible.fahrenheit = F
 
-convertible.kph    = км/ч
-convertible.mph    = миль/ч
+celsius = °С
+fahrenheit = F
 
-convertible.lphour = л/ч
-convertible.mphour = миль/ч
+kph    = км/ч
+mph    = миль/ч
 
-convertible.lph = л/100км
-convertible.mpg = миль/гал
+lphour = л/ч
+ghour = гал/ч
 
-convertible.meters = м.
-convertible.miles = миль
+lph = л/100км
+mpg = миль/гал
 
-convertible.liters = л.
-convertible.gallons = галл.
+km    = км
+miles = мили
+
+liters = л.
+gallons = галл.
