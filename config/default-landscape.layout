@@ -29,7 +29,7 @@
       <item id="FuelEconomy_trip" size='giant' type='chart'  precision='1'/>
       <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
 
-      <item id="DistanceRun" size='large' type='roverbar' period='10000'/>
+      <item id="DistanceRun" size='large' type='roverbar' period='10000' precision='3'/>
       <item/>
       <item id="FuelConsumed" size='large' type='text' precision='3'/>
     </grid>

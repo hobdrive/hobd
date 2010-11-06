@@ -4,7 +4,7 @@
   <parameter id="DistanceRun">
     <description>
       <name>Distance Run</name>
-      <unit>meters</unit>
+      <unit>km</unit>
       <description>Total distance run on trip</description>
     </description>
     <description lang="ru">
