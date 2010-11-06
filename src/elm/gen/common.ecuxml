@@ -4,7 +4,7 @@
   <parameter id="DistanceRun">
     <description>
       <name>Distance Run</name>
-      <unit>convertible.meters</unit>
+      <unit>meters</unit>
       <description>Total distance run on trip</description>
     </description>
     <description lang="ru">
@@ -17,7 +17,7 @@
   <parameter id="FuelConsumed">
     <description>
       <name>Fuel Consumed</name>
-      <unit>convertible.liters</unit>
+      <unit>liters</unit>
       <description>Total fuel consumed</description>
     </description>
     <description lang="ru">
@@ -30,7 +30,7 @@
   <parameter id="FuelEconomy_trip">
     <description>
       <name>Fuel Economy</name>
-      <unit>convertible.lph</unit>
+      <unit>lph</unit>
       <description>Total fuel economy on trip</description>
     </description>
     <description lang="ru">

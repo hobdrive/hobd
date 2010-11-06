@@ -41,7 +41,7 @@
   <parameter id="CoolantTemp">
     <description>
       <name>CoolantTemp</name>
-      <unit>convertible.celsius</unit>
+      <unit>celsius</unit>
       <description>Engine coolant temperature</description>
     </description>
     <description lang="ru">
@@ -131,7 +131,7 @@
 
   <parameter id="Speed">
     <description>
-      <name>Speed</name><unit>convertible.kph</unit><description>Vehicle speed</description>
+      <name>Speed</name><unit>kph</unit><description>Vehicle speed</description>
     </description>
     <description lang="ru">
       <name>Скорость</name><description>Скорость автомобиля</description>
@@ -154,7 +154,7 @@
   <parameter id="IntakeAirTemp">
     <description>
       <name>Intake Air</name>
-      <unit>convertible.celsius</unit>
+      <unit>celsius</unit>
       <description>Intake air temperature</description>
     </description>
     <description lang="ru">
@@ -324,7 +324,7 @@
   <parameter id="AirTemp">
     <description>
       <name>Air Temp</name>
-      <unit>convertible.celsius</unit>
+      <unit>celsius</unit>
       <description>Outside air temperature</description>
     </description>
     <description lang="ru">

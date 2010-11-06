@@ -3,13 +3,13 @@
   
   <parameter id="LitersPerHour">
     <description>
-      <name>Liter Per Hour</name>
-      <unit>convertible.lphour</unit>
-      <description>Liter Per Hour (injector based)</description>
+      <name>Fuel Per Hour</name>
+      <unit>lphour</unit>
+      <description>Instant fuel consumption per hour (injector based)</description>
     </description>
     <description lang="ru">
-      <name>Литров в час</name>
-      <description>Мгновенный расход в литрах/час</description>
+      <name>Топлива в час</name>
+      <description>Мгновенный расход топлива в час</description>
     </description>
     <class>hobd.elm.injector.LitersPerHourSensor</class>
   </parameter>
