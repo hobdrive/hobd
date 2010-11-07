@@ -40,4 +40,33 @@
     <class>hobd.FuelEconomyTripSensor</class>
   </parameter>
 
+
+  <parameter id="FuelEconomy_short">
+    <description>
+      <name>Fuel Economy short</name>
+      <unit>lph</unit>
+      <description>Short term fuel economy</description>
+    </description>
+    <description lang="ru">
+      <name>Кратковр. расход</name>
+      <description>Кратковременная топливная эффективность</description>
+    </description>
+    <class>hobd.FuelEconomyTripSensor</class>
+    <property name='ResetPeriod'>40</property>
+  </parameter>
+
+  <parameter id="FuelEconomy_instant">
+    <description>
+      <name>Fuel Economy instant</name>
+      <unit>lph</unit>
+      <description>Short term fuel economy</description>
+    </description>
+    <description lang="ru">
+      <name>Мгновенный расход</name>
+      <description>Мгновенная топливная эффективность</description>
+    </description>
+    <class>hobd.FuelEconomyTripSensor</class>
+    <property name='ResetPeriod'>4</property>
+  </parameter>
+
 </parameters>

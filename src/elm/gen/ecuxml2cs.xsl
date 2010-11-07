@@ -75,10 +75,15 @@ public class <xsl:value-of select='$class'/> : SensorProvider
         s = new <xsl:value-of select='class'/>()
             {
                 ID = "<xsl:value-of select='@id'/>",
+                <xsl:apply-templates select='property'/>
             };
         <xsl:apply-templates select='description'/>
         registry.Add(s);
 
+</xsl:template>
+
+<xsl:template match='property'>
+                <xsl:value-of select='@name'/> = <xsl:value-of select='text()'/>,
 </xsl:template>
 
 <xsl:template match='parameter/description'>
@@ -89,7 +94,6 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 
 <xsl:template match='parameter' mode='const'>
   <xsl:variable name='cid' select='@id'/>
-  
   public const string <xsl:choose>
      <xsl:when test='count(../parameter[@id = $cid]) > 1'>
        <xsl:value-of select='@id'/>_<xsl:value-of select='count(preceding-sibling::parameter[@id = $cid])'/>
@@ -98,7 +102,6 @@ public class <xsl:value-of select='$class'/> : SensorProvider
        <xsl:value-of select='@id'/>
      </xsl:otherwise>
   </xsl:choose> = "<xsl:value-of select='@id'/>";
-
 </xsl:template>
 
 <xsl:template match='parameter' mode='list'>
