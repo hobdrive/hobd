@@ -12,6 +12,8 @@ public class CoreSensor : Sensor
     public CoreSensor()
     {
         this.Aliases = new List<string>();
+        // default values
+        description.Add("en", "");
     }
         
     public virtual double Value {get; protected set;}
@@ -29,7 +31,8 @@ public class CoreSensor : Sensor
     internal void SetName(string lang, string val)
     {
         if (lang == "" || lang == null) lang = "en";
-        name.Add(lang, val);
+        if (!name.ContainsKey(lang))
+            name.Add(lang, val);
         if (!name.ContainsKey("en"))
             name.Add("en", val);
     }
@@ -45,22 +48,31 @@ public class CoreSensor : Sensor
     internal void SetDescription(string lang, string val)
     {
         if (lang == "" || lang == null) lang = "en";
-        description.Add(lang, val);
+        if (!description.ContainsKey(lang))
+            description.Add(lang, val);
         if (!description.ContainsKey("en"))
             description.Add("en", val);
     }
 
     Dictionary<string, string> units = new Dictionary<string, string>();
-    public virtual string Units { get{ return units["en"];} internal set{ units["en"] = value; } }
+    public virtual string Units {
+        get{
+           if (!units.ContainsKey("en")) return "";
+           return units["en"];
+        }
+        internal set{ units["en"] = value; }
+    }
     public virtual string GetUnits(string lang)
     {
         if (!units.ContainsKey(lang)) lang = "en";
+        if (!units.ContainsKey(lang)) return "";
         return units[lang];
     }
     internal void SetUnits(string lang, string val)
     {
         if (lang == "" || lang == null) lang = "en";
-        units.Add(lang, val);
+        if (!units.ContainsKey(lang))
+            units.Add(lang, val);
         if (!units.ContainsKey("en"))
             units.Add("en", val);
     }
