@@ -1,4 +1,4 @@
- /hobd v0.1
+ /hobd
 ==============
   /hobd is a trip computer piece of software
   which utilize OBD-II link to fetch vehicle data in realtime.
@@ -10,9 +10,22 @@
   Unique features:
    - Fine graned touch-friendly UI for use in carputer/navigator uninterruptly.
    - Precise MPG (fuel consumption) analysis and calculations.
-   - Toyota owners will receive precise data (much more precise than just MAF-based estimations) via custom injector pulse width PID.
+   - Toyota owners will receive precise data (much more precise than just
+     MAF-based estimations) via custom injector pulse width PID and some others.
    - Sensor data logging facilities for data review.
-   - Opensourced, extensible
+   - Full i18n and metric/imperial switching.
+   - Opensourced, extensible.
+
+ Changelog
+==============
+ - v0.2
+   Better PID naming
+   Reset trip, automatic trip suspend on disconnection functionality
+   Localization and units translation.
+   short term fuel consumption
+
+ - v0.1
+   proof of concept
 
  Links
 ==============
@@ -26,12 +39,26 @@
 
   My credits to OBDGauge opensource software which was a trigger for me
   to create /hobd. My credits to ECUTracker which inspired me in some areas
-  but which I had to drop because of poor J2ME platform.
+  but which I had to drop because of poor old J2ME platform.
 
  License
 ==============
-  MPL 2.0
+  MPL 1.1 (With fallback on your choice to GPL 2.0/LGPL 2.1)
 
+  Mozilla Public License allows you to modify this project's source code
+  and redistribute it for free (or for sale) so long as you follow the terms
+  of the MPL. In particular, you must make your changes to this project's
+  source code available back to it under the MPL (so this project can benefit
+  from your changes).
+
+  You can add external components to /hobd core, compile these, use library
+  in external projects and redistribute them for free or for sale and you
+  do not need to make such external files or changes to them available in
+  source code form or binary form to this project.
+
+  /hobd uses fleux ui framework (http://fleux.codeplex.com) which is distributed under
+  Microsoft Public License (Ms-PL). /hobd uses a modified fleux version which could be found at
+  http://fleux.codeplex.com/SourceControl/network/Forks/cail/fleuxdesktop
 
  Configuration help
 ==============
