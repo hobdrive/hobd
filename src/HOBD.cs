@@ -27,12 +27,6 @@ namespace hobd
             DefaultNumberFormat.PositiveInfinitySymbol = "∞";
         }
 
-        public static string Version {
-            get{
-                return "0.1";
-            }
-        }
-
         static string appPath;
         public static string AppPath {
             get{

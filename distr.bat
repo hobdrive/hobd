@@ -1,10 +1,26 @@
+@echo off
+
+set VERSION=0.2
+
+FOR /F "tokens=*" %%i in ('DATE /T') do SET DATE=%%i 
+FOR /F "tokens=*" %%i in ('TIME /T') do SET TIME=%%i 
+SET TS=%DATE%%TIME%
+
+echo using System; > src/HOBDBuild.cs
+echo namespace hobd >> src/HOBDBuild.cs
+echo { >> src/HOBDBuild.cs
+echo sealed class HOBDBuild >> src/HOBDBuild.cs
+echo { >> src/HOBDBuild.cs
+echo     public const string Version   = "%VERSION%"; >> src/HOBDBuild.cs
+echo     public const string TimeStamp = "%TS%"; >> src/HOBDBuild.cs
+echo } >> src/HOBDBuild.cs
+echo } >> src/HOBDBuild.cs
+
 rem goto skip
 c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=AnyCPU /p:Configuration=Release hobd.csproj
 c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=WINCE /p:Configuration=Release hobd.csproj
-
 :skip
 
-set VERSION=0.2
 set Z="C:\Program Files\7-Zip\7z.exe"
 
 mkdir distr

@@ -54,7 +54,7 @@ namespace hobd
                    .Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
                    .MoveX(0).MoveY(0).DrawText(title)
                    .Style(HOBD.theme.PhoneTextPanoramaSubTitleStyle)
-                   .DrawText("v"+HOBD.Version);
+                   .DrawText("v"+HOBDBuild.Version);
                    if (panorama.TitleWidth == 0)
                    {
                        panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
