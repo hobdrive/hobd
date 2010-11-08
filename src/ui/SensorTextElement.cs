@@ -96,7 +96,14 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         drawingGraphics
           .MoveTo(0, 0)
           .Style(HOBD.theme.PhoneTextSensorDescrStyle)
-          .DrawCenterText(this.Name + " ("+this.TUnits+")", width, 20);
+          .DrawCenterText(this.Name, width, 20);
+        if (this.TUnits.Length > 0)
+        {
+            drawingGraphics
+              .MoveTo(0, height-30)
+              .Style(HOBD.theme.PhoneTextSensorDescrStyle)
+              .DrawCenterText(this.TUnits, width, 20);
+        }
 
         drawingGraphics
           .MoveTo(0, 0)
