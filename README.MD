@@ -43,7 +43,7 @@
 
  License
 ==============
-  MPL 1.1 (With fallback on your choice to GPL 2.0/LGPL 2.1)
+  "MPL 1.1" (With fallback on your choice to GPL 2.0/LGPL 2.1)
 
   Mozilla Public License allows you to modify this project's source code
   and redistribute it for free (or for sale) so long as you follow the terms
@@ -57,8 +57,11 @@
   source code form or binary form to this project.
 
   /hobd uses fleux ui framework (http://fleux.codeplex.com) which is distributed under
-  Microsoft Public License (Ms-PL). /hobd uses a modified fleux version which could be found at
+  "Microsoft Public License (Ms-PL)". /hobd uses a modified fleux version which could be found at
   http://fleux.codeplex.com/SourceControl/network/Forks/cail/fleuxdesktop
+
+  /hobd uses InTheHand.Net.Personal framework (32feet.net) which is distributed under
+  "In The Hand Community License".
 
  Configuration help
 ==============
