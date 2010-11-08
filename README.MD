@@ -3,34 +3,38 @@
   /hobd is a trip computer piece of software
   which utilize OBD-II link to fetch vehicle data in realtime.
 
+  ![Screenshot](https://github.com/downloads/cail/hobd/s2_e.png)
+
   Runs both under desktop pc, or on any WinCE based platform
   (PDA, PNA, noname chinese 'gps navigator'-titled stuff)
 
   Beside all the stuff you may find in tons of OBDII scanner tools, here are some
   Unique features:
-   - Fine graned touch-friendly UI for use in carputer/navigator uninterruptly.
-   - Precise MPG (fuel consumption) analysis and calculations.
-   - Toyota owners will receive precise data (much more precise than just
-     MAF-based estimations) via custom injector pulse width PID and some others.
-   - Sensor data logging facilities for data review.
-   - Full i18n and metric/imperial switching.
-   - Opensourced, extensible.
+
+  - Fine graned touch-friendly UI for use in carputer/navigator uninterruptly.
+  - Precise MPG (fuel consumption) analysis and calculations.
+  - Toyota owners will receive precise data via custom injector pulse width PID and some others.
+  - Sensor data logging facilities for data review.
+  - Full i18n and metric/imperial switching.
+  - Opensourced, extensible.
 
  Changelog
 ==============
  - v0.2
-   Better PID naming
-   Reset trip, automatic trip suspend on disconnection functionality
-   Localization and units translation.
-   short term fuel consumption
+   - Better PID naming
+   - Reset trip, automatic trip suspend on disconnection functionality
+   - Localization and units translation.
+   - short term fuel consumption
 
  - v0.1
-   proof of concept
+   - proof of concept
 
  Links
 ==============
   Downloads: http://github.com/cail/hobd/download
+
   Issues: http://github.com/cail/hobd/issues
+
   Fork me on github: http://github.com/cail/hobd
 
  Author
