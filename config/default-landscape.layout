@@ -4,7 +4,7 @@
 -->
 <ui>
   <section name="General">
-    <grid rows="60,100,50" cols="150,150,150">
+    <grid rows="60,100,60" cols="150,150,150">
       <item id="RPM" size='large' type='roverbar'/>
       <item id="ShiftPosition" size='small' type='text' period='4000'/>
       <item id="FuelEconomy_trip" size='normal' type='chart' precision='1'/>
