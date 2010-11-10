@@ -144,7 +144,7 @@ namespace hobd
             if (state == Engine.STATE_ERROR)
                 status += "ERROR " + HOBD.engine.Error;
             
-            if (state == Engine.STATE_READ)
+            if (state == Engine.STATE_READ_DONE)
             {
                 sensorRate++;
                 if (sensorRate > 10)
