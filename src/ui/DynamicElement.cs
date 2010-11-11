@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
+using System.Threading;
+
 using Fleux.Core;
 using Fleux.Core.GraphicsHelpers;
 using Fleux.Styles;
@@ -12,6 +15,8 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
 {
     int width;
     int height;
+    System.Threading.Timer clickTimer;
+    Control parent;
 
     public DynamicElement(string text)
     {
@@ -45,6 +50,10 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
     {
         this.width = width;
         this.height = height;
+    }
+    public void NotifyAttach(Control control)
+    {
+        this.parent = control;
     }
     
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 using Fleux.Core.GraphicsHelpers;
+using Fleux.Controls.Panorama;
 using Fleux.Styles;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
@@ -12,6 +14,7 @@ namespace hobd
 
 public class SensorTextElement: IUIElement, IDimensionAwareElement
 {
+    PanoramaControl panorama;
     public string Text {get; set;}
     public string Name = "";
     public string Units = "";
@@ -140,6 +143,12 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     {
         this.width = width;
         this.height = height;
+    }
+
+    public void NotifyAttach(Control control)
+    {
+        if (control is PanoramaControl)
+            this.panorama = (PanoramaControl)control;
     }
     
 }
