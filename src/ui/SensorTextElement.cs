@@ -108,18 +108,21 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         
         //drawingGraphics.Style(this.Style);
         //drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
-        
-        drawingGraphics
-          .MoveTo(0, 0)
-          .Style(HOBD.theme.PhoneTextSensorDescrStyle)
-          .DrawCenterText(this.Name, width, 20);
-        if (this.TUnits.Length > 0)
+
+        if (panorama != null && !panorama.IsPanoramaAnimating)
         {
             drawingGraphics
-              .MoveTo(0, height-30)
+              .MoveTo(0, 0)
               .Style(HOBD.theme.PhoneTextSensorDescrStyle)
-              .DrawCenterText(this.TUnits, width, 20);
-        }
+              .DrawCenterText(this.Name, width, 20);
+            if (this.TUnits.Length > 0)
+            {
+                drawingGraphics
+                  .MoveTo(0, height-30)
+                  .Style(HOBD.theme.PhoneTextSensorDescrStyle)
+                  .DrawCenterText(this.TUnits, width, 20);
+            }
+        };
 
         drawingGraphics
           .MoveTo(0, 0)
