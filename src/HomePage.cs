@@ -157,7 +157,7 @@ namespace hobd
                 }
             }
             if (state == Engine.STATE_READ || state == Engine.STATE_READ_DONE)
-                status += " " + sensorRateText;
+                status += " " + sensorRateText + " " + HOBD.Registry.QueueSize;
             
             statusField.Text = status;
             

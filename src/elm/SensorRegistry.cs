@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,11 +23,24 @@ public class SensorRegistry
     Dictionary<string, Sensor> sensors = new Dictionary<string, Sensor>();
     Dictionary<Sensor, SensorListener> activeSensors = new Dictionary<Sensor, SensorListener>();
     SensorListener[] activeSensors_array = null;
+    Queue<Sensor> triggerQueue = new Queue<Sensor>();
+    Thread listenThread;
     
     public IDictionary<string, string> VehicleParameters {get;set;}
     
     public SensorRegistry()
     {
+        var listenThread = new Thread(this.ListenerHandler);
+        listenThread.Priority = ThreadPriority.AboveNormal;
+        listenThread.Start();
+    }
+    public void Deactivate()
+    {
+        if (listenThread != null){
+            triggerQueue = null;
+            listenThread.Join(1000);
+            listenThread = null;
+        }
     }
     
     public void RegisterProvider(SensorProvider provider)
@@ -67,20 +81,38 @@ public class SensorRegistry
         }
     }
     
-    public void TriggerListeners(Sensor sensor)
+    void ListenerHandler()
     {
-        SensorListener sl = null;
-        activeSensors.TryGetValue(sensor, out sl);
-        if (sl != null){
-            foreach(Action<Sensor> l in sl.listeners.ToArray()){
-                try{
-                    l(sensor);
-                }catch(Exception e)
-                {
-                    if (Logger.ERROR) Logger.error("SensorRegistry", "Listener fail on: "+sensor.ID, e);
+        while(triggerQueue != null)
+        {
+            if (triggerQueue.Count == 0)
+            {
+                Thread.Sleep(10);
+            }else{
+                SensorListener sl = null;
+                var sensor = triggerQueue.Dequeue();
+                activeSensors.TryGetValue(sensor, out sl);
+                
+                if (sl != null) {
+                    foreach(Action<Sensor> l in sl.listeners.ToArray()) {
+                        try{
+                            l(sensor);
+                        }catch(Exception e)
+                        {
+                            Logger.error("SensorRegistry", "Listener fail on: "+sensor.ID, e);
+                        }
+                    }
                 }
             }
         }
+        Logger.info("SensorRegistry", "Close thread");
+    }
+
+    public int QueueSize { get{ return triggerQueue.Count; } }
+
+    public void TriggerListeners(Sensor sensor)
+    {
+        triggerQueue.Enqueue(sensor);
     }
     /**
      * Triggers sensor suspend event for all sensors that supports it
