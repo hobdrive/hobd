@@ -69,4 +69,31 @@
     <property name='ResetPeriod'>4</property>
   </parameter>
 
+  <parameter id="TripTime">
+    <description>
+      <name>Trip Time</name>
+      <unit>seconds</unit>
+      <description>Total trip time</description>
+    </description>
+    <description lang="ru">
+      <name>Время в пути</name>
+      <description>Общее время в пути</description>
+    </description>
+    <class>hobd.TripTime</class>
+  </parameter>
+
+  <parameter id="IdleTime">
+    <description>
+      <name>Idle Time</name>
+      <unit>seconds</unit>
+      <description>Idle time (with speed less 5km)</description>
+    </description>
+    <description lang="ru">
+      <name>Время простоя</name>
+      <description>Время простоя (скорость меньше 5 км\ч)</description>
+    </description>
+    <class>hobd.IdleTime</class>
+  </parameter>
+
+
 </parameters>

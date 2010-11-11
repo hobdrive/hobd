@@ -21,16 +21,16 @@
 
   <section name="Trip computer">
     <grid rows="60,100,60" cols="150,150,150">
-      <item id="CoolantTemp" size='small' type='text' period='10000'/>
-      <item id="EngineLoad" size='small' type='text' period='1000'/>
+      <item id="TripTime"/>
+      <item id="IdleTime"/>
       <item id="LitersPerHour" period='1000' precision='1'/>
 
-      <item id="FuelEconomy_instant" size='normal' type='chart' precision='1'/>
+      <item id="FuelEconomy_instant" size='large' type='chart' precision='1'/>
       <item id="FuelEconomy_trip" size='giant' type='chart'  precision='1'/>
-      <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
+      <item id="FuelEconomy_short" size='large' type='chart'  precision='1'/>
 
+      <item id="CoolantTemp" size='small' type='text' period='10000'/>
       <item id="DistanceRun" size='large' type='roverbar' period='10000' precision='3'/>
-      <item/>
       <item id="FuelConsumed" size='large' type='text' precision='3'/>
     </grid>
   </section>

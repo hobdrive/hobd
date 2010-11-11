@@ -4,37 +4,34 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-/**
- * Calculates total fuel consumed during the trip
- * Uses the underlying Liters Per Hour sensor
- */
-public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
+public class IdleTime : CoreSensor, IAccumulatorSensor
 {
     long prevStamp;
     bool firstRun = true;
-
-    public int ListenInterval{get; set;}
         
-    public FuelConsumedSensor()
+    public IdleTime()
     {
-        ListenInterval = 2000;
     }
 
     public override void SetRegistry(SensorRegistry registry)
     {
         base.SetRegistry(registry);
-        registry.AddListener("LitersPerHour", OnChange, ListenInterval);
+        registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, 5000);
     }
 
-    void OnChange(Sensor lph)
+    public void OnSpeedChange(Sensor speed)
     {
-        TimeStamp = lph.TimeStamp;
-        if (firstRun){
+        TimeStamp = speed.TimeStamp;
+        if (firstRun) {
             prevStamp = TimeStamp;
             firstRun = false;
             return;
         }
-        Value += lph.Value / 3600 * ((double)(TimeStamp-prevStamp)) / 1000;
+        if (speed.Value > 5){
+            firstRun = true;
+            return;
+        }
+        Value += (TimeStamp-prevStamp) / 1000;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
@@ -46,7 +43,7 @@ public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
     }
     public virtual void Suspend()
     {
-        firstRun = true;
+        firstRun = false;
     }
 
 }

@@ -18,6 +18,7 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     string TUnits = "";
     public int Precision = 0;
     bool needConversion = false;
+    bool customFormat = false;
 
     double value;
     public double Value {
@@ -30,7 +31,16 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
             {
                 value = HOBD.uConverter.Convert(this.Units, value);
             }
-            this.Text = value.ToString("F"+Precision, HOBD.DefaultNumberFormat);
+            if (customFormat)
+            {
+                if (this.Units == "seconds"){
+                    int minutes = (int)value/60;
+                    int seconds = (int)value%60;
+                    this.Text = minutes + "' " + seconds + "'' ";
+                }
+            }else{ 
+                this.Text = value.ToString("F"+Precision, HOBD.DefaultNumberFormat);
+            }
         }
     }
 
@@ -51,8 +61,11 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
             this.TUnits = this.Units;
         }
         this.TUnits = HOBD.t(this.TUnits);
+        if (this.Units == "seconds"){
+            customFormat = true;
+        }
 
-        this.Style = HOBD.theme.PhoneTextNormalStyle;
+        this.Style = new TextStyle(HOBD.theme.PhoneTextNormalStyle);
 
         string textSize = null;
         attrs.TryGetValue("size", out textSize);

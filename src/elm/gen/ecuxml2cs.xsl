@@ -88,7 +88,7 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 
 <xsl:template match='parameter/description'>
         s.SetName("<xsl:value-of select='@lang'/>", "<xsl:value-of select='name'/>");
-        s.SetDescription("<xsl:value-of select='@lang'/>", "<xsl:value-of select='translate(description, &apos;&quot;&apos;, "&apos;")'/>");
+        s.SetDescription("<xsl:value-of select='@lang'/>", "<xsl:value-of select='translate(description, &apos;&quot;\&apos;, "&apos;-")'/>");
         <xsl:if test='unit'>s.SetUnits("<xsl:value-of select='@lang'/>", "<xsl:value-of select='unit'/>");</xsl:if>
 </xsl:template>
 

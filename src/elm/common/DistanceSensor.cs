@@ -33,7 +33,7 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
             firstRun = false;
             return;
         }
-        Value += speed.Value * 1000 / 3600 * (TimeStamp-prevStamp) / 1000 / 1000;
+        Value += speed.Value * 1000 / 3600 * ((double)(TimeStamp-prevStamp)) / 1000 / 1000;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }

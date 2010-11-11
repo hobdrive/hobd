@@ -78,6 +78,8 @@
     <Compile Include="src\elm\common\DistanceSensor.cs" />
     <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
     <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />    
+    <Compile Include="src\elm\common\IdleTime.cs"/>
+    <Compile Include="src\elm\common\TripTime.cs"/>
     <Compile Include="src\elm\CoreSensor.cs" />
     <Compile Include="src\elm\IAccumulatorSensor.cs" />
     <Compile Include="src\elm\injector\InjectorSensors.cs" />
