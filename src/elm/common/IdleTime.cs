@@ -43,7 +43,7 @@ public class IdleTime : CoreSensor, IAccumulatorSensor
     }
     public virtual void Suspend()
     {
-        firstRun = false;
+        firstRun = true;
     }
 
 }
