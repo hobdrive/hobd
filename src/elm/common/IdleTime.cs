@@ -8,15 +8,17 @@ public class IdleTime : CoreSensor, IAccumulatorSensor
 {
     long prevStamp;
     bool firstRun = true;
-        
+    public int ListenInterval{get; set;}
+                
     public IdleTime()
     {
+        ListenInterval = 2000;
     }
 
     public override void SetRegistry(SensorRegistry registry)
     {
         base.SetRegistry(registry);
-        registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, 5000);
+        registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, ListenInterval);
     }
 
     public void OnSpeedChange(Sensor speed)
