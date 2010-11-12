@@ -30,13 +30,14 @@ public class SensorRegistry
     
     public SensorRegistry()
     {
-        var listenThread = new Thread(this.ListenerHandler);
+        listenThread = new Thread(this.ListenerHandler);
         listenThread.Priority = ThreadPriority.AboveNormal;
         listenThread.Start();
     }
     public void Deactivate()
     {
-        if (listenThread != null){
+        if (listenThread != null)
+        {
             triggerQueue = null;
             listenThread.Join(1000);
             listenThread = null;
@@ -105,7 +106,6 @@ public class SensorRegistry
                 }
             }
         }
-        Logger.info("SensorRegistry", "Close thread");
     }
 
     public int QueueSize { get{ return triggerQueue.Count; } }
