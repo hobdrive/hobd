@@ -208,7 +208,7 @@ namespace hobd
             panorama.Invoke(new Action(panorama.Invalidate));
         }
 
-        char[] seps = {',', ' '};
+        char[] seps = {','};
         
         private void LoadSections()
         {
@@ -235,8 +235,8 @@ namespace hobd
                         var rows = reader.GetAttribute("rows");
                         var cols = reader.GetAttribute("cols");
 
-                        var rows_a = rows.Split(seps).Select(r => int.Parse(r));
-                        var cols_a = cols.Split(seps).Select(r => int.Parse(r));
+                        var rows_a = rows.Split(seps).Select(r => int.Parse(r.Trim()));
+                        var cols_a = cols.Split(seps).Select(r => int.Parse(r.Trim()));
                         
                         var grid = new Grid
                            {
