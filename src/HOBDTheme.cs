@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using Fleux.Styles;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Xml;
+
 using Fleux.Controls.List;
 using Fleux.Core.GraphicsHelpers;
+using Fleux.Styles;
 
 namespace hobd
 {
@@ -10,8 +16,16 @@ namespace hobd
 
 public class HOBDTheme
 {
-    #region Brushes/Colors
-
+    public string File{ get; private set; }
+    public string Name{ get; set; }
+    public string Background{ get; set; }
+    
+    public Dictionary<string, int> FontSizes = new Dictionary<string, int>();
+    public Dictionary<string, string> FontFamilies = new Dictionary<string, string>();
+    public Dictionary<string, Color> Colors = new Dictionary<string, Color>();
+    public Dictionary<string, TextStyle> Styles = new Dictionary<string, TextStyle>();
+    
+    
     // Foreground color to single-out items of interest
     public Color PhoneAccentBrush = Color.FromArgb(40, 160, 220);
 
@@ -28,8 +42,6 @@ public class HOBDTheme
     public Color PhoneContrastForegroundBrush = Color.FromArgb( unchecked( (int)0xFFFFF0F0 ));
 
     public Color PanoramaNormalBrush = Color.FromArgb(255, 255, 255);
-
-    #endregion
 
     #region Font Families
 
@@ -174,8 +186,124 @@ public class HOBDTheme
         PhoneTextStatusStyle = new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeSmall, this.PhoneSubtleBrush);
 
         PhoneTextSensorDescrStyle = new TextStyle(this.PhoneFontFamilyLight, this.PhoneFontSizeSmall, Color.FromArgb( unchecked( (int)0xC0A09090 )));
-
+        
     }
+
+    public static int ParseColor(string val){
+        val = val.Trim();
+        if (val.StartsWith("#")){
+            val = val.Substring(1);
+            uint ival = UInt32.Parse(val, NumberStyles.HexNumber);
+            // assume alpha 0 means FF
+            if (ival>>24 == 0) ival = ival | 0xFF000000;
+            return unchecked((int)ival);
+        }
+        throw new FormatException("bad color: "+val);
+    }
+    public static HOBDTheme LoadTheme(string file)
+    {
+        HOBDTheme theme = new HOBDTheme();
+
+        theme.File = file;
+
+        XmlReaderSettings xrs = new XmlReaderSettings();
+        xrs.IgnoreWhitespace = true;
+        xrs.IgnoreComments = true;
+
+        try{
+            XmlReader reader = XmlReader.Create(file, xrs);
+    
+            reader.ReadToDescendant("theme");
+
+            theme.Name = reader.GetAttribute("name");
+            theme.Background = reader.GetAttribute("background");
+    
+            reader.ReadStartElement("theme");
+    
+            while(true){
+                if (reader.NodeType != XmlNodeType.Element){
+                    if (!reader.Read())
+                        break;
+                    continue;
+                }
+                string name;
+                string val;
+                int ival;
+                switch (reader.Name) {
+                    case "color":
+                        name = reader.GetAttribute("name");
+                        val = reader.ReadElementContentAsString();
+                        theme.Colors.Add(name, Color.FromArgb(ParseColor(val)));
+                        break;    
+                    case "font-size":
+                        name = reader.GetAttribute("name");
+                        val = reader.GetAttribute("value");
+                        ival = Int32.Parse(val, NumberStyles.Integer);
+                        theme.FontSizes.Add(name, ival);
+                        reader.Read();
+                        break;
+                    case "font-family":
+                        name = reader.GetAttribute("name");
+                        val = reader.ReadElementContentAsString();
+                        theme.FontFamilies.Add(name, val);
+                        break;
+                    case "style":
+                        name = reader.GetAttribute("name");
+    
+                        TextStyle style = new TextStyle(theme.PhoneTextNormalStyle);
+    
+                        reader.ReadStartElement();
+                        while(reader.NodeType != XmlNodeType.EndElement){
+                            if (reader.NodeType != XmlNodeType.Element)
+                                continue;
+    
+                            switch (reader.Name) {
+                                case "font":
+                                    val = reader.ReadElementContentAsString();
+                                    theme.FontFamilies.TryGetValue(val, out val);
+                                    style.FontFamily = val;
+                                    break;
+                                case "size":
+                                    val = reader.ReadElementContentAsString();
+                                    if (!theme.FontSizes.TryGetValue(val, out ival)){
+                                        ival = Int32.Parse(val);
+                                    }
+                                    style.FontSize = ival;
+                                    break;
+                                case "color":
+                                    val = reader.ReadElementContentAsString();
+                                    Color color;
+                                    if (!theme.Colors.TryGetValue(val, out color)){
+                                        color = Color.FromArgb(ParseColor(val));
+                                    }
+                                    style.Foreground = color;
+                                    break;
+                            }
+                        }
+                        reader.ReadEndElement();
+                        theme.Styles.Add(name, style);
+                        break;
+                    default:
+                        reader.Read();
+                        break;
+                }
+            }
+            reader.Close();
+        }catch(Exception e){
+            Logger.error("HOBDTheme", "error parsing theme file", e);
+        }
+        
+        theme.Styles.TryGetValue("PanoramaTitle", out theme.PhoneTextPanoramaTitleStyle);
+        theme.Styles.TryGetValue("PanoramaSubTitle", out theme.PhoneTextPanoramaSubTitleStyle);
+        theme.Styles.TryGetValue("PanoramaSectionTitle", out theme.PhoneTextPanoramaSectionTitleStyle);
+
+        theme.Styles.TryGetValue("TextNormal", out theme.PhoneTextNormalStyle);
+        theme.Styles.TryGetValue("TextStatus", out theme.PhoneTextStatusStyle);
+        theme.Styles.TryGetValue("TextSensorDescr", out theme.PhoneTextSensorDescrStyle);
+
+        return theme;
+    }
+
 }
 
 }

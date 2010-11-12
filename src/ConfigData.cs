@@ -45,8 +45,9 @@ public class ConfigData
     public int DPI {get; private set;}
     public string Language {get; set;}
     public string Units {get; set;}
-    public string Theme {get; private set;}
-    public string Layout {get; private set;}
+    public string Theme {get; set;}
+    public string Layout {get; set;}
+    public bool HighPerformance {get; set;}
     
     string file;
     
@@ -61,7 +62,7 @@ public class ConfigData
         DPI = 0;
         Language = "en";
         Units = "metric";
-        Theme = "hobd.HOBDTheme";
+        Theme = "themes/default.theme";
         Layout = "default-landscape.layout";
     }
 

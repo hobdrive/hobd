@@ -27,8 +27,8 @@
   <language>en</language>
   <!-- units: imperial, metric -->
   <units>metric</units>
-  <!-- theme class -->
-  <theme>hobd.HOBDTheme</theme>
+  <!-- theme file -->
+  <theme>themes/default.theme</theme>
   <!-- layout description file -->
   <layout>default-landscape.layout</layout>
 

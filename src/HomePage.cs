@@ -60,7 +60,25 @@ namespace hobd
                        panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
                    }
                };
-            panorama.BackgroundImage = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg", (int)(layoutX*1.5), (int)(layoutX*1.5/2), Assembly.GetExecutingAssembly());
+            
+            Bitmap original;
+            if (HOBD.theme.Background != null){
+                original = new Bitmap(Path.Combine( Path.GetDirectoryName(HOBD.theme.File), HOBD.theme.Background));
+            }else{
+                original = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg");
+            }
+            double scale = ((double)layoutY)/original.Height;
+            var target = new Bitmap((int)(original.Width*scale), (int)(original.Height*scale));
+            using (var gr = Graphics.FromImage(target))
+            {
+                gr.DrawImage(original,
+                    new Rectangle(0, 0, target.Width, target.Height),
+                    new Rectangle(0, 0, original.Width, original.Height),
+                    GraphicsUnit.Pixel);
+            }
+            //var target = original;
+            
+            panorama.BackgroundImage = target;
 
             this.LoadSections();
 
@@ -205,7 +223,11 @@ namespace hobd
 
                 while( reader.IsStartElement("section") ){
 
-                    var section = new TouchPanoramaSection(t(reader.GetAttribute("name")));
+                    var title = t(reader.GetAttribute("name"));
+                    var section = new TouchPanoramaSection(
+                          dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle)
+                                  .DrawText(title)
+                       );
 
                     reader.ReadStartElement("section");
                     
