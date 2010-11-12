@@ -165,13 +165,16 @@ namespace hobd
                 FleuxApplication.Run(new HomePage());
 
                 
-                engine.Deactivate();
-                Registry.Deactivate();
-                config.Save();
-                Logger.error("HOBD", "app exit");
             }catch(Exception e){
                 Logger.error("HOBD", "fatal failure, exiting", e);
                 if (engine != null && engine.IsActive()) engine.Deactivate();
+            }finally{
+                if (engine != null)
+                    engine.Deactivate();
+                if (Registry != null)
+                    Registry.Deactivate();
+                config.Save();
+                Logger.error("HOBD", "app exit");
             }
 
         }
