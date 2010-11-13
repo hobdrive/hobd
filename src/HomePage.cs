@@ -21,26 +21,26 @@ namespace hobd
     {
 
         public static string Title = "/hobd";
-        int layoutX = 480;
-        int layoutY = 272;
+        protected int layoutX = 480;
+        protected int layoutY = 272;
         
-        Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
-        Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
+        protected Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
+        protected Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
         
         DynamicElement statusField, configField;
-        IPanoramaSection menuSection;
+        protected IPanoramaSection menuSection;
             
         public HomePage()
         {
             this.InitializePanorama();
         }
 
-        static string t(string val)
+        protected static string t(string val)
         {
             return HOBD.t(val);
         }
 
-        private void InitializePanorama()
+        protected virtual void InitializePanorama()
         {
             panorama.SectionTitleDelta = 0;
             panorama.SectionContentDelta = 40;
