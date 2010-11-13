@@ -289,18 +289,19 @@ public class HOBDTheme
                 }
             }
             reader.Close();
+
+            theme.Styles.TryGetValue("PanoramaTitle", out theme.PhoneTextPanoramaTitleStyle);
+            theme.Styles.TryGetValue("PanoramaSubTitle", out theme.PhoneTextPanoramaSubTitleStyle);
+            theme.Styles.TryGetValue("PanoramaSectionTitle", out theme.PhoneTextPanoramaSectionTitleStyle);
+
+            theme.Styles.TryGetValue("TextNormal", out theme.PhoneTextNormalStyle);
+            theme.Styles.TryGetValue("TextStatus", out theme.PhoneTextStatusStyle);
+            theme.Styles.TryGetValue("TextSensorDescr", out theme.PhoneTextSensorDescrStyle);
+
         }catch(Exception e){
             Logger.error("HOBDTheme", "error parsing theme file", e);
         }
         
-        theme.Styles.TryGetValue("PanoramaTitle", out theme.PhoneTextPanoramaTitleStyle);
-        theme.Styles.TryGetValue("PanoramaSubTitle", out theme.PhoneTextPanoramaSubTitleStyle);
-        theme.Styles.TryGetValue("PanoramaSectionTitle", out theme.PhoneTextPanoramaSectionTitleStyle);
-
-        theme.Styles.TryGetValue("TextNormal", out theme.PhoneTextNormalStyle);
-        theme.Styles.TryGetValue("TextStatus", out theme.PhoneTextStatusStyle);
-        theme.Styles.TryGetValue("TextSensorDescr", out theme.PhoneTextSensorDescrStyle);
-
         return theme;
     }
 
