@@ -11,7 +11,7 @@ using Fleux.Core;
 
 namespace hobd
 {
-    sealed class HOBD
+    class HOBD
     {
         public static ConfigData config;
         public static Engine engine;
@@ -85,10 +85,8 @@ namespace hobd
             }
         }
         
-        [STAThread]
-        private static void Main(string[] args)
+        public static void Init()
         {
-
             int handle = FindWindow(null, HomePage.Title);
             if (handle != 0)
             {
@@ -161,10 +159,16 @@ namespace hobd
                 // load theme
                 HOBD.theme = HOBDTheme.LoadTheme(Path.Combine(HOBD.AppPath, config.Theme));
 
-                
-                FleuxApplication.Run(new HomePage());
+            }catch(Exception e){
+                Logger.error("HOBD", "fatal failure, exiting", e);
+                if (engine != null && engine.IsActive()) engine.Deactivate();
+            }
+        }
 
-                
+        public static void Run(FleuxPage home)
+        {
+            try{
+                FleuxApplication.Run(home);
             }catch(Exception e){
                 Logger.error("HOBD", "fatal failure, exiting", e);
                 if (engine != null && engine.IsActive()) engine.Deactivate();
@@ -174,9 +178,8 @@ namespace hobd
                 if (Registry != null)
                     Registry.Deactivate();
                 config.Save();
-                Logger.error("HOBD", "app exit");
+                Logger.info("HOBD", "app exit");
             }
-
         }
         
     }

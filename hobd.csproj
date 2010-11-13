@@ -72,7 +72,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\item.icon.png" />
     <Compile Include="src\ConfigData.cs" />
     <Compile Include="src\elm\common\CommonSensors.cs" />
     <Compile Include="src\elm\common\DistanceSensor.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="src\elm\common\TripTime.cs"/>
     <Compile Include="src\elm\CoreSensor.cs" />
     <Compile Include="src\elm\IAccumulatorSensor.cs" />
+    <Compile Include="src\elm\IPersistentSensor.cs" />
     <Compile Include="src\elm\injector\InjectorSensors.cs" />
     <Compile Include="src\elm\injector\LitersPerHourSensor.cs" />
     <Compile Include="src\elm\maf\MAFSensors.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="src\HomePage.cs" />
     <Compile Include="src\ConfigurationPage.cs" />
     <Compile Include="src\HOBD.cs" />
+    <Compile Include="src\HOBDRunner.cs" />
     <Compile Include="src\ui\DynamicElement.cs" />
     <Compile Include="src\ui\SensorTextElement.cs" />
     <Compile Include="src\util\DateTimeMs.cs" />
@@ -115,12 +116,6 @@
     <None Include="src\elm\gen\ecuxml2java.xsl" />
     <None Include="src\elm\gen\obd2.ecuxml" />
     <None Include="src\elm\gen\toyota-obd2.ecuxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\thumbnail.png" />
-    <EmbeddedResource Include="Images\squareimg.png" />
-    <EmbeddedResource Include="Images\thumbnail2.png" />
-    <EmbeddedResource Include="Images\thumbnail3.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\banner.jpg" />
