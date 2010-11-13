@@ -86,7 +86,11 @@ public class BluetoothStream: IStream
         {
             bluetoothClient.Close();
             bluetoothClient = null;
+        }
+        if (stream != null)
+        {    
             stream.Close();
+            stream = null;
         }
 }
     
