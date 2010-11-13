@@ -28,6 +28,7 @@ namespace hobd
         Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
         
         DynamicElement statusField, configField;
+        IPanoramaSection menuSection;
             
         public HomePage()
         {
@@ -82,14 +83,16 @@ namespace hobd
 
             this.LoadSections();
 
-            // activate first section
-            this.SectionChanged(this.panorama, this.panorama.CurrentSection);
-            
-            panorama.AddSection(this.CreateMenuSection());
+            menuSection = this.CreateMenuSection();
+            panorama.AddSection(menuSection);
+
             //panorama.AddSection(this.CreateFeaturedSection());
             //panorama.AddSection(this.CreateHorizontalFeaturedSection());
             
             panorama.OnSectionChange += this.SectionChanged;
+
+            // activate first section
+            this.SectionChanged(this.panorama, this.panorama.CurrentSection);
             
             statusField = new DynamicElement("///hobd") { Style = HOBD.theme.PhoneTextStatusStyle };
             panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
@@ -108,7 +111,6 @@ namespace hobd
                 }
             };
             panorama.Add(configField, layoutX-60, (layoutY-20), 60, 20);
-
             
             this.theForm.Text = HomePage.Title;
             this.theForm.Menu = null;
@@ -139,7 +141,7 @@ namespace hobd
         }
         
         
-        public void SensorChanged(Sensor sensor)
+        protected virtual void SensorChanged(Sensor sensor)
         {
             var sensorUIs = sensorUIMap[sensor];
             foreach (var ui in sensorUIs) {
@@ -153,7 +155,7 @@ namespace hobd
         private int sensorRate = 0;
         private string sensorRateText = "";
         
-        public void StateChanged(int state)
+        protected virtual void StateChanged(int state)
         {
             var status = "///hobd ";
 
@@ -186,7 +188,7 @@ namespace hobd
             }
         }
         
-        void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
+        protected virtual void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
         {
             List<SensorListener> sensors = null;
             sectionSensorMap.TryGetValue(section, out sensors);
@@ -201,7 +203,7 @@ namespace hobd
             }
         }
         
-        public void Redraw()
+        public virtual void Redraw()
         {
             if (panorama.IsDisposed) return;
             //if (panorama.animating) return;
@@ -210,7 +212,7 @@ namespace hobd
 
         char[] seps = {','};
         
-        private void LoadSections()
+        protected virtual void LoadSections()
         {
             try{
                 XmlReaderSettings xrs = new XmlReaderSettings();
@@ -224,10 +226,7 @@ namespace hobd
                 while( reader.IsStartElement("section") ){
 
                     var title = t(reader.GetAttribute("name"));
-                    var section = new TouchPanoramaSection(
-                          dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle)
-                                  .DrawText(title)
-                       );
+                    var section = new TouchPanoramaSection(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title));
 
                     reader.ReadStartElement("section");
                     
@@ -291,7 +290,7 @@ namespace hobd
             
         }
         
-        IUIElement CreateItem(Dictionary<string, string> attrs, IPanoramaSection section)
+        protected virtual IUIElement CreateItem(Dictionary<string, string> attrs, IPanoramaSection section)
         {
             string id = "";
             try{
@@ -332,7 +331,7 @@ namespace hobd
                 }
             }catch(Exception e)
             {
-                Logger.error("CreateItem", "Failed creating Sensor Element:", e);
+                Logger.error("CreateItem", "Failed creating Sensor Element: "+id, e);
             }
             return new DynamicElement("n/a: "+id){ Style = HOBD.theme.PhoneTextSmallStyle };
         }
@@ -350,7 +349,7 @@ namespace hobd
         
         
         
-        private IPanoramaSection CreateMenuSection()
+        protected virtual IPanoramaSection CreateMenuSection()
         {
            
             var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
@@ -379,6 +378,7 @@ namespace hobd
 
             return section;
         }
+
 
         private void Navigate(string item)
         {
