@@ -33,7 +33,7 @@ public class IdleTime : CoreSensor, IAccumulatorSensor
             firstRun = true;
             return;
         }
-        Value += (TimeStamp-prevStamp) / 1000;
+        Value += (TimeStamp-prevStamp) / 1000f;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }

@@ -16,22 +16,18 @@ public class TripTime : CoreSensor, IAccumulatorSensor
     public override void SetRegistry(SensorRegistry registry)
     {
         base.SetRegistry(registry);
-        registry.AddListener(OBD2Sensors.RPM, OnRPMChange, 10000);
+        registry.AddListener(OBD2Sensors.Speed, OnChange, 2000);
     }
 
-    public void OnRPMChange(Sensor rpm)
+    public void OnChange(Sensor s)
     {
-        TimeStamp = rpm.TimeStamp;
+        TimeStamp = s.TimeStamp;
         if (firstRun) {
             prevStamp = TimeStamp;
             firstRun = false;
             return;
         }
-        if (rpm.Value == 0){
-            Suspend();
-            return;
-        }
-        Value += ((double)(TimeStamp-prevStamp)) / 1000;
+        Value += (TimeStamp-prevStamp) / 1000f;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
