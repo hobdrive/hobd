@@ -555,9 +555,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_E8">
+  <parameter id="AT_NP">
     <description lang="ru">
-      <name>PID_E8</name>
+      <name>AT_NP</name>
       <unit>-</unit>
       <description>Положение АКПП "N" или "P"</description>
     </description>
@@ -1170,9 +1170,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     <value> get(0x00) </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_L">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT position L</name>
       <unit>-</unit>
       <description>Положение селектора АКПП - "L"</description>
     </description>
@@ -1184,9 +1184,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_2">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT position 2</name>
       <unit>-</unit>
       <description>Положение селектора АКПП - "2"</description>
     </description>
@@ -1198,9 +1198,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_R">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT position R</name>
       <unit>-</unit>
       <description>Положение селектора АКПП - "R"</description>
     </description>
@@ -1226,9 +1226,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_OD">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT OverDrive</name>
       <unit>-</unit>
       <description>Переключатель АКПП - "OverDrive"</description>
     </description>
@@ -1240,9 +1240,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_Kickdown">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT Kickdown</name>
       <unit>-</unit>
       <description>Режим АКПП - "Kick Down"</description>
     </description>
@@ -1254,9 +1254,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="StopSignals">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>Stop Signal</name>
       <unit>-</unit>
       <description>Стоп-сигнал</description>
     </description>
@@ -1282,9 +1282,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_3">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT position 3</name>
       <unit>-</unit>
       <description>Положение селектора АКПП - "3"</description>
     </description>
@@ -1296,9 +1296,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="PID_F9">
+  <parameter id="AT_D">
     <description lang="ru">
-      <name>PID_F9</name>
+      <name>AT position D</name>
       <unit>-</unit>
       <description>Положение селектора АКПП - "D"</description>
     </description>

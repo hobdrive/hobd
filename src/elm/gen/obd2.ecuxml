@@ -23,7 +23,7 @@
       <byte>0x03</byte>
     </address>
     <value>
-      get(0x00)
+      get(0)
     </value>
   </parameter>
 
@@ -321,6 +321,18 @@
     <value> get(0)*256 + get(1) </value>
   </parameter>
 
+  <parameter id="FuelLevel">
+    <description>
+      <name>Fuel Level</name>
+      <unit>%</unit>
+    </description>
+    <description lang="ru">
+      <name>Уровень топлива</name>
+    </description>
+    <address> <byte>0x2F</byte> </address>
+    <value> 100*get(0)/255 </value>
+  </parameter>
+
   <parameter id="AirTemp">
     <description>
       <name>Air Temp</name>
@@ -334,5 +346,6 @@
     <address> <byte>0x46</byte> </address>
     <value> get(0) - 40 </value>
   </parameter>
+  
 
 </parameters>
