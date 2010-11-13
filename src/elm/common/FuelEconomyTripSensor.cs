@@ -36,7 +36,7 @@ public class FuelEconomyTripSensor : CoreSensor
     {
         TimeStamp = DateTimeMs.Now;
         
-        if (distance.Value - h_distance == 0 || fuel.Value - h_fuel == 0)
+        if (s != distance || distance.Value - h_distance == 0 || fuel.Value - h_fuel == 0)
             return;
 
         Value = (fuel.Value - h_fuel)  * 100 / (distance.Value - h_distance);
