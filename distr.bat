@@ -2,7 +2,7 @@
 
 set Z="C:\Program Files\7-Zip\7z.exe"
 
-set VERSION=0.2
+set VERSION=0.3
 
 FOR /F "tokens=*" %%i in ('DATE /T') do SET DATE=%%i 
 FOR /F "tokens=*" %%i in ('TIME /T') do SET TIME=%%i 
