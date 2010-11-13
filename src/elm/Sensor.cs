@@ -36,8 +36,11 @@ public interface Sensor
      *  or it may read vehicle parameters from registry.
      */
     void SetRegistry(SensorRegistry registry);
+    /**
+     * It is possible to dynamically deregister sensor
+     */
+    void DetachRegistry();
     
-    // TODO: refactor this???
     void NotifyAddListener(Action<Sensor> listener);
     
     void NotifyRemoveListener(Action<Sensor> listener);

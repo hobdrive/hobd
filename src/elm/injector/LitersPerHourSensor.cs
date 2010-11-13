@@ -29,25 +29,17 @@ public class LitersPerHourSensor : CoreSensor
         this.injectorccpm = double.Parse(registry.VehicleParameters["injector-ccpm"], HOBD.DefaultNumberFormat);
     }
 
-    public override void NotifyAddListener(Action<Sensor> listener)
+    public override void Activate()
     {
-        base.NotifyAddListener(listener);
-        if (listenerCount == 1)
-        {
-            ipw = registry.Sensor("InjectorPulseWidth");
-            rpm = registry.Sensor("RPM");
-            registry.AddListener(ipw, OnSensorChange, ListenInterval);
-            registry.AddListener(rpm, OnSensorChange, ListenInterval);
-        }
+        ipw = registry.Sensor("InjectorPulseWidth");
+        rpm = registry.Sensor("RPM");
+        registry.AddListener(ipw, OnSensorChange, ListenInterval);
+        registry.AddListener(rpm, OnSensorChange, ListenInterval);
     }
     
-    public override void NotifyRemoveListener(Action<Sensor> listener)
+    public override void Deactivate()
     {
-        base.NotifyRemoveListener(listener);
-        if (listenerCount == 0)
-        {
-            registry.RemoveListener(OnSensorChange);
-        }
+        registry.RemoveListener(OnSensorChange);
     }
 
 	/**

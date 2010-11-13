@@ -19,25 +19,17 @@ public class FuelEconomyTripSensor : CoreSensor
         ResetPeriod = 0;
     }
 
-    public override void NotifyAddListener(Action<Sensor> listener)
+    public override void Activate()
     {
-        base.NotifyAddListener(listener);
-        if (listenerCount == 1)
-        {
-            distance = registry.Sensor(CommonSensors.DistanceRun);
-            fuel = registry.Sensor(CommonSensors.FuelConsumed);
-            registry.AddListener(distance, OnChange, ListenInterval);
-            registry.AddListener(fuel, OnChange, ListenInterval);
-        }
+        distance = registry.Sensor(CommonSensors.DistanceRun);
+        fuel = registry.Sensor(CommonSensors.FuelConsumed);
+        registry.AddListener(distance, OnChange, ListenInterval);
+        registry.AddListener(fuel, OnChange, ListenInterval);
     }
     
-    public override void NotifyRemoveListener(Action<Sensor> listener)
+    public override void Deactivate()
     {
-        base.NotifyRemoveListener(listener);
-        if (listenerCount == 0)
-        {
-            registry.RemoveListener(OnChange);
-        }
+        registry.RemoveListener(OnChange);
     }
 
     void OnChange(Sensor s)

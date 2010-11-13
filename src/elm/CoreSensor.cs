@@ -26,6 +26,7 @@ public class CoreSensor : Sensor
     public virtual string GetName(string lang)
     {
         if (!name.ContainsKey(lang)) lang = "en";
+        if (!name.ContainsKey(lang)) return null;
         return name[lang];
     }
     internal void SetName(string lang, string val)
@@ -43,6 +44,7 @@ public class CoreSensor : Sensor
     public virtual string GetDescription(string lang)
     {
         if (!description.ContainsKey(lang)) lang = "en";
+        if (!description.ContainsKey(lang)) return null;
         return description[lang];
     }
     internal void SetDescription(string lang, string val)
@@ -65,7 +67,7 @@ public class CoreSensor : Sensor
     public virtual string GetUnits(string lang)
     {
         if (!units.ContainsKey(lang)) lang = "en";
-        if (!units.ContainsKey(lang)) return "";
+        if (!units.ContainsKey(lang)) return null;
         return units[lang];
     }
     internal void SetUnits(string lang, string val)
@@ -82,16 +84,30 @@ public class CoreSensor : Sensor
     public virtual void SetRegistry(SensorRegistry registry) {
         this.registry = registry;
     }
+    public virtual void DetachRegistry() {
+        this.registry = null;
+    }
         
     
     public virtual void NotifyAddListener(Action<Sensor> listener)
     {
         listenerCount++;
+        if (listenerCount == 1)
+            Activate();
     }
     
     public virtual void NotifyRemoveListener(Action<Sensor> listener)
     {
         listenerCount--;
+        if (listenerCount == 0)
+            Deactivate();
+    }
+
+    public virtual void Activate()
+    {
+    }
+    public virtual void Deactivate()
+    {
     }
 }
 
