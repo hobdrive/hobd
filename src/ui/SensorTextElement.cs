@@ -111,23 +111,24 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
 
         if (panorama != null && !panorama.IsPanoramaAnimating)
         {
-            drawingGraphics
-              .MoveTo(0, 0)
-              .Style(HOBD.theme.PhoneTextSensorDescrStyle)
-              .DrawCenterText(this.Name, width, 20);
-            if (this.TUnits.Length > 0)
+            if (this.Name != null)
+                drawingGraphics
+                  .MoveTo(0, 0)
+                  .Style(HOBD.theme.PhoneTextSensorDescrStyle)
+                  .DrawCenterText(this.Name, width, 20);
+            if (this.TUnits != null && this.TUnits.Length > 0)
             {
                 drawingGraphics
                   .MoveTo(0, height-30)
                   .Style(HOBD.theme.PhoneTextSensorDescrStyle)
                   .DrawCenterText(this.TUnits, width, 20);
             }
-        };
-
-        drawingGraphics
-          .MoveTo(0, 0)
-          .Style(this.Style)
-          .DrawCenterText(this.Text, width, height);
+        }
+        if (this.Text != null)
+            drawingGraphics
+              .MoveTo(0, 0)
+              .Style(this.Style)
+              .DrawCenterText(this.Text, width, height);
 
         //drawingGraphics.MoveTo(0, height-20).Style(HOBD.theme.PhoneTextNormalStyle).DrawText(this.Units);
     }

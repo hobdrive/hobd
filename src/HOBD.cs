@@ -56,7 +56,7 @@ namespace hobd
         public static string t(string v)
         {
             string lv = null;
-            if (!i18n.TryGetValue(v, out lv))
+            if (v != null && !i18n.TryGetValue(v, out lv))
                 lv = v;
             return lv;
         }

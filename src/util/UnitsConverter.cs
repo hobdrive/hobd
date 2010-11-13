@@ -65,6 +65,8 @@ class UnitsConverter{
 
     public bool NeedConversion(string fromUnits)
     {
+        if (fromUnits == null) return false;
+
         if (this.Units == "metric"){
             return metric.ContainsKey(fromUnits);
         }else{
