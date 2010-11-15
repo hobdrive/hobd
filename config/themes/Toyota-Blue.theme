@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding='utf-8'?>
+<theme name='Toyota Blue panel' background="Toyota-Blue.jpg">
+
+  <color name='normal'>     #  8852cb</color>
+  <color name='contrast'>   #  F0F0FF</color>
+  <color name='sensordescr'>#E05030a0</color>
+  <color name='subtle'>     #80503080</color>
+  <color name='back'>       #  000030</color>
+  
+  <font-size name='small'  value='9'/>
+  <font-size name='normal' value='12'/>
+  <font-size name='medium' value='14'/>
+  <font-size name='large'  value='22'/>
+  <font-size name='extralarge' value='30'/>
+  <font-size name='huge'   value='40'/>
+  <font-size name='giant'  value='60'/>
+
+  <font-family name='default'>Tahoma</font-family>
+  <font-family name='numeric'>Tahoma</font-family>
+
+  <style name="PanoramaTitle">
+    <font>default</font>
+    <size>extralarge</size>
+    <color>back</color>
+  </style>
+
+  <style name="PanoramaSubTitle">
+    <font>default</font>
+    <size>large</size>
+    <color>back</color>
+  </style>
+
+  <style name="PanoramaSectionTitle">
+    <font>default</font>
+    <size>large</size>
+    <color>normal</color>
+  </style>
+
+  <style name="TextNormal">
+    <font>default</font>
+    <size>normal</size>
+    <color>normal</color>
+  </style>
+
+  <style name="TextStatus">
+    <font>default</font>
+    <size>small</size>
+    <color>subtle</color>
+  </style>
+
+  <style name="TextSensorDescr">
+    <font>default</font>
+    <size>small</size>
+    <color>sensordescr</color>
+  </style>
+
+</theme>
