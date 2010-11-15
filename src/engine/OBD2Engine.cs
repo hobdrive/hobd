@@ -371,7 +371,8 @@ public class OBD2Engine : Engine
             counter--;
         }
         // TODO! WTF???
-        worker.Abort();
+        if (worker != null)
+            worker.Abort();
     }
     
     

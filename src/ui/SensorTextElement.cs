@@ -39,7 +39,10 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
                 if (this.Units == "seconds"){
                     int minutes = (int)value/60;
                     int seconds = (int)value%60;
-                    this.Text = minutes + "' " + seconds + "'' ";
+                    this.Text = "";
+                    if (minutes > 0)
+                        this.Text += minutes + "' ";
+                    this.Text += seconds + "'' ";
                 }
             }else{ 
                 this.Text = value.ToString("F"+Precision, HOBD.DefaultNumberFormat);

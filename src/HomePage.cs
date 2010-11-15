@@ -7,6 +7,7 @@ using System.Xml;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+
 using Fleux.Controls.Panorama;
 using Fleux.Core;
 using Fleux.Core.Scaling;
@@ -27,8 +28,9 @@ namespace hobd
         protected Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
         protected Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
         
-        DynamicElement statusField, configField;
+        DynamicElement statusField;
         protected IPanoramaSection menuSection;
+        protected IPanoramaSection volatileSection;
             
         public HomePage()
         {
@@ -98,20 +100,6 @@ namespace hobd
             panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
             HOBD.engine.StateNotify += StateChanged;
 
-            configField = new DynamicElement("///config") {
-                Style = HOBD.theme.PhoneTextStatusStyle,
-                HandleTapAction = () => {
-                    this.theForm.Invoke(new Action(() => {
-                        //this.theForm.Hide();
-                        //this.panorama.AnimateHidePage();
-                        //NavigateTo( new ConfigurationPage() );
-                        var cp = new ConfigurationPage();
-                        //cp.theForm.Show();
-                    }));
-                }
-            };
-            panorama.Add(configField, layoutX-60, (layoutY-20), 60, 20);
-            
             this.theForm.Text = HomePage.Title;
             this.theForm.Menu = null;
 
@@ -190,6 +178,15 @@ namespace hobd
         
         protected virtual void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
         {
+            if (section == menuSection)
+            {
+                if (volatileSection != null)
+                {
+                    panorama.Invoke(new Action(() => panorama.RemoveSection(volatileSection)));
+                    volatileSection = null;
+                }
+                return;
+            }
             List<SensorListener> sensors = null;
             sectionSensorMap.TryGetValue(section, out sensors);
             
@@ -226,7 +223,7 @@ namespace hobd
                 while( reader.IsStartElement("section") ){
 
                     var title = t(reader.GetAttribute("name"));
-                    var section = new TouchPanoramaSection(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title));
+                    var section = CreateCommonSection(title);
 
                     reader.ReadStartElement("section");
                     
@@ -352,32 +349,100 @@ namespace hobd
         protected virtual IPanoramaSection CreateMenuSection()
         {
            
-            var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
-            var section = new TouchPanoramaSection(t("Settings"));
+            var section = CreateCommonSection(t("Settings"));
 
+            var style = new TextStyle(HOBD.theme.PhoneTextNormalStyle);
+            //style.FontSize = HOBD.theme.PhoneFontSizeLarge;
+
+            var height = layoutY - panorama.SectionContentDelta;
             var grid = new Grid
                            {
-                               Columns = new MeasureDefinition[] { layoutX/3, layoutX/3, layoutX/3 },
-                               Rows = new MeasureDefinition[] { layoutY/3, layoutY/3, layoutY/3 }
+                               Columns = new MeasureDefinition[] { layoutX/3-20, layoutX/3-20, layoutX/3-20 },
+                               Rows = new MeasureDefinition[] { height/5, height/5, height/5, height/5, height/5, height/5 }
                            };
             
             grid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
-            grid[1, 0] = new DynamicElement(t("Configuration")) { Style = style, HandleTapAction = () => this.NavigateTo(new ConfigurationPage()) };
+            grid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
             grid[2, 0] = new DynamicElement(t("Exit")) { Style = style, HandleTapAction = () => Application.Exit() };
 
-            grid[2, 1] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
-            //grid[3, 0] = new DynamicElement("more is coming...") { Style = HOBD.theme.PhoneTextNormalStyle };
+            grid[0, 1] = new DynamicElement(t("Port settings")) {
+                Style = style,
+                HandleTapAction = CreatePortSection
+            };
+            grid[1, 1] = new DynamicElement(t("Vehicle")) {
+                Style = style,
+                HandleTapAction = CreateVehicleSection
+            };
+            grid[2, 1] = new DynamicElement(t("Skin")) {
+                Style = style,
+                HandleTapAction = CreateSkinSection
+            };
+            grid[3, 1] = new DynamicElement(t("Sensor push")) {
+                Style = style,
+                HandleTapAction = CreateSensorPushSection
+            };
 
-            /*
-            grid[4, 0] = new TextElement("exit") {
-                                 Style = style,
-                                 HandleTapAction = () => Application.Exit()
-                         };
-            */
-            section.Add(grid, 10, 0, layoutX, layoutY);
+            //
+            grid[0, 2] = new DynamicElement(t("Sensor push")) {
+                Style = style,
+                HandleTapAction = CreateSensorPushSection
+            };
+
+            section.Add(grid, 10, 0, layoutX, height);
+
+            var link = "http://hobdrive.com";
+            var info = new DynamicElement(link) {
+                Style = new TextStyle(style){ FontSize = HOBD.theme.PhoneFontSizeNormal },
+                HandleTapAction = () => {
+                    System.Diagnostics.Process.Start(link, "");
+                }
+            };
+
+            section.Add(info, 10, height-40, layoutX, 20);
 
             return section;
         }
+
+        protected virtual TouchPanoramaSection CreateCommonSection(string title)
+        {
+            var s = new TouchPanoramaSection(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title));
+            return s;
+        }
+
+
+
+        protected virtual void CreatePortSection()
+        {
+            var section = new ConfigurationSection(layoutX, layoutY-panorama.SectionContentDelta){
+                ChoosePortAction = () => {
+                    panorama.ScrollSection(-1);
+                    HOBD.config.Save();
+                    HOBD.EngineConnect();
+                    HOBD.engine.Activate();
+                }
+            };
+            panorama.AddSection(section);
+            this.volatileSection = section;
+            panorama.ScrollSection(+1);
+        }
+
+        protected virtual void CreateSkinSection()
+        {
+            CreatePortSection();
+        }
+
+        protected virtual void CreateVehicleSection()
+        {
+            CreatePortSection();
+        }
+
+        protected virtual void CreateSensorPushSection()
+        {
+            CreatePortSection();
+        }
+
+
+
 
 
         private void Navigate(string item)

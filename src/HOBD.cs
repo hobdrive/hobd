@@ -85,6 +85,22 @@ namespace hobd
             }
         }
         
+        public static void EngineConnect()
+        {
+            if (HOBD.engine == null)
+                HOBD.engine = (Engine)Assembly.GetExecutingAssembly().CreateInstance(config.GetVehicle(config.Vehicle).ECUEngine);
+            
+            IStream stream = null;
+            if (config.Port.StartsWith("btspp"))
+                stream = new BluetoothStream();
+            else
+                stream = new SerialStream();
+            
+            engine.Deactivate();
+            engine.Registry = Registry;
+            engine.Init(stream, config.Port);
+        }
+
         public static void Init()
         {
             int handle = FindWindow(null, HomePage.Title);
@@ -122,16 +138,6 @@ namespace hobd
                     vehicle = ConfigVehicleData.defaultVehicle;
                 }
                 
-                HOBD.engine = (Engine)Assembly.GetExecutingAssembly().CreateInstance(vehicle.ECUEngine);
-                
-                IStream stream = null;
-                if (config.Port.StartsWith("btspp"))
-                    stream = new BluetoothStream();
-                else
-                    stream = new SerialStream();
-                
-                engine.Init(stream, config.Port);
-                                
                 Registry = new SensorRegistry();
                 Registry.VehicleParameters = vehicle.Parameters;
 
@@ -145,10 +151,10 @@ namespace hobd
                             }
                         });
                 
-                engine.Registry = Registry;
+                EngineConnect();
                 
                 int dpi_value;
-                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Height / 272);
+                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Width / 480);
                 if (config.DPI != 0)
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;
@@ -180,6 +186,10 @@ namespace hobd
                 config.Save();
                 Logger.info("HOBD", "app exit");
             }
+#if !WINCE
+            // hanged threads?
+            Environment.Exit(0);
+#endif
         }
         
     }

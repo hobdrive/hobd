@@ -100,10 +100,11 @@
     <Compile Include="src\HOBDTheme.cs" />
     <Compile Include="src\HOBDBuild.cs" />
     <Compile Include="src\HomePage.cs" />
-    <Compile Include="src\ConfigurationPage.cs" />
+    <Compile Include="src\ConfigurationSection.cs" />
     <Compile Include="src\HOBD.cs" />
     <Compile Include="src\HOBDRunner.cs" />
     <Compile Include="src\ui\DynamicElement.cs" />
+    <Compile Include="src\ui\IconTextElement.cs" />
     <Compile Include="src\ui\SensorTextElement.cs" />
     <Compile Include="src\util\DateTimeMs.cs" />
     <Compile Include="src\util\Logger.cs" />

@@ -4,9 +4,9 @@ Sensors       = Сенсоры
 Settings      = Настройки
 
 Reset trips   = Сброс поездки
-Configuration = Настройки портов
+Configuration = Настройки
 Exit          = Выйти
-Minimize      = Свернуть
+Minimize      = Скрыть
 
 
 celsius = °С
