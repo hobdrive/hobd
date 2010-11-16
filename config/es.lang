@@ -7,3 +7,13 @@ Reset trips   = Restablecer viajes
 Configuration = Configuración        
 Exit          = Salir                
 Minimize      = Reducir al mínimo    
+
+
+Port settings            = Configuración de puerto         
+Connection port settings = Ajustes de conexión del puerto  
+Vehicle                  = Vehículo                        
+Theme                    = Tema                            
+Choose Theme             = Elegir el tema                  
+Language                 = Idioma                          
+Sensor push              = Sensor de presión               
+

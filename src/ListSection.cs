@@ -18,24 +18,46 @@ using Fleux.Styles;
 namespace hobd
 {
 
-    public class LanguageSection : TouchPanoramaSection
+    public class ListSection : TouchPanoramaSection
     {
-		private static string[] items = { };
+		IEnumerable<object> content;
+		Func<object, string> uiContent;
+		public IEnumerable<object> Content {
+		    get{
+		        return content;
+		    }
+		    set{
+		        content = value;
+		        if (content != null && uiContent != null){
+		            CreateItems();
+		        }
+		    }
+		}
+		public Func<object, string> UIContent {
+		    get{
+		        return uiContent;
+		    }
+		    set{
+		        uiContent = value;
+		        if (content != null && uiContent != null){
+		            CreateItems();
+		        }
+		    }
+		}
+		public object Selected;
 
 
 		public int LayoutX{get; set;}
 		public int LayoutY{get; set;}
-		public Action<string> ChooseAction;
+		public Action<object> ChooseAction;
 
-		Dictionary<IUIElement, string> uiMapping = new Dictionary<IUIElement, string>();
+		Dictionary<IUIElement, object> uiMapping = new Dictionary<IUIElement, object>();
 		
-        public LanguageSection(int layoutX, int layoutY) :
-               base(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(HOBD.t("Language")))
+        public ListSection(string title, TextStyle style, int layoutX, int layoutY) :
+               base(dg => dg.Style(style ?? HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title))
         {
             LayoutX = layoutX;
             LayoutY = layoutY;
-
-            CreateItems();
         }
 
 
@@ -54,18 +76,17 @@ namespace hobd
 
             int idx = 0, idx2 = 0;
 
-            foreach(var p in Directory.GetFiles(HOBD.AppPath, "*.lang").OrderBy(s => s))
+            foreach(var p in Content)
             {
-                var lcode = Path.GetFileNameWithoutExtension(p);
-                var label = lcode;
+                string label = UIContent(p);
 
-                if (lcode == HOBD.config.Language){
+                if (p.Equals(Selected)){
                     label = ">> " + label;
                 }
 
-                var e = new IconTextElement("icon_lang.png", label){ HandleTapAction = OnChoose };
+                var e = new IconTextElement("icon.png", label){ HandleTapAction = OnChoose };
                 
-                uiMapping.Add(e, lcode);
+                uiMapping.Add(e, p);
 
                 grid[idx++, idx2] = e;
                 if (idx >= grid.Rows.Length){
@@ -81,7 +102,7 @@ namespace hobd
 
         void OnChoose(IUIElement e)
         {
-            string p = null;
+            object p = null;
             if (uiMapping.TryGetValue(e, out p))
                 if (ChooseAction != null)
                     ChooseAction(p);

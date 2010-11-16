@@ -104,6 +104,20 @@ namespace hobd
             }
         }
 
+        public static void ReloadUnits()
+        {
+            HOBD.uConverter = new UnitsConverter(HOBD.config.Units);
+        }
+
+        public static void ReloadTheme()
+        {
+            /* Migration: */
+            if (config.Theme == "hobd.HOBDTheme")
+                config.Theme = "themes/default.theme";
+            // load theme
+            HOBD.theme = HOBDTheme.LoadTheme(Path.Combine(HOBD.AppPath, config.Theme));
+        }
+
         public static void EngineConnect()
         {
             if (HOBD.engine == null)
@@ -144,7 +158,7 @@ namespace hobd
 
                 ReloadLang();
 
-                HOBD.uConverter = new UnitsConverter(HOBD.config.Units);
+                ReloadUnits();
 
                 var vehicle = config.GetVehicle(config.Vehicle);
 
@@ -174,11 +188,7 @@ namespace hobd
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;
 
-                /* Migration: */
-                if (config.Theme == "hobd.HOBDTheme")
-                    config.Theme = "themes/default.theme";
-                // load theme
-                HOBD.theme = HOBDTheme.LoadTheme(Path.Combine(HOBD.AppPath, config.Theme));
+                ReloadTheme();
 
             }catch(Exception e){
                 Logger.error("HOBD", "fatal failure, exiting", e);

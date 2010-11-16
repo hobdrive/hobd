@@ -83,6 +83,8 @@ namespace hobd
             
             panorama.BackgroundImage = target;
 
+            panorama.ClearSections();
+
             this.LoadSections();
 
             menuSection = this.CreateMenuSection();
@@ -118,7 +120,11 @@ namespace hobd
 
             
             HOBD.engine.Activate();
-
+        }
+        
+        public virtual void ReloadUI()
+        {
+            InitializePanorama();
         }
         
         public override void Dispose()
@@ -127,7 +133,6 @@ namespace hobd
             HOBD.engine.StateNotify -= StateChanged;
             HOBD.Registry.RemoveListener(SensorChanged);
         }
-        
         
         protected virtual void SensorChanged(Sensor sensor)
         {
@@ -378,21 +383,34 @@ namespace hobd
                 Style = style,
                 HandleTapAction = CreateVehicleSection
             };
-            grid[2, 1] = new DynamicElement(t("Skin")) {
+            grid[2, 1] = new DynamicElement(t("Theme")) {
                 Style = style,
-                HandleTapAction = CreateSkinSection
+                HandleTapAction = CreateThemeSection
             };
             grid[3, 1] = new DynamicElement(t("Language")) {
                 Style = style,
                 HandleTapAction = CreateLanguageSection
             };
-            grid[4, 1] = new DynamicElement(t("Sensor push")) {
+            grid[4, 1] = new DynamicElement(t("Display Units")) {
                 Style = style,
-                HandleTapAction = CreateSensorPushSection
+                HandleTapAction = () => this.PushVolatileSection(
+                    new ListSection(t("Display Units"), null, layoutX, layoutY-panorama.SectionContentDelta)
+                    {
+                        Selected = HOBD.config.Units,
+                        Content  = new string[]{ "metric", "imperial" }.Select((s) => (object)s),
+                        UIContent = (l) => t((string)l),
+                        ChooseAction = (l) => {
+                            panorama.ScrollSection(-1);
+                            HOBD.config.Units = (string)l;
+                            HOBD.config.Save();
+                            HOBD.ReloadUnits();
+                            ReloadUI();
+                        }
+                    })
             };
 
-            //
-            grid[0, 2] = new DynamicElement(t("Custom")) {
+            
+            grid[0, 2] = new DynamicElement(t("Sensor push")) {
                 Style = style,
                 HandleTapAction = CreateSensorPushSection
             };
@@ -418,8 +436,6 @@ namespace hobd
             return s;
         }
 
-
-
         protected virtual void CreatePortSection()
         {
             var section = new ConfigurationSection(layoutX, layoutY-panorama.SectionContentDelta){
@@ -435,24 +451,61 @@ namespace hobd
             panorama.ScrollSection(+1);
         }
 
-        protected virtual void CreateSkinSection()
+        protected virtual void PushVolatileSection(TouchPanoramaSection section)
         {
+            if (this.volatileSection == null) {
+                panorama.AddSection(section);
+                this.volatileSection = section;
+                panorama.ScrollSection(+1);
+            }
+        }
+
+        protected virtual void CreateThemeSection()
+        {
+            IEnumerable<object> fileList = null;
+            try{
+                fileList = Directory.GetFiles(Path.Combine(HOBD.AppPath, "themes"), "*.theme")
+                                    .OrderBy(s => s)
+                                    .Select(s => (object)Path.GetFileName(s));
+            }catch(Exception e){
+                Logger.error("HomePage", "No themes found", e);
+            }
+            var section = new ListSection(t("Choose Theme"), null, layoutX, layoutY-panorama.SectionContentDelta)
+            {
+                Selected = HOBD.config.Theme,
+                Content  = fileList,
+                UIContent = (f) => Path.GetFileNameWithoutExtension((string)f),
+                ChooseAction = (path) => {
+                    panorama.ScrollSection(-1);
+                    HOBD.config.Theme = "themes/"+path;
+                    HOBD.config.Save();
+                    HOBD.ReloadTheme();
+                    ReloadUI();
+                }
+            };
+            this.PushVolatileSection(section);
         }
 
         protected virtual void CreateLanguageSection()
         {
-            var section = new LanguageSection(layoutX, layoutY-panorama.SectionContentDelta){
+            IEnumerable<object> codesList = Directory.GetFiles(HOBD.AppPath, "*.lang")
+                                                .Select( (f) => (object)Path.GetFileNameWithoutExtension(f) )
+                                                .OrderBy(s => s);
+
+            var section = new ListSection(t("Language"), null, layoutX, layoutY-panorama.SectionContentDelta)
+            {
+                Selected = HOBD.config.Language,
+                Content  = codesList,
+                UIContent = (l) => t((string)l),
                 ChooseAction = (l) => {
                     panorama.ScrollSection(-1);
-                    HOBD.config.Language = l;
+                    HOBD.config.Language = (string)l;
                     HOBD.config.Save();
                     HOBD.ReloadLang();
-                    HOBD.ReloadApp();
+                    ReloadUI();
                 }
             };
-            panorama.AddSection(section);
-            this.volatileSection = section;
-            panorama.ScrollSection(+1);
+            this.PushVolatileSection(section);
         }
 
         protected virtual void CreateVehicleSection()
@@ -462,10 +515,6 @@ namespace hobd
         protected virtual void CreateSensorPushSection()
         {
         }
-
-
-
-
 
         private void Navigate(string item)
         {

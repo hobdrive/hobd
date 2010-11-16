@@ -8,6 +8,14 @@ Configuration = Настройки
 Exit          = Выйти
 Minimize      = Скрыть
 
+Port settings            = Выбор Порта
+Connection port settings = Выбор Порта
+Vehicle                  = Автомобиль
+Theme                    = Оформление
+Choose Theme             = Выберите Оформление
+Language                 = Сменить язык
+Sensor push              = Отсылка сенсоров
+
 
 celsius = °С
 fahrenheit = F
