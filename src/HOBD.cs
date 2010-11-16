@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Diagnostics;
 using System.Globalization;
-using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 using Fleux.Core;
 
@@ -19,6 +20,8 @@ namespace hobd
         public static HOBDTheme theme;
         public static UnitsConverter uConverter;
         public static NumberFormatInfo DefaultNumberFormat;
+
+        static bool ReloadUI = true;
 
         static HOBD()
         {
@@ -85,6 +88,22 @@ namespace hobd
             }
         }
         
+        public static void ReloadApp()
+        {
+            ReloadUI = true;
+            Application.Exit();
+        }
+
+        public static void ReloadLang()
+        {
+            i18n.Clear();
+            HOBD.LoadLang("en");
+            if (config.Language != "en")
+            {
+                HOBD.LoadLang(config.Language);
+            }
+        }
+
         public static void EngineConnect()
         {
             if (HOBD.engine == null)
@@ -101,14 +120,14 @@ namespace hobd
             engine.Init(stream, config.Port);
         }
 
-        public static void Init()
+        public static bool Init()
         {
             int handle = FindWindow(null, HomePage.Title);
             if (handle != 0)
             {
                 Logger.log("INFO", "HOBD", "App bring to foreground", null);
                 SetForegroundWindow(handle);
-                return;
+                return false;
             }
                 
             try{
@@ -123,11 +142,7 @@ namespace hobd
                 
                 Logger.SetLevel(config.LogLevel);
 
-                HOBD.LoadLang("en");
-                if (config.Language != "en")
-                {
-                    HOBD.LoadLang(config.Language);
-                }
+                ReloadLang();
 
                 HOBD.uConverter = new UnitsConverter(HOBD.config.Units);
 
@@ -168,24 +183,37 @@ namespace hobd
             }catch(Exception e){
                 Logger.error("HOBD", "fatal failure, exiting", e);
                 if (engine != null && engine.IsActive()) engine.Deactivate();
+                return false;
             }
+            return true;
         }
 
-        public static void Run(FleuxPage home)
+        public static void Run(string homepage)
         {
-            try{
-                FleuxApplication.Run(home);
-            }catch(Exception e){
-                Logger.error("HOBD", "fatal failure, exiting", e);
-                if (engine != null && engine.IsActive()) engine.Deactivate();
-            }finally{
-                if (engine != null)
-                    engine.Deactivate();
-                if (Registry != null)
-                    Registry.Deactivate();
-                config.Save();
-                Logger.info("HOBD", "app exit");
+            while (ReloadUI)
+            {
+                try{
+                    ReloadUI = false;
+                    Thread main = new Thread( () => {
+                        FleuxPage home = (FleuxPage)Assembly.GetExecutingAssembly().CreateInstance(homepage);
+                        FleuxApplication.Run(home);
+                        home.Dispose();
+                    });
+                    main.Start();
+                    main.Join();
+                }catch(Exception e){
+                    Logger.error("HOBD", "fatal failure, exiting", e);
+                    if (engine != null && engine.IsActive()) engine.Deactivate();
+                }
             }
+
+            if (engine != null)
+                engine.Deactivate();
+            if (Registry != null)
+                Registry.Deactivate();
+            config.Save();
+            Logger.info("HOBD", "app exit");
+            
 #if !WINCE
             // hanged threads?
             Environment.Exit(0);

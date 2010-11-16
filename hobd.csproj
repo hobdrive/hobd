@@ -101,6 +101,7 @@
     <Compile Include="src\HOBDBuild.cs" />
     <Compile Include="src\HomePage.cs" />
     <Compile Include="src\ConfigurationSection.cs" />
+    <Compile Include="src\LanguageSection.cs" />
     <Compile Include="src\HOBD.cs" />
     <Compile Include="src\HOBDRunner.cs" />
     <Compile Include="src\ui\DynamicElement.cs" />

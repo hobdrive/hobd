@@ -56,7 +56,7 @@ namespace hobd
                 bluetoothDeviceInfo = bluetoothClient.DiscoverDevices(10, true, false, true);
                 foreach (var di in bluetoothDeviceInfo){
                     Logger.info("ConfigurationPage", "BT name="+di.DeviceName+", addr="+di.DeviceAddress.ToString());
-                }            
+                }
 
             }catch(Exception e){
                 UpdateBTStatus(HOBD.t("Bluetooth scan failed"));

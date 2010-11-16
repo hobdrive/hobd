@@ -8,8 +8,9 @@ class HOBRunner
     [STAThread]
     private static void Main(string[] args)
     {
-        HOBD.Init();
-        HOBD.Run(new HomePage());
+        if (!HOBD.Init())
+            return;
+        HOBD.Run("hobd.HomePage");
     }
 
 }

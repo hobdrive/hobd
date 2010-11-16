@@ -354,16 +354,21 @@ namespace hobd
             var style = new TextStyle(HOBD.theme.PhoneTextNormalStyle);
             //style.FontSize = HOBD.theme.PhoneFontSizeLarge;
 
-            var height = layoutY - panorama.SectionContentDelta;
+            var height0 = (layoutY - panorama.SectionContentDelta);
+            var height = height0/6;
             var grid = new Grid
                            {
                                Columns = new MeasureDefinition[] { layoutX/3-20, layoutX/3-20, layoutX/3-20 },
-                               Rows = new MeasureDefinition[] { height/5, height/5, height/5, height/5, height/5, height/5 }
+                               Rows = new MeasureDefinition[] { height, height, height, height, height }
                            };
             
             grid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
             grid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
-            grid[2, 0] = new DynamicElement(t("Exit")) { Style = style, HandleTapAction = () => Application.Exit() };
+            grid[2, 0] = new DynamicElement(t("Exit")) {
+                Style = style,
+                HandleTapAction = () => Application.Exit()
+                    
+            };
 
             grid[0, 1] = new DynamicElement(t("Port settings")) {
                 Style = style,
@@ -377,18 +382,22 @@ namespace hobd
                 Style = style,
                 HandleTapAction = CreateSkinSection
             };
-            grid[3, 1] = new DynamicElement(t("Sensor push")) {
+            grid[3, 1] = new DynamicElement(t("Language")) {
+                Style = style,
+                HandleTapAction = CreateLanguageSection
+            };
+            grid[4, 1] = new DynamicElement(t("Sensor push")) {
                 Style = style,
                 HandleTapAction = CreateSensorPushSection
             };
 
             //
-            grid[0, 2] = new DynamicElement(t("Sensor push")) {
+            grid[0, 2] = new DynamicElement(t("Custom")) {
                 Style = style,
                 HandleTapAction = CreateSensorPushSection
             };
 
-            section.Add(grid, 10, 0, layoutX, height);
+            section.Add(grid, 10, 0, layoutX, height0);
 
             var link = "http://hobdrive.com";
             var info = new DynamicElement(link) {
@@ -398,7 +407,7 @@ namespace hobd
                 }
             };
 
-            section.Add(info, 10, height-40, layoutX, 20);
+            section.Add(info, 10, height0 - 40, layoutX, 20);
 
             return section;
         }
@@ -428,17 +437,30 @@ namespace hobd
 
         protected virtual void CreateSkinSection()
         {
-            CreatePortSection();
+        }
+
+        protected virtual void CreateLanguageSection()
+        {
+            var section = new LanguageSection(layoutX, layoutY-panorama.SectionContentDelta){
+                ChooseAction = (l) => {
+                    panorama.ScrollSection(-1);
+                    HOBD.config.Language = l;
+                    HOBD.config.Save();
+                    HOBD.ReloadLang();
+                    HOBD.ReloadApp();
+                }
+            };
+            panorama.AddSection(section);
+            this.volatileSection = section;
+            panorama.ScrollSection(+1);
         }
 
         protected virtual void CreateVehicleSection()
         {
-            CreatePortSection();
         }
 
         protected virtual void CreateSensorPushSection()
         {
-            CreatePortSection();
         }
 
 
