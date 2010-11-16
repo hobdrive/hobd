@@ -11,11 +11,16 @@ Minimize      = Скрыть
 Port settings            = Выбор Порта
 Connection port settings = Выбор Порта
 Vehicle                  = Автомобиль
+Vehicle Type             = Автомобиль (тип)
 Theme                    = Оформление
 Choose Theme             = Выберите Оформление
 Language                 = Сменить язык
+Display Units            = Единицы изменения
+metric                   = Европейские (км, литры)
+imperial                 = Американские/Английские (мили, галлоны)
 Sensor push              = Отсылка сенсоров
 
+hobdrive.com = хобдрайв.рф
 
 celsius = °С
 fahrenheit = F

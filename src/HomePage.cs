@@ -510,6 +510,21 @@ namespace hobd
 
         protected virtual void CreateVehicleSection()
         {
+            this.PushVolatileSection(
+                new ListSection(t("Vehicle Type"), null, layoutX, layoutY-panorama.SectionContentDelta)
+                {
+                    Selected = HOBD.config.Vehicle,
+                    Content  = HOBD.config.Vehicles.Select((s) => (object)s.Name),
+                    UIContent = s => (string)s,
+                    ChooseAction = (v) => {
+                        panorama.ScrollSection(-1);
+                        HOBD.config.Vehicle = (string)v;
+                        HOBD.config.Save();
+                        HOBD.ReloadVehicle();
+                        ReloadUI();
+                    }
+                }
+            );
         }
 
         protected virtual void CreateSensorPushSection()

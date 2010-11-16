@@ -118,6 +118,31 @@ namespace hobd
             HOBD.theme = HOBDTheme.LoadTheme(Path.Combine(HOBD.AppPath, config.Theme));
         }
 
+        public static void ReloadVehicle()
+        {
+            var vehicle = config.GetVehicle(config.Vehicle);
+
+            if (vehicle == null){
+                Logger.error("HOBD", "Bad configuration: can't find vehicle " + config.Vehicle);
+                vehicle = ConfigVehicleData.defaultVehicle;
+            }
+            
+            Registry = new SensorRegistry();
+            Registry.VehicleParameters = vehicle.Parameters;
+
+            vehicle.Sensors.ForEach((provider) =>
+                    {
+                        Logger.trace("HOBD", "RegisterProvider: "+ provider);
+                        try{
+                            Registry.RegisterProvider((SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
+                        }catch(Exception e){
+                            Logger.error("HOBD", "bad provider", e);
+                        }
+                    });
+            
+            EngineConnect();
+        }
+
         public static void EngineConnect()
         {
             if (HOBD.engine == null)
@@ -160,27 +185,7 @@ namespace hobd
 
                 ReloadUnits();
 
-                var vehicle = config.GetVehicle(config.Vehicle);
-
-                if (vehicle == null){
-                    Logger.error("HOBD", "Bad configuration: can't find vehicle " + config.Vehicle);
-                    vehicle = ConfigVehicleData.defaultVehicle;
-                }
-                
-                Registry = new SensorRegistry();
-                Registry.VehicleParameters = vehicle.Parameters;
-
-                vehicle.Sensors.ForEach((provider) =>
-                        {
-                            Logger.trace("HOBD", "RegisterProvider: "+ provider);
-                            try{
-                                Registry.RegisterProvider((SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
-                            }catch(Exception e){
-                                Logger.error("HOBD", "bad provider", e);
-                            }
-                        });
-                
-                EngineConnect();
+                ReloadVehicle();
                 
                 int dpi_value;
                 dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Width / 480);
