@@ -417,11 +417,13 @@ namespace hobd
 
             section.Add(grid, 10, 0, layoutX, height0);
 
-            var link = "http://hobdrive.com";
+            var link = t("hobdrive.com");
             var info = new DynamicElement(link) {
                 Style = new TextStyle(style){ FontSize = HOBD.theme.PhoneFontSizeNormal },
                 HandleTapAction = () => {
-                    System.Diagnostics.Process.Start(link, "");
+                    try{
+                        System.Diagnostics.Process.Start(link, "");
+                    }catch(Exception){}
                 }
             };
 
