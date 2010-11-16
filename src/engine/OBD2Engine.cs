@@ -49,8 +49,10 @@ public class OBD2Engine : Engine
     {
         base.Activate();
 
-        worker = new Thread(this.Run);
-        worker.Start();
+        if (worker == null){
+            worker = new Thread(this.Run);
+            worker.Start();
+        }
     }
     
     void PurgeStream()
@@ -373,6 +375,7 @@ public class OBD2Engine : Engine
         // TODO! WTF???
         if (worker != null)
             worker.Abort();
+        worker = null;
     }
     
     
