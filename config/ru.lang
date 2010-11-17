@@ -18,9 +18,9 @@ Language                 = Сменить язык
 Display Units            = Единицы изменения
 metric                   = Европейские (км, литры)
 imperial                 = Американские/Английские (мили, галлоны)
-Sensor push              = Отсылка сенсоров
+Sensor push              = Сеть
 
-hobdrive.com = хобдрайв.рф
+hobdrive.com = http://хобдрайв.рф
 
 celsius = °С
 fahrenheit = F

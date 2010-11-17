@@ -1,6 +1,7 @@
 @echo off
 
-set Z="C:\Program Files\7-Zip\7z.exe"
+rem set Z="C:\Program Files\7-Zip\7z.exe"
+set Z=C:\programs\arc\7z.exe
 
 set VERSION=0.3
 
@@ -18,7 +19,7 @@ echo     public const string TimeStamp = "%TS%"; >> src/HOBDBuild.cs
 echo } >> src/HOBDBuild.cs
 echo } >> src/HOBDBuild.cs
 
-rem goto skip
+ goto skip
 c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=AnyCPU /p:Configuration=Release hobd.csproj
 c:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe /p:Platform=WINCE /p:Configuration=Release hobd.csproj
 :skip
@@ -34,8 +35,7 @@ mkdir distr\wince\sensors
 copy bin\Release\hobd.exe distr\win32
 copy bin\Release\Fleux.dll distr\win32
 copy lib\win32\InTheHand.Net.Personal.dll distr\win32
-copy config\default* distr\win32
-copy config\*.lang distr\win32
+xcopy /E /C /Y config\*.* distr\win32
 copy src\elm\gen\*.ecuxml distr\win32\sensors
 copy README.MD distr\win32
 del distr\win32\log.txt
@@ -44,9 +44,8 @@ del distr\win32\config.xml
 copy bin\Release_ce\hobd.exe distr\wince
 copy bin\Release_ce\Fleux.dll distr\wince
 copy lib\wince\InTheHand.Net.Personal.dll distr\wince
-copy config\default* distr\wince
+xcopy /E /C /Y config\*.* distr\wince
 copy src\elm\gen\*.ecuxml distr\wince\sensors
-copy config\*.lang distr\wince
 copy README.MD distr\wince
 del distr\wince\log.txt
 del distr\wince\config.xml

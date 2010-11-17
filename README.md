@@ -11,15 +11,25 @@
   Beside all the stuff you may find in tons of OBDII scanner tools, here are some
   Unique features:
 
-  - Fine graned touch-friendly UI for use in carputer/navigator uninterruptly.
+  - Fine graned touch-friendly fluid UI for use in carputer/navigator uninterruptly.
   - Precise MPG (fuel consumption) analysis and calculations.
   - Toyota owners will receive precise data via custom injector pulse width PID and some others.
   - Sensor data logging facilities for data review.
   - Full i18n and metric/imperial switching.
+  - Visual themes.
   - Opensourced, extensible.
 
  Changelog
 ==============
+ - v0.3
+   - cusom visual themes support
+   - UI settings for port, theme, language, vehicle
+   - improved default layout
+   - make fuel efficiency sensors run smoother
+   - new trip time and idle time data
+   - performance improvements in UI
+   - sensor reading is done at maximum speed now
+
  - v0.2
    - Better PID naming
    - Reset trip, automatic trip suspend on disconnection functionality

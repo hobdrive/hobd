@@ -5,7 +5,7 @@
 <ui>
   <section name="General">
     <grid rows="60,100,60" cols="150,170,150">
-      <item/>
+      <item id="FuelLevel"/>
       <item id="FuelEconomy_trip" size='large' type='chart'  precision='1'/>
       <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
 
@@ -21,7 +21,7 @@
 
   <section name="Trip computer">
     <grid rows="60,100,60" cols="150,170,150">
-      <item id="TripTime"/>
+      <item id="TripTime" precision='3'/>
       <item id="IdleTime"/>
       <item id="LitersPerHour" period='1000' precision='1'/>
 
@@ -34,7 +34,7 @@
       <item id="FuelConsumed" size='large' type='text' precision='3'/>
     </grid>
   </section>
-
+<!--
   <section name="Sensors">
     <grid rows="60,100,60" cols="150,170,150">
       <item id="STFT1" size='large' type='barchart'/>
@@ -51,4 +51,29 @@
     </grid> 
   </section>
 
-<ui>
+  <section name="Toyota sensors">
+    <grid rows="60,60,60,60" cols="110,110, 110,110">
+      <item id="FuelSystemStatus" />
+      <item id="ATFTemp"  />
+      <item id='FuelPressure' />
+      <item  />
+
+      <item id='AT_NP' />
+      <item id='AT_R' />
+      <item  />
+      <item  />
+
+      <item id='AT_L' />
+      <item id='AT_2' />
+      <item id='AT_3' />
+      <item id='AT_D' />
+      
+      <item id='AT_OD' />
+      <item id='AT_Kickdown' />
+      <item id='StopSignals' />
+      <item  />
+    </grid> 
+  </section>
+-->
+  
+</ui>
