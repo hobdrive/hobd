@@ -67,8 +67,10 @@ public class IconTextElement : Fleux.UIElements.IUIElement, IDimensionAwareEleme
     
     private void ClickedTimer(object state)
     {
-        clickTimer.Dispose();
-        clickTimer = null;
+        if (clickTimer != null) {
+            clickTimer.Dispose();
+            clickTimer = null;
+        }
         try{ //TODO!!!!
         if (parent != null && !parent.IsDisposed)
             parent.Invoke(new Action(parent.Invalidate));
