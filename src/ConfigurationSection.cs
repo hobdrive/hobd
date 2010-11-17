@@ -41,9 +41,9 @@ namespace hobd
             LayoutX = layoutX;
             LayoutY = layoutY;
 
-            OnBluetoothScan(null);
-
             CreateItems();
+
+            OnBluetoothScan(null);
 
         }
         void DiscoverBT()
