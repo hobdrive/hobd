@@ -11,29 +11,16 @@ using Fleux.UIElements.Grid;
 
 namespace hobd{
 
-public class IconTextElement : Fleux.UIElements.IUIElement, IDimensionAwareElement
+public class IconTextElement : DynamicElement
 {
-    int width;
-    int height;
-    System.Threading.Timer clickTimer;
-    Control parent;
 
-    public IconTextElement(string icon, string text)
+    public IconTextElement(string icon, string text) :
+           base(text)
     {
-        this.Text = text;
-        //this.Icon = text;
         this.Style = HOBD.theme.PhoneTextNormalStyle;
     }
 
-    public string Text {get; set; }
-
-    public TouchableElementState TouchableState { get; set; }
-
-    public TextStyle Style { get; set; }
-
-    public Action<IUIElement> HandleTapAction { get; set; }
-    
-    public void Draw(IDrawingGraphics g)
+    public override void Draw(IDrawingGraphics g)
     {
         g.Style(this.Style);
         if (clickTimer != null){
@@ -53,39 +40,5 @@ public class IconTextElement : Fleux.UIElements.IUIElement, IDimensionAwareEleme
         */
     }
 
-    public void HandleTap(System.Drawing.Point point)
-    {
-    	  //drawingGraphics.Style(this.Style).Bold(true).DrawText(this.text + n);
-        if (this.HandleTapAction != null)
-        {
-            this.HandleTapAction(this);
-        }
-        clickTimer = new System.Threading.Timer(this.ClickedTimer, null, 500, 500);
-        if (parent != null && !parent.IsDisposed)
-            parent.Invoke(new Action(parent.Invalidate));
-    }
-    
-    private void ClickedTimer(object state)
-    {
-        if (clickTimer != null) {
-            clickTimer.Dispose();
-            clickTimer = null;
-        }
-        try{ //TODO!!!!
-        if (parent != null && !parent.IsDisposed)
-            parent.Invoke(new Action(parent.Invalidate));
-        }catch(Exception){}
-    }
-    
-    public void notifyDimensions(int width, int height)
-    {
-        this.width = width;
-        this.height = height;
-    }
-    public void NotifyAttach(Control control)
-    {
-        this.parent = control;
-    }
-    
 }
 }

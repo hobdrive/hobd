@@ -375,33 +375,33 @@ namespace hobd
                                Rows = new MeasureDefinition[] { height, height, height, height, height }
                            };
             
-            menuGrid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
-            menuGrid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
+            menuGrid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = (e) => { HOBD.Registry.TriggerReset(); } };
+            menuGrid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = (e) => { /* TODO */ } };
             menuGrid[2, 0] = new DynamicElement(t("Exit")) {
                 Style = style,
-                HandleTapAction = () => Application.Exit()
+                HandleTapAction = (e) => Application.Exit()
                     
             };
 
             menuGrid[0, 1] = new DynamicElement(t("Port settings")) {
                 Style = style,
-                HandleTapAction = CreatePortSection
+                HandleTapAction = (e) => CreatePortSection()
             };
             menuGrid[1, 1] = new DynamicElement(t("Vehicle")) {
                 Style = style,
-                HandleTapAction = CreateVehicleSection
+                HandleTapAction = (e) => CreateVehicleSection()
             };
             menuGrid[2, 1] = new DynamicElement(t("Theme")) {
                 Style = style,
-                HandleTapAction = CreateThemeSection
+                HandleTapAction = (e) => CreateThemeSection()
             };
             menuGrid[3, 1] = new DynamicElement(t("Language")) {
                 Style = style,
-                HandleTapAction = CreateLanguageSection
+                HandleTapAction = (e) => CreateLanguageSection()
             };
             menuGrid[4, 1] = new DynamicElement(t("Display Units")) {
                 Style = style,
-                HandleTapAction = () => this.PushVolatileSection(
+                HandleTapAction = (e) => this.PushVolatileSection(
                     new ListSection(t("Display Units"), null, layoutX, layoutY-panorama.SectionContentDelta)
                     {
                         Selected = HOBD.config.Units,
@@ -420,7 +420,7 @@ namespace hobd
             
             menuGrid[0, 2] = new DynamicElement(t("Sensor push")) {
                 Style = style,
-                HandleTapAction = CreateSensorPushSection
+                HandleTapAction = (e) => CreateSensorPushSection()
             };
 
             section.Add(menuGrid, 10, 0, layoutX, height0);
@@ -428,7 +428,7 @@ namespace hobd
             var link = t("hobdrive.com");
             var info = new DynamicElement(link) {
                 Style = new TextStyle(style){ FontSize = HOBD.theme.PhoneFontSizeNormal },
-                HandleTapAction = () => {
+                HandleTapAction = (e) => {
                     try{
                         System.Diagnostics.Process.Start(link, "");
                     }catch(Exception){}

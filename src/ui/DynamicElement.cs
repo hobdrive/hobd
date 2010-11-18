@@ -13,10 +13,11 @@ namespace hobd{
 
 public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElement
 {
-    int width;
-    int height;
-    System.Threading.Timer clickTimer;
-    Control parent;
+    protected int width;
+    protected int height;
+    protected Control parent;
+
+    protected System.Threading.Timer clickTimer;
 
     public DynamicElement(string text)
     {
@@ -30,9 +31,9 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
 
     public TextStyle Style { get; set; }
 
-    public Action HandleTapAction { get; set; }
+    public Action<IUIElement> HandleTapAction { get; set; }
     
-    public void Draw(IDrawingGraphics g)
+    public virtual void Draw(IDrawingGraphics g)
     {
         g.Style(this.Style);
         if (clickTimer != null){
@@ -41,7 +42,7 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
         g.DrawText(this.Text);
     }
 
-    public void HandleTap(System.Drawing.Point point)
+    public virtual void HandleTap(System.Drawing.Point point)
     {
         clickTimer = new System.Threading.Timer(this.ClickedTimer, null, 500, 500);
         if (!parent.IsDisposed)
@@ -49,7 +50,7 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
     	  //drawingGraphics.Style(this.Style).Bold(true).DrawText(this.text + n);
         if (this.HandleTapAction != null)
         {
-            this.HandleTapAction();
+            this.HandleTapAction(this);
         }
     }
     
@@ -63,12 +64,12 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
         }catch(Exception){}
     }
     
-    public void notifyDimensions(int width, int height)
+    public virtual void notifyDimensions(int width, int height)
     {
         this.width = width;
         this.height = height;
     }
-    public void NotifyAttach(Control control)
+    public virtual void NotifyAttach(Control control)
     {
         this.parent = control;
     }
