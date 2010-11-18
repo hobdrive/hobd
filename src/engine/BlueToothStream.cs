@@ -39,24 +39,35 @@ public class BluetoothStream: IStream
 
         return new string[]{ match.Groups[1].Value, serviceid, pid };
     }
+    public const int URL_ADDR = 0;
+    public const int URL_SVC = 1;
+    public const int URL_PIN = 2;
+    
+    bool try_with_service = false;
     
     public void Open(String url)
     {
         try{
             
             var parsed_url = ParseUrl(url);
-            Logger.trace("BluetoothStream", "Open " + parsed_url[0] + " serviceid " + parsed_url[1] + " pin " + parsed_url[2]);
+            Logger.trace("BluetoothStream", "Open " + parsed_url[URL_ADDR] + " serviceid " + parsed_url[URL_SVC] + " pin " + parsed_url[URL_PIN]);
 
             BluetoothRadio.PrimaryRadio.Mode = RadioMode.Discoverable;
 
-            BluetoothAddress address = BluetoothAddress.Parse(parsed_url[0]);
+            BluetoothAddress address = BluetoothAddress.Parse(parsed_url[URL_ADDR]);
 
             bluetoothClient = new BluetoothClient();
-            if (parsed_url[2] != null)
-                bluetoothClient.SetPin(address, parsed_url[2]);
+            if (parsed_url[URL_PIN] != null)
+                bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
             BluetoothEndPoint btep;
-            if (parsed_url[1] != null)
-                btep = new BluetoothEndPoint(address, BluetoothService.SerialPort, int.Parse(parsed_url[1]));
+
+            // force serviceid for some popular china BT adapters
+            if (parsed_url[URL_SVC] == null && try_with_service) {
+                parsed_url[URL_SVC] = "1";
+            }
+            
+            if (parsed_url[URL_SVC] != null)
+                btep = new BluetoothEndPoint(address, BluetoothService.SerialPort, int.Parse(parsed_url[URL_SVC]));
             else
                 btep = new BluetoothEndPoint(address, BluetoothService.SerialPort);
             bluetoothClient.Connect(btep);
@@ -75,6 +86,10 @@ public class BluetoothStream: IStream
             {
                 bluetoothClient.Close();
                 bluetoothClient = null;
+            }
+            if (!try_with_service){
+                try_with_service = true;
+                Open(url);
             }
             throw e;
         }
