@@ -22,6 +22,7 @@ namespace hobd
     {
 
         public static string Title = "/hobd";
+        public static string DefaultBackground = "banner.jpg";
         protected int layoutX = 480;
         protected int layoutY = 272;
         
@@ -51,12 +52,11 @@ namespace hobd
             
             panorama.SectionsPadding = 30;
             
-            var title = "/hobd";
-            
+           
             panorama.DrawTitleAction = gr =>
                {   gr
                    .Style(HOBD.theme.PhoneTextPanoramaTitleStyle)
-                   .MoveX(0).MoveY(0).DrawText(title)
+                   .MoveX(0).MoveY(0).DrawText(Title)
                    .Style(HOBD.theme.PhoneTextPanoramaSubTitleStyle)
                    .DrawText("v"+HOBDBuild.Version);
                    if (panorama.TitleWidth == 0)
@@ -69,7 +69,7 @@ namespace hobd
             if (HOBD.theme.Background != null){
                 original = new Bitmap(Path.Combine( Path.GetDirectoryName(HOBD.theme.File), HOBD.theme.Background));
             }else{
-                original = ResourceManager.Instance.GetBitmapFromEmbeddedResource("banner.jpg");
+                original = ResourceManager.Instance.GetBitmapFromEmbeddedResource(HomePage.DefaultBackground);
             }
             double scale = ((double)layoutY)/original.Height;
             var target = new Bitmap((int)(original.Width*scale), (int)(original.Height*scale));
