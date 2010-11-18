@@ -43,6 +43,7 @@ public class ConfigData
     public string Vehicle {get; set;}
     public string Token {get; set;}
     public int DPI {get; private set;}
+    public bool Fullscreen {get; set;}
     public string Language {get; set;}
     public string Units {get; set;}
     public string Theme {get; set;}
@@ -60,6 +61,11 @@ public class ConfigData
         this.file = Path.Combine(HOBD.AppPath, "config.xml");
         
         DPI = 0;
+#if WINCE
+        Fullscreen = true;
+#else
+        Fullscreen = false;
+#endif
         Language = "en";
         Units = "metric";
         Theme = "themes/default.theme";
@@ -123,6 +129,9 @@ public class ConfigData
                     break;                    
                 case "dpi":
                     this.DPI = reader.ReadElementContentAsInt();
+                    break;
+                case "fullscreen":
+                    this.Fullscreen = reader.ReadElementContentAsString() == "true";
                     break;
                 case "language":
                     this.Language = reader.ReadElementContentAsString();
@@ -204,10 +213,11 @@ public class ConfigData
             f.WriteElementString("vehicle", this.Vehicle);
             f.WriteElementString("drivehub-token", this.Token);
 
-            if (this.DPI != 0)
-                f.WriteElementString("dpi", this.DPI.ToString());
             f.WriteElementString("language", this.Language);
             f.WriteElementString("units", this.Units);
+            if (this.DPI != 0)
+                f.WriteElementString("dpi", this.DPI.ToString());
+            f.WriteElementString("fullscreen", this.Fullscreen ? "true" : "false");
             f.WriteElementString("theme", this.Theme);
             f.WriteElementString("layout", this.Layout);
 

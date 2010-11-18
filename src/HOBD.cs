@@ -188,7 +188,7 @@ namespace hobd
                 ReloadVehicle();
                 
                 int dpi_value;
-                dpi_value = 96 / (Screen.PrimaryScreen.Bounds.Width / 480);
+                dpi_value = (int) (96f / Screen.PrimaryScreen.Bounds.Width * 480f);
                 if (config.DPI != 0)
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;

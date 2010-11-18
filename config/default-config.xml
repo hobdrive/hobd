@@ -23,6 +23,8 @@
 
   <!-- explicit DPI to choose display size -->
   <dpi>92</dpi>
+  <!-- should app windows be a fullscreen or windowed -->
+  <fullscreen>true</fullscreen>
   <!-- localization -->
   <language>en</language>
   <!-- units: imperial, metric -->

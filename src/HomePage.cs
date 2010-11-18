@@ -108,16 +108,22 @@ namespace hobd
             var asm = Assembly.GetExecutingAssembly();
             var keyName = asm.GetManifestResourceNames().FirstOrDefault(p => p.EndsWith("hobd.ico"));
             this.theForm.Icon = new Icon(asm.GetManifestResourceStream(keyName));
-#if WINCE
-            this.theForm.FormBorderStyle = FormBorderStyle.None;
-            this.theForm.WindowState = FormWindowState.Maximized;
-#else
-            this.theForm.Width = layoutX.ToPixels();
-            this.theForm.Height = layoutY.ToPixels()+30;
-#endif
-            Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
-            Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
 
+            if (HOBD.config.Fullscreen){
+
+                this.theForm.FormBorderStyle = FormBorderStyle.None;
+                this.theForm.WindowState = FormWindowState.Maximized;
+            }else{
+                this.theForm.Width = layoutX.ToPixels();
+                this.theForm.Height = layoutY.ToPixels()+30;
+            }
+
+            Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
+            Logger.info("HomePage", "App DPI: " + FleuxApplication.TargetDesignDpi);
+            
+            
+            Logger.info("HomePage", "system width: "+Screen.PrimaryScreen.Bounds.Width+", height: "+Screen.PrimaryScreen.Bounds.Height);
+            Logger.info("HomePage", "form width: "+this.theForm.Width+", height: "+this.theForm.Height);
             
             HOBD.engine.Activate();
         }
