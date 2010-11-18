@@ -210,9 +210,13 @@ namespace hobd
                 try{
                     ReloadUI = false;
                     Thread main = new Thread( () => {
-                        FleuxPage home = (FleuxPage)Assembly.GetExecutingAssembly().CreateInstance(homepage);
-                        FleuxApplication.Run(home);
-                        home.Dispose();
+                        try{
+                            FleuxPage home = (FleuxPage)Assembly.GetExecutingAssembly().CreateInstance(homepage);
+                            FleuxApplication.Run(home);
+                            home.Dispose();
+                        }catch(Exception e){
+                            Logger.error("HOBD", "fatal UI thread failure, exiting", e);
+                        }
                     });
                     main.Start();
                     main.Join();
