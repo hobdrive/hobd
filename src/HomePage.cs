@@ -46,6 +46,10 @@ namespace hobd
 
         protected virtual void InitializePanorama()
         {
+            
+            Fleux.Controls.Gestures.GestureDetectionParameters.Current.TapTimePeriod = 150;
+            Fleux.Controls.Gestures.GestureDetectionParameters.Current.TapDistance = 50;
+
             panorama.SectionTitleDelta = 0;
             panorama.SectionContentDelta = 40;
             panorama.TitleWidth = 400;
