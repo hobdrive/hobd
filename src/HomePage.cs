@@ -30,6 +30,7 @@ namespace hobd
         
         DynamicElement statusField;
         protected IPanoramaSection menuSection;
+        protected Grid menuGrid;
         protected IPanoramaSection volatileSection;
             
         public HomePage()
@@ -367,37 +368,38 @@ namespace hobd
 
             var height0 = (layoutY - panorama.SectionContentDelta);
             var height = height0/6;
-            var grid = new Grid
+
+            menuGrid = new Grid
                            {
                                Columns = new MeasureDefinition[] { layoutX/3-20, layoutX/3-20, layoutX/3-20 },
                                Rows = new MeasureDefinition[] { height, height, height, height, height }
                            };
             
-            grid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
-            grid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
-            grid[2, 0] = new DynamicElement(t("Exit")) {
+            menuGrid[0, 0] = new DynamicElement(t("Reset trips")) { Style = style, HandleTapAction = () => { HOBD.Registry.TriggerReset(); } };
+            menuGrid[1, 0] = new DynamicElement(t("Minimize")) { Style = style, HandleTapAction = () => { /* TODO */ } };
+            menuGrid[2, 0] = new DynamicElement(t("Exit")) {
                 Style = style,
                 HandleTapAction = () => Application.Exit()
                     
             };
 
-            grid[0, 1] = new DynamicElement(t("Port settings")) {
+            menuGrid[0, 1] = new DynamicElement(t("Port settings")) {
                 Style = style,
                 HandleTapAction = CreatePortSection
             };
-            grid[1, 1] = new DynamicElement(t("Vehicle")) {
+            menuGrid[1, 1] = new DynamicElement(t("Vehicle")) {
                 Style = style,
                 HandleTapAction = CreateVehicleSection
             };
-            grid[2, 1] = new DynamicElement(t("Theme")) {
+            menuGrid[2, 1] = new DynamicElement(t("Theme")) {
                 Style = style,
                 HandleTapAction = CreateThemeSection
             };
-            grid[3, 1] = new DynamicElement(t("Language")) {
+            menuGrid[3, 1] = new DynamicElement(t("Language")) {
                 Style = style,
                 HandleTapAction = CreateLanguageSection
             };
-            grid[4, 1] = new DynamicElement(t("Display Units")) {
+            menuGrid[4, 1] = new DynamicElement(t("Display Units")) {
                 Style = style,
                 HandleTapAction = () => this.PushVolatileSection(
                     new ListSection(t("Display Units"), null, layoutX, layoutY-panorama.SectionContentDelta)
@@ -416,12 +418,12 @@ namespace hobd
             };
 
             
-            grid[0, 2] = new DynamicElement(t("Sensor push")) {
+            menuGrid[0, 2] = new DynamicElement(t("Sensor push")) {
                 Style = style,
                 HandleTapAction = CreateSensorPushSection
             };
 
-            section.Add(grid, 10, 0, layoutX, height0);
+            section.Add(menuGrid, 10, 0, layoutX, height0);
 
             var link = t("hobdrive.com");
             var info = new DynamicElement(link) {
@@ -459,7 +461,7 @@ namespace hobd
             panorama.ScrollSection(+1);
         }
 
-        protected virtual void PushVolatileSection(TouchPanoramaSection section)
+        protected virtual void PushVolatileSection(IPanoramaSection section)
         {
             if (this.volatileSection == null) {
                 panorama.AddSection(section);
