@@ -56,8 +56,10 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
     
     private void ClickedTimer(object state)
     {
-        clickTimer.Dispose();
-        clickTimer = null;
+        if (clickTimer != null){
+            clickTimer.Dispose();
+            clickTimer = null;
+        }
         try{ //TODO!!!!
         if (!parent.IsDisposed)
             parent.Invoke(new Action(parent.Invalidate));
