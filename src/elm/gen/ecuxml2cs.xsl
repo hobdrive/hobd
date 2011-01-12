@@ -66,7 +66,7 @@ public class <xsl:value-of select='$class'/> : SensorProvider
             {
                 ID = "<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>",
                 Name = "<xsl:value-of select='@id'/>",
-                <xsl:if test='address'>
+                <xsl:if test='address/byte'>
                 obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
                                     return <xsl:value-of select='normalize-space(value)'/>;
                                   },

@@ -1,27 +1,27 @@
 <!--
-  This layout is for 480x272 screen, however any similar proportions
+  This layout is for 16x9 screen, however any similar proportions
   will work fine by using DPI automatic scaling
 -->
 <ui>
   <section name="General">
-    <grid rows="60,100,60" cols="150,170,150">
-      <item id="FuelLevel"/>
+    <grid rows="25,,25" cols="30,,30">
+      <item id="FuelLevel" period='10000'/>
       <item id="FuelEconomy_trip" size='large' type='chart'  precision='1'/>
-      <item id="FuelEconomy_short" size='normal' type='chart'  precision='1'/>
+      <item id="FuelEconomy_short" size='medium' type='chart'  precision='1'/>
 
       <item id="RPM" size='large' type='roverbar'/>
-      <item id="Speed" size='giant' type='roverbar' period='1000'/>
-      <item id="ShiftPosition" size='huge' type='text' period='4000'/>
+      <item id="Speed" size='giant' type='roverbar'/>
+      <item id="Acceleration" size='huge' type='text' precision='1'/>
 
       <item id="CoolantTemp" size='large' type='text' period='10000'/>
-      <item id="IntakeAirTemp" size='small' type='text' period='10000'/>
-      <item id="AirTemp" size='normal' type='text' period='10000'/>
+      <item id="IntakeAirTemp" size='normal' type='text' period='10000'/>
+      <item id="AirTemp" size='medium' type='text' period='10000'/>
     </grid>
   </section>
 
-  <section name="Trip computer">
-    <grid rows="60,100,60" cols="150,170,150">
-      <item id="TripTime" precision='3'/>
+  <section name="Trip comp">
+    <grid rows="25,,25" cols="30,,30">
+      <item id="TripTime"/>
       <item id="IdleTime"/>
       <item id="LitersPerHour" period='1000' precision='1'/>
 
@@ -29,34 +29,69 @@
       <item id="FuelEconomy_trip" size='giant' type='chart'  precision='1'/>
       <item id="FuelEconomy_short" size='large' type='chart'  precision='1'/>
 
-      <item id="CoolantTemp" size='small' type='text' period='10000'/>
+      <item id="CoolantTemp" size='normal' type='text' period='10000'/>
       <item id="DistanceRun" size='large' type='roverbar' period='10000' precision='3'/>
       <item id="FuelConsumed" size='large' type='text' precision='3'/>
     </grid>
   </section>
-<!--
-  <section name="Sensors">
-    <grid rows="60,100,60" cols="150,170,150">
+
+  <section name="Diagnostics" class="hobd.DiagnosticsSection">
+  </section>
+
+  <section name="HUD" class="hobd.HUDSection" optional="true" volatile="true">
+    <grid rows="60," cols=",40,,">
+      <item id="CoolantTemp" size='large' type='text' period='10000'/>
+      <item id="Speed" size='giant' type='roverbar'/>
+      <item id="RPM" size='large' type='roverbar'/>
+      <item id="ShiftPosition" size='huge'/>
+
+      <item id="LitersPerHour" size='large' precision='1'/>
+      <item id="FuelEconomy_trip" size='giant' type='chart'  precision='1'/>
+      <item/>
+      <item id="TripTime" size='large'/>
+    </grid>
+  </section>
+
+  <section name="Fuel Trims" optional="true">
+    <grid rows="0" cols=",">
       <item id="STFT1" size='large' type='barchart'/>
       <item id="LTFT1" size='large' type='barchart'/>
-      <item id='RunTime' size='large'/>
-
-      <item id='Oxygen_b1s1' size='large' precision='1'/>
-      <item id='Oxygen_b1s2' size='large' precision='1'/>
-      <item id='MAF' size='large'/>
-
-      <item id='Oxygen_b1s1_stft' size='large'/>
-      <item id='Oxygen_b1s2_stft' size='large'/>
-      <item id='ThrottlePosition' size='large'/>
     </grid> 
   </section>
 
-  <section name="Toyota sensors">
-    <grid rows="60,60,60,60" cols="110,110, 110,110">
+  <section name="Sensors" optional="true">
+    <grid rows="," cols="30,,30">
+      <item id='RunTime' size='large'/>
+      <item id="FuelLevel"/>
+      <item id='ThrottlePosition' size='large'/>
+
+      <item id='EngineLoad' size='large' precision='1'/>
+      <item id='IntakeManifoldPressure' precision='1'/>
+      <item id='MAF' precision='1'/>
+
+    </grid> 
+  </section>
+
+  <section name="Lambda" optional="true" volatile="true">
+    <grid rows="," cols=",,,">
+      <item id='Oxygen_b1s1' precision='1'/>
+      <item id='Oxygen_b1s2' precision='1'/>
+      <item id='Oxygen_b2s1' precision='1'/>
+      <item id='Oxygen_b2s2' precision='1'/>
+
+      <item id='Oxygen_b1s1_stft'/>
+      <item id='Oxygen_b1s2_stft'/>
+      <item id='Oxygen_b2s1_stft'/>
+      <item id='Oxygen_b2s2_stft'/>
+    </grid> 
+  </section>
+
+  <section name="Toyota sensors" optional="true" volatile="true">
+    <grid rows=",,," cols=",,,">
       <item id="FuelSystemStatus" />
       <item id="ATFTemp"  />
       <item id='FuelPressure' />
-      <item  />
+      <item id='InjectorPulseWidth' />
 
       <item id='AT_NP' />
       <item id='AT_R' />
@@ -71,9 +106,41 @@
       <item id='AT_OD' />
       <item id='AT_Kickdown' />
       <item id='StopSignals' />
-      <item  />
+      <item id="ShiftPosition" />
     </grid> 
   </section>
--->
+
+  <section name="Sensor List" optional="true" volatile="true" class="hobd.SensorListSection">
+  </section>
+
+  <section name="Zero to Hundred" optional="true" volatile="true">
+    <grid rows="70," cols=",">
+      <item id="ZeroHundredPass" size='normal' type="static"/>
+      <item id="Speed" size='giant'  />
+     
+      <item id="History" size='medium' type="static"  />
+      <item />
+    </grid>
+  </section>
+
+  <section name="Quarter Time" optional="true" volatile="true">
+    <grid rows="70," cols=",">
+      <item id="QuarterTime" size='normal' type="static" precision="2"/>
+      <item id="Speed" size='giant'  />
+     
+      <item id="History" size='medium' type="static" />
+      <item id="Distance" size='medium' type="static" />
+    </grid>
+  </section>
+
+  <section name="Break time" optional="true" volatile="true">
+    <grid rows="70," cols=",">
+      <item id="BreakPerformance" size='normal' type="static" precision="2"/>
+      <item id="Speed" size='giant'  />
+     
+      <item id="History" size='medium' type="static" />
+      <item id="Distance" size='medium' type="static" />
+    </grid>
+  </section>
   
 </ui>

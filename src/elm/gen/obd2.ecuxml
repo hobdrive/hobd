@@ -365,6 +365,38 @@
     <address> <byte>0x46</byte> </address>
     <value> get(0) - 40 </value>
   </parameter>
+
+  <parameter id="MIL">
+    <description>
+      <name>MIL</name><description>List of DTC codes</description>
+    </description>
+    <description lang="ru">
+      <name>MIL</name><description>Список кодов неисправностей</description>
+    </description>
+    <address> <mode>3</mode> </address>
+    <class>hobd.MILSensor</class>
+  </parameter>
   
+  <parameter id="PMIL">
+    <description>
+      <name>PMIL</name><description>List of Pending DTC codes</description>
+    </description>
+    <description lang="ru">
+      <name>PMIL</name><description>Список неподтвержденных кодов неисправностей</description>
+    </description>
+    <address> <mode>7</mode> </address>
+    <class>hobd.PMILSensor</class>
+  </parameter>
+
+  <parameter id="ClearDTC">
+    <description>
+      <name>ClearDTC</name><description>Clear DTC request</description>
+    </description>
+    <description lang="ru">
+      <name>ClearDTC</name><description>Запрос на сброс DTC</description>
+    </description>
+    <address> <mode>4</mode> </address>
+    <class>hobd.ClearDTCSensor</class>
+  </parameter>
 
 </parameters>

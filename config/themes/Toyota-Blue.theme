@@ -3,7 +3,7 @@
 
   <color name='normal'>     #  b882eb</color>
   <color name='contrast'>   #  F0F0FF</color>
-  <color name='sensordescr'>#E05030a0</color>
+  <color name='minor'>      #E05030a0</color>
   <color name='subtle'>     #80503080</color>
   <color name='back'>       #  000030</color>
   
@@ -42,6 +42,12 @@
     <color>normal</color>
   </style>
 
+  <style name="TextSmall">
+    <font>default</font>
+    <size>small</size>
+    <color>minor</color>
+  </style>
+
   <style name="TextStatus">
     <font>default</font>
     <size>small</size>
@@ -51,7 +57,7 @@
   <style name="TextSensorDescr">
     <font>default</font>
     <size>small</size>
-    <color>sensordescr</color>
+    <color>minor</color>
   </style>
 
 </theme>

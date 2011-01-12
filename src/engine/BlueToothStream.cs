@@ -90,6 +90,7 @@ public class BluetoothStream: IStream
             if (!try_with_service){
                 try_with_service = true;
                 Open(url);
+                return;
             }
             throw e;
         }

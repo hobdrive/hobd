@@ -1,18 +1,42 @@
 <vehicles>
 
-  <vehicle name="OBD-II compatible, 1.6l">
+  <vehicle name="OBD-II compatible">
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
       <sensors>hobd.MAFSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
-    <liters>1.6</liters>
-    <cylinders>4</cylinders>
     <stoich>14.7</stoich>
+    <speed-correction>1</speed-correction>
   </vehicle>
 
-  <vehicle name="Toyota Matrix/Voltz/Pontiac Vibe 1.8 (1ZZ-FE)">
+  <vehicle name="OBD-II compatible, 1.6l, MAP based">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.MAPSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
+    </obd>
+    <liters>1.6</liters>
+    <cylinders>4</cylinders>
+    <volumetric-efficiency>95</volumetric-efficiency>
+    <stoich>14.7</stoich>
+    <speed-correction>1</speed-correction>
+  </vehicle>
+
+  <vehicle name="OBD-II compatible, EngineLoad based fuel consumption">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.EngineLoadSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
+    </obd>
+    <load-consumption-coeff>0.05</load-consumption-coeff>
+    <speed-correction>1</speed-correction>
+  </vehicle>
+
+  <vehicle name="Toyota 1ZZ-FE (With Injector PID)">
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <!-- Sensor definition Order is important! -->
@@ -21,10 +45,49 @@
       <sensors>hobd.InjectorSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
-    <liters>1.8</liters>
     <cylinders>4</cylinders>
+    <volumetric-efficiency>95</volumetric-efficiency>
     <stoich>14.7</stoich>
     <injector-ccpm>134.23</injector-ccpm>
+    <speed-correction>1</speed-correction>
   </vehicle>
+
+  <vehicle name="OBD-II compatible, ECU Speed 10400">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <engine-init>ATIB 10</engine-init>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
+    </obd>
+  </vehicle>
+
+  <vehicle name="OBD-II compatible, ECU Speed 9600">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <engine-init>ATIB 96</engine-init>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.MAFSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
+    </obd>
+  </vehicle>
+
+  <vehicle name="Toyota JDM">
+    <obd>
+      <engine>hobd.OBD2Engine</engine>
+      <!--
+        0 - Auto
+        1 - SAE J1850 PWM (46.6 kbaud)
+        2 - SAE J1850 VPW (10.4 kbaud)
+        3 - ISO 9141-2 (5 baud init, 10.4 kbaud)
+        4 - ISO 14230-4 KWP (5 baud init, 10.4 kbaud)
+        5 - ISO 14230-4 KWP (fast init, 10.4 kbaud)
+      -->
+      <engine-init>ATIB 10; ATIIA 13; ATSH 80 13 F1; ATSP 4</engine-init>
+      <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.MAFSensors</sensors>
+      <sensors>hobd.CommonSensors</sensors>
+    </obd>
+  </vehicle>
+  
 
 </vehicles>

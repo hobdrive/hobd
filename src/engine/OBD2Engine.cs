@@ -70,13 +70,13 @@ public class OBD2Engine : Engine
     
     void SendCommand(string command)
     {
-        Logger.trace("OBD2Engine", "SendCommand:" + command);
+        if (Logger.TRACE) Logger.trace("OBD2Engine", "SendCommand:" + command);
         byte[] arr = Encoding.ASCII.GetBytes(command+"\r");
         stream.Write(arr, 0, arr.Length);
     }
     void SendRaw(string command)
     {
-        Logger.trace("OBD2Engine", "SendRaw:" + command);
+        if (Logger.TRACE) Logger.trace("OBD2Engine", "SendRaw:" + command);
         byte[] arr = Encoding.ASCII.GetBytes(command);
         stream.Write(arr, 0, arr.Length);
     }
@@ -86,8 +86,9 @@ public class OBD2Engine : Engine
         
         State = state2;
         stateTS = DateTime.Now;
+        lastReceiveTS = DateTimeMs.Now;
         
-        Logger.trace("OBD2Engine", " -> " + State);
+        if (Logger.TRACE) Logger.trace("OBD2Engine", " -> " + State);
         
         switch(State){
             case ST_INIT:
@@ -165,11 +166,17 @@ public class OBD2Engine : Engine
                     if (nextReading == 0 || nextReading < DateTimeMs.Now)
                     {
                         if (currentSensorListener.sensor is OBD2Sensor){
-                            Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
+                            if (Logger.TRACE) Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
                             var osensor = (OBD2Sensor)currentSensorListener.sensor;
-                            SendCommand("01" + osensor.Command.ToString("X2"));
-                            SetState(ST_SENSOR_ACK);
-                            break;
+                            var cmd = osensor.RawCommand;
+                            if (cmd != null)
+                            {
+                                SendCommand(cmd);
+                                SetState(ST_SENSOR_ACK);
+                                break;
+                            }else{
+                                // move to next sensor
+                            }
                         }
                     }
                     
@@ -264,14 +271,9 @@ public class OBD2Engine : Engine
                 // proactively read next sensor!
                 SetState(ST_SENSOR);
 
-                if (dataraw.Length > 1 && dataraw[0] == 0x41 && dataraw[1] == osensor.Command)
+                // valid reply - set value, raise listeners
+                if (osensor.SetValue(dataraw))
                 {
-                    // valid reply - set value, raise listeners
-                    try{
-                        osensor.SetValue(dataraw);
-                    }catch(Exception e){
-                        Logger.error("OBD2Engine", "Fail parsing sensor value", e);
-                    }
                     subsequentErrors = 0;
                 }else{
                     // search for known errors, increment counters
@@ -352,6 +354,10 @@ public class OBD2Engine : Engine
             }
         }
     }
+
+    public int PingTimeout = 1000;
+    public int NoResponseTimeout = 5000;
+    public int ReconnectTimeout = 10000;
     
     void Run()
     {
@@ -369,20 +375,20 @@ public class OBD2Engine : Engine
             }
             
             // No reply. Ping the connection.
-            if (DateTimeMs.Now - lastReceiveTS > 1000 && State != ST_ERROR) {
+            /*
+            if (DateTimeMs.Now - lastReceiveTS > PingTimeout && State != ST_ERROR) {
                 Logger.trace("OBD2Engine", "No reply. PING???");
-                //SendCommand("AT");
-#if !WINCE
+                SendCommand("AT");
                 // Only OBDSim bugs??
-                //SendRaw(" ");
-#endif
+                SendRaw(" ");
                 lastReceiveTS = DateTimeMs.Now;
             }
+            */
             // Restart the hanged connection after N seconds
-            var diff_ms = DateTime.Now.Subtract(stateTS).TotalMilliseconds;
-            if (diff_ms > 3000) {
+            var diff_ms = DateTimeMs.Now - lastReceiveTS;
+            if (diff_ms > NoResponseTimeout) {
                 // If ERROR, wait for a longer period before retrying
-                if (this.State != ST_ERROR || diff_ms > 6000)
+                if (this.State != ST_ERROR || diff_ms > ReconnectTimeout)
                 {
                     SetState(ST_INIT);
                 }

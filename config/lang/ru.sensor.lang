@@ -1,0 +1,399 @@
+sname.PID_02  = PID_02
+sdesc.PID_02 = Ошибка ECU
+
+sname.FuelSystemStatus  = Fuel system status
+sdesc.FuelSystemStatus = Топливная система, статус
+
+sname.EngineLoad  = Нагрузка
+sdesc.EngineLoad = Расчетная нагрузка на двигатель
+
+sname.CoolantTemp  = Темп. антифриза
+sdesc.CoolantTemp = Температура охлаждающей жидкости
+
+sname.STFT1  = STFT1
+sdesc.STFT1 = Кратковременная топливная коррекция
+
+sname.LTFT1  = LTFT1
+sdesc.LTFT1 = Долговременная топливная коррекция
+
+sname.STFT2  = STFT2
+sdesc.STFT2 = Кратковременная топливная коррекция банк2
+
+sname.LTFT2  = LTFT2
+sdesc.LTFT2 = Долговременная топливная коррекция банк2
+
+sname.FuelPressure  = Давление топлива
+sdesc.FuelPressure = Давление топлива
+
+sname.IntakeManifoldPressure  = Intake Manifold Pressure
+sdesc.IntakeManifoldPressure = Абсолютное давление во впускном коллекторе
+
+sname.RPM  = Обороты
+sdesc.RPM = Обороты двигателя
+
+sname.Speed  = Скорость
+sdesc.Speed = Скорость автомобиля
+
+sname.TimingAdvance  = Опережение зажигания
+sdesc.TimingAdvance = Угол опережения зажигания
+
+sname.IntakeAirTemp  = Темп. впуска
+sdesc.IntakeAirTemp = Температура воздуха на впуске
+
+sname.MAF  = MAF
+sdesc.MAF = Расход воздуха на впуске
+
+sname.ThrottlePosition  = Заслонка
+sdesc.ThrottlePosition = Положение дросельной заслонки
+
+sname.FuelLevel  = Уровень топлива
+sdesc.FuelLevel = 
+
+sname.AirTemp  = Темп. воздуха
+sdesc.AirTemp = Температура окружающей среды
+
+sname.PID_A1  = PID_A1
+sdesc.PID_A1 = -
+
+sname.PID_A2  = PID_A2
+sdesc.PID_A2 = -
+
+sname.PID_A3  = PID_A3
+sdesc.PID_A3 = -
+
+sname.PID_A8  = PID_A8
+sdesc.PID_A8 = -
+
+sname.PID_A9  = PID_A9
+sdesc.PID_A9 = -
+
+sname.PID_AA  = PID_AA
+sdesc.PID_AA = -
+
+sname.PID_AC  = PID_AC
+sdesc.PID_AC = -
+
+sname.PID_B1  = PID_B1
+sdesc.PID_B1 = Статус
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Положение педали газа №1
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Положение педали газа №2
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Запрос на изменения положения дроссельной заслонки
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Положение дроссельной заслонки №2
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Нагрузка мотора дроссельной заслонки при открытии
+
+sname.PID_B2  = PID_B2
+sdesc.PID_B2 = Нагрузка мотора дроссельной заслонки при закрытии
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Электромагнитное сцепление
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Питание исполнительного механизма системы EFI
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Положение педали газа не меняется
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Положение дросельной заслонки не меняется
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Работа двигателя с ошибками
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Работа двигателя с ошибками (Основной CPU)
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Обучающееся значение при полностью закрытой др/заслонкой (нач)
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Обучающееся значение при полностью отжатой педали газа
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Ток двигателя дросельной заслонки
+
+sname.PID_B3  = PID_B3
+sdesc.PID_B3 = Ток привода э/м сцепления
+
+sname.ATFTemp  = ATF Temp
+sdesc.ATFTemp = Температура жидкости АКПП
+
+sname.PID_C3  = PID_C3
+sdesc.PID_C3 = -
+
+sname.PID_D1  = PID_D1
+sdesc.PID_D1 = -
+
+sname.PID_DA  = PID_DA
+sdesc.PID_DA = Задание фазы распредвала
+
+sname.PID_DA  = PID_DA
+sdesc.PID_DA = Фаза распредвала
+
+sname.PID_DA  = PID_DA
+sdesc.PID_DA = OVC Duty Ratio
+
+sname.PID_E1  = PID_E1
+sdesc.PID_E1 = -
+
+sname.PID_E2  = PID_E2
+sdesc.PID_E2 = -
+
+sname.FuelPressure  = PID_E3
+sdesc.FuelPressure = Давление топлива
+
+sname.InjectorPulseWidth  = Имп. форсунки
+sdesc.InjectorPulseWidth = Длительность импульса открытия форсунки
+
+sname.PID_E7  = PID_E7
+sdesc.PID_E7 = Шаг системы EGR
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Датчик давления в системе гидроусилителя руля
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Стоп-сигнал 1
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Датчик электрической загрузки
+
+sname.AT_NP  = AT_NP
+sdesc.AT_NP = Положение АКПП "N" или "P"
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Система климатконтроля
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Дросельная заслонка полностю закрыта
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Стартер
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Отсечка топлива от управления температурой климатконтролем
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Отсечка топлива от закрытой дроссельной заслонки
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Сигнал сдвига от гидро/электро усилителя руля
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Стоп-сигнал 2
+
+sname.PID_E8  = PID_E8
+sdesc.PID_E8 = Сигнал остановки двигателя
+
+sname.PID_EC  = PID_EC
+sdesc.PID_EC = -
+
+sname.PID_ED  = PID_ED
+sdesc.PID_ED = Температура EGR
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV A/C Cut
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Variable Intake
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Fuel Pressure UP
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV EGR System
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Intake Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Fuel Pump Relay
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Secondary Air
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV SCV
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV A/C Idle Up
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Fuel Pump / Spd
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Boost Pressure Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV A/C Clutch Relay
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV EVAP Purge
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Vapor Presure
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV VVT2 Control Bank 2
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV VVT2 Intake Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Super Charger Control Relay
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV VVT Control Bank 1
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Automatic Oil Supply
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Air Bleed
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Intake Air Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Exhaust Gas Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Exaust ByPass VC
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Canister Pressure Control
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Tank Pressure ByPass
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV VVTL Control Bank 1
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV VVTL Control Bank 2
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV AICV
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Engine Cooling
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Vent Value
+
+sname.PID_EF  = PID_EF
+sdesc.PID_EF = VSV Pump for EVAP System
+
+sname.PID_F7  = PID_F7
+sdesc.PID_F7 = -
+
+sname.ShiftPosition  = Передача
+sdesc.ShiftPosition = № передачи АКПП
+
+sname.AT_L  = AT position L
+sdesc.AT_L = Положение селектора АКПП - "L"
+
+sname.AT_2  = AT position 2
+sdesc.AT_2 = Положение селектора АКПП - "2"
+
+sname.AT_R  = AT position R
+sdesc.AT_R = Положение селектора АКПП - "R"
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Режим АКПП - "PWR"
+
+sname.AT_OD  = AT OverDrive
+sdesc.AT_OD = Переключатель АКПП - "OverDrive"
+
+sname.AT_Kickdown  = AT Kickdown
+sdesc.AT_Kickdown = Режим АКПП - "Kick Down"
+
+sname.StopSignals  = Stop Signal
+sdesc.StopSignals = Стоп-сигнал
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Блокировка 4-й скорости системой круиз-контроль
+
+sname.AT_3  = AT position 3
+sdesc.AT_3 = Положение селектора АКПП - "3"
+
+sname.AT_D  = AT position D
+sdesc.AT_D = Положение селектора АКПП - "D"
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Положение селектора АКПП - "Snow"
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Режим АКПП - "Sport"
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Режим АКПП - "Sport Shift Down"
+
+sname.PID_F9  = PID_F9
+sdesc.PID_F9 = Режим АКПП - "Sport Shift Up"
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLN
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLU
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLT
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLD
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLC
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан SLS
+
+sname.PID_FB  = PID_FB
+sdesc.PID_FB = Электромагнитный клапан DSU
+
+sname.DistanceRun  = Пробег за поездку
+sdesc.DistanceRun = Общий пробег за поездку
+
+sname.Acceleration  = Ускорение
+sdesc.Acceleration = Мгновенное ускорение
+
+sname.FuelConsumed  = Топлива израсходовано
+sdesc.FuelConsumed = Общий расход топлива за поездку
+
+sname.FuelEconomy_trip  = Расход топлива
+sdesc.FuelEconomy_trip = Топливная эффективность за поездку
+
+sname.FuelEconomy_short  = Кратковр. расход
+sdesc.FuelEconomy_short = Кратковременная топливная эффективность
+
+sname.FuelEconomy_instant  = Мгновенный расход
+sdesc.FuelEconomy_instant = Мгновенная топливная эффективность
+
+sname.TripTime  = Время в пути
+sdesc.TripTime = Общее время в пути
+
+sname.IdleTime  = Время простоя
+sdesc.IdleTime = Время простоя (скорость меньше 5 км\ч)
+
+sname.LitersPerHour  = Топлива в час
+sdesc.LitersPerHour = Мгновенный расход топлива в час
+
+sname.LitersPerHour  = Топлива в час
+sdesc.LitersPerHour = Мгновенный расход топлива в час - грубая оценка на основе нагрузки на двигатель. Correction coefficient is required!
+
+sname.LitersPerHour  = Топлива в час
+sdesc.LitersPerHour = Мгновенный расход топлива в час
+
+sname.LitersPerHour  = Топлива в час
+sdesc.LitersPerHour = Мгновенный расход топлива в час - на основе давления воздуха
+

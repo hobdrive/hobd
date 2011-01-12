@@ -5,6 +5,8 @@
 
   <!--  
     COM1, COM7
+    COM7;baud=100000
+    COM21;baud=9600;parity=(none|odd|even|mark|space);handshake=(none|x|rts|xrts)
     btspp://000a95020c7b
     btspp://000a95020c7b:1;pin=1234
     etc
@@ -13,7 +15,7 @@
 
   <!-- list of files with vehicle descriptions -->
   <vehicles>default.vehicles</vehicles>
-  <vehicles>extra.vehicles</vehicles>
+  <vehicles>user.vehicles</vehicles>
 
   <!-- selected vehicle's ID (from files above) -->
   <vehicle>OBD-II compatible, 1.6l</vehicle>
@@ -22,9 +24,21 @@
   <drivehub-token>yourtoken</drivehub-token>
 
   <!-- explicit DPI to choose display size -->
-  <dpi>92</dpi>
+  <dpi>96</dpi>
   <!-- should app windows be a fullscreen or windowed -->
   <fullscreen>true</fullscreen>
+  <!-- normal, noborder -->
+  <window-style>normal</window-style>
+  <!-- font quality: normal, draft, antialiased, cleartype -->
+  <font-quality>normal</font-quality>
+  <!-- ui-performance: low, normal, high -->
+  <ui-performance>normal</ui-performance>
+  <!-- PocketPC orientation angle -->
+  <orientation>0</orientation>
+  <!-- how to rotate screen in HUD mode: vertical or horizontal -->
+  <hud-orientation>horizontal</hud-orientation>
+  <!-- Custom screen size (default is native resolution) -->
+  <size>480,272</size>
   <!-- localization -->
   <language>en</language>
   <!-- units: imperial, metric -->

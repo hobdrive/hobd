@@ -3,10 +3,10 @@
 
   <color name='normal'>     #  F0A0A0</color>
   <color name='contrast'>   #  FFF0F0</color>
-  <color name='sensordescr'>#E0803030</color>
+  <color name='minor'>      #E0803030</color>
   <color name='subtle'>     #80602020</color>
   <color name='back'>       #  200000</color>
-  
+
   <font-size name='small'  value='9'/>
   <font-size name='normal' value='12'/>
   <font-size name='medium' value='14'/>
@@ -42,6 +42,12 @@
     <color>normal</color>
   </style>
 
+  <style name="TextSmall">
+    <font>default</font>
+    <size>small</size>
+    <color>minor</color>
+  </style>
+
   <style name="TextStatus">
     <font>default</font>
     <size>small</size>
@@ -51,7 +57,7 @@
   <style name="TextSensorDescr">
     <font>default</font>
     <size>small</size>
-    <color>sensordescr</color>
+    <color>minor</color>
   </style>
 
 </theme>

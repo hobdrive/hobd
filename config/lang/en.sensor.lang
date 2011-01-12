@@ -1,0 +1,150 @@
+sname.EngineLoad  = Engine Load
+sdesc.EngineLoad = Calculated engine load value
+
+sname.CoolantTemp  = CoolantTemp
+sdesc.CoolantTemp = Engine coolant temperature
+
+sname.STFT1  = STFT1
+sdesc.STFT1 = Short term fuel trim
+
+sname.LTFT1  = LTFT1
+sdesc.LTFT1 = Long term fuel trim
+
+sname.STFT2  = STFT1
+sdesc.STFT2 = Short term fuel trim 2
+
+sname.LTFT2  = LTFT2
+sdesc.LTFT2 = Long term fuel trim 2
+
+sname.FuelPressure  = FuelPressure
+sdesc.FuelPressure = Fuel Pressure
+
+sname.IntakeManifoldPressure  = Intake Manifold Pressure
+sdesc.IntakeManifoldPressure = Intake Manifold Pressure
+
+sname.RPM  = RPM
+sdesc.RPM = Engine rotations per minute
+
+sname.Speed  = Speed
+sdesc.Speed = Vehicle speed
+
+sname.TimingAdvance  = Timing Advance
+sdesc.TimingAdvance = Ignition timing advance
+
+sname.IntakeAirTemp  = Intake Air
+sdesc.IntakeAirTemp = Intake air temperature
+
+sname.MAF  = MAF
+sdesc.MAF = Mass air flow
+
+sname.ThrottlePosition  = Throttle
+sdesc.ThrottlePosition = Throttle position
+
+sname.Oxygen_b1s1  = Oxygen bank1 sensor1
+sdesc.Oxygen_b1s1 = Oxygen sensor voltage
+
+sname.Oxygen_b1s1_stft  = Oxygen bank1 sensor1 STFT
+sdesc.Oxygen_b1s1_stft = Oxygen sensor STFT
+
+sname.Oxygen_b1s2  = Oxygen bank1 sensor2
+sdesc.Oxygen_b1s2 = Oxygen sensor voltage
+
+sname.Oxygen_b1s2_stft  = Oxygen bank1 sensor2 STFT
+sdesc.Oxygen_b1s2_stft = Oxygen sensor STFT
+
+sname.Oxygen_b1s3  = Oxygen bank1 sensor3
+sdesc.Oxygen_b1s3 = Oxygen sensor voltage
+
+sname.Oxygen_b1s3_stft  = Oxygen bank1 sensor3 STFT
+sdesc.Oxygen_b1s3_stft = Oxygen sensor STFT
+
+sname.Oxygen_b1s4  = Oxygen bank1 sensor4
+sdesc.Oxygen_b1s4 = Oxygen sensor voltage
+
+sname.Oxygen_b1s4_stft  = Oxygen bank1 sensor4 STFT
+sdesc.Oxygen_b1s4_stft = Oxygen sensor STFT
+
+sname.Oxygen_b2s1  = Oxygen bank2 sensor1
+sdesc.Oxygen_b2s1 = Oxygen sensor voltage
+
+sname.Oxygen_b2s1_stft  = Oxygen bank2 sensor1 STFT
+sdesc.Oxygen_b2s1_stft = Oxygen sensor STFT
+
+sname.Oxygen_b2s2  = Oxygen bank2 sensor2
+sdesc.Oxygen_b2s2 = Oxygen sensor voltage
+
+sname.Oxygen_b2s2_stft  = Oxygen bank2 sensor2 STFT
+sdesc.Oxygen_b2s2_stft = Oxygen sensor STFT
+
+sname.Oxygen_b2s3  = Oxygen bank2 sensor3
+sdesc.Oxygen_b2s3 = Oxygen sensor voltage
+
+sname.Oxygen_b2s3_stft  = Oxygen bank2 sensor3 STFT
+sdesc.Oxygen_b2s3_stft = Oxygen sensor STFT
+
+sname.Oxygen_b2s4  = Oxygen bank2 sensor4
+sdesc.Oxygen_b2s4 = Oxygen sensor voltage
+
+sname.Oxygen_b2s4_stft  = Oxygen bank2 sensor4 STFT
+sdesc.Oxygen_b2s4_stft = Oxygen sensor STFT
+
+sname.RunTime  = Run time
+sdesc.RunTime = Run time since engine start
+
+sname.FuelRailPressure_rel  = Fuel Rail Pressure relative
+sdesc.FuelRailPressure_rel = 
+
+sname.FuelRailPressure_diesel  = Fuel Rail Pressure diesel
+sdesc.FuelRailPressure_diesel = 
+
+sname.FuelLevel  = Fuel Level
+sdesc.FuelLevel = 
+
+sname.AirTemp  = Air Temp
+sdesc.AirTemp = Outside air temperature
+
+sname.InjectorPulseWidth  = Inj.pulse
+sdesc.InjectorPulseWidth = Injector Pulse Width
+
+sname.IdleDutyCycle  = Idle Cycle
+sdesc.IdleDutyCycle = Idle Air Control Duty Cycle
+
+sname.ShiftPosition  = ATShift
+sdesc.ShiftPosition = AT Shift Position
+
+sname.DistanceRun  = Distance Run
+sdesc.DistanceRun = Total distance run on trip
+
+sname.Acceleration  = Acceleration
+sdesc.Acceleration = Current Acceleration
+
+sname.FuelConsumed  = Fuel Consumed
+sdesc.FuelConsumed = Total fuel consumed
+
+sname.FuelEconomy_trip  = Fuel Economy
+sdesc.FuelEconomy_trip = Total fuel economy on trip
+
+sname.FuelEconomy_short  = Fuel Economy short
+sdesc.FuelEconomy_short = Short term fuel economy
+
+sname.FuelEconomy_instant  = Fuel Economy instant
+sdesc.FuelEconomy_instant = Short term fuel economy
+
+sname.TripTime  = Trip Time
+sdesc.TripTime = Total trip time
+
+sname.IdleTime  = Idle Time
+sdesc.IdleTime = Idle time (with speed less 5km)
+
+sname.LitersPerHour  = Fuel Per Hour
+sdesc.LitersPerHour = Instant fuel consumption per hour (injector based)
+
+sname.LitersPerHour  = Fuel Per Hour
+sdesc.LitersPerHour = Fuel Per Hour (Rough engine load based). Correction coefficient is required!
+
+sname.LitersPerHour  = Fuel Per Hour
+sdesc.LitersPerHour = Fuel Per Hour (MAF based)
+
+sname.LitersPerHour  = Fuel Per Hour
+sdesc.LitersPerHour = Fuel Per Hour (MAP based)
+
