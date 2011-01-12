@@ -11,14 +11,13 @@ public class Logger
     public static bool WARN = false;
     public static bool ERROR = true;
 
-    static StreamWriter fs = InitFS();
+    static StreamWriter fs;
     
-    static StreamWriter InitFS()
+    public static void Init(string path)
     {        
         try{
-            return new StreamWriter(new FileStream( Path.Combine(HOBD.AppPath, "log.txt"), FileMode.Append));
+            fs = new StreamWriter(new FileStream( path, FileMode.Append));
         }catch(Exception){
-            return null;
         }
     }
     
@@ -71,7 +70,7 @@ public class Logger
         {
             msg +=  "\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
         }
-        if (e != null && e.GetBaseException() != null)
+        if (e != null && e.GetBaseException() != null && e.GetBaseException() != e)
         {
             e = e.GetBaseException();
             msg +=  "BaseException:\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;

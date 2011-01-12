@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
+    <OSVersion>5.2</OSVersion>
+    <DeployDirSuffix>hobd</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
+    <ApplicationIcon>Images\hobd.ico</ApplicationIcon>
+    <RootNamespace>hobd</RootNamespace>
+    <AssemblyName>hobdcore</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|WINCE' ">
+    <OutputPath>bin\Debug_ce\</OutputPath>
+    <DefineConstants>WINCE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|WINCE' ">
+    <OutputPath>bin\Release_ce\</OutputPath>
+    <DefineConstants>WINCE</DefineConstants>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="InTheHand.Net.Personal, Version=2.5.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>lib\wince\InTheHand.Net.Personal.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\elm\common\CommonSensors.cs" />
+    <Compile Include="src\elm\common\DistanceSensor.cs" />
+    <Compile Include="src\elm\common\GSensor.cs" />
+    <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
+    <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />
+    <Compile Include="src\elm\common\IdleTime.cs" />
+    <Compile Include="src\elm\common\TripTime.cs" />
+    <Compile Include="src\elm\CoreSensor.cs" />
+    <Compile Include="src\elm\IAccumulatorSensor.cs" />
+    <Compile Include="src\elm\IPersistentSensor.cs" />
+    <Compile Include="src\elm\injector\InjectorSensors.cs" />
+    <Compile Include="src\elm\injector\LitersPerHourSensor.cs" />
+    <Compile Include="src\elm\maf\MAFSensors.cs" />
+    <Compile Include="src\elm\maf\LitersPerHourSensor.cs" />
+    <Compile Include="src\elm\map\MAPSensors.cs" />
+    <Compile Include="src\elm\map\LitersPerHourSensor.cs" />
+    <Compile Include="src\elm\load\EngineLoadSensors.cs" />
+    <Compile Include="src\elm\load\LitersPerHourSensor.cs" />
+    <Compile Include="src\elm\PersistentSensor.cs" />
+    <Compile Include="src\elm\SensorProvider.cs" />
+    <Compile Include="src\elm\OBD2Sensors.cs" />
+    <Compile Include="src\elm\Sensor.cs" />
+    <Compile Include="src\elm\SensorRegistry.cs" />
+    <Compile Include="src\elm\SensorStorage.cs" />
+    <Compile Include="src\elm\OBD2Sensor.cs" />
+    <Compile Include="src\elm\SpeedSensor.cs" />
+    <Compile Include="src\elm\ToyotaSensors.cs" />
+    <Compile Include="src\engine\BlueToothStream.cs" />
+    <Compile Include="src\engine\Engine.cs" />
+    <Compile Include="src\engine\IStream.cs" />
+    <Compile Include="src\engine\OBD2Engine.cs" />
+    <Compile Include="src\engine\SerialStream.cs" />
+    <Compile Include="src\util\DateTimeMs.cs" />
+    <Compile Include="src\util\Logger.cs" />
+    <Compile Include="src\util\StaticHelpers.cs" />
+    <Compile Include="src\util\UnitsConverter.cs" />
+    <None Include="src\elm\gen\build.bat" />
+    <None Include="src\elm\gen\build.xml" />
+    <None Include="src\elm\gen\ecuxml2cs.xsl" />
+    <None Include="src\elm\gen\ecuxml2java.xsl" />
+    <None Include="src\elm\gen\obd2.ecuxml" />
+    <None Include="src\elm\gen\toyota-obd2.ecuxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\elm\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition=" '$(Platform)' == 'AnyCPU' " />
+</Project>

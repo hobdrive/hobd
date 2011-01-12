@@ -16,21 +16,14 @@ public interface Sensor
     /** Sensor current value's timestamp. in ms */
     long TimeStamp{get;}
     
-    /** ID for the sensor */
+    /** Unique ID for the sensor */
     string ID{get;}
 
+    /** Public system name **/
     string Name{get;}
-    string GetName(string lang);
-    
-    string Description{get;}
-    string GetDescription(string lang);
     
     string Units{get;}
-    string GetUnits(string lang);
- 
-    /** Possible other IDs to refer this sensor */
-    IEnumerable<string> Aliases{get;}
-    
+
     /**
      *  Sensor itself may depend on other sensors,
      *  or it may read vehicle parameters from registry.

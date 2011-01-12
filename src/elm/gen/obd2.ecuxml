@@ -136,6 +136,7 @@
     <description lang="ru">
       <name>Скорость</name><description>Скорость автомобиля</description>
     </description>
+    <class>hobd.SpeedSensor</class>
     <address> <byte>0x0D</byte> </address>
     <value> get(0x00) </value>
   </parameter>
@@ -319,6 +320,24 @@
     </description>
     <address> <byte>0x1F</byte> </address>
     <value> get(0)*256 + get(1) </value>
+  </parameter>
+
+  <parameter id="FuelRailPressure_rel">
+    <description>
+      <name>Fuel Rail Pressure relative</name>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x22</byte> </address>
+    <value> (((get(0)*256)+get(1)) * 10) / 128 </value>
+  </parameter>
+
+  <parameter id="FuelRailPressure_diesel">
+    <description>
+      <name>Fuel Rail Pressure diesel</name>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x23</byte> </address>
+    <value> (((get(0)*256)+get(1)) * 10) </value>
   </parameter>
 
   <parameter id="FuelLevel">

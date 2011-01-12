@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace hobd{
 
 /**
  * Converts from metric <=> imperial units
  */
-class UnitsConverter{
+public class UnitsConverter{
 
     public string Units{get; private set;}
 
@@ -15,7 +16,13 @@ class UnitsConverter{
     static Dictionary<string, string> metric_s = new Dictionary<string, string>();
     static Dictionary<string, string> imperial_s = new Dictionary<string, string>();
 
+    public static NumberFormatInfo DefaultNumberFormat;
+
     static UnitsConverter(){
+
+        DefaultNumberFormat = new NumberFormatInfo();
+        DefaultNumberFormat.NumberDecimalSeparator = ".";
+        DefaultNumberFormat.PositiveInfinitySymbol = "∞";
         
         var i = new Dictionary<string, Func<double, double>>();
         var i_s = new Dictionary<string, string>();

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters namespace='EngineLoad' description="LitersPerHour calculated sensor">
+  
+  <parameter id="LitersPerHour">
+    <description>
+      <name>Fuel Per Hour</name>
+      <unit>lphour</unit>
+      <description>Fuel Per Hour (Rough engine load based). Correction coefficient is required!</description>
+    </description>
+    <description lang="ru">
+      <name>Топлива в час</name>
+      <description>Мгновенный расход топлива в час - грубая оценка на основе нагрузки на двигатель. Correction coefficient is required!</description>
+    </description>
+    <class>hobd.elm.load.LitersPerHourSensor</class>
+  </parameter>
+</parameters>

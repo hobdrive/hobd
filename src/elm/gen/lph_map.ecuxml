@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters namespace='MAP' description="LitersPerHour calculated sensor">
+  
+  <parameter id="LitersPerHour">
+    <description>
+      <name>Fuel Per Hour</name>
+      <unit>lphour</unit>
+      <description>Fuel Per Hour (MAP based)</description>
+    </description>
+    <description lang="ru">
+      <name>Топлива в час</name>
+      <description>Мгновенный расход топлива в час - на основе давления воздуха</description>
+    </description>
+    <class>hobd.elm.map.LitersPerHourSensor</class>
+  </parameter>          
+</parameters>

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-public class TripTime : CoreSensor, IAccumulatorSensor
+public class TripTime : PersistentSensor
 {
     long prevStamp;
-    bool firstRun = true;
         
     public TripTime()
     {
@@ -30,16 +29,6 @@ public class TripTime : CoreSensor, IAccumulatorSensor
         Value += (TimeStamp-prevStamp) / 1000f;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
-    }
-    
-    public virtual void Reset()
-    {
-        Value = 0;
-        firstRun = true;
-    }
-    public virtual void Suspend()
-    {
-        firstRun = true;
     }
 
 }

@@ -25,12 +25,16 @@ public class OBD2Engine : Engine
     byte[] buffer = new byte[256];
     int position = 0;
 
+    List<string> extraInitCommands = new List<string>();
+    int extraInitIndex;
+
     public const int ErrorThreshold = 10;
     
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
     public const string ST_ATE0 = "ATE0";
     public const string ST_ATL0 = "ATL0";
+    public const string ST_EXTRAINIT = "EXTRAINIT";
     public const string ST_SENSOR = "SENSOR";
     public const string ST_SENSOR_ACK = "SENSOR_ACK";
     public const string ST_ERROR = "ERROR";
@@ -90,6 +94,7 @@ public class OBD2Engine : Engine
                 fireStateNotify(STATE_INIT);
                 try{
                     stream.Close();
+                    Logger.info("OBD2Engine", "Open "+url);
                     stream.Open(url);
                 }catch(Exception e){
                     Error = e.Message;
@@ -98,6 +103,17 @@ public class OBD2Engine : Engine
                     break;
                 }
                 PurgeStream();
+
+                if (initData != null){
+                    extraInitCommands.Clear();
+                    extraInitIndex = 0;
+
+                    initData.Split(new char[]{';'}).ToList().ForEach((s) => {
+                        var cmd = s.Trim();
+                        if (cmd.Length > 0)
+                            extraInitCommands.Add(cmd);
+                    });
+                }
                 SetState(ST_ATZ);
                 break;
             case ST_ATZ:
@@ -108,6 +124,15 @@ public class OBD2Engine : Engine
                 break;
             case ST_ATL0:
                 SendCommand("ATL0");
+                break;
+            case ST_EXTRAINIT:
+                if (extraInitIndex >= extraInitCommands.Count())
+                {
+                    SetState(ST_SENSOR);
+                }else{
+                    SendCommand(extraInitCommands[extraInitIndex]);
+                    extraInitIndex++;
+                }
                 break;
             case ST_SENSOR:
                 
@@ -198,8 +223,11 @@ public class OBD2Engine : Engine
             case ST_ATL0:
                 if (smsg.Contains("OK"))
                 {
-                    SetState(ST_SENSOR);
+                    SetState(ST_EXTRAINIT);
                 }
+                break;
+            case ST_EXTRAINIT:
+                SetState(ST_EXTRAINIT);
                 break;
             case ST_SENSOR_ACK:
                 

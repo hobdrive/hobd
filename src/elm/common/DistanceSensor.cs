@@ -7,10 +7,9 @@ namespace hobd
 /**
  * Calculates total run distance based on speed interpolation
  */
-public class DistanceSensor : CoreSensor, IAccumulatorSensor
+public class DistanceSensor : PersistentSensor
 {
     long prevStamp;
-    bool firstRun = true;
 
     public int ListenInterval{get; set;}
         
@@ -36,16 +35,6 @@ public class DistanceSensor : CoreSensor, IAccumulatorSensor
         Value += speed.Value * 1000 / 3600 * ((double)(TimeStamp-prevStamp)) / 1000 / 1000;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
-    }
-    
-    public virtual void Reset()
-    {
-        Value = 0;
-        firstRun = true;
-    }
-    public virtual void Suspend()
-    {
-        firstRun = true;
     }
 
 }

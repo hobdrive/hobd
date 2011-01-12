@@ -45,6 +45,11 @@ public class DateTimeMs
        }
     }
 
+    public static DateTime ToDateTime(long ts)
+    {
+        return new DateTime(ts * 10000);
+    }
+
     /**
      * Number of milliseconds from 01.01.0001
      */
@@ -52,7 +57,8 @@ public class DateTimeMs
     {
        get
        {
-         return systemStartMS + Environment.TickCount;
+         //return systemStartMS + Environment.TickCount;
+         return NowMs.Ticks / 10000;
        }
     }
 

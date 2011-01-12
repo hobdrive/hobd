@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
-<project default="ecu" basedir=".">
+<project default="all" basedir=".">
+
+  <target name="all" depends='ecu, doc, lang'/>
 
   <target name="ecu">
     <xslt in='toyota-obd2.ecuxml' out='../ToyotaSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
+
     <xslt in='obd2.ecuxml' out='../OBD2Sensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
+
     <xslt in='common.ecuxml' out='../common/CommonSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
 
@@ -14,8 +18,27 @@
     
     <xslt in='lph_maf.ecuxml' out='../maf/MAFSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
-    
-    
+
+    <xslt in='lph_map.ecuxml' out='../map/MAPSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
+
+    <xslt in='lph_load.ecuxml' out='../load/EngineLoadSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
   </target>
+
+  <target name="doc">
+    <xslt in='_eculist.xml' out='../../../doc/hobdSensors.html' style='ecuxml2html.xsl'>
+    </xslt>
+  </target>
+
+  <target name="lang">
+    <xslt in='_eculist.xml' out='../../../config/lang/en.sensor.lang' style='ecuxml2lang.xsl'>
+      <param name='lang' expression='en'/>
+    </xslt>
+    <xslt in='_eculist.xml' out='../../../config/lang/ru.sensor.lang' style='ecuxml2lang.xsl'>
+      <param name='lang' expression='ru'/>
+    </xslt>
+  </target>
+  
 
 </project>

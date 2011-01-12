@@ -4,14 +4,21 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-public class IdleTime : PersistentSensor
+/**
+ * Calculates total run distance based on speed interpolation
+ */
+public class GSensor : CoreSensor
 {
     long prevStamp;
+    double prevValue;
+
+    protected bool firstRun = true;
+
     public int ListenInterval{get; set;}
-                
-    public IdleTime()
+        
+    public GSensor()
     {
-        ListenInterval = 2000;
+        ListenInterval = 3000;
     }
 
     public override void SetRegistry(SensorRegistry registry)
@@ -23,17 +30,15 @@ public class IdleTime : PersistentSensor
     public void OnSpeedChange(Sensor speed)
     {
         TimeStamp = speed.TimeStamp;
-        if (firstRun) {
+        if (firstRun){
             prevStamp = TimeStamp;
+            prevValue = speed.Value;
             firstRun = false;
             return;
         }
-        if (speed.Value > 5){
-            firstRun = true;
-            return;
-        }
-        Value += (TimeStamp-prevStamp) / 1000f;
+        Value = (speed.Value - prevValue) * 1000 / 3600  /  ((double)(TimeStamp-prevStamp)) * 1000;
         prevStamp = TimeStamp;
+        prevValue = speed.Value;
         registry.TriggerListeners(this);
     }
 

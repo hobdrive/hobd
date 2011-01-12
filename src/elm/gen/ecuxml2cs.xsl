@@ -7,6 +7,7 @@
 
 <xsl:param name='ns' select='/parameters/@namespace'/>
 <xsl:param name='class' select='concat($ns, "Sensors")'/>
+<xsl:param name='skiplang' select='true'/>
 
 <xsl:template match="/">
 /*********************************************************
@@ -55,31 +56,26 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 */
 </xsl:template>
 
-<xsl:template match='parameter[address]'>
-        // <xsl:value-of select='@id'/>
-        s = new OBD2Sensor()
+<xsl:template match='parameter'>
+        <xsl:variable name='cname'>
+          <xsl:if test='address and not(class)'>OBD2Sensor</xsl:if>
+          <xsl:if test='class'><xsl:value-of select='class'/></xsl:if>
+        </xsl:variable>
+        // <xsl:value-of select='$ns'/><xsl:value-of select='@id'/>
+        s = new <xsl:value-of select='$cname'/>()
             {
+                ID = "<xsl:value-of select='$ns'/>.<xsl:value-of select='@id'/>",
+                Name = "<xsl:value-of select='@id'/>",
+                <xsl:if test='address'>
                 obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
                                     return <xsl:value-of select='normalize-space(value)'/>;
                                   },
-                ID = "<xsl:value-of select='@id'/>",
                 Command = <xsl:value-of select='address/byte'/>,
-            };
-        <xsl:apply-templates select='description'/>
-        registry.Add(s);
-
-</xsl:template>
-
-<xsl:template match='parameter[class]'>
-        // <xsl:value-of select='@id'/>
-        s = new <xsl:value-of select='class'/>()
-            {
-                ID = "<xsl:value-of select='@id'/>",
+                </xsl:if>
                 <xsl:apply-templates select='property'/>
             };
         <xsl:apply-templates select='description'/>
         registry.Add(s);
-
 </xsl:template>
 
 <xsl:template match='property'>
@@ -87,9 +83,9 @@ public class <xsl:value-of select='$class'/> : SensorProvider
 </xsl:template>
 
 <xsl:template match='parameter/description'>
-        s.SetName("<xsl:value-of select='@lang'/>", "<xsl:value-of select='name'/>");
-        s.SetDescription("<xsl:value-of select='@lang'/>", "<xsl:value-of select='translate(description, &apos;&quot;\&apos;, "&apos;-")'/>");
-        <xsl:if test='unit'>s.SetUnits("<xsl:value-of select='@lang'/>", "<xsl:value-of select='unit'/>");</xsl:if>
+  <xsl:if test='unit and (@lang = "en" or not(@lang))'>
+        s.Units = "<xsl:value-of select='unit'/>";
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match='parameter' mode='const'>

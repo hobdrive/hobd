@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 
 namespace hobd
@@ -21,10 +22,14 @@ public class SensorRegistry
     object sync_listener = new object();
     
     Dictionary<string, Sensor> sensors = new Dictionary<string, Sensor>();
+    Dictionary<string, Sensor> sensorNames = new Dictionary<string, Sensor>();
+
     Dictionary<Sensor, SensorListener> activeSensors = new Dictionary<Sensor, SensorListener>();
     SensorListener[] activeSensors_array = null;
-    Queue<Sensor> triggerQueue = new Queue<Sensor>();
+
     Thread listenThread;
+    Queue<Sensor> triggerQueue = new Queue<Sensor>();
+    public int QueueSize { get{ return triggerQueue.Count; } }
     
     public IDictionary<string, string> VehicleParameters {get;set;}
     
@@ -44,6 +49,11 @@ public class SensorRegistry
         }
     }
     
+    public void RegisterProvider(string provider)
+    {
+        this.RegisterProvider( (SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
+    }
+
     public void RegisterProvider(SensorProvider provider)
 	{
 	    provider.Activate(this);
@@ -53,11 +63,20 @@ public class SensorRegistry
     {
         sensors.Remove(sensor.ID);
         sensors.Add(sensor.ID, sensor);
-        foreach (string alias in sensor.Aliases){
-            sensors.Remove(alias);
-            sensors.Add(alias, sensor);
+        if (sensor.Name != null)
+        {
+            sensorNames.Remove(sensor.Name);
+            sensorNames.Add(sensor.Name, sensor);
         }
         sensor.SetRegistry(this);
+    }
+
+    /**
+     * Returns enumeration of all the available registered sensors
+     */
+    public IEnumerable<Sensor> EnumerateSensors()
+    {
+        return sensors.Values;
     }
     
     /**
@@ -67,6 +86,8 @@ public class SensorRegistry
     {
         Sensor value;
         if (sensors.TryGetValue(id, out value))
+            return value;
+        else if (sensorNames.TryGetValue(id, out value))
             return value;
         else
             return null;
@@ -108,10 +129,10 @@ public class SensorRegistry
         }
     }
 
-    public int QueueSize { get{ return triggerQueue.Count; } }
 
     public void TriggerListeners(Sensor sensor)
     {
+        if (sensor == null) throw new ArgumentNullException();
         triggerQueue.Enqueue(sensor);
     }
     /**
@@ -119,7 +140,7 @@ public class SensorRegistry
      */
     public void TriggerSuspend()
     {
-        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ) )
+        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ).ToList() )
             ((IAccumulatorSensor)s).Suspend();
     }
     /**
@@ -127,7 +148,7 @@ public class SensorRegistry
      */
     public void TriggerReset()
     {
-        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ) )
+        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ).ToList() )
             ((IAccumulatorSensor)s).Reset();
     }
 

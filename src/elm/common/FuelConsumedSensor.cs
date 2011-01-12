@@ -8,10 +8,9 @@ namespace hobd
  * Calculates total fuel consumed during the trip
  * Uses the underlying Liters Per Hour sensor
  */
-public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
+public class FuelConsumedSensor : PersistentSensor
 {
     long prevStamp;
-    bool firstRun = true;
 
     public int ListenInterval{get; set;}
         
@@ -37,16 +36,6 @@ public class FuelConsumedSensor : CoreSensor, IAccumulatorSensor
         Value += lph.Value / 3600 * ((double)(TimeStamp-prevStamp)) / 1000;
         prevStamp = TimeStamp;
         registry.TriggerListeners(this);
-    }
-    
-    public virtual void Reset()
-    {
-        Value = 0;
-        firstRun = true;
-    }
-    public virtual void Suspend()
-    {
-        firstRun = true;
     }
 
 }

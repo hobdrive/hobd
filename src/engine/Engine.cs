@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace hobd
 {
@@ -9,6 +10,7 @@ public class Engine
     protected IStream stream;
     protected bool active = false;
     protected string url;
+    protected string initData;
     
     public const int STATE_INIT = 0;
     public const int STATE_READ = 1;
@@ -22,16 +24,22 @@ public class Engine
      */
     public string Error {get; protected set;}
     
+    public static Engine CreateInstance(string engineclass)
+    {
+        return (Engine)Assembly.GetExecutingAssembly().CreateInstance(engineclass);
+    }
+
     public Engine()
     {
     
     }
     
-    public virtual void Init(IStream stream, string url)
+    public virtual void Init(IStream stream, string url, string initData)
     {
         if (active) throw new InvalidOperationException("Can't Init on active Engine");
         this.stream = stream;
         this.url = url;
+        this.initData = initData;
     }
     
     public virtual void Activate()
@@ -62,7 +70,7 @@ public class Engine
     
     void OnEngineReset(int state)
     {
-        if (state == STATE_INIT){
+        if (state == STATE_INIT || state == Engine.STATE_ERROR){
             // Tells sensor that engine operation was delayed
             // TriggerReset is possible too, but is a user-controlled action
             Registry.TriggerSuspend();
