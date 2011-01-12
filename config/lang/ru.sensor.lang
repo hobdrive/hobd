@@ -52,6 +52,15 @@ sdesc.FuelLevel =
 sname.AirTemp  = Темп. воздуха
 sdesc.AirTemp = Температура окружающей среды
 
+sname.MIL  = MIL
+sdesc.MIL = Список кодов неисправностей
+
+sname.PMIL  = PMIL
+sdesc.PMIL = Список неподтвержденных кодов неисправностей
+
+sname.ClearDTC  = ClearDTC
+sdesc.ClearDTC = Запрос на сброс DTC
+
 sname.PID_A1  = PID_A1
 sdesc.PID_A1 = -
 

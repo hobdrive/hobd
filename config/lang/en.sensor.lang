@@ -103,6 +103,15 @@ sdesc.FuelLevel =
 sname.AirTemp  = Air Temp
 sdesc.AirTemp = Outside air temperature
 
+sname.MIL  = MIL
+sdesc.MIL = List of DTC codes
+
+sname.PMIL  = PMIL
+sdesc.PMIL = List of Pending DTC codes
+
+sname.ClearDTC  = ClearDTC
+sdesc.ClearDTC = Clear DTC request
+
 sname.InjectorPulseWidth  = Inj.pulse
 sdesc.InjectorPulseWidth = Injector Pulse Width
 
