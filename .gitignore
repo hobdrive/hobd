@@ -6,7 +6,6 @@ distr
 sshots
 test/nunit
 test/TestResult.xml
-*Sensors.cs
 lib/.net
 hobd.pidb
 hobd.userprefs
