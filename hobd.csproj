@@ -5,7 +5,6 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">WINCE</Platform>
     <OutputType>WinExe</OutputType>
-    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PlatformFamilyName>PocketPC</PlatformFamilyName>
     <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
     <OSVersion>5.2</OSVersion>
@@ -73,30 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\ConfigData.cs" />
-    <Compile Include="src\elm\common\CommonSensors.cs" />
-    <Compile Include="src\elm\common\DistanceSensor.cs" />
-    <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
-    <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />    
-    <Compile Include="src\elm\common\IdleTime.cs"/>
-    <Compile Include="src\elm\common\TripTime.cs"/>
-    <Compile Include="src\elm\CoreSensor.cs" />
-    <Compile Include="src\elm\IAccumulatorSensor.cs" />
-    <Compile Include="src\elm\IPersistentSensor.cs" />
-    <Compile Include="src\elm\injector\InjectorSensors.cs" />
-    <Compile Include="src\elm\injector\LitersPerHourSensor.cs" />
-    <Compile Include="src\elm\maf\MAFSensors.cs" />
-    <Compile Include="src\elm\maf\LitersPerHourSensor.cs" />
-    <Compile Include="src\elm\SensorProvider.cs" />
-    <Compile Include="src\elm\OBD2Sensors.cs" />
-    <Compile Include="src\elm\Sensor.cs" />
-    <Compile Include="src\elm\SensorRegistry.cs" />
-    <Compile Include="src\elm\OBD2Sensor.cs" />
-    <Compile Include="src\elm\ToyotaSensors.cs" />
-    <Compile Include="src\engine\BlueToothStream.cs" />
-    <Compile Include="src\engine\Engine.cs" />
-    <Compile Include="src\engine\IStream.cs" />
-    <Compile Include="src\engine\OBD2Engine.cs" />
-    <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\HOBDTheme.cs" />
     <Compile Include="src\HOBDBuild.cs" />
     <Compile Include="src\HomePage.cs" />
@@ -107,17 +82,8 @@
     <Compile Include="src\ui\DynamicElement.cs" />
     <Compile Include="src\ui\IconTextElement.cs" />
     <Compile Include="src\ui\SensorTextElement.cs" />
-    <Compile Include="src\util\DateTimeMs.cs" />
-    <Compile Include="src\util\Logger.cs" />
-    <Compile Include="src\util\UnitsConverter.cs" />
     <None Include="config\default-landscape.layout" />
     <None Include="config\default.vehicles" />
-    <None Include="src\elm\gen\build.bat" />
-    <None Include="src\elm\gen\build.xml" />
-    <None Include="src\elm\gen\ecuxml2cs.xsl" />
-    <None Include="src\elm\gen\ecuxml2java.xsl" />
-    <None Include="src\elm\gen\obd2.ecuxml" />
-    <None Include="src\elm\gen\toyota-obd2.ecuxml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\banner.jpg" />
@@ -132,18 +98,18 @@
   <ItemGroup>
     <Folder Include="config" />
     <Folder Include="src" />
-    <Folder Include="src\elm" />
-    <Folder Include="src\elm\common" />
-    <Folder Include="src\elm\gen" />
-    <Folder Include="src\elm\injector" />
-    <Folder Include="src\engine" />
-    <Folder Include="src\engine" />
     <Folder Include="src\ui" />
-    <Folder Include="src\util" />
     <ProjectReference Include="fleuxdesktop\trunk\Fleux.Net\Fleux\Fleux.csproj">
       <Project>{8526293A-9C66-48F6-A90D-FB2B7128BF08}</Project>
       <Name>Fleux</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="hobdcore.csproj">
+      <Project>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</Project>
+      <Name>hobdcore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition=" '$(Platform)' == 'AnyCPU' " />
 </Project>

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -64,25 +67,35 @@ namespace hobd
             return lv;
         }
 
+        public static string t(string v, string def)
+        {
+            string lv = def;
+            if (v != null && !i18n.TryGetValue(v, out lv))
+                lv = def;
+            return lv;
+        }
+
         private static void LoadLang(string lang)
         {
             try{
-                var sr = new StreamReader(new FileStream( Path.Combine(HOBD.AppPath, lang + ".lang"), FileMode.Open));
-                while(true)
-                {
-                    var line = sr.ReadLine();
-                    if (line == null)
-                        break;
-                    var idx = line.IndexOf("=");
-                    if (idx != -1){
-                       var key = line.Substring(0, idx).Trim();
-                       var val = line.Substring(idx+1).Trim();
-                       //Logger.trace("HOBD", key + val);
-                       i18n.Remove(key);
-                       i18n.Add(key, val);
+                Directory.GetFiles(Path.Combine(HOBD.AppPath, "lang"), lang + "*.lang").ToList().ForEach( (f) => {
+                    var sr = new StreamReader(new FileStream( f, FileMode.Open));
+                    while(true)
+                    {
+                        var line = sr.ReadLine();
+                        if (line == null)
+                            break;
+                        var idx = line.IndexOf("=");
+                        if (idx != -1){
+                           var key = line.Substring(0, idx).Trim();
+                           var val = line.Substring(idx+1).Trim();
+                           //Logger.trace("HOBD", key + val);
+                           i18n.Remove(key);
+                           i18n.Add(key, val);
+                        }
                     }
-                }
-                sr.Close();
+                    sr.Close();
+                });
             }catch(Exception e){
                 Logger.error("HOBD", "i18n init", e);
             }
@@ -134,7 +147,7 @@ namespace hobd
                     {
                         Logger.trace("HOBD", "RegisterProvider: "+ provider);
                         try{
-                            Registry.RegisterProvider((SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
+                            Registry.RegisterProvider(provider);
                         }catch(Exception e){
                             Logger.error("HOBD", "bad provider", e);
                         }
@@ -146,7 +159,7 @@ namespace hobd
         public static void EngineConnect()
         {
             if (HOBD.engine == null)
-                HOBD.engine = (Engine)Assembly.GetExecutingAssembly().CreateInstance(config.GetVehicle(config.Vehicle).ECUEngine);
+                HOBD.engine = Engine.CreateInstance(config.GetVehicle(config.Vehicle).ECUEngine);
             
             IStream stream = null;
             if (config.Port.StartsWith("btspp"))
@@ -156,11 +169,12 @@ namespace hobd
             
             engine.Deactivate();
             engine.Registry = Registry;
-            engine.Init(stream, config.Port);
+            engine.Init(stream, config.Port, "");
         }
 
         public static bool Init()
         {
+            Logger.Init(Path.Combine(HOBD.AppPath, "log.txt"));
             int handle = FindWindow(null, HomePage.Title);
             if (handle != 0)
             {

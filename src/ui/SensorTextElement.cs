@@ -57,9 +57,9 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
     {
         this.Text = "-";
 
-        this.Name = sensor.GetName(HOBD.config.Language);
+        this.Name = HOBD.t("sname."+sensor.Name);
 
-        this.Units = sensor.GetUnits(HOBD.config.Language);
+        this.Units = sensor.Units;
         this.needConversion = HOBD.uConverter.NeedConversion(this.Units);
         if (this.needConversion) {
             this.TUnits = HOBD.uConverter.ConvertUnits(this.Units);

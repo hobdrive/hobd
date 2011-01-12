@@ -314,7 +314,7 @@ namespace hobd
                 if (sensor != null)
                 {
                     var sensorItem = new SensorTextElement(sensor, attrs);
-                    sensorItem.HandleTapAction = () => { sensorItem.Text = sensor.Description; Redraw(); };
+                    sensorItem.HandleTapAction = () => { sensorItem.Text = HOBD.t("sdesc."+sensor.Name); Redraw(); };
                     
                     List<SensorTextElement> ui_list = null;
                     sensorUIMap.TryGetValue(sensor, out ui_list);
@@ -502,7 +502,7 @@ namespace hobd
 
         protected virtual void CreateLanguageSection()
         {
-            IEnumerable<object> codesList = Directory.GetFiles(HOBD.AppPath, "*.lang")
+            IEnumerable<object> codesList = Directory.GetFiles(Path.Combine(HOBD.AppPath, "lang"), "??.lang")
                                                 .Select( (f) => (object)Path.GetFileNameWithoutExtension(f) )
                                                 .OrderBy(s => s);
 
