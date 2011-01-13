@@ -1,7 +1,8 @@
  Changelog
 ==============
- - 
-   - DTC reading & clearing
+ - v0.6
+   - DTC reading & clearing sensors
+   - DTC decoding helper
 
  - v0.5 21-Dec-2010
    - Fuel consumption uses infinity when vehicle is stopped

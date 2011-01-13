@@ -127,6 +127,7 @@
     <Compile Include="src\util\Logger.cs" />
     <Compile Include="src\util\StaticHelpers.cs" />
     <Compile Include="src\util\UnitsConverter.cs" />
+    <Compile Include="src\util\DTCTools.cs" />
     <None Include="src\elm\gen\build.bat" />
     <None Include="src\elm\gen\build.xml" />
     <None Include="src\elm\gen\ecuxml2cs.xsl" />
