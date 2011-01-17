@@ -111,6 +111,7 @@
     <Compile Include="src\elm\Sensor.cs" />
     <Compile Include="src\elm\SensorRegistry.cs" />
     <Compile Include="src\elm\SensorStorage.cs" />
+    <Compile Include="src\elm\OBD2Engine.cs" />
     <Compile Include="src\elm\OBD2Sensor.cs" />
     <Compile Include="src\elm\SpeedSensor.cs" />
     <Compile Include="src\elm\ToyotaSensors.cs" />
@@ -121,7 +122,6 @@
     <Compile Include="src\engine\BlueToothStream.cs" />
     <Compile Include="src\engine\Engine.cs" />
     <Compile Include="src\engine\IStream.cs" />
-    <Compile Include="src\engine\OBD2Engine.cs" />
     <Compile Include="src\engine\SerialStream.cs" />
     <Compile Include="src\util\DateTimeMs.cs" />
     <Compile Include="src\util\Logger.cs" />
