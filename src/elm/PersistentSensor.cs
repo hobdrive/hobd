@@ -31,6 +31,7 @@ public class PersistentSensor : CoreSensor, IPersistentSensor, IAccumulatorSenso
     {
         Value = double.Parse(raw);
         TimeStamp = DateTimeMs.Now;
+        firstRun = true;
     }
 
 }
