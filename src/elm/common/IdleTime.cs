@@ -8,6 +8,7 @@ public class IdleTime : PersistentSensor
 {
     long prevStamp;
     public int ListenInterval{get; set;}
+    public double idle_speed = 5;
                 
     public IdleTime()
     {
@@ -18,6 +19,9 @@ public class IdleTime : PersistentSensor
     {
         base.SetRegistry(registry);
         registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, ListenInterval);
+        try{
+            this.idle_speed = double.Parse(registry.VehicleParameters["idle-speed"], UnitsConverter.DefaultNumberFormat);
+        }catch(Exception){}
     }
 
     public void OnSpeedChange(Sensor speed)
@@ -28,7 +32,7 @@ public class IdleTime : PersistentSensor
             firstRun = false;
             return;
         }
-        if (speed.Value > 5){
+        if (speed.Value > idle_speed){
             firstRun = true;
             return;
         }
