@@ -43,7 +43,7 @@ public class LitersPerHourSensor : CoreSensor
 
     public void OnSensorChange(Sensor s)
     {
-        TimeStamp = DateTimeMs.Now;
+        TimeStamp = s.TimeStamp;
         Value = load.Value * load_consumption_coeff;
         registry.TriggerListeners(this);
     }

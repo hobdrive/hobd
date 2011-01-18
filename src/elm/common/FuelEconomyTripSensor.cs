@@ -36,7 +36,7 @@ public class FuelEconomyTripSensor : CoreSensor, IAccumulatorSensor
 
     void OnChange(Sensor s)
     {
-        TimeStamp = DateTimeMs.Now;
+        TimeStamp = s.TimeStamp;
         
         if (distance.Value - h_distance == 0 || fuel.Value - h_fuel == 0)
         {

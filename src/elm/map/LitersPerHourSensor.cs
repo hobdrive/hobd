@@ -71,7 +71,7 @@ public class LitersPerHourSensor : CoreSensor
 	 */
     public void OnSensorChange(Sensor s)
     {
-        TimeStamp = DateTimeMs.Now;
+        TimeStamp = s.TimeStamp;
         // per second
         double imap = rpm.Value * map.Value / (iat.Value + 273.15);
         double maf = imap/120 * (this.ve/100) * this.displacement * (28.97) / 8.314;

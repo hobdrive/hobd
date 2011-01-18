@@ -54,7 +54,7 @@ public class LitersPerHourSensor : CoreSensor
 	 */
     public void OnSensorChange(Sensor maf)
     {
-        TimeStamp = DateTimeMs.Now;
+        TimeStamp = maf.TimeStamp;
         // per second
         Value = maf.Value / (stoich * 454*6.17 / 3.78 );
         // to hour

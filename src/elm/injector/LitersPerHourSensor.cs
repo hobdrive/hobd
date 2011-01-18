@@ -57,7 +57,7 @@ public class LitersPerHourSensor : CoreSensor
 	 */
     public void OnSensorChange(Sensor s)
     {
-        TimeStamp = DateTimeMs.Now;
+        TimeStamp = s.TimeStamp;
         // liters per second
         Value = rpm.Value/60 * cylinders * ipw.Value * 0.001 * injectorccpm/60 / 1000;
         // to hour
