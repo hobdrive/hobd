@@ -20,9 +20,7 @@ public class ClearDTCSensor : OBD2Sensor
 
     public override string RawCommand {
         get{
-            if (Active)
-                return "04";
-            return null;
+            return "04";
         }
     }
 
