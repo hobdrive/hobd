@@ -31,8 +31,10 @@ public class MILSensor : OBD2Sensor
 
     public override bool SetValue(byte[] dataraw)
     {
+        /*
         if (dataraw.Length < 1)
             return false;
+        */
         this.dataraw = dataraw;
         this.mil_value = null;
         this.TimeStamp = DateTimeMs.Now;
