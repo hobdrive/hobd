@@ -1,0 +1,200 @@
+﻿P1000 OBD II Monitor не проходит тест
+P1001 Key On Engine Running (KOER) Self-Test not able to complete. KOER aborted 
+P1100 Mass Air Flow (MAF) sensor intermittent
+P1101 Mass Air Flow (MAF) sensor out of Self-Test range
+P1102 Низкое сопротивление подогревателя датчика кислорода
+Р1106 Высокое напряжение в цепи датчика абсолютного давления впускного коллектора (MAP)
+Р1107 Низкое напряжение в цепи датчика абсолютного давления впускного коллектора (MAP)
+P1110 Switch over valve solenoid 
+P1111 Высокое напряжение в цепи датчика температуры воздуха на впуске (IAT)
+P1112 Switch over valve 1 Низкое напряжение в цепи датчика температуры воздуха на впуске (IAT) 
+P1113 Switch over valve 2 
+P1114 Низкое напряжение в цепи датчика температуры охлаждающей жидкости (ECT) 
+P1115 Высокое напряжение в цепи датчика температуры охлаждающей жидкости (ECT)
+P1116 О2 Sensor heater Circuit (Open) Датчик температуры двигателя (ECT) не прошел самотестирование
+P1117 Датчик температуры двигателя (ECT) sensor intermittent 
+P1120 Датчик положения дросселя (TP)  out of range low 
+P1121 Высокое напряжение в цепи датчика положения дроссельной заслонки (TP)  
+P1122 Низкое напряжение в цепи датчика положения дроссельной заслонки (TP)
+P1123 Long Term Fuel Trim Additive Air (System too Rich)
+P1124 Датчик положения дросселя (TP) sensor out of Self -Test range. Long Term Fuel Trim Additive Air (System too Lean)
+P1125 Датчик положения дросселя (TP) sensor circuit intermittent
+P1127 Exhaust not warm enough, downstream Heated Oxygen Sensors (HO2Ss) not tested. Long Term Fuel Trim Multiplicative (System too Rich)
+P1128 Upstream Heated Oxygen Sensors (HO2Ss) swapped from bank to bank. Long Term Fuel Trim Multiplicative (System too Lean)
+P1129 Downstream Heated Oxygen Sensors (HO2Ss) swapped from bank to bank
+P1130 Lack of upstream Heated Oxygen Sensor (HO2S 11) switch, adaptive fuel at limit (Bank # 1) 
+P1131 Lack of upstream Heated Oxygen Sensor (HO2S 11) switch, sensor indicates lean (Bank # 1))
+P1132 Lack of upstream Heated Oxygen Sensor (HO2S 11) switch, sensor indicates rich (Bank # 1) 
+P1133 Датчик 1 HO2S
+P1134 Таймер включения датчика HO2S
+P1136 Long Term Fuel Trim Additive Fuel (System too Rich)
+P1137 Lack of downstream Heated Oxygen Sensor (HO2S 12) switch, sensor indicates lean (Bank # 1). Long Term Fuel Trim Additive Fuel (System too Lean)
+P1138 Lack of downstream Heated Oxygen Sensor (HO2S 12) switch, sensor indicates rich (Bank # 1)
+P1140 Неверный сигнал нагрузки
+P1150 Lack of upstream Heated Oxygen Sensor (HO2S 21) switch, adaptive fuel at limit (Bank #2) 
+P1151 Lack of upstream Heated Oxygen Sensor (HO2S 21) switch, sensor indicates lean (Bank # 2) 
+P1152 Lack of upstream Heated Oxygen Sensor (HO2S 21) switch, sensor indicates rich (Bank # 2)
+P1157 Lack of downstream Heated Oxygen Sensor (HO2S 22) switch, sensor indicates lean (Bank # 2) 
+P1158 Lack of downstream Heated Oxygen Sensor (HO2S 22) switch, sensor indicates rich (Bank # 2) 
+P1171 Низкий уровень сигнала СО-потенциометра
+P1172 Высокий уровень сигнала СО-потенциометра
+P1174 02 Sensor 1 Bank 1 (period monitoring)
+P1176 02 Sensor 1 Bank 1 (tv monitoring)
+P1200 Цепь управления форсункой 
+P1220 Series Throttle Control system malfunction
+P1224 Датчик положения дросселя B (TP-B) out of Self - Test range 
+P1229 Power Supply Relay Primary Circuit Voltage High
+P1230 Power Supply Relay Secondary Circuit Voltage Low
+P1231 Fuel pump relay circuit low with high speed pump on
+P1232 Low speed Fuel Pump primary circuit malfunction
+P1233 Fuel Pump Driver Module disabled or offline
+P1234 Fuel Pump Driver Module disabled or offline
+P1235 Fuel Pump control out of Self - Test range 
+P1236 Fuel Pump control out of Self - Test range. Не считывается показатель датчика положения коленвала (CKP)
+P1237 Fuel Pump secondary circuit malfunction
+P1238 Fuel Pump secondary circuit malfunction
+P1260 Попытка угона - запуск заблокирован
+P1270 Engine RPM or vehicle speed limiter reached
+P1285 Неисправность датчика температуры ГБЦ
+P1288 Датчик температуры ГБЦ (CHT) sensor out of Self - Test range
+P1289 Датчик температуры ГБЦ (CHT) sensor circuit low input
+P1290 Датчик температуры ГБЦ (CHT) sensor circuit high input
+P1299 Engine over temperature condition 
+P1326 Knock Control Maximum Spark Limit Cylinder 1
+P1327 Knock Control Maximum Spark Limit Cylinder 2
+P1328 Knock Control Maximum Spark Limit Cylinder 3
+P1329 Knock Control Maximum Spark Limit Cylinder 4
+P1350 Запасная линия мониторинга
+P1351 Ignition Diagnostic Monitor (IDM) circuit input malfunction
+P1356 PIPS occurred while IDM pulse width indicates engine not turning
+P1357 Ignition Diagnostic Monitor (IDM) pulse width not defined
+P1358 Ignition Diagnostic Monitor (IDM) signal out of Self - Test range
+P1359 Spark output circuit malfunction 
+P1361 Низкое напряжение в цепи контроля зажигания (IC)
+P1374 Изменение частоты датчика положения коленвала (CKP) 
+P1380 Неисправность в системе – невозможно считать данные
+P1386 Knock control Testpulse
+P1390 Octane Adjust (OCT ADJ) out of Self - Test range
+P1400 Differential Pressure Feedback EGR (DPFE) sensor circuit low voltage detected
+P1401 Differential Pressure Feedback EGR (DPFE) sensor circuit high voltage detected
+P1405 Differential Pressure Feedback EGR (DPFE) sensor upstream hose off or plugged
+P1406 Differential Pressure Feedback EGR (DPFE) sensor downstream hose off or plugged. Регулировка датчика системы рециркуляции выхлопных газов (EGR)
+P1408 Exhaust Gas Recirculation (EGR) flow out of Self - Test range
+P1409 Canister purge valve power stage (malfunction). Electronic Vacuum Regulator (EVR) control circuit malfunction
+P1410 Canister purge valve power stage (high). Secondary air pump relay
+P1411 Secondary Air Injection system incorrect downstream flow detected
+P1413 Secondary Air Injection system monitor circuit low voltage
+P1414 Secondary Air Injection system monitor circuit high voltage
+P1425 Canister purge valve power stage (low). Цепь управления клапаном продувки адсорбера, замыкание на землю
+P1426 Цепь управления клапаном продувки адсорбера, обрыв
+P1441 Расход в системе отвода паров топлива (EVAP) только для автомобиля Chevrolet. Расход в системе отвода паров топлива (EVAP) только для автомобиля Oldsmobile 
+P1442 Evaporative emission control system small leak detected
+P1443 Evaporative emission control system - vacuum system, purge control solenoid or vapor management valve malfunction
+P1444 Purge Flow (PF) Sensor circuit low input
+P1445 Purge Flow (PF) Sensor circuit high input
+P1449 Evaporative emission control system unable to hold vacuum (Probe)
+P1450 Unable to bleed up fuel tank vacuum
+P1452 Unable to bleed up fuel tank vacuum
+P1455 Evaporative emission control system control leak detected (gross leak)
+P1460 Wide Open Throttle Air Conditioning Cutoff (WAC) circuit malfunction
+P1461 Air Conditioning Pressure (ACP) sensor circuit low input
+P1462 Air Conditioning Pressure (ACP) sensor circuit high input
+P1463 Air Conditioning Pressure (ACP) sensor insufficient pressure change
+P1464 Air Condition (A/C) demand out of Self - Test range
+P1469 Low air conditioning cycling period
+P1473 Fan secondary high with fan(s) off
+P1474 Low Fan Control primary circuit malfunction
+P1479 High Fan Control primary circuit malfunction
+P1480 Fan secondary low with low fan on
+P1481 Fan secondary low with high fan on
+P1483 Power to fan circuit over current
+P1484 Open power ground to Variable Load Control Module (VLCM)
+P1500 Неисправность цепи реле топливного насоса
+P1501 Иммобилайзер - нет кода или неправильный код. Реле топливного насоса - замыкание на землю
+P1502 Реле топливного насоса - замыкание на +12V. Иммобилайзер - нет сигнала
+P1503 Иммобилайзер - неправильный сигнал
+P1504 Idle Air Control (IAC) circuit malfunction
+P1505 Idle Air Control (IAC) system at adaptive clip
+P1506 Idle Air Control (IAC) overspeed error
+P1507 Idle Air Control (IAC) under speed error
+P1509 Цепь управления регулятором холостого хода, перегрузка
+P1512 Intake Manifold Runner Control (IMRC) malfunction (Bank # 1 stuck closed)
+P1513 Intake Manifold Runner Control (IMRC) malfunction (Bank # 2 stuck closed). Цепь управления регулятором холостого хода - замыкание на землю
+P1514 Цепь управления регулятором холостого хода - обрыв
+P1516 Intake Manifold Runner Control (IMRC) input error (Bank # 1)
+P1517 Intake Manifold Runner Control (IMRC) input error (Bank # 2)
+P1518 Intake Manifold Runner Control (IMRC) malfunction (stuck open)
+P1519 Intake Manifold Runner Control (IMRC) malfunction (stuck closed)
+P1520 Intake Manifold Runner Control (IMRC) circuit malfunction
+P1530 Air Condition (A / C) clutch circuit malfunction
+P1537 Intake Manifold Runner Control (IMRC) malfunction (Bank # 1 stuck open)
+P1538 Intake Manifold Runner Control (IMRC) malfunction (Bank # 2 stuck open)
+P1539 Power to Air condition (A / C) clutch circuit overcurrent
+P1541 Цепь управления реле бензонасоса, обрыв
+P1550 Power steering Pressure (PSP) sensor out of Self - Test range
+P1554 Цепь обратной связи с системой круиз-контроля
+P1570 Обрыв цепи иммобилизатора
+P1600 Нет связи с иммобилизатором. Reprogram or Replace Electronic Control Unit (ECM)
+P1601 ECM Box Temperature High
+P1602 Пропадание напряжения контроллера. Модуль контроля детонации
+P1603 Ошибка EEPROM
+P1604 Устройство контроля детонации
+P1605 Устройство контроля детонации
+P1606 Устройство контроля детонации
+P1612 Ошибка сброса процессора
+P1619 Electrical Thermostat Control powerstage (too high)
+P1620 Ошибка ПЗУ. Electrical Thermostat Control powerstage (too low)
+P1621 Ошибка OЗУ
+P1622 Ошибка EEPROM. Electrical Thermostat Control powerstage (Range/Perfomance)
+P1625 B(+) supply to ariable Load Control Module (VCLM) fan circuit malfunction
+P1626 B(+) supply to Variable Load Control Module (VCLM) Air Condition (A / C) circuit malfunction. Потеря сигнала от топливной системы 
+P1629 Не поступает сигнал от топливной системы
+P1635 Цепь 5 вольт, только для автомобиля Oldsmobile. Цепь 5 вольт, только для автомобиля Chevrolet 
+P1639 2 цепь 5 вольт, только для автомобиля Oldsmobile. 2 цепь 5 вольт, только для автомобиля Chevrolet 
+P1640 Устройство контроля детонации или модуль полного привода
+P1641 Контрольная цепь индикаторной лампы неисправностей (MIL) 
+P1650 Power Steering Pressure (PSP) switch out of Self - Test range
+P1651 Power Steering Pressure (PSP) switch input malfunction. Контрольная цепь 1 реле вентилятора, только для автомобиля Oldsmobile. Контрольная цепь 1 реле вентилятора, только для автомобиля Chevrolet 
+P1652 Контрольная цепь 2 реле вентилятора, только для автомобиля Oldsmobile. Контрольная цепь 2 реле вентилятора, только для автомобиля Chevrolet
+P1654 Контрольная цепь реле кондиционера (A/C)
+P1655 Контрольная цепь соленоида системы отвода паров топлива (EVAP), только для автомобиля Oldsmobile. Контрольная цепь соленоида системы отвода паров топлива (EVAP), только для автомобиля Chevrolet 
+P1662 Цепь системы круиз-контроля
+P1663 Контрольная лампа перезарядки
+P1671 Контрольная лампа замены масла
+P1672 Контрольная лампа низкого уровня масла 
+P1675 Контрольная цепь соленоида системы отвода паров топлива (EVAP) 
+P1689 Ошибка памяти ошибок
+P1690 Ошибка лампы диагностики. MIL-on requestsignal (Malfunction)
+P1693 MIL-on requestsignal (High)
+P1701 Reverse engagement error
+P1703 Brake On/Off (BOO) switch out of Self - Test range
+P1705 Transmission Range (TR) Sensor out of Self - Test range
+P1709 Park or Neutral Position (PNP) switch is not indicating neutral during KOEO Self - Test
+P1711 Transmission Fluid Temperature (TFT) sensor out of Self - Test range
+P1728 Transmission slip fault
+P1729 4x4 Low switch error
+P1740 Torque Control unit
+P1741 Torque Converter Clutch (TCC) control error
+P1742 Torque Converter Clutch (TCC) solenoid failed on (turns on MIL)
+P1743 Torque Converter Clutch (TCC) solenoid failed on (turns on TCIL)
+P1744 Torque Converter Clutch (TCC) system mechanically stuck in off position
+P1746 Electronic Pressure Control (EPC) solenoid open circuit (low input)
+P1747 Electronic Pressure Control (EPC) solenoid short circuit (high input)
+P1749 Electronic Pressure Control (EPC) solenoid failed low
+P1751 Shift Solenoid # 1 (SS1) performance
+P1754 Coast Clutch Solenoid (CCS) circuit malfunction
+P1756 Shift Solenoid # 2 (SS2) performance
+P1761 Shift Solenoid # 3 (SS3) performance
+P1780 Transmission Control switch (TCS) circuit out of Self - Test range
+P1781 4x4 Low switch out of Self - Test range
+P1783 Transmission over temperature condition
+P1788 3-2 Timing / Coast Clutch Solenoid (3-2 / CCS) circuit open
+P1789 3-2 Timing / Coast Clutch Solenoid (3-2 / CCS) circuit shorted
+U1021 SCP indicating the lack of Air Condition (A/C) clutch status response
+U1039 SCP indicating the vehicle speed signal missing or incorrect
+U1051 SCP indicating the brake switch signal missing or incorrect
+U1073 SCP indicating the lack of engine coolant fan status response
+U1131 SCP indicating the lack of Fuel Pump status response
+U1135 SCP indicating the ignition switch signal missing or incorrect
+U1256 SCP indicating a communications error 
+U1451 Lack of response from Passive Anti-Theft system (PATS) module - engine disabled
