@@ -38,7 +38,7 @@ public class FuelEconomyTripSensor : CoreSensor, IAccumulatorSensor
     {
         TimeStamp = s.TimeStamp;
         
-        if (distance.Value - h_distance == 0 || fuel.Value - h_fuel == 0)
+        if (distance.Value - h_distance <= 0 || fuel.Value - h_fuel <= 0)
         {
             Value = Double.PositiveInfinity;
         }else{
