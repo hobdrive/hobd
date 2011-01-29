@@ -27,6 +27,8 @@ public class OBD2Engine : Engine
 
     List<string> extraInitCommands = new List<string>();
     int extraInitIndex;
+    
+    public string Protocol{get; protected set;}
 
     public const int ErrorThreshold = 10;
     
@@ -35,11 +37,13 @@ public class OBD2Engine : Engine
     public const string ST_ATE0 = "ATE0";
     public const string ST_ATL0 = "ATL0";
     public const string ST_EXTRAINIT = "EXTRAINIT";
+    public const string ST_SENSOR_INIT = "SENSOR_INIT";
+    public const string ST_QUERY_PROTOCOL = "QUERY_PROTOCOL";
     public const string ST_SENSOR = "SENSOR";
     public const string ST_SENSOR_ACK = "SENSOR_ACK";
     public const string ST_ERROR = "ERROR";
 
-    string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR" };
+    string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", "BUS BUSY", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
 
     int subsequentErrors = 0;
 
@@ -129,11 +133,17 @@ public class OBD2Engine : Engine
             case ST_EXTRAINIT:
                 if (extraInitIndex >= extraInitCommands.Count())
                 {
-                    SetState(ST_SENSOR);
+                    SetState(ST_SENSOR_INIT);
                 }else{
                     SendCommand(extraInitCommands[extraInitIndex]);
                     extraInitIndex++;
                 }
+                break;
+            case ST_SENSOR_INIT:
+                SendCommand("0101");
+                break;
+            case ST_QUERY_PROTOCOL:
+                SendCommand("ATDPN");
                 break;
             case ST_SENSOR:
                 
@@ -236,6 +246,13 @@ public class OBD2Engine : Engine
             case ST_EXTRAINIT:
                 SetState(ST_EXTRAINIT);
                 break;
+            case ST_SENSOR_INIT:
+                SetState(ST_QUERY_PROTOCOL);
+                break;
+            case ST_QUERY_PROTOCOL:
+                Protocol = smsg;
+                SetState(ST_SENSOR);
+                break;
             case ST_SENSOR_ACK:
                 
                 var msgraw = new List<byte>();
@@ -275,11 +292,13 @@ public class OBD2Engine : Engine
                 if (osensor.SetValue(dataraw))
                 {
                     subsequentErrors = 0;
+                    this.Error = null;
                 }else{
                     // search for known errors, increment counters
                 	string error = dataErrors.FirstOrDefault(e => smsg.Contains(e));
                 	if (error != null)
                 	{
+                        this.Error = this.Error == null ? error : this.Error + " " + error;
                 	    // increase period for this 'bad' sensor
                 	    if (subsequentErrors == 0)
                 	    {
@@ -388,12 +407,11 @@ public class OBD2Engine : Engine
             var diff_ms = DateTimeMs.Now - lastReceiveTS;
             if (diff_ms > NoResponseTimeout) {
                 // If ERROR, wait for a longer period before retrying
-                if (this.State != ST_ERROR || diff_ms > ReconnectTimeout)
+                if ((this.State != ST_SENSOR_INIT && this.State != ST_ERROR) || diff_ms > ReconnectTimeout)
                 {
                     SetState(ST_INIT);
                 }
-			  }
-            
+            }
         }
         thread_active = false;
     }
