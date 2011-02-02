@@ -63,9 +63,13 @@ public class Engine
     }
     
     protected void fireStateNotify(int state)
-    {
-        if (this.StateNotify != null)
-            this.StateNotify(state);
+    {        
+        try{
+            if (this.StateNotify != null)
+                this.StateNotify(state);
+        }catch(Exception e){
+            Logger.error("Engine", "fireStateNotify", e);
+        }
     }
     
     void OnEngineReset(int state)
