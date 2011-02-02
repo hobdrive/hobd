@@ -30,8 +30,8 @@ public class LitersPerHourSensor : CoreSensor
             this.displacement = double.Parse(registry.VehicleParameters["liters"], UnitsConverter.DefaultNumberFormat);
             this.ve = double.Parse(registry.VehicleParameters["volumetric-efficiency"], UnitsConverter.DefaultNumberFormat);
 
-        }catch(Exception e){
-            Logger.info("LitersPerHourSensor", "Using default displacement and VE ratio", e);
+        }catch(Exception){
+            Logger.info("LitersPerHourSensor", "Using default displacement and VE ratio");
         }
     }
 
