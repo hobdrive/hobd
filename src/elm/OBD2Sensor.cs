@@ -23,6 +23,42 @@ public class OBD2Sensor : CoreSensor
         }
     }
 
+    public static byte to_h(byte a)
+    {
+        if (a >= 0x30 && a <= 0x39) return (byte)(a-0x30);
+        if (a >= 0x41 && a <= 0x46) return (byte)(a+10-0x41);
+        if (a >= 0x61 && a <= 0x66) return (byte)(a+10-0x61);
+        return a;
+    }
+
+    public virtual bool SetRawValue(byte[] msg)
+    {
+        var msgraw = new List<byte>();
+        
+        // parse reply
+        for(int i = 0; i < msg.Length; i++)
+        {
+            var a = msg[i];
+            if (a == ' ' || a == '\r' || a == '\n')
+                continue;
+            if (i+1 >= msg.Length)
+                break;
+            i++;
+            var b = msg[i];
+            a = to_h(a);
+            b = to_h(b);
+            if (a > 0x10 || b > 0x10)
+                break;
+            
+            msgraw.Add((byte)((a<<4) + b));
+            
+        }
+        
+        byte[] dataraw = msgraw.ToArray();
+
+        return this.SetValue(dataraw);
+    }
+
     public virtual bool SetValue(byte[] dataraw)
     {
         if (dataraw.Length < 2 || dataraw[0] != 0x41 || dataraw[1] != this.Command)

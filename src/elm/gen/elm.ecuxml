@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<parameters namespace='ELM' description="ELM 323 specific sensors and parameters">
+  
+  <parameter id="BatteryVoltage">
+    <description>
+      <name>Battery Voltage</name>
+      <unit>V</unit>
+      <description>Battery Voltage measured by ELM unit</description>
+    </description>
+    <description lang="ru">
+      <name>Напряжение</name>
+      <description>Напряжение в сети, измеренное чипом ELM</description>
+    </description>
+    <class>hobd.elm.ELMVoltageSensor</class>
+  </parameter>
+</parameters>

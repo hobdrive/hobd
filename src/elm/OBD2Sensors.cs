@@ -590,6 +590,23 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
+        // OBD2DistanceMIL
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.DistanceMIL",
+                Name = "DistanceMIL",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return get(0)*256 + get(1);
+                                  },
+                Command = 0x21,
+                
+            };
+        
+        s.Units = "km";
+  
+        registry.Add(s);
+
         // OBD2FuelRailPressure_rel
         s = new OBD2Sensor()
             {
@@ -641,6 +658,74 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
+        // OBD2DistanceMILCleared
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.DistanceMILCleared",
+                Name = "DistanceMILCleared",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return get(0)*256 + get(1);
+                                  },
+                Command = 0x31,
+                
+            };
+        
+        s.Units = "km";
+  
+        registry.Add(s);
+
+        // OBD2VaporPressure
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.VaporPressure",
+                Name = "VaporPressure",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (((get(0)*256)+get(1)) / 4);
+                                  },
+                Command = 0x31,
+                
+            };
+        
+        s.Units = "Pa";
+  
+        registry.Add(s);
+
+        // OBD2ControlModuleVoltage
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.ControlModuleVoltage",
+                Name = "ControlModuleVoltage",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (((get(0)*256)+get(1)) / 1000);
+                                  },
+                Command = 0x42,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2AbsoluteLoadValue
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.AbsoluteLoadValue",
+                Name = "AbsoluteLoadValue",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (((get(0)*256)+get(1)) * 100 / 255);
+                                  },
+                Command = 0x43,
+                
+            };
+        
+        s.Units = "%";
+  
+        registry.Add(s);
+
         // OBD2AirTemp
         s = new OBD2Sensor()
             {
@@ -655,6 +740,57 @@ public class OBD2Sensors : SensorProvider
             };
         
         s.Units = "celsius";
+  
+        registry.Add(s);
+
+        // OBD2EngineOilTemp
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.EngineOilTemp",
+                Name = "EngineOilTemp",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (get(0)-40 );
+                                  },
+                Command = 0x5C,
+                
+            };
+        
+        s.Units = "celsius";
+  
+        registry.Add(s);
+
+        // OBD2FuelInjectionTiming
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.FuelInjectionTiming",
+                Name = "FuelInjectionTiming",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (((get(0)*256)+get(1) - 26880) / 128);
+                                  },
+                Command = 0x5D,
+                
+            };
+        
+        s.Units = "degree";
+  
+        registry.Add(s);
+
+        // OBD2LitersPerHour
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.LitersPerHour",
+                Name = "LitersPerHour",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (((get(0)*256)+get(1)) * 0.05);
+                                  },
+                Command = 0x5E,
+                
+            };
+        
+        s.Units = "lph";
   
         registry.Add(s);
 
@@ -757,13 +893,29 @@ public class OBD2Sensors : SensorProvider
 
   public const string RunTime = "RunTime";
 
+  public const string DistanceMIL = "DistanceMIL";
+
   public const string FuelRailPressure_rel = "FuelRailPressure_rel";
 
   public const string FuelRailPressure_diesel = "FuelRailPressure_diesel";
 
   public const string FuelLevel = "FuelLevel";
 
+  public const string DistanceMILCleared = "DistanceMILCleared";
+
+  public const string VaporPressure = "VaporPressure";
+
+  public const string ControlModuleVoltage = "ControlModuleVoltage";
+
+  public const string AbsoluteLoadValue = "AbsoluteLoadValue";
+
   public const string AirTemp = "AirTemp";
+
+  public const string EngineOilTemp = "EngineOilTemp";
+
+  public const string FuelInjectionTiming = "FuelInjectionTiming";
+
+  public const string LitersPerHour = "LitersPerHour";
 
   public const string MIL = "MIL";
 
@@ -793,27 +945,35 @@ public class OBD2Sensors : SensorProvider
   - IntakeAirTemp - Intake Air - Intake air temperature - celsius
   - MAF - MAF - Mass air flow - gr/sec
   - ThrottlePosition - Throttle - Throttle position - %
-  - Oxygen_b1s1 - Oxygen bank1 sensor1 - Oxygen sensor voltage - V
-  - Oxygen_b1s1_stft - Oxygen bank1 sensor1 STFT - Oxygen sensor STFT - %
-  - Oxygen_b1s2 - Oxygen bank1 sensor2 - Oxygen sensor voltage - V
-  - Oxygen_b1s2_stft - Oxygen bank1 sensor2 STFT - Oxygen sensor STFT - %
-  - Oxygen_b1s3 - Oxygen bank1 sensor3 - Oxygen sensor voltage - V
-  - Oxygen_b1s3_stft - Oxygen bank1 sensor3 STFT - Oxygen sensor STFT - %
-  - Oxygen_b1s4 - Oxygen bank1 sensor4 - Oxygen sensor voltage - V
-  - Oxygen_b1s4_stft - Oxygen bank1 sensor4 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s1 - Oxygen bank2 sensor1 - Oxygen sensor voltage - V
-  - Oxygen_b2s1_stft - Oxygen bank2 sensor1 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s2 - Oxygen bank2 sensor2 - Oxygen sensor voltage - V
-  - Oxygen_b2s2_stft - Oxygen bank2 sensor2 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s3 - Oxygen bank2 sensor3 - Oxygen sensor voltage - V
-  - Oxygen_b2s3_stft - Oxygen bank2 sensor3 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s4 - Oxygen bank2 sensor4 - Oxygen sensor voltage - V
-  - Oxygen_b2s4_stft - Oxygen bank2 sensor4 STFT - Oxygen sensor STFT - %
+  - Oxygen_b1s1 - Oxygen b1s1 - Oxygen bank 1 sensor 1 voltage - V
+  - Oxygen_b1s1_stft - Oxygen b1s1 STFT - Oxygen bank 1 sensor 1 STFT - %
+  - Oxygen_b1s2 - Oxygen b1s2 - Oxygen bank 1 sensor 2 voltage - V
+  - Oxygen_b1s2_stft - Oxygen b1s2 STFT - Oxygen bank 1 sensor 2 STFT - %
+  - Oxygen_b1s3 - Oxygen b1s3 - Oxygen sensor voltage - V
+  - Oxygen_b1s3_stft - Oxygen b1s3 STFT - Oxygen sensor STFT - %
+  - Oxygen_b1s4 - Oxygen b1s4 - Oxygen sensor voltage - V
+  - Oxygen_b1s4_stft - Oxygen b1s4 STFT - Oxygen sensor STFT - %
+  - Oxygen_b2s1 - Oxygen b2s1 - Oxygen sensor voltage - V
+  - Oxygen_b2s1_stft - Oxygen b2s1 STFT - Oxygen sensor STFT - %
+  - Oxygen_b2s2 - Oxygen b2s2 - Oxygen sensor voltage - V
+  - Oxygen_b2s2_stft - Oxygen b2s2 STFT - Oxygen sensor STFT - %
+  - Oxygen_b2s3 - Oxygen b2s3 - Oxygen sensor voltage - V
+  - Oxygen_b2s3_stft - Oxygen b2s3 STFT - Oxygen sensor STFT - %
+  - Oxygen_b2s4 - Oxygen b2s4 - Oxygen sensor voltage - V
+  - Oxygen_b2s4_stft - Oxygen b2s4 STFT - Oxygen sensor STFT - %
   - RunTime - Run time - Run time since engine start - sec
-  - FuelRailPressure_rel - Fuel Rail Pressure relative -  - kPa
-  - FuelRailPressure_diesel - Fuel Rail Pressure diesel -  - kPa
+  - DistanceMIL - Distance with MIL - Distance traveled with malfunction indicator lamp - km
+  - FuelRailPressure_rel - FRP rel - Fuel Rail Pressure relative - kPa
+  - FuelRailPressure_diesel - FRP diesel - Fuel Rail Pressure diesel - kPa
   - FuelLevel - Fuel Level -  - %
+  - DistanceMILCleared - MIL Cleared distance - Distance traveled since MIL is cleared - km
+  - VaporPressure - Evaporative Pressure - Evaporative system vapor pressure - Pa
+  - ControlModuleVoltage - CM Voltage - VPWR - Control Module Voltage - V
+  - AbsoluteLoadValue - Absolute Load Value -  - %
   - AirTemp - Air Temp - Outside air temperature - celsius
+  - EngineOilTemp - Engine Oil Temperature -  - celsius
+  - FuelInjectionTiming - Fuel Injection Timing -  - degree
+  - LitersPerHour - Fuel Flow Rate -  - lph
   - MIL - MIL - List of DTC codes - 
   - PMIL - PMIL - List of Pending DTC codes - 
   - ClearDTC - ClearDTC - Clear DTC request - 

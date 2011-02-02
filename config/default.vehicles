@@ -4,6 +4,7 @@
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.MAFSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
@@ -15,6 +16,7 @@
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.MAPSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
@@ -29,6 +31,7 @@
     <obd>
       <engine>hobd.OBD2Engine</engine>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.EngineLoadSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
@@ -41,6 +44,7 @@
       <engine>hobd.OBD2Engine</engine>
       <!-- Sensor definition Order is important! -->
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.ToyotaSensors</sensors>
       <sensors>hobd.InjectorSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
@@ -57,6 +61,8 @@
       <engine>hobd.OBD2Engine</engine>
       <engine-init>ATIB 10</engine-init>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
+      <sensors>hobd.MAFSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
   </vehicle>
@@ -66,6 +72,7 @@
       <engine>hobd.OBD2Engine</engine>
       <engine-init>ATIB 96</engine-init>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.MAFSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>
@@ -82,8 +89,9 @@
         4 - ISO 14230-4 KWP (5 baud init, 10.4 kbaud)
         5 - ISO 14230-4 KWP (fast init, 10.4 kbaud)
       -->
-      <engine-init>ATIB 10; ATIIA 13; ATSH 80 13 F1; ATSP 4</engine-init>
+      <engine-init>ATIB 10; ATIIA 13; ATSH 80 13 F1; ATSP A4</engine-init>
       <sensors>hobd.OBD2Sensors</sensors>
+      <sensors>hobd.ELMSensors</sensors>
       <sensors>hobd.MAFSensors</sensors>
       <sensors>hobd.CommonSensors</sensors>
     </obd>

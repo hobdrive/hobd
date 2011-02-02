@@ -205,15 +205,7 @@ public class OBD2Engine : Engine
                 break;                
         }
     }
-    
-    byte to_h(byte a)
-    {
-        if (a >= 0x30 && a <= 0x39) return (byte)(a-0x30);
-        if (a >= 0x41 && a <= 0x46) return (byte)(a+10-0x41);
-        if (a >= 0x61 && a <= 0x66) return (byte)(a+10-0x61);
-        return a;
-    }
-    
+        
     void HandleReply(byte[] msg)
     {
         string smsg = Encoding.ASCII.GetString(msg, 0, msg.Length);
@@ -254,42 +246,18 @@ public class OBD2Engine : Engine
                 SetState(ST_SENSOR);
                 break;
             case ST_SENSOR_ACK:
-                
-                var msgraw = new List<byte>();
-                
-                // parse reply
-                for(int i = 0; i < msg.Length; i++)
-                {
-                    var a = msg[i];
-                    if (a == ' ' || a == '\r' || a == '\n')
-                        continue;
-                    if (i+1 >= msg.Length)
-                        break;
-                    i++;
-                    var b = msg[i];
-                    a = to_h(a);
-                    b = to_h(b);
-                    if (a > 0x10 || b > 0x10)
-                        break;
-                    
-                    msgraw.Add((byte)((a<<4) + b));
-                    
-                }
-                
                 // saving local copy
                 var lsl = currentSensorListener;
 
                 var osensor = (OBD2Sensor)lsl.sensor;
 
-                byte[] dataraw = msgraw.ToArray();
-                
                 nextReadings[currentSensorIndex] = DateTimeMs.Now + lsl.period;
                 
                 // proactively read next sensor!
                 SetState(ST_SENSOR);
 
                 // valid reply - set value, raise listeners
-                if (osensor.SetValue(dataraw))
+                if (osensor.SetRawValue(msg))
                 {
                     subsequentErrors = 0;
                     this.Error = null;

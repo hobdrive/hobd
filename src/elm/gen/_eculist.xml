@@ -12,6 +12,10 @@
   </ecu>
 
   <ecu>
+  elm.ecuxml
+  </ecu>
+
+  <ecu>
   lph_inj.ecuxml
   </ecu>
   <ecu>

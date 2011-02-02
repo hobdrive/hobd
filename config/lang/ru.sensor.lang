@@ -394,6 +394,9 @@ sdesc.TripTime = Общее время в пути
 sname.IdleTime  = Время простоя
 sdesc.IdleTime = Время простоя (скорость меньше 5 км\ч)
 
+sname.BatteryVoltage  = Напряжение
+sdesc.BatteryVoltage = Напряжение в сети, измеренное чипом ELM
+
 sname.LitersPerHour  = Топлива в час
 sdesc.LitersPerHour = Мгновенный расход топлива в час
 

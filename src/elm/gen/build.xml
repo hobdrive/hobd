@@ -10,6 +10,9 @@
     <xslt in='obd2.ecuxml' out='../OBD2Sensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
 
+    <xslt in='elm.ecuxml' out='../ELMSensors.cs' style='ecuxml2cs.xsl'>
+    </xslt>
+
     <xslt in='common.ecuxml' out='../common/CommonSensors.cs' style='ecuxml2cs.xsl'>
     </xslt>
 

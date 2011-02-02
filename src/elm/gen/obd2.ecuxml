@@ -196,14 +196,14 @@
 
   <parameter id="Oxygen_b1s1">
     <description>
-      <name>Oxygen bank1 sensor1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b1s1</name>      <unit>V</unit>      <description>Oxygen bank 1 sensor 1 voltage</description>
     </description>
     <address> <byte>0x14</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b1s1_stft">
     <description>
-      <name>Oxygen bank1 sensor1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b1s1 STFT</name>      <unit>%</unit>      <description>Oxygen bank 1 sensor 1 STFT</description>
     </description>
     <address> <byte>0x14</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -211,14 +211,14 @@
 
   <parameter id="Oxygen_b1s2">
     <description>
-      <name>Oxygen bank1 sensor2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b1s2</name>      <unit>V</unit>      <description>Oxygen bank 1 sensor 2 voltage</description>
     </description>
     <address> <byte>0x15</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b1s2_stft">
     <description>
-      <name>Oxygen bank1 sensor2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b1s2 STFT</name>      <unit>%</unit>      <description>Oxygen bank 1 sensor 2 STFT</description>
     </description>
     <address> <byte>0x15</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -226,14 +226,14 @@
 
   <parameter id="Oxygen_b1s3">
     <description>
-      <name>Oxygen bank1 sensor3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b1s3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x16</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b1s3_stft">
     <description>
-      <name>Oxygen bank1 sensor3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b1s3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x16</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -241,14 +241,14 @@
 
   <parameter id="Oxygen_b1s4">
     <description>
-      <name>Oxygen bank1 sensor4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b1s4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x17</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b1s4_stft">
     <description>
-      <name>Oxygen bank1 sensor4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b1s4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x17</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -256,14 +256,14 @@
 
   <parameter id="Oxygen_b2s1">
     <description>
-      <name>Oxygen bank2 sensor1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b2s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x18</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b2s1_stft">
     <description>
-      <name>Oxygen bank2 sensor1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b2s1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x18</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -271,14 +271,14 @@
 
   <parameter id="Oxygen_b2s2">
     <description>
-      <name>Oxygen bank2 sensor2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b2s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x19</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b2s2_stft">
     <description>
-      <name>Oxygen bank2 sensor2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b2s2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x19</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -286,14 +286,14 @@
 
   <parameter id="Oxygen_b2s3">
     <description>
-      <name>Oxygen bank2 sensor3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b2s3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x1A</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b2s3_stft">
     <description>
-      <name>Oxygen bank2 sensor3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b2s3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x1A</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -301,14 +301,14 @@
 
   <parameter id="Oxygen_b2s4">
     <description>
-      <name>Oxygen bank2 sensor4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
+      <name>Oxygen b2s4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
     </description>
     <address> <byte>0x1B</byte> </address>
     <value> get(0)*0.005 </value>
   </parameter>
   <parameter id="Oxygen_b2s4_stft">
     <description>
-      <name>Oxygen bank2 sensor4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
+      <name>Oxygen b2s4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
     </description>
     <address> <byte>0x1B</byte> </address>
     <value> (get(1)-128)*100/128 </value>
@@ -322,9 +322,20 @@
     <value> get(0)*256 + get(1) </value>
   </parameter>
 
+  <parameter id="DistanceMIL">
+    <description>
+      <name>Distance with MIL</name>
+      <description>Distance traveled with malfunction indicator lamp</description>
+      <unit>km</unit>
+    </description>
+    <address> <byte>0x21</byte> </address>
+    <value> get(0)*256 + get(1) </value>
+  </parameter>
+
   <parameter id="FuelRailPressure_rel">
     <description>
-      <name>Fuel Rail Pressure relative</name>
+      <name>FRP rel</name>
+      <description>Fuel Rail Pressure relative</description>
       <unit>kPa</unit>
     </description>
     <address> <byte>0x22</byte> </address>
@@ -333,7 +344,8 @@
 
   <parameter id="FuelRailPressure_diesel">
     <description>
-      <name>Fuel Rail Pressure diesel</name>
+      <name>FRP diesel</name>
+      <description>Fuel Rail Pressure diesel</description>
       <unit>kPa</unit>
     </description>
     <address> <byte>0x23</byte> </address>
@@ -352,6 +364,45 @@
     <value> 100*get(0)/255 </value>
   </parameter>
 
+  <parameter id="DistanceMILCleared">
+    <description>
+      <name>MIL Cleared distance</name>
+      <description>Distance traveled since MIL is cleared</description>
+      <unit>km</unit>
+    </description>
+    <address> <byte>0x31</byte> </address>
+    <value> get(0)*256 + get(1) </value>
+  </parameter>
+
+  <parameter id="VaporPressure">
+    <description>
+      <name>Evaporative Pressure</name>
+      <description>Evaporative system vapor pressure</description>
+      <unit>Pa</unit>
+    </description>
+    <address> <byte>0x31</byte> </address>
+    <value> (((get(0)*256)+get(1)) / 4) </value>
+  </parameter>
+
+  <parameter id="ControlModuleVoltage">
+    <description>
+      <name>CM Voltage</name>
+      <description>VPWR - Control Module Voltage</description>
+      <unit>V</unit>
+    </description>
+    <address> <byte>0x42</byte> </address>
+    <value> (((get(0)*256)+get(1)) / 1000) </value>
+  </parameter>
+
+  <parameter id="AbsoluteLoadValue">
+    <description>
+      <name>Absolute Load Value</name>
+      <unit>%</unit>
+    </description>
+    <address> <byte>0x43</byte> </address>
+    <value> (((get(0)*256)+get(1)) * 100 / 255) </value>
+  </parameter>
+
   <parameter id="AirTemp">
     <description>
       <name>Air Temp</name>
@@ -364,6 +415,33 @@
     </description>
     <address> <byte>0x46</byte> </address>
     <value> get(0) - 40 </value>
+  </parameter>
+
+  <parameter id="EngineOilTemp">
+    <description>
+      <name>Engine Oil Temperature</name>
+      <unit>celsius</unit>
+    </description>
+    <address> <byte>0x5C</byte> </address>
+    <value> (get(0)-40	) </value>
+  </parameter>
+
+  <parameter id="FuelInjectionTiming">
+    <description>
+      <name>Fuel Injection Timing</name>
+      <unit>degree</unit>
+    </description>
+    <address> <byte>0x5D</byte> </address>
+    <value> (((get(0)*256)+get(1) - 26880) / 128) </value>
+  </parameter>
+
+  <parameter id="LitersPerHour">
+    <description>
+      <name>Fuel Flow Rate</name>
+      <unit>lph</unit>
+    </description>
+    <address> <byte>0x5E</byte> </address>
+    <value> (((get(0)*256)+get(1)) * 0.05) </value>
   </parameter>
 
   <parameter id="MIL">

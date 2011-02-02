@@ -40,68 +40,92 @@ sdesc.MAF = Mass air flow
 sname.ThrottlePosition  = Throttle
 sdesc.ThrottlePosition = Throttle position
 
-sname.Oxygen_b1s1  = Oxygen bank1 sensor1
-sdesc.Oxygen_b1s1 = Oxygen sensor voltage
+sname.Oxygen_b1s1  = Oxygen b1s1
+sdesc.Oxygen_b1s1 = Oxygen bank 1 sensor 1 voltage
 
-sname.Oxygen_b1s1_stft  = Oxygen bank1 sensor1 STFT
-sdesc.Oxygen_b1s1_stft = Oxygen sensor STFT
+sname.Oxygen_b1s1_stft  = Oxygen b1s1 STFT
+sdesc.Oxygen_b1s1_stft = Oxygen bank 1 sensor 1 STFT
 
-sname.Oxygen_b1s2  = Oxygen bank1 sensor2
-sdesc.Oxygen_b1s2 = Oxygen sensor voltage
+sname.Oxygen_b1s2  = Oxygen b1s2
+sdesc.Oxygen_b1s2 = Oxygen bank 1 sensor 2 voltage
 
-sname.Oxygen_b1s2_stft  = Oxygen bank1 sensor2 STFT
-sdesc.Oxygen_b1s2_stft = Oxygen sensor STFT
+sname.Oxygen_b1s2_stft  = Oxygen b1s2 STFT
+sdesc.Oxygen_b1s2_stft = Oxygen bank 1 sensor 2 STFT
 
-sname.Oxygen_b1s3  = Oxygen bank1 sensor3
+sname.Oxygen_b1s3  = Oxygen b1s3
 sdesc.Oxygen_b1s3 = Oxygen sensor voltage
 
-sname.Oxygen_b1s3_stft  = Oxygen bank1 sensor3 STFT
+sname.Oxygen_b1s3_stft  = Oxygen b1s3 STFT
 sdesc.Oxygen_b1s3_stft = Oxygen sensor STFT
 
-sname.Oxygen_b1s4  = Oxygen bank1 sensor4
+sname.Oxygen_b1s4  = Oxygen b1s4
 sdesc.Oxygen_b1s4 = Oxygen sensor voltage
 
-sname.Oxygen_b1s4_stft  = Oxygen bank1 sensor4 STFT
+sname.Oxygen_b1s4_stft  = Oxygen b1s4 STFT
 sdesc.Oxygen_b1s4_stft = Oxygen sensor STFT
 
-sname.Oxygen_b2s1  = Oxygen bank2 sensor1
+sname.Oxygen_b2s1  = Oxygen b2s1
 sdesc.Oxygen_b2s1 = Oxygen sensor voltage
 
-sname.Oxygen_b2s1_stft  = Oxygen bank2 sensor1 STFT
+sname.Oxygen_b2s1_stft  = Oxygen b2s1 STFT
 sdesc.Oxygen_b2s1_stft = Oxygen sensor STFT
 
-sname.Oxygen_b2s2  = Oxygen bank2 sensor2
+sname.Oxygen_b2s2  = Oxygen b2s2
 sdesc.Oxygen_b2s2 = Oxygen sensor voltage
 
-sname.Oxygen_b2s2_stft  = Oxygen bank2 sensor2 STFT
+sname.Oxygen_b2s2_stft  = Oxygen b2s2 STFT
 sdesc.Oxygen_b2s2_stft = Oxygen sensor STFT
 
-sname.Oxygen_b2s3  = Oxygen bank2 sensor3
+sname.Oxygen_b2s3  = Oxygen b2s3
 sdesc.Oxygen_b2s3 = Oxygen sensor voltage
 
-sname.Oxygen_b2s3_stft  = Oxygen bank2 sensor3 STFT
+sname.Oxygen_b2s3_stft  = Oxygen b2s3 STFT
 sdesc.Oxygen_b2s3_stft = Oxygen sensor STFT
 
-sname.Oxygen_b2s4  = Oxygen bank2 sensor4
+sname.Oxygen_b2s4  = Oxygen b2s4
 sdesc.Oxygen_b2s4 = Oxygen sensor voltage
 
-sname.Oxygen_b2s4_stft  = Oxygen bank2 sensor4 STFT
+sname.Oxygen_b2s4_stft  = Oxygen b2s4 STFT
 sdesc.Oxygen_b2s4_stft = Oxygen sensor STFT
 
 sname.RunTime  = Run time
 sdesc.RunTime = Run time since engine start
 
-sname.FuelRailPressure_rel  = Fuel Rail Pressure relative
-sdesc.FuelRailPressure_rel = 
+sname.DistanceMIL  = Distance with MIL
+sdesc.DistanceMIL = Distance traveled with malfunction indicator lamp
 
-sname.FuelRailPressure_diesel  = Fuel Rail Pressure diesel
-sdesc.FuelRailPressure_diesel = 
+sname.FuelRailPressure_rel  = FRP rel
+sdesc.FuelRailPressure_rel = Fuel Rail Pressure relative
+
+sname.FuelRailPressure_diesel  = FRP diesel
+sdesc.FuelRailPressure_diesel = Fuel Rail Pressure diesel
 
 sname.FuelLevel  = Fuel Level
 sdesc.FuelLevel = 
 
+sname.DistanceMILCleared  = MIL Cleared distance
+sdesc.DistanceMILCleared = Distance traveled since MIL is cleared
+
+sname.VaporPressure  = Evaporative Pressure
+sdesc.VaporPressure = Evaporative system vapor pressure
+
+sname.ControlModuleVoltage  = CM Voltage
+sdesc.ControlModuleVoltage = VPWR - Control Module Voltage
+
+sname.AbsoluteLoadValue  = Absolute Load Value
+sdesc.AbsoluteLoadValue = 
+
 sname.AirTemp  = Air Temp
 sdesc.AirTemp = Outside air temperature
+
+sname.EngineOilTemp  = Engine Oil Temperature
+sdesc.EngineOilTemp = 
+
+sname.FuelInjectionTiming  = Fuel Injection Timing
+sdesc.FuelInjectionTiming = 
+
+sname.LitersPerHour  = Fuel Flow Rate
+sdesc.LitersPerHour = 
 
 sname.MIL  = MIL
 sdesc.MIL = List of DTC codes
@@ -144,6 +168,9 @@ sdesc.TripTime = Total trip time
 
 sname.IdleTime  = Idle Time
 sdesc.IdleTime = Idle time (with speed less 5km)
+
+sname.BatteryVoltage  = Battery Voltage
+sdesc.BatteryVoltage = Battery Voltage measured by ELM unit
 
 sname.LitersPerHour  = Fuel Per Hour
 sdesc.LitersPerHour = Instant fuel consumption per hour (injector based)
