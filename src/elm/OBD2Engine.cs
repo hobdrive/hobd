@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading;
 
 namespace hobd
@@ -28,7 +29,7 @@ public class OBD2Engine : Engine
     List<string> extraInitCommands = new List<string>();
     int extraInitIndex;
     
-    public string Protocol{get; protected set;}
+    public int ProtocolId{get; protected set;}
 
     public const int ErrorThreshold = 10;
     
@@ -242,7 +243,14 @@ public class OBD2Engine : Engine
                 SetState(ST_QUERY_PROTOCOL);
                 break;
             case ST_QUERY_PROTOCOL:
-                Protocol = smsg;
+                try{
+                    var proto = smsg.Replace("A", "");
+                    ProtocolId = int.Parse(proto, NumberStyles.HexNumber);
+                }catch(Exception){
+                    Logger.error("OBD2Engine", "protocol "+smsg);
+                }
+                Logger.log("INFO", "OBD2Engine", "ProtocolId: " + ProtocolId, null);
+                Registry.ProtocolId = ProtocolId;
                 SetState(ST_SENSOR);
                 break;
             case ST_SENSOR_ACK:

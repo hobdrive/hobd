@@ -32,6 +32,8 @@ public class SensorRegistry
     public int QueueSize { get{ return triggerQueue.Count; } }
     
     public IDictionary<string, string> VehicleParameters {get;set;}
+
+    public int ProtocolId{get;set;}
     
     public SensorRegistry()
     {
