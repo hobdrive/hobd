@@ -28,7 +28,7 @@ public class OBD2Sensor : CoreSensor
         if (a >= 0x30 && a <= 0x39) return (byte)(a-0x30);
         if (a >= 0x41 && a <= 0x46) return (byte)(a+10-0x41);
         if (a >= 0x61 && a <= 0x66) return (byte)(a+10-0x61);
-        return a;
+        return 255;
     }
 
     public virtual bool SetRawValue(byte[] msg)
@@ -48,7 +48,7 @@ public class OBD2Sensor : CoreSensor
             a = to_h(a);
             b = to_h(b);
             if (a > 0x10 || b > 0x10)
-                break;
+                continue;
             
             msgraw.Add((byte)((a<<4) + b));
             

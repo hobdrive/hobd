@@ -36,6 +36,14 @@ public class MILSensor : OBD2Sensor
             return false;
         */
         this.dataraw = dataraw;
+        /*
+        if (Logger.TRACE){
+            string r = "";
+            for (int i = 0; i < dataraw.Length; i++)
+               r += dataraw[i].ToString("X2") + " ";
+            Logger.trace("MIL", "dataraw: "+r);
+        }
+        */
         this.mil_value = null;
         this.TimeStamp = DateTimeMs.Now;
         registry.TriggerListeners(this);
@@ -47,25 +55,72 @@ public class MILSensor : OBD2Sensor
             if (mil_value == null && dataraw != null)
             {
                 var l = new List<string>();
-                for(int idx = 0; idx < dataraw.Length-1; idx +=2)
+
+                int idx = 0;
+
+                if (registry.ProtocolId >= 6)
                 {
-                    if (idx % 7 == 0)
+                    int len = 0;
+                    if ((dataraw[0]&0xF0) != 0x40)
                         idx++;
-                    var a = dataraw[idx];
-                    var b = dataraw[idx+1];
+                    while(idx < dataraw.Length-1)
+                    {
+                        // reply?
+                        if (len == 0)
+                        {
+                            if ((dataraw[idx]&0xF0) == 0x40)
+                            {
+                                idx++;
+                                len = dataraw[idx];
+                                idx++;
+                                continue;
+                            }else{
+                                idx++;
+                                continue;
+                            }
+                        }
+                        // codes
+                        var a = dataraw[idx];
+                        var b = dataraw[idx+1];
+                        idx+=2;
 
-                    if (a == 0 && b == 0)
-                        continue;
+                        if (a == 0 && b == 0)
+                            continue;
 
-                    string mil = (new string[]{"P", "C", "B", "U"})[a>>6];
+                        string mil = (new string[]{"P", "C", "B", "U"})[a>>6];
 
-                    mil += (char)(0x30 + ((a>>4)&0x3));
-                    mil += (char)(0x30 + ((a>>0)&0xF));
-                    
-                    mil += (char)(0x30 + ((b>>4)&0xF));
-                    mil += (char)(0x30 + ((b>>0)&0xF));
-                    l.Add(mil);
+                        mil += (char)(0x30 + ((a>>4)&0x3));
+                        mil += (char)(0x30 + ((a>>0)&0xF));
+                        
+                        mil += (char)(0x30 + ((b>>4)&0xF));
+                        mil += (char)(0x30 + ((b>>0)&0xF));
+                        l.Add(mil);
+                        len--;
+                    }
                 }
+                else{
+                    for(; idx < dataraw.Length-1; idx +=2)
+                    {
+                        if (idx % 7 == 0)
+                            idx++;
+
+                        var a = dataraw[idx];
+                        var b = dataraw[idx+1];
+
+                        if (a == 0 && b == 0)
+                            continue;
+
+                        string mil = (new string[]{"P", "C", "B", "U"})[a>>6];
+
+                        mil += (char)(0x30 + ((a>>4)&0x3));
+                        mil += (char)(0x30 + ((a>>0)&0xF));
+                        
+                        mil += (char)(0x30 + ((b>>4)&0xF));
+                        mil += (char)(0x30 + ((b>>0)&0xF));
+                        l.Add(mil);
+                    }
+                }
+
                 mil_value = l.ToArray();
             }
             return mil_value;
