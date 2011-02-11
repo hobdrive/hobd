@@ -28,6 +28,7 @@ public class ELMVoltageSensor : OBD2Sensor
             registry.TriggerListeners(this);
         }catch(Exception e){
             Logger.error("ELMVoltageSensor", "data: "+val, e);
+            return false;
         }
         return true;
     }
