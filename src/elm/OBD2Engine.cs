@@ -97,6 +97,7 @@ public class OBD2Engine : Engine
         
         switch(State){
             case ST_INIT:
+                Error = null;
                 fireStateNotify(STATE_INIT);
                 try{
                     stream.Close();
