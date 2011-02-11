@@ -8,6 +8,7 @@ public class OBD2Sensor : CoreSensor
 {
     public Func<OBD2Sensor, double> obdValue;
     protected byte[] dataraw;
+    protected int data_offset;
     
     public OBD2Sensor()
     {
@@ -61,10 +62,16 @@ public class OBD2Sensor : CoreSensor
 
     public virtual bool SetValue(byte[] dataraw)
     {
-        if (dataraw.Length < 2 || dataraw[0] != 0x41 || dataraw[1] != this.Command)
+        data_offset = 0;
+        while(data_offset < dataraw.Length-1 && dataraw[data_offset] != 0x41 && dataraw[data_offset+1] != this.Command)
+        {
+            data_offset++;
+        }
+        if (data_offset >= dataraw.Length-1)
             return false;
-        
+
         this.dataraw = dataraw;
+
         try{
             this.Value = obdValue(this);
         }catch(Exception e){
@@ -78,12 +85,12 @@ public class OBD2Sensor : CoreSensor
     
     public double get(int idx)
     {
-        return dataraw[2+idx];
+        return dataraw[data_offset+2+idx];
     }
 
     public double get_bit(int idx, int bit)
     {
-        return (dataraw[2+idx] & (1<<bit)) != 0 ? 1 : 0;
+        return (dataraw[data_offset+2+idx] & (1<<bit)) != 0 ? 1 : 0;
     }
     
 }
