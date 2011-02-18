@@ -27,6 +27,8 @@ public class SensorRegistry
     Dictionary<Sensor, SensorListener> activeSensors = new Dictionary<Sensor, SensorListener>();
     SensorListener[] activeSensors_array = null;
 
+    List<Action<Sensor>> PassiveListeners = new List<Action<Sensor>>();
+
     Thread listenThread;
     Queue<Sensor> triggerQueue = new Queue<Sensor>();
     public int QueueSize { get{ return triggerQueue.Count; } }
@@ -126,6 +128,14 @@ public class SensorRegistry
                             Logger.error("SensorRegistry", "Listener fail on: "+sensor.ID, e);
                         }
                     }
+                    foreach(Action<Sensor> l in PassiveListeners.ToArray()) {
+                        try{
+                            l(sensor);
+                        }catch(Exception e)
+                        {
+                            Logger.error("SensorRegistry", "Passive listener fail on: "+sensor.ID, e);
+                        }
+                    }
                 }
             }
         }
@@ -166,6 +176,7 @@ public class SensorRegistry
 	{
 	    this.AddListener(sensor, listener, 0);
 	}
+
     /**
      * Adds listener for the specified sensor. Use period of milliseconds to
      * update the reading. Default is 0 - means update as fast as possible
@@ -233,6 +244,21 @@ public class SensorRegistry
 	        }
     	    activeSensors_array = null;
 	    }
+	}
+
+	/**
+	 * Passive listeners are the listeners who listen for all currently active sensors.
+	 * These listeners make no impact on the list of the sensors to fetch.
+	 */
+	public void AddPassiveListener(Action<Sensor> listener)
+	{
+	    if (!PassiveListeners.Contains(listener))
+	        PassiveListeners.Add(listener);
+	}
+	public void RemovePassiveListener(Action<Sensor> listener)
+	{
+	    if (PassiveListeners.Contains(listener))
+	        PassiveListeners.Remove(listener);
 	}
 
 }
