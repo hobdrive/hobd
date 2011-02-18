@@ -52,7 +52,7 @@ public class SerialStream: IStream
 
         Logger.trace("SerialStream", "Port "+u[0]+" baud "+u[1]+" parity "+u[2]+" hs "+u[3]);
 
-        var baudRate = 0x9600;
+        var baudRate = 38400;
         var parity = Parity.None;
         var dataBits = 8;
         var stopBits = StopBits.One;
@@ -112,7 +112,13 @@ public class SerialStream: IStream
     private void DataReceviedHandler(object sender, SerialDataReceivedEventArgs e)
     {
         SerialPort port = (SerialPort)sender;
-        int read = port.Read(sbuf, 0, 128 );
+        int read;
+        try{
+            read = port.Read(sbuf, 0, 128 );
+        }catch(Exception ex){
+            Logger.error("SerialPort", "port.Read failed", ex);
+            return;
+        }
         byte[] buf = new byte[read];
         Array.Copy(sbuf, buf, read);
         portQueue.Enqueue(buf);
