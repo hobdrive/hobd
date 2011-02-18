@@ -175,7 +175,7 @@ public class OBD2Engine : Engine
                     }
                     long nextReading = nextReadings[currentSensorIndex];
                     
-                    if (nextReading == 0 || nextReading < DateTimeMs.Now)
+                    if (nextReading == 0 || nextReading <= DateTimeMs.Now)
                     {
                         if (currentSensorListener.sensor is OBD2Sensor){
                             if (Logger.TRACE) Logger.trace("OBD2Engine", " ----> " + currentSensorListener.sensor.ID);
@@ -190,6 +190,8 @@ public class OBD2Engine : Engine
                                 // move to next sensor
                             }
                         }
+                    }else{
+                        //if (Logger.TRACE) Logger.trace("OBD2Engine", " Skipped " + currentSensorListener.sensor.ID + " with "+ (nextReading - DateTimeMs.Now));
                     }
                     
                     currentSensorIndex++;
