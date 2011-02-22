@@ -1,5 +1,13 @@
  Changelog
 ==============
+ - v?.?
+   - New OBD-II sensor definitions added,
+   - ELM specific sensors: Voltage
+   - Fix DTC reading on CAN
+   - ELM reset detection
+   - Better search for PID reply value
+   - SensorTrack draft
+
  - v0.6
    - DTC reading & clearing sensors
    - DTC decoding helper
