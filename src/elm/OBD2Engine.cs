@@ -22,13 +22,13 @@ public class OBD2Engine : Engine
     SensorListener currentSensorListener = null;
     long[] nextReadings = null;
 
-    string versionInfo = "";
     byte[] buffer = new byte[256];
     int position = 0;
 
     List<string> extraInitCommands = new List<string>();
     int extraInitIndex;
     
+    public string VersionInfo = "";
     public int ProtocolId{get; protected set;}
 
     public const int ErrorThreshold = 10;
@@ -44,7 +44,9 @@ public class OBD2Engine : Engine
     public const string ST_SENSOR_ACK = "SENSOR_ACK";
     public const string ST_ERROR = "ERROR";
 
-    string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", "BUS BUSY", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
+    string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", };
+    // Error messages to immediately reset ELM
+    string[] criticalErrors = new string[]{ "ELM327", "BUS BUSY", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
 
     int subsequentErrors = 0;
 
@@ -217,11 +219,16 @@ public class OBD2Engine : Engine
         
         switch(State){
             case ST_INIT:
-                versionInfo = smsg.Trim();
                 break;
             case ST_ATZ:
                 if (smsg.Contains("ATZ"))
                 {
+                    VersionInfo = smsg.Replace("ATZ", "").Replace("\r", "").Replace("\n", "").Trim();
+                    Logger.log("INFO", "OBD2Engine", "VersionInfo: " + VersionInfo, null);
+                    if (VersionInfo.Length > 2)
+                    {
+                        criticalErrors[0] = VersionInfo;
+                    }
                     SetState(ST_ATE0);
                 }else{
                     SendCommand("ATZ");
@@ -285,6 +292,13 @@ public class OBD2Engine : Engine
                 	        lsl.period = (lsl.period +100) * 2;
                 	    }
                 	    subsequentErrors++;
+                	}else{
+                	    error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
+                	    if (error != null) {
+                            Logger.error("OBD2Engine", "Critical error:" + smsg);
+                            SetState(ST_INIT);
+                            subsequentErrors = 0;
+                        }
                 	}
                 }
                 // act on too much errors
