@@ -63,7 +63,7 @@ public class OBD2Sensor : CoreSensor
     public virtual bool SetValue(byte[] dataraw)
     {
         data_offset = 0;
-        while(data_offset < dataraw.Length-1 && dataraw[data_offset] != 0x41 && dataraw[data_offset+1] != this.Command)
+        while(data_offset < dataraw.Length-1 && !(dataraw[data_offset] == 0x41 && dataraw[data_offset+1] == this.Command))
         {
             data_offset++;
         }
@@ -75,7 +75,10 @@ public class OBD2Sensor : CoreSensor
         try{
             this.Value = obdValue(this);
         }catch(Exception e){
-            Logger.error("OBD2Sensor", "Fail parsing sensor value", e);
+            string r = "";
+            for (int i = 0; i < dataraw.Length; i++)
+               r += dataraw[i].ToString("X2") + " ";
+            Logger.error("OBD2Sensor", "Fail parsing sensor value: " + this.ID + " " + r, e);
             return false;
         }
         this.TimeStamp = DateTimeMs.Now;
