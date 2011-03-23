@@ -117,8 +117,10 @@ public class SensorRegistry
             }else{
                 SensorListener sl = null;
                 var sensor = triggerQueue.Dequeue();
-                activeSensors.TryGetValue(sensor, out sl);
-                
+                if (sensor != null)
+                {
+                    activeSensors.TryGetValue(sensor, out sl);
+                }
                 if (sl != null) {
                     foreach(Action<Sensor> l in sl.listeners.ToArray()) {
                         try{

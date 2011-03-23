@@ -33,11 +33,11 @@ public class OBD2Sensors : SensorProvider
     {
         CoreSensor s;
         
-        // OBD2PID_02
+        // OBD2DTCFRZF
         s = new OBD2Sensor()
             {
-                ID = "OBD2.PID_02",
-                Name = "PID_02",
+                ID = "OBD2.DTCFRZF",
+                Name = "DTCFRZF",
                 
                 obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                                     return get(0x00);
@@ -573,6 +573,21 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
+        // OBD2OBDSupport
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.OBDSupport",
+                Name = "OBDSupport",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return get(0);
+                                  },
+                Command = 0x1C,
+                
+            };
+        
+        registry.Add(s);
+
         // OBD2RunTime
         s = new OBD2Sensor()
             {
@@ -684,11 +699,28 @@ public class OBD2Sensors : SensorProvider
                 obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                                     return (((get(0)*256)+get(1)) / 4);
                                   },
-                Command = 0x31,
+                Command = 0x32,
                 
             };
         
         s.Units = "Pa";
+  
+        registry.Add(s);
+
+        // OBD2BaroPressure
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.BaroPressure",
+                Name = "BaroPressure",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return get(0);
+                                  },
+                Command = 0x33,
+                
+            };
+        
+        s.Units = "kPa";
   
         registry.Add(s);
 
@@ -724,6 +756,21 @@ public class OBD2Sensors : SensorProvider
         
         s.Units = "%";
   
+        registry.Add(s);
+
+        // OBD2Lambda
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda",
+                Name = "Lambda",
+                
+                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                                    return (get(0)*256 + get(1)) * 2.0 / 65535;
+                                  },
+                Command = 0x44,
+                
+            };
+        
         registry.Add(s);
 
         // OBD2AirTemp
@@ -827,7 +874,7 @@ public class OBD2Sensors : SensorProvider
     }
 
     
-  public const string PID_02 = "PID_02";
+  public const string DTCFRZF = "DTCFRZF";
 
   public const string FuelSystemStatus = "FuelSystemStatus";
 
@@ -891,6 +938,8 @@ public class OBD2Sensors : SensorProvider
 
   public const string Oxygen_b2s4_stft = "Oxygen_b2s4_stft";
 
+  public const string OBDSupport = "OBDSupport";
+
   public const string RunTime = "RunTime";
 
   public const string DistanceMIL = "DistanceMIL";
@@ -905,9 +954,13 @@ public class OBD2Sensors : SensorProvider
 
   public const string VaporPressure = "VaporPressure";
 
+  public const string BaroPressure = "BaroPressure";
+
   public const string ControlModuleVoltage = "ControlModuleVoltage";
 
   public const string AbsoluteLoadValue = "AbsoluteLoadValue";
+
+  public const string Lambda = "Lambda";
 
   public const string AirTemp = "AirTemp";
 
@@ -929,7 +982,7 @@ public class OBD2Sensors : SensorProvider
 /**
   List of PIDs generated:
 
-  - PID_02 - PID_02 - Ошибка ECU - 
+  - DTCFRZF - DTCFRZF - Ошибка ECU - 
   - FuelSystemStatus - Fuel system status - Топливная система, статус - 
   - EngineLoad - Engine Load - Calculated engine load value - %
   - CoolantTemp - CoolantTemp - Engine coolant temperature - celsius
@@ -961,6 +1014,7 @@ public class OBD2Sensors : SensorProvider
   - Oxygen_b2s3_stft - Oxygen b2s3 STFT - Oxygen sensor STFT - %
   - Oxygen_b2s4 - Oxygen b2s4 - Oxygen sensor voltage - V
   - Oxygen_b2s4_stft - Oxygen b2s4 STFT - Oxygen sensor STFT - %
+  - OBDSupport - OBD Support -  - 
   - RunTime - Run time - Run time since engine start - sec
   - DistanceMIL - Distance with MIL - Distance traveled with malfunction indicator lamp - km
   - FuelRailPressure_rel - FRP rel - Fuel Rail Pressure relative - kPa
@@ -968,8 +1022,10 @@ public class OBD2Sensors : SensorProvider
   - FuelLevel - Fuel Level -  - %
   - DistanceMILCleared - MIL Cleared distance - Distance traveled since MIL is cleared - km
   - VaporPressure - Evaporative Pressure - Evaporative system vapor pressure - Pa
+  - BaroPressure - Barometric Pressure - Barometric Pressure - kPa
   - ControlModuleVoltage - CM Voltage - VPWR - Control Module Voltage - V
   - AbsoluteLoadValue - Absolute Load Value -  - %
+  - Lambda - Lambda -  - 
   - AirTemp - Air Temp - Outside air temperature - celsius
   - EngineOilTemp - Engine Oil Temperature -  - celsius
   - FuelInjectionTiming - Fuel Injection Timing -  - degree

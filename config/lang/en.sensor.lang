@@ -88,6 +88,9 @@ sdesc.Oxygen_b2s4 = Oxygen sensor voltage
 sname.Oxygen_b2s4_stft  = Oxygen b2s4 STFT
 sdesc.Oxygen_b2s4_stft = Oxygen sensor STFT
 
+sname.OBDSupport  = OBD Support
+sdesc.OBDSupport = 
+
 sname.RunTime  = Run time
 sdesc.RunTime = Run time since engine start
 
@@ -109,11 +112,17 @@ sdesc.DistanceMILCleared = Distance traveled since MIL is cleared
 sname.VaporPressure  = Evaporative Pressure
 sdesc.VaporPressure = Evaporative system vapor pressure
 
+sname.BaroPressure  = Barometric Pressure
+sdesc.BaroPressure = Barometric Pressure
+
 sname.ControlModuleVoltage  = CM Voltage
 sdesc.ControlModuleVoltage = VPWR - Control Module Voltage
 
 sname.AbsoluteLoadValue  = Absolute Load Value
 sdesc.AbsoluteLoadValue = 
+
+sname.Lambda  = Lambda
+sdesc.Lambda = 
 
 sname.AirTemp  = Air Temp
 sdesc.AirTemp = Outside air temperature

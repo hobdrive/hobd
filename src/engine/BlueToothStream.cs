@@ -19,7 +19,21 @@ public class BluetoothStream: IStream
     public BluetoothStream()
     {}
 
-    /**
+    public static string ConstructUrl(string url, string svc, string pin)
+    {
+        string str = "btspp://" + url;
+        if (svc != null)
+        {
+            str = str + ":" + svc;
+        }
+        if (pin != null)
+        {
+            str = str + ";pin=" + pin;
+        }
+        return str;
+    }
+
+ /**
      * returns string array of {address, serviceid, pin}
      */
     public static string[] ParseUrl(string url)

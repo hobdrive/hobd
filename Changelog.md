@@ -1,6 +1,9 @@
  Changelog
 ==============
- - v?.?
+ - v0.8
+   - New price sensors
+
+ - v0.7
    - New OBD-II sensor definitions added,
    - ELM specific sensors: Voltage
    - Fix DTC reading on CAN

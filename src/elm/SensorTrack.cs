@@ -42,11 +42,15 @@ public class SensorTrack
 
     public const string VersionID = "track0.";
 
-
-    public SensorTrack(string dataPath, string configPath)
+    public SensorTrack(string dataPath)
     {
         this.DataPath = dataPath;
+        if (!Directory.Exists(DataPath))
+            Directory.CreateDirectory(DataPath);
+    }
 
+    public void LoadConfig(string configPath)
+    {
         XmlReaderSettings xrs = new XmlReaderSettings();
         xrs.IgnoreWhitespace = true;
         xrs.IgnoreComments = true;
@@ -84,9 +88,7 @@ public class SensorTrack
                 }
             }
             reader.Close();
-
-            if (!Directory.Exists(dataPath))
-                Directory.CreateDirectory(dataPath);
+        }catch(FileNotFoundException){
         }catch(Exception e){
             Logger.error("SensorHistory", "failed init", e);
             Settings.Clear();

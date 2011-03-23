@@ -1,5 +1,5 @@
-sname.PID_02  = PID_02
-sdesc.PID_02 = Ошибка ECU
+sname.DTCFRZF  = DTCFRZF
+sdesc.DTCFRZF = Ошибка ECU
 
 sname.FuelSystemStatus  = Fuel system status
 sdesc.FuelSystemStatus = Топливная система, статус

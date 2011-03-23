@@ -36,16 +36,20 @@ public class MILSensor : OBD2Sensor
             return false;
         */
         this.dataraw = dataraw;
-        /*
-        if (Logger.TRACE){
-            string r = "";
-            for (int i = 0; i < dataraw.Length; i++)
-               r += dataraw[i].ToString("X2") + " ";
-            Logger.trace("MIL", "dataraw: "+r);
-        }
-        */
+
+        string r = "";
+        for (int i = 0; i < dataraw.Length; i++)
+           r += dataraw[i].ToString("X2") + " ";
+        Logger.error("MILTrace", "dataraw: " + r);
+        
         this.mil_value = null;
         this.TimeStamp = DateTimeMs.Now;
+
+        foreach (string str in this.MILValue)
+        {
+            Logger.error("MILTrace", "code: " + str);
+        }
+
         registry.TriggerListeners(this);
         return true;
     }
