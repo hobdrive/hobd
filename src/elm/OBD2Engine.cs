@@ -260,7 +260,14 @@ public class OBD2Engine : Engine
                 SetState(ST_EXTRAINIT);
                 break;
             case ST_SENSOR_INIT:
-                SetState(ST_QUERY_PROTOCOL);
+                Error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
+                if (Error != null) {
+                    Logger.error("OBD2Engine", "Critical error:" + smsg);
+                    SetState(ST_ERROR);
+                }else{
+                    Logger.log("INFO", "OBD2Engine", "Sensor Init:" + smsg, null);
+                    SetState(ST_QUERY_PROTOCOL);
+                }
                 break;
             case ST_QUERY_PROTOCOL:
                 try{
