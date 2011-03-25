@@ -8,12 +8,17 @@
         protected string aid;
         private Sensor b;
         protected string bid;
+        protected int Interval;
         public Func<Sensor, Sensor, double> DerivedValue = (a, b) => 0.0;
 
-        public DerivedSensor(string a, string b)
+        public DerivedSensor(string a, string b) : this(a,b,0)
+        {}
+
+        public DerivedSensor(string a, string b, int interval)
         {
             this.aid = a;
             this.bid = b;
+            this.Interval = interval;
         }
 
         public override void Activate()
@@ -21,18 +26,18 @@
             if (this.aid != null)
             {
                 this.a = base.registry.Sensor(this.aid);
-                base.registry.AddListener(this.a, new Action<Sensor>(this.OnSensorChange));
+                base.registry.AddListener(this.a, this.OnSensorChange, Interval);
             }
             if (this.bid != null)
             {
                 this.b = base.registry.Sensor(this.bid);
-                base.registry.AddListener(this.b, new Action<Sensor>(this.OnSensorChange));
+                base.registry.AddListener(this.b, this.OnSensorChange, Interval);
             }
         }
 
         public override void Deactivate()
         {
-            base.registry.RemoveListener(new Action<Sensor>(this.OnSensorChange));
+            base.registry.RemoveListener(this.OnSensorChange);
         }
 
         protected virtual void OnSensorChange(Sensor s)
