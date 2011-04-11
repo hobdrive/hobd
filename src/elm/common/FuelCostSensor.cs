@@ -5,7 +5,7 @@
 
     public class FuelCostSensor : DerivedSensor, IFuelCostSensor
     {
-        public FuelCostSensor(string fuelConsumedSensor) : base(fuelConsumedSensor, null)
+        public FuelCostSensor(string fuelConsumedSensor) : base(fuelConsumedSensor + "_Cost", fuelConsumedSensor, null)
         {
             Func<Sensor, Sensor, double> func = null;
             if (func == null)
@@ -13,8 +13,6 @@
                 func = (consumed, b) => consumed.Value * this.FuelPrice;
             }
             base.DerivedValue = func;
-            this.ID = fuelConsumedSensor + "_Cost";
-            this.Name = this.ID;
         }
 
         public string FuelCurrency

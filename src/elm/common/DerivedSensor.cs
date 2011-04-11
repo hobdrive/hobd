@@ -11,14 +11,16 @@
         protected int Interval;
         public Func<Sensor, Sensor, double> DerivedValue = (a, b) => 0.0;
 
-        public DerivedSensor(string a, string b) : this(a,b,0)
-        {}
+        public DerivedSensor(string id, string a, string b) : this(id, a,b,0)
+        {
+        }
 
-        public DerivedSensor(string a, string b, int interval)
+        public DerivedSensor(string id, string a, string b, int interval)
         {
             this.aid = a;
             this.bid = b;
             this.Interval = interval;
+            this.ID = this.Name = id;
         }
 
         public override void Activate()
