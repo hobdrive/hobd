@@ -157,8 +157,8 @@ sdesc.PID_E1 = -
 sname.PID_E2  = PID_E2
 sdesc.PID_E2 = -
 
-sname.FuelPressure  = PID_E3
-sdesc.FuelPressure = Давление топлива
+sname.FuelPressureExt  = FuelPressure
+sdesc.FuelPressureExt = Давление топлива
 
 sname.InjectorPulseWidth  = Имп. форсунки
 sdesc.InjectorPulseWidth = Длительность импульса открытия форсунки

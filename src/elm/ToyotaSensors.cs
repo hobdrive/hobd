@@ -513,11 +513,11 @@ public class ToyotaSensors : SensorProvider
         
         registry.Add(s);
 
-        // ToyotaFuelPressure
+        // ToyotaFuelPressureExt
         s = new OBD2Sensor()
             {
-                ID = "Toyota.FuelPressure",
-                Name = "FuelPressure",
+                ID = "Toyota.FuelPressureExt",
+                Name = "FuelPressureExt",
                 
                 obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                                     return get(0x00) * 816 / 255;
@@ -1664,7 +1664,7 @@ public class ToyotaSensors : SensorProvider
 
   public const string PID_E2 = "PID_E2";
 
-  public const string FuelPressure = "FuelPressure";
+  public const string FuelPressureExt = "FuelPressureExt";
 
   public const string InjectorPulseWidth = "InjectorPulseWidth";
 
@@ -1846,7 +1846,7 @@ public class ToyotaSensors : SensorProvider
   - PID_DA - PID_DA - OVC Duty Ratio - °
   - PID_E1 - PID_E1 - - - HEX
   - PID_E2 - PID_E2 - - - HEX
-  - FuelPressure - PID_E3 - Давление топлива - МПа
+  - FuelPressureExt - FuelPressure - Давление топлива - МПа
   - InjectorPulseWidth - Inj.pulse - Injector Pulse Width - ms
   - IdleDutyCycle - Idle Cycle - Idle Air Control Duty Cycle - %
   - PID_E7 - PID_E7 - Шаг системы EGR - HEX
