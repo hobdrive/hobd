@@ -12,6 +12,7 @@ public class SensorListener
     public Sensor sensor;
     public List<Action<Sensor>> listeners = new List<Action<Sensor>>();
     public int period = 0;
+    public long nextReading;
 }
 /**
  * Active set of sensors.
@@ -122,6 +123,7 @@ public class SensorRegistry
                     activeSensors.TryGetValue(sensor, out sl);
                 }
                 if (sl != null) {
+                    sl.nextReading = DateTimeMs.Now + sl.period;
                     foreach(Action<Sensor> l in sl.listeners.ToArray()) {
                         try{
                             l(sensor);
@@ -146,8 +148,12 @@ public class SensorRegistry
 
     public void TriggerListeners(Sensor sensor)
     {
-        if (sensor == null) throw new ArgumentNullException();
-        triggerQueue.Enqueue(sensor);
+        if (sensor == null)
+            throw new ArgumentNullException();
+        SensorListener sl = null;
+        activeSensors.TryGetValue(sensor, out sl);
+        if (sl != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
+            triggerQueue.Enqueue(sensor);
     }
     /**
      * Triggers sensor suspend event for all sensors that supports it
