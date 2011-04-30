@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE parameters
+[
+	<!ENTITY obd2_gen2.ecuxml  SYSTEM "obd2_gen2.ecuxml">
+]>
+
 <parameters namespace='OBD2' description="OBD-II standard ELM Module (323/327)">
   
   <parameter id="DTCFRZF">
@@ -194,125 +199,7 @@
 
   -->
 
-  <parameter id="Oxygen_b1s1">
-    <description>
-      <name>Oxygen b1s1</name>      <unit>V</unit>      <description>Oxygen bank 1 sensor 1 voltage</description>
-    </description>
-    <address> <byte>0x14</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b1s1_stft">
-    <description>
-      <name>Oxygen b1s1 STFT</name>      <unit>%</unit>      <description>Oxygen bank 1 sensor 1 STFT</description>
-    </description>
-    <address> <byte>0x14</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b1s2">
-    <description>
-      <name>Oxygen b1s2</name>      <unit>V</unit>      <description>Oxygen bank 1 sensor 2 voltage</description>
-    </description>
-    <address> <byte>0x15</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b1s2_stft">
-    <description>
-      <name>Oxygen b1s2 STFT</name>      <unit>%</unit>      <description>Oxygen bank 1 sensor 2 STFT</description>
-    </description>
-    <address> <byte>0x15</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b1s3">
-    <description>
-      <name>Oxygen b1s3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x16</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b1s3_stft">
-    <description>
-      <name>Oxygen b1s3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x16</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b1s4">
-    <description>
-      <name>Oxygen b1s4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x17</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b1s4_stft">
-    <description>
-      <name>Oxygen b1s4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x17</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b2s1">
-    <description>
-      <name>Oxygen b2s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x18</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b2s1_stft">
-    <description>
-      <name>Oxygen b2s1 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x18</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b2s2">
-    <description>
-      <name>Oxygen b2s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x19</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b2s2_stft">
-    <description>
-      <name>Oxygen b2s2 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x19</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b2s3">
-    <description>
-      <name>Oxygen b2s3</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x1A</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b2s3_stft">
-    <description>
-      <name>Oxygen b2s3 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x1A</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
-
-  <parameter id="Oxygen_b2s4">
-    <description>
-      <name>Oxygen b2s4</name>      <unit>V</unit>      <description>Oxygen sensor voltage</description>
-    </description>
-    <address> <byte>0x1B</byte> </address>
-    <value> get(0)*0.005 </value>
-  </parameter>
-  <parameter id="Oxygen_b2s4_stft">
-    <description>
-      <name>Oxygen b2s4 STFT</name>      <unit>%</unit>      <description>Oxygen sensor STFT</description>
-    </description>
-    <address> <byte>0x1B</byte> </address>
-    <value> (get(1)-128)*100/128 </value>
-  </parameter>
+  &obd2_gen2.ecuxml;
 
   <parameter id="OBDSupport">
     <description lang="en">

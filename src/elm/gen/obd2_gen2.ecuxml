@@ -1,0 +1,240 @@
+
+  <parameter id="Oxygen_b1s1" display="O2S11" precision="3">
+    <description>
+      <name>Oxygen b1s1</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 1 sensor 1</description>
+    </description>
+    <address> <byte>0x14</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b1s1_stft">
+    <description>
+      <name>Oxygen b1s1 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 1 sensor 1</description>
+    </description>
+    <address> <byte>0x14</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b1s2" display="O2S12" precision="3">
+    <description>
+      <name>Oxygen b1s2</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 1 sensor 2</description>
+    </description>
+    <address> <byte>0x15</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b1s2_stft">
+    <description>
+      <name>Oxygen b1s2 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 1 sensor 2</description>
+    </description>
+    <address> <byte>0x15</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b1s3" display="O2S13" precision="3">
+    <description>
+      <name>Oxygen b1s3</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 1 sensor 3</description>
+    </description>
+    <address> <byte>0x16</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b1s3_stft">
+    <description>
+      <name>Oxygen b1s3 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 1 sensor 3</description>
+    </description>
+    <address> <byte>0x16</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b1s4" display="O2S14" precision="3">
+    <description>
+      <name>Oxygen b1s4</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 1 sensor 4</description>
+    </description>
+    <address> <byte>0x17</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b1s4_stft">
+    <description>
+      <name>Oxygen b1s4 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 1 sensor 4</description>
+    </description>
+    <address> <byte>0x17</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s1" display="O2S21" precision="3">
+    <description>
+      <name>Oxygen b2s1</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 2 sensor 1</description>
+    </description>
+    <address> <byte>0x18</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b2s1_stft">
+    <description>
+      <name>Oxygen b2s1 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 2 sensor 1</description>
+    </description>
+    <address> <byte>0x18</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s2" display="O2S22" precision="3">
+    <description>
+      <name>Oxygen b2s2</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 2 sensor 2</description>
+    </description>
+    <address> <byte>0x19</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b2s2_stft">
+    <description>
+      <name>Oxygen b2s2 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 2 sensor 2</description>
+    </description>
+    <address> <byte>0x19</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s3" display="O2S23" precision="3">
+    <description>
+      <name>Oxygen b2s3</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 2 sensor 3</description>
+    </description>
+    <address> <byte>0x1a</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b2s3_stft">
+    <description>
+      <name>Oxygen b2s3 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 2 sensor 3</description>
+    </description>
+    <address> <byte>0x1a</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Oxygen_b2s4" display="O2S24" precision="3">
+    <description>
+      <name>Oxygen b2s4</name>      <unit>V</unit>      <description>Oxygen Sensor Output Voltage bank 2 sensor 4</description>
+    </description>
+    <address> <byte>0x1b</byte> </address>
+    <valuea> 0.005 </valuea>
+  </parameter>
+  <parameter id="Oxygen_b2s4_stft">
+    <description>
+      <name>Oxygen b2s4 STFT</name>      <unit>%</unit>      <description>STFT for Oxygen bank 2 sensor 4</description>
+    </description>
+    <address> <byte>0x1b</byte> </address>
+    <value> (get(1)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Lambda_b1s1" display="LAMBDA11" precision="3">
+    <description>
+      <name>Lambda b1s1</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 1 sensor 1</description>
+    </description>
+    <address> <byte>0x24</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b1s1" display="O2S11" precision="3">
+    <description>
+      <name>Oxygen b1s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 1 sensor 1</description>
+    </description>
+    <address> <byte>0x24</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b1s2" display="LAMBDA12" precision="3">
+    <description>
+      <name>Lambda b1s2</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 1 sensor 2</description>
+    </description>
+    <address> <byte>0x25</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b1s2" display="O2S12" precision="3">
+    <description>
+      <name>Oxygen b1s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 1 sensor 2</description>
+    </description>
+    <address> <byte>0x25</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b2s1" display="LAMBDA21" precision="3">
+    <description>
+      <name>Lambda b2s1</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 2 sensor 1</description>
+    </description>
+    <address> <byte>0x26</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b2s1" display="O2S21" precision="3">
+    <description>
+      <name>Oxygen b2s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 2 sensor 1</description>
+    </description>
+    <address> <byte>0x26</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b2s2" display="LAMBDA22" precision="3">
+    <description>
+      <name>Lambda b2s2</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 2 sensor 2</description>
+    </description>
+    <address> <byte>0x27</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b2s2" display="O2S22" precision="3">
+    <description>
+      <name>Oxygen b2s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 2 sensor 2</description>
+    </description>
+    <address> <byte>0x27</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b3s1" display="LAMBDA31" precision="3">
+    <description>
+      <name>Lambda b3s1</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 3 sensor 1</description>
+    </description>
+    <address> <byte>0x28</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b3s1" display="O2S31" precision="3">
+    <description>
+      <name>Oxygen b3s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 3 sensor 1</description>
+    </description>
+    <address> <byte>0x28</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b3s2" display="LAMBDA32" precision="3">
+    <description>
+      <name>Lambda b3s2</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 3 sensor 2</description>
+    </description>
+    <address> <byte>0x29</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b3s2" display="O2S32" precision="3">
+    <description>
+      <name>Oxygen b3s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 3 sensor 2</description>
+    </description>
+    <address> <byte>0x29</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b4s1" display="LAMBDA41" precision="3">
+    <description>
+      <name>Lambda b4s1</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 4 sensor 1</description>
+    </description>
+    <address> <byte>0x2a</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b4s1" display="O2S41" precision="3">
+    <description>
+      <name>Oxygen b4s1</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 4 sensor 1</description>
+    </description>
+    <address> <byte>0x2a</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>
+
+  <parameter id="Lambda_b4s2" display="LAMBDA42" precision="3">
+    <description>
+      <name>Lambda b4s2</name>      <unit></unit>      <description>Equivalence ratio (Lambda) bank 4 sensor 2</description>
+    </description>
+    <address> <byte>0x2b</byte> </address>
+    <valueab>2 / 65535</valueab>
+  </parameter>
+  <parameter id="Oxygen_b4s2" display="O2S42" precision="3">
+    <description>
+      <name>Oxygen b4s2</name>      <unit>V</unit>      <description>Oxygen sensor voltage bank 4 sensor 2</description>
+    </description>
+    <address> <byte>0x2b</byte> </address>
+    <valuecd> 8 / 65535 </valuecd>
+  </parameter>

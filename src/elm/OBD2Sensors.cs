@@ -39,9 +39,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.DTCFRZF",
                 Name = "DTCFRZF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0x02,
                 
             };
@@ -54,9 +55,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelSystemStatus",
                 Name = "FuelSystemStatus",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0);
+                      },
+                  
                 Command = 0x03,
                 
             };
@@ -69,9 +71,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.EngineLoad",
                 Name = "EngineLoad",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0) * 100 / 255;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0) * 100 / 255;
+                      },
+                  
                 Command = 0x04,
                 
             };
@@ -86,9 +89,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.CoolantTemp",
                 Name = "CoolantTemp",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)-40;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)-40;
+                      },
+                  
                 Command = 0x05,
                 
             };
@@ -103,9 +107,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.STFT1",
                 Name = "STFT1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)-128) * 100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-128) * 100/128;
+                      },
+                  
                 Command = 0x06,
                 
             };
@@ -120,9 +125,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.LTFT1",
                 Name = "LTFT1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)-128) * 100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-128) * 100/128;
+                      },
+                  
                 Command = 0x07,
                 
             };
@@ -137,9 +143,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.STFT2",
                 Name = "STFT2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)-128) * 100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-128) * 100/128;
+                      },
+                  
                 Command = 0x08,
                 
             };
@@ -154,9 +161,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.LTFT2",
                 Name = "LTFT2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)-128) * 100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-128) * 100/128;
+                      },
+                  
                 Command = 0x09,
                 
             };
@@ -171,9 +179,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelPressure",
                 Name = "FuelPressure",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*3;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)*3;
+                      },
+                  
                 Command = 0x0A,
                 
             };
@@ -188,9 +197,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.IntakeManifoldPressure",
                 Name = "IntakeManifoldPressure",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0);
+                      },
+                  
                 Command = 0x0B,
                 
             };
@@ -205,9 +215,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.RPM",
                 Name = "RPM",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)*256 + get(1)) / 4;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)*256 + get(1)) / 4;
+                      },
+                  
                 Command = 0x0C,
                 
             };
@@ -222,9 +233,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Speed",
                 Name = "Speed",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0x0D,
                 
             };
@@ -239,9 +251,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.TimingAdvance",
                 Name = "TimingAdvance",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00)/2 - 64;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00)/2 - 64;
+                      },
+                  
                 Command = 0x0E,
                 
             };
@@ -256,9 +269,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.IntakeAirTemp",
                 Name = "IntakeAirTemp",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00) - 40;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00) - 40;
+                      },
+                  
                 Command = 0x0F,
                 
             };
@@ -273,9 +287,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.MAF",
                 Name = "MAF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return ((get(0)*256)+get(1)) / 100;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return ((get(0)*256)+get(1)) / 100;
+                      },
+                  
                 Command = 0x10,
                 
             };
@@ -290,9 +305,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.ThrottlePosition",
                 Name = "ThrottlePosition",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*100 / 255;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)*100 / 255;
+                      },
+                  
                 Command = 0x11,
                 
             };
@@ -307,9 +323,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s1",
                 Name = "Oxygen_b1s1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x14,
                 
             };
@@ -324,9 +341,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s1_stft",
                 Name = "Oxygen_b1s1_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x14,
                 
             };
@@ -341,9 +359,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s2",
                 Name = "Oxygen_b1s2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x15,
                 
             };
@@ -358,9 +377,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s2_stft",
                 Name = "Oxygen_b1s2_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x15,
                 
             };
@@ -375,9 +395,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s3",
                 Name = "Oxygen_b1s3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x16,
                 
             };
@@ -392,9 +413,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s3_stft",
                 Name = "Oxygen_b1s3_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x16,
                 
             };
@@ -409,9 +431,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s4",
                 Name = "Oxygen_b1s4",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x17,
                 
             };
@@ -426,9 +449,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b1s4_stft",
                 Name = "Oxygen_b1s4_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x17,
                 
             };
@@ -443,9 +467,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s1",
                 Name = "Oxygen_b2s1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x18,
                 
             };
@@ -460,9 +485,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s1_stft",
                 Name = "Oxygen_b2s1_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x18,
                 
             };
@@ -477,9 +503,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s2",
                 Name = "Oxygen_b2s2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
                 Command = 0x19,
                 
             };
@@ -494,9 +521,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s2_stft",
                 Name = "Oxygen_b2s2_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
                 Command = 0x19,
                 
             };
@@ -511,10 +539,11 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s3",
                 Name = "Oxygen_b2s3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
-                Command = 0x1A,
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
+                Command = 0x1a,
                 
             };
         
@@ -528,10 +557,11 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s3_stft",
                 Name = "Oxygen_b2s3_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
-                Command = 0x1A,
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
+                Command = 0x1a,
                 
             };
         
@@ -545,10 +575,11 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s4",
                 Name = "Oxygen_b2s4",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*0.005;
-                                  },
-                Command = 0x1B,
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.get(0)*0.005;
+                      },
+                  
+                Command = 0x1b,
                 
             };
         
@@ -562,14 +593,303 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Oxygen_b2s4_stft",
                 Name = "Oxygen_b2s4_stft",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(1)-128)*100/128;
-                                  },
-                Command = 0x1B,
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(1)-128)*100/128;
+                      },
+                  
+                Command = 0x1b,
                 
             };
         
         s.Units = "%";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b1s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b1s1",
+                Name = "Lambda_b1s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x24,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b1s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b1s1",
+                Name = "Oxygen_b1s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x24,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b1s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b1s2",
+                Name = "Lambda_b1s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x25,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b1s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b1s2",
+                Name = "Oxygen_b1s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x25,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b2s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b2s1",
+                Name = "Lambda_b2s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x26,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b2s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b2s1",
+                Name = "Oxygen_b2s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x26,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b2s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b2s2",
+                Name = "Lambda_b2s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x27,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b2s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b2s2",
+                Name = "Oxygen_b2s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x27,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b3s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b3s1",
+                Name = "Lambda_b3s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x28,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b3s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b3s1",
+                Name = "Oxygen_b3s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x28,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b3s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b3s2",
+                Name = "Lambda_b3s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x29,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b3s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b3s2",
+                Name = "Oxygen_b3s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x29,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b4s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b4s1",
+                Name = "Lambda_b4s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x2a,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b4s1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b4s1",
+                Name = "Oxygen_b4s1",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x2a,
+                
+            };
+        
+        s.Units = "V";
+  
+        registry.Add(s);
+
+        // OBD2Lambda_b4s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Lambda_b4s2",
+                Name = "Lambda_b4s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getab()*2 / 65535;
+                      },
+                  
+                Command = 0x2b,
+                
+            };
+        
+        s.Units = "";
+  
+        registry.Add(s);
+
+        // OBD2Oxygen_b4s2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Oxygen_b4s2",
+                Name = "Oxygen_b4s2",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return p.getcd()*8 / 65535;
+                      },
+                  
+                Command = 0x2b,
+                
+            };
+        
+        s.Units = "V";
   
         registry.Add(s);
 
@@ -579,9 +899,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.OBDSupport",
                 Name = "OBDSupport",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0);
+                      },
+                  
                 Command = 0x1C,
                 
             };
@@ -594,9 +915,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.RunTime",
                 Name = "RunTime",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*256 + get(1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)*256 + get(1);
+                      },
+                  
                 Command = 0x1F,
                 
             };
@@ -611,9 +933,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.DistanceMIL",
                 Name = "DistanceMIL",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*256 + get(1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)*256 + get(1);
+                      },
+                  
                 Command = 0x21,
                 
             };
@@ -628,9 +951,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelRailPressure_rel",
                 Name = "FuelRailPressure_rel",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) * 10) / 128;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) * 10) / 128;
+                      },
+                  
                 Command = 0x22,
                 
             };
@@ -645,9 +969,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelRailPressure_diesel",
                 Name = "FuelRailPressure_diesel",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) * 10);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) * 10);
+                      },
+                  
                 Command = 0x23,
                 
             };
@@ -662,9 +987,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelLevel",
                 Name = "FuelLevel",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return 100*get(0)/255;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return 100*get(0)/255;
+                      },
+                  
                 Command = 0x2F,
                 
             };
@@ -679,9 +1005,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.DistanceMILCleared",
                 Name = "DistanceMILCleared",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0)*256 + get(1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0)*256 + get(1);
+                      },
+                  
                 Command = 0x31,
                 
             };
@@ -696,9 +1023,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.VaporPressure",
                 Name = "VaporPressure",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) / 4);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) / 4);
+                      },
+                  
                 Command = 0x32,
                 
             };
@@ -713,9 +1041,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.BaroPressure",
                 Name = "BaroPressure",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0);
+                      },
+                  
                 Command = 0x33,
                 
             };
@@ -730,9 +1059,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.ControlModuleVoltage",
                 Name = "ControlModuleVoltage",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) / 1000);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) / 1000);
+                      },
+                  
                 Command = 0x42,
                 
             };
@@ -747,9 +1077,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.AbsoluteLoadValue",
                 Name = "AbsoluteLoadValue",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) * 100 / 255);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) * 100 / 255);
+                      },
+                  
                 Command = 0x43,
                 
             };
@@ -764,9 +1095,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.Lambda",
                 Name = "Lambda",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)*256 + get(1)) * 2.0 / 65535;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)*256 + get(1)) * 2.0 / 65535;
+                      },
+                  
                 Command = 0x44,
                 
             };
@@ -779,9 +1111,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.AirTemp",
                 Name = "AirTemp",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0) - 40;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0) - 40;
+                      },
+                  
                 Command = 0x46,
                 
             };
@@ -796,9 +1129,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.EngineOilTemp",
                 Name = "EngineOilTemp",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0)-40 );
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-40 );
+                      },
+                  
                 Command = 0x5C,
                 
             };
@@ -813,9 +1147,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelInjectionTiming",
                 Name = "FuelInjectionTiming",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1) - 26880) / 128);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1) - 26880) / 128);
+                      },
+                  
                 Command = 0x5D,
                 
             };
@@ -830,9 +1165,10 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.LitersPerHour",
                 Name = "LitersPerHour",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (((get(0)*256)+get(1)) * 0.05);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (((get(0)*256)+get(1)) * 0.05);
+                      },
+                  
                 Command = 0x5E,
                 
             };
@@ -906,11 +1242,11 @@ public class OBD2Sensors : SensorProvider
 
   public const string ThrottlePosition = "ThrottlePosition";
 
-  public const string Oxygen_b1s1 = "Oxygen_b1s1";
+  public const string Oxygen_b1s1_0 = "Oxygen_b1s1";
 
   public const string Oxygen_b1s1_stft = "Oxygen_b1s1_stft";
 
-  public const string Oxygen_b1s2 = "Oxygen_b1s2";
+  public const string Oxygen_b1s2_0 = "Oxygen_b1s2";
 
   public const string Oxygen_b1s2_stft = "Oxygen_b1s2_stft";
 
@@ -922,11 +1258,11 @@ public class OBD2Sensors : SensorProvider
 
   public const string Oxygen_b1s4_stft = "Oxygen_b1s4_stft";
 
-  public const string Oxygen_b2s1 = "Oxygen_b2s1";
+  public const string Oxygen_b2s1_0 = "Oxygen_b2s1";
 
   public const string Oxygen_b2s1_stft = "Oxygen_b2s1_stft";
 
-  public const string Oxygen_b2s2 = "Oxygen_b2s2";
+  public const string Oxygen_b2s2_0 = "Oxygen_b2s2";
 
   public const string Oxygen_b2s2_stft = "Oxygen_b2s2_stft";
 
@@ -937,6 +1273,38 @@ public class OBD2Sensors : SensorProvider
   public const string Oxygen_b2s4 = "Oxygen_b2s4";
 
   public const string Oxygen_b2s4_stft = "Oxygen_b2s4_stft";
+
+  public const string Lambda_b1s1 = "Lambda_b1s1";
+
+  public const string Oxygen_b1s1_1 = "Oxygen_b1s1";
+
+  public const string Lambda_b1s2 = "Lambda_b1s2";
+
+  public const string Oxygen_b1s2_1 = "Oxygen_b1s2";
+
+  public const string Lambda_b2s1 = "Lambda_b2s1";
+
+  public const string Oxygen_b2s1_1 = "Oxygen_b2s1";
+
+  public const string Lambda_b2s2 = "Lambda_b2s2";
+
+  public const string Oxygen_b2s2_1 = "Oxygen_b2s2";
+
+  public const string Lambda_b3s1 = "Lambda_b3s1";
+
+  public const string Oxygen_b3s1 = "Oxygen_b3s1";
+
+  public const string Lambda_b3s2 = "Lambda_b3s2";
+
+  public const string Oxygen_b3s2 = "Oxygen_b3s2";
+
+  public const string Lambda_b4s1 = "Lambda_b4s1";
+
+  public const string Oxygen_b4s1 = "Oxygen_b4s1";
+
+  public const string Lambda_b4s2 = "Lambda_b4s2";
+
+  public const string Oxygen_b4s2 = "Oxygen_b4s2";
 
   public const string OBDSupport = "OBDSupport";
 
@@ -998,22 +1366,38 @@ public class OBD2Sensors : SensorProvider
   - IntakeAirTemp - Intake Air - Intake air temperature - celsius
   - MAF - MAF - Mass air flow - gr/sec
   - ThrottlePosition - Throttle - Throttle position - %
-  - Oxygen_b1s1 - Oxygen b1s1 - Oxygen bank 1 sensor 1 voltage - V
-  - Oxygen_b1s1_stft - Oxygen b1s1 STFT - Oxygen bank 1 sensor 1 STFT - %
-  - Oxygen_b1s2 - Oxygen b1s2 - Oxygen bank 1 sensor 2 voltage - V
-  - Oxygen_b1s2_stft - Oxygen b1s2 STFT - Oxygen bank 1 sensor 2 STFT - %
-  - Oxygen_b1s3 - Oxygen b1s3 - Oxygen sensor voltage - V
-  - Oxygen_b1s3_stft - Oxygen b1s3 STFT - Oxygen sensor STFT - %
-  - Oxygen_b1s4 - Oxygen b1s4 - Oxygen sensor voltage - V
-  - Oxygen_b1s4_stft - Oxygen b1s4 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s1 - Oxygen b2s1 - Oxygen sensor voltage - V
-  - Oxygen_b2s1_stft - Oxygen b2s1 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s2 - Oxygen b2s2 - Oxygen sensor voltage - V
-  - Oxygen_b2s2_stft - Oxygen b2s2 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s3 - Oxygen b2s3 - Oxygen sensor voltage - V
-  - Oxygen_b2s3_stft - Oxygen b2s3 STFT - Oxygen sensor STFT - %
-  - Oxygen_b2s4 - Oxygen b2s4 - Oxygen sensor voltage - V
-  - Oxygen_b2s4_stft - Oxygen b2s4 STFT - Oxygen sensor STFT - %
+  - Oxygen_b1s1 - Oxygen b1s1 - Oxygen Sensor Output Voltage bank 1 sensor 1 - V
+  - Oxygen_b1s1_stft - Oxygen b1s1 STFT - STFT for Oxygen bank 1 sensor 1 - %
+  - Oxygen_b1s2 - Oxygen b1s2 - Oxygen Sensor Output Voltage bank 1 sensor 2 - V
+  - Oxygen_b1s2_stft - Oxygen b1s2 STFT - STFT for Oxygen bank 1 sensor 2 - %
+  - Oxygen_b1s3 - Oxygen b1s3 - Oxygen Sensor Output Voltage bank 1 sensor 3 - V
+  - Oxygen_b1s3_stft - Oxygen b1s3 STFT - STFT for Oxygen bank 1 sensor 3 - %
+  - Oxygen_b1s4 - Oxygen b1s4 - Oxygen Sensor Output Voltage bank 1 sensor 4 - V
+  - Oxygen_b1s4_stft - Oxygen b1s4 STFT - STFT for Oxygen bank 1 sensor 4 - %
+  - Oxygen_b2s1 - Oxygen b2s1 - Oxygen Sensor Output Voltage bank 2 sensor 1 - V
+  - Oxygen_b2s1_stft - Oxygen b2s1 STFT - STFT for Oxygen bank 2 sensor 1 - %
+  - Oxygen_b2s2 - Oxygen b2s2 - Oxygen Sensor Output Voltage bank 2 sensor 2 - V
+  - Oxygen_b2s2_stft - Oxygen b2s2 STFT - STFT for Oxygen bank 2 sensor 2 - %
+  - Oxygen_b2s3 - Oxygen b2s3 - Oxygen Sensor Output Voltage bank 2 sensor 3 - V
+  - Oxygen_b2s3_stft - Oxygen b2s3 STFT - STFT for Oxygen bank 2 sensor 3 - %
+  - Oxygen_b2s4 - Oxygen b2s4 - Oxygen Sensor Output Voltage bank 2 sensor 4 - V
+  - Oxygen_b2s4_stft - Oxygen b2s4 STFT - STFT for Oxygen bank 2 sensor 4 - %
+  - Lambda_b1s1 - Lambda b1s1 - Equivalence ratio (Lambda) bank 1 sensor 1 - 
+  - Oxygen_b1s1 - Oxygen b1s1 - Oxygen sensor voltage bank 1 sensor 1 - V
+  - Lambda_b1s2 - Lambda b1s2 - Equivalence ratio (Lambda) bank 1 sensor 2 - 
+  - Oxygen_b1s2 - Oxygen b1s2 - Oxygen sensor voltage bank 1 sensor 2 - V
+  - Lambda_b2s1 - Lambda b2s1 - Equivalence ratio (Lambda) bank 2 sensor 1 - 
+  - Oxygen_b2s1 - Oxygen b2s1 - Oxygen sensor voltage bank 2 sensor 1 - V
+  - Lambda_b2s2 - Lambda b2s2 - Equivalence ratio (Lambda) bank 2 sensor 2 - 
+  - Oxygen_b2s2 - Oxygen b2s2 - Oxygen sensor voltage bank 2 sensor 2 - V
+  - Lambda_b3s1 - Lambda b3s1 - Equivalence ratio (Lambda) bank 3 sensor 1 - 
+  - Oxygen_b3s1 - Oxygen b3s1 - Oxygen sensor voltage bank 3 sensor 1 - V
+  - Lambda_b3s2 - Lambda b3s2 - Equivalence ratio (Lambda) bank 3 sensor 2 - 
+  - Oxygen_b3s2 - Oxygen b3s2 - Oxygen sensor voltage bank 3 sensor 2 - V
+  - Lambda_b4s1 - Lambda b4s1 - Equivalence ratio (Lambda) bank 4 sensor 1 - 
+  - Oxygen_b4s1 - Oxygen b4s1 - Oxygen sensor voltage bank 4 sensor 1 - V
+  - Lambda_b4s2 - Lambda b4s2 - Equivalence ratio (Lambda) bank 4 sensor 2 - 
+  - Oxygen_b4s2 - Oxygen b4s2 - Oxygen sensor voltage bank 4 sensor 2 - V
   - OBDSupport - OBD Support -  - 
   - RunTime - Run time - Run time since engine start - sec
   - DistanceMIL - Distance with MIL - Distance traveled with malfunction indicator lamp - km

@@ -103,6 +103,18 @@ sdesc.FuelRailPressure_rel = Fuel Rail Pressure relative
 sname.FuelRailPressure_diesel  = FRP diesel
 sdesc.FuelRailPressure_diesel = Fuel Rail Pressure diesel
 
+sname.Lambda_b1s1  = Lambda b1s1
+sdesc.Lambda_b1s1 = Equivalence ratio (Lambda) bank 1 sensor 1
+
+sname.Oxygen_b1s1  = Oxygen b1s1
+sdesc.Oxygen_b1s1 = Oxygen sensor voltage bank 1 sensor 1
+
+sname.Lambda_b1s2  = Lambda b1s2
+sdesc.Lambda_b1s2 = Equivalence ratio (Lambda) bank 1 sensor 2
+
+sname.Oxygen_b1s2  = Oxygen b1s2
+sdesc.Oxygen_b1s2 = Oxygen sensor voltage bank 1 sensor 2
+
 sname.FuelLevel  = Fuel Level
 sdesc.FuelLevel = 
 
