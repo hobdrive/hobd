@@ -35,6 +35,7 @@ public class SensorTrack
     protected SensorRegistry Registry;
     protected string DataPath;
 
+    public bool TrackAccum = false;
     public bool TrackPassive = false;
     Dictionary<string, SensorTrackData> Settings = new Dictionary<string, SensorTrackData>();
 
@@ -71,6 +72,9 @@ public class SensorTrack
                 switch (reader.Name) {
                     case "track-passive":
                         this.TrackPassive = "true" == reader.ReadElementContentAsString();
+                        break;
+                    case "track-accumulator":
+                        this.TrackAccum = "true" == reader.ReadElementContentAsString();
                         break;
                     case "track":
                         SensorTrackData set = new SensorTrackData();
@@ -142,6 +146,12 @@ public class SensorTrack
         if (this.TrackPassive)
         {
             Registry.AddPassiveListener(this.SensorChanged);
+        }
+        if (this.TrackAccum)
+        {
+            foreach(var s in Registry.Sensors.Where(s => s is IAccumulatorSensor)){
+                Registry.AddListener(s, this.SensorChanged);
+            }
         }
     }
 

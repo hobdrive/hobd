@@ -83,6 +83,13 @@ public class SensorRegistry
     {
         return sensors.Values;
     }
+
+    public IEnumerable<Sensor> Sensors
+    {
+        get {
+            return sensors.Values;
+        }
+    }
     
     /**
      * Gets the sensor with the specified ID or alias
