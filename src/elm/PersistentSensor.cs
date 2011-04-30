@@ -24,12 +24,14 @@ public class PersistentSensor : CoreSensor, IPersistentSensor, IAccumulatorSenso
 
     public virtual string StoreState()
     {
-        return Value.ToString();
+        return Value.ToString(UnitsConverter.DefaultNumberFormat);
     }
 
     public virtual void RestoreState(string raw)
     {
-        Value = double.Parse(raw);
+        // backward compat for possible wrong comma format
+        raw = raw.Replace(",", ".");
+        Value = double.Parse(raw, UnitsConverter.DefaultNumberFormat);
         TimeStamp = DateTimeMs.Now;
         firstRun = true;
     }
