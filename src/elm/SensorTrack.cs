@@ -213,15 +213,18 @@ public class SensorTrack
     
     protected virtual void StoreSensorData(SensorTrackData set)
     {
-         var sw = new BinaryWriter(new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append));
-
-         for(int i = 0; i < set.history_t.Count(); i++)
+         lock(this)
          {
-             sw.Write(set.history_t[i]);
-             sw.Write(set.history_v[i]);
+             var sw = new BinaryWriter(new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append));
+
+             for(int i = 0; i < set.history_t.Count(); i++)
+             {
+                 sw.Write(set.history_t[i]);
+                 sw.Write(set.history_v[i]);
+             }
+             set.history_t.Clear();
+             set.history_v.Clear();
          }
-         set.history_t.Clear();
-         set.history_v.Clear();
     }
 
     public virtual void Detach()
