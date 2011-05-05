@@ -12,6 +12,7 @@ public class LitersPerHourSensor : CoreSensor
     public int ListenInterval{get; set;}
 
     double load_consumption_coeff = 0.02;
+    string default_matrix = "0.010, 0.011, 0.025, 0.050, 0.055, 0.06, 0.06, 0.06, 0.06, 0.06";
 
     double[] rpm_matrix = null;
     double rpm_step;
@@ -32,9 +33,14 @@ public class LitersPerHourSensor : CoreSensor
         }catch(Exception e){
             Logger.info("LitersPerHourSensor", "Using default coefficient", e);
         }
+        
         if (registry.VehicleParameters.ContainsKey("rpm-consumption-coeff"))
         {
-            rpm_matrix = registry.VehicleParameters["rpm-consumption-coeff"]
+            default_matrix = registry.VehicleParameters["rpm-consumption-coeff"];
+        }
+        if (default_matrix.Length > 1)
+        {
+            rpm_matrix = default_matrix
                       .Split(new char[]{',', ' '})
                       .Where(v => v != "")
                       .Select(v => double.Parse(v, UnitsConverter.DefaultNumberFormat)).ToArray();
