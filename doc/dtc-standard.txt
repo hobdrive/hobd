@@ -1,7 +1,3 @@
-Generic Trouble Codes
-
-P0001-P0099 - Fuel and Air Metering and Auxiliary Emission Controls 
-Code Description
 P0001 Fuel Volume Regulator Control Circuit/Open
 P0002 Fuel Volume Regulator Control Circuit Range/Performance
 P0003 Fuel Volume Regulator Control Circuit Low
