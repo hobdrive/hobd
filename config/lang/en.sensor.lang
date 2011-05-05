@@ -41,52 +41,100 @@ sname.ThrottlePosition  = Throttle
 sdesc.ThrottlePosition = Throttle position
 
 sname.Oxygen_b1s1  = Oxygen b1s1
-sdesc.Oxygen_b1s1 = Oxygen bank 1 sensor 1 voltage
+sdesc.Oxygen_b1s1 = Oxygen Sensor Output Voltage bank 1 sensor 1
 
 sname.Oxygen_b1s1_stft  = Oxygen b1s1 STFT
-sdesc.Oxygen_b1s1_stft = Oxygen bank 1 sensor 1 STFT
+sdesc.Oxygen_b1s1_stft = STFT for Oxygen bank 1 sensor 1
 
 sname.Oxygen_b1s2  = Oxygen b1s2
-sdesc.Oxygen_b1s2 = Oxygen bank 1 sensor 2 voltage
+sdesc.Oxygen_b1s2 = Oxygen Sensor Output Voltage bank 1 sensor 2
 
 sname.Oxygen_b1s2_stft  = Oxygen b1s2 STFT
-sdesc.Oxygen_b1s2_stft = Oxygen bank 1 sensor 2 STFT
+sdesc.Oxygen_b1s2_stft = STFT for Oxygen bank 1 sensor 2
 
 sname.Oxygen_b1s3  = Oxygen b1s3
-sdesc.Oxygen_b1s3 = Oxygen sensor voltage
+sdesc.Oxygen_b1s3 = Oxygen Sensor Output Voltage bank 1 sensor 3
 
 sname.Oxygen_b1s3_stft  = Oxygen b1s3 STFT
-sdesc.Oxygen_b1s3_stft = Oxygen sensor STFT
+sdesc.Oxygen_b1s3_stft = STFT for Oxygen bank 1 sensor 3
 
 sname.Oxygen_b1s4  = Oxygen b1s4
-sdesc.Oxygen_b1s4 = Oxygen sensor voltage
+sdesc.Oxygen_b1s4 = Oxygen Sensor Output Voltage bank 1 sensor 4
 
 sname.Oxygen_b1s4_stft  = Oxygen b1s4 STFT
-sdesc.Oxygen_b1s4_stft = Oxygen sensor STFT
+sdesc.Oxygen_b1s4_stft = STFT for Oxygen bank 1 sensor 4
 
 sname.Oxygen_b2s1  = Oxygen b2s1
-sdesc.Oxygen_b2s1 = Oxygen sensor voltage
+sdesc.Oxygen_b2s1 = Oxygen Sensor Output Voltage bank 2 sensor 1
 
 sname.Oxygen_b2s1_stft  = Oxygen b2s1 STFT
-sdesc.Oxygen_b2s1_stft = Oxygen sensor STFT
+sdesc.Oxygen_b2s1_stft = STFT for Oxygen bank 2 sensor 1
 
 sname.Oxygen_b2s2  = Oxygen b2s2
-sdesc.Oxygen_b2s2 = Oxygen sensor voltage
+sdesc.Oxygen_b2s2 = Oxygen Sensor Output Voltage bank 2 sensor 2
 
 sname.Oxygen_b2s2_stft  = Oxygen b2s2 STFT
-sdesc.Oxygen_b2s2_stft = Oxygen sensor STFT
+sdesc.Oxygen_b2s2_stft = STFT for Oxygen bank 2 sensor 2
 
 sname.Oxygen_b2s3  = Oxygen b2s3
-sdesc.Oxygen_b2s3 = Oxygen sensor voltage
+sdesc.Oxygen_b2s3 = Oxygen Sensor Output Voltage bank 2 sensor 3
 
 sname.Oxygen_b2s3_stft  = Oxygen b2s3 STFT
-sdesc.Oxygen_b2s3_stft = Oxygen sensor STFT
+sdesc.Oxygen_b2s3_stft = STFT for Oxygen bank 2 sensor 3
 
 sname.Oxygen_b2s4  = Oxygen b2s4
-sdesc.Oxygen_b2s4 = Oxygen sensor voltage
+sdesc.Oxygen_b2s4 = Oxygen Sensor Output Voltage bank 2 sensor 4
 
 sname.Oxygen_b2s4_stft  = Oxygen b2s4 STFT
-sdesc.Oxygen_b2s4_stft = Oxygen sensor STFT
+sdesc.Oxygen_b2s4_stft = STFT for Oxygen bank 2 sensor 4
+
+sname.Lambda_b1s1  = Lambda b1s1
+sdesc.Lambda_b1s1 = Equivalence ratio (Lambda) bank 1 sensor 1
+
+sname.Oxygen2_b1s1  = Oxygen b1s1
+sdesc.Oxygen2_b1s1 = Oxygen sensor voltage bank 1 sensor 1
+
+sname.Lambda_b1s2  = Lambda b1s2
+sdesc.Lambda_b1s2 = Equivalence ratio (Lambda) bank 1 sensor 2
+
+sname.Oxygen2_b1s2  = Oxygen b1s2
+sdesc.Oxygen2_b1s2 = Oxygen sensor voltage bank 1 sensor 2
+
+sname.Lambda_b2s1  = Lambda b2s1
+sdesc.Lambda_b2s1 = Equivalence ratio (Lambda) bank 2 sensor 1
+
+sname.Oxygen2_b2s1  = Oxygen b2s1
+sdesc.Oxygen2_b2s1 = Oxygen sensor voltage bank 2 sensor 1
+
+sname.Lambda_b2s2  = Lambda b2s2
+sdesc.Lambda_b2s2 = Equivalence ratio (Lambda) bank 2 sensor 2
+
+sname.Oxygen2_b2s2  = Oxygen b2s2
+sdesc.Oxygen2_b2s2 = Oxygen sensor voltage bank 2 sensor 2
+
+sname.Lambda_b3s1  = Lambda b3s1
+sdesc.Lambda_b3s1 = Equivalence ratio (Lambda) bank 3 sensor 1
+
+sname.Oxygen2_b3s1  = Oxygen b3s1
+sdesc.Oxygen2_b3s1 = Oxygen sensor voltage bank 3 sensor 1
+
+sname.Lambda_b3s2  = Lambda b3s2
+sdesc.Lambda_b3s2 = Equivalence ratio (Lambda) bank 3 sensor 2
+
+sname.Oxygen2_b3s2  = Oxygen b3s2
+sdesc.Oxygen2_b3s2 = Oxygen sensor voltage bank 3 sensor 2
+
+sname.Lambda_b4s1  = Lambda b4s1
+sdesc.Lambda_b4s1 = Equivalence ratio (Lambda) bank 4 sensor 1
+
+sname.Oxygen2_b4s1  = Oxygen b4s1
+sdesc.Oxygen2_b4s1 = Oxygen sensor voltage bank 4 sensor 1
+
+sname.Lambda_b4s2  = Lambda b4s2
+sdesc.Lambda_b4s2 = Equivalence ratio (Lambda) bank 4 sensor 2
+
+sname.Oxygen2_b4s2  = Oxygen b4s2
+sdesc.Oxygen2_b4s2 = Oxygen sensor voltage bank 4 sensor 2
 
 sname.OBDSupport  = OBD Support
 sdesc.OBDSupport = 
@@ -102,18 +150,6 @@ sdesc.FuelRailPressure_rel = Fuel Rail Pressure relative
 
 sname.FuelRailPressure_diesel  = FRP diesel
 sdesc.FuelRailPressure_diesel = Fuel Rail Pressure diesel
-
-sname.Lambda_b1s1  = Lambda b1s1
-sdesc.Lambda_b1s1 = Equivalence ratio (Lambda) bank 1 sensor 1
-
-sname.Oxygen_b1s1  = Oxygen b1s1
-sdesc.Oxygen_b1s1 = Oxygen sensor voltage bank 1 sensor 1
-
-sname.Lambda_b1s2  = Lambda b1s2
-sdesc.Lambda_b1s2 = Equivalence ratio (Lambda) bank 1 sensor 2
-
-sname.Oxygen_b1s2  = Oxygen b1s2
-sdesc.Oxygen_b1s2 = Oxygen sensor voltage bank 1 sensor 2
 
 sname.FuelLevel  = Fuel Level
 sdesc.FuelLevel = 

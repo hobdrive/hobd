@@ -623,11 +623,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b1s1
+        // OBD2Oxygen2_b1s1
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b1s1",
-                Name = "Oxygen_b1s1",
+                ID = "OBD2.Oxygen2_b1s1",
+                Name = "Oxygen2_b1s1",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -659,11 +659,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b1s2
+        // OBD2Oxygen2_b1s2
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b1s2",
-                Name = "Oxygen_b1s2",
+                ID = "OBD2.Oxygen2_b1s2",
+                Name = "Oxygen2_b1s2",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -695,11 +695,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b2s1
+        // OBD2Oxygen2_b2s1
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b2s1",
-                Name = "Oxygen_b2s1",
+                ID = "OBD2.Oxygen2_b2s1",
+                Name = "Oxygen2_b2s1",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -731,11 +731,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b2s2
+        // OBD2Oxygen2_b2s2
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b2s2",
-                Name = "Oxygen_b2s2",
+                ID = "OBD2.Oxygen2_b2s2",
+                Name = "Oxygen2_b2s2",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -767,11 +767,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b3s1
+        // OBD2Oxygen2_b3s1
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b3s1",
-                Name = "Oxygen_b3s1",
+                ID = "OBD2.Oxygen2_b3s1",
+                Name = "Oxygen2_b3s1",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -803,11 +803,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b3s2
+        // OBD2Oxygen2_b3s2
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b3s2",
-                Name = "Oxygen_b3s2",
+                ID = "OBD2.Oxygen2_b3s2",
+                Name = "Oxygen2_b3s2",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -839,11 +839,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b4s1
+        // OBD2Oxygen2_b4s1
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b4s1",
-                Name = "Oxygen_b4s1",
+                ID = "OBD2.Oxygen2_b4s1",
+                Name = "Oxygen2_b4s1",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -875,11 +875,11 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
-        // OBD2Oxygen_b4s2
+        // OBD2Oxygen2_b4s2
         s = new OBD2Sensor()
             {
-                ID = "OBD2.Oxygen_b4s2",
-                Name = "Oxygen_b4s2",
+                ID = "OBD2.Oxygen2_b4s2",
+                Name = "Oxygen2_b4s2",
                 
                       obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
                         return p.getcd()*8 / 65535;
@@ -1242,11 +1242,11 @@ public class OBD2Sensors : SensorProvider
 
   public const string ThrottlePosition = "ThrottlePosition";
 
-  public const string Oxygen_b1s1_0 = "Oxygen_b1s1";
+  public const string Oxygen_b1s1 = "Oxygen_b1s1";
 
   public const string Oxygen_b1s1_stft = "Oxygen_b1s1_stft";
 
-  public const string Oxygen_b1s2_0 = "Oxygen_b1s2";
+  public const string Oxygen_b1s2 = "Oxygen_b1s2";
 
   public const string Oxygen_b1s2_stft = "Oxygen_b1s2_stft";
 
@@ -1258,11 +1258,11 @@ public class OBD2Sensors : SensorProvider
 
   public const string Oxygen_b1s4_stft = "Oxygen_b1s4_stft";
 
-  public const string Oxygen_b2s1_0 = "Oxygen_b2s1";
+  public const string Oxygen_b2s1 = "Oxygen_b2s1";
 
   public const string Oxygen_b2s1_stft = "Oxygen_b2s1_stft";
 
-  public const string Oxygen_b2s2_0 = "Oxygen_b2s2";
+  public const string Oxygen_b2s2 = "Oxygen_b2s2";
 
   public const string Oxygen_b2s2_stft = "Oxygen_b2s2_stft";
 
@@ -1276,35 +1276,35 @@ public class OBD2Sensors : SensorProvider
 
   public const string Lambda_b1s1 = "Lambda_b1s1";
 
-  public const string Oxygen_b1s1_1 = "Oxygen_b1s1";
+  public const string Oxygen2_b1s1 = "Oxygen2_b1s1";
 
   public const string Lambda_b1s2 = "Lambda_b1s2";
 
-  public const string Oxygen_b1s2_1 = "Oxygen_b1s2";
+  public const string Oxygen2_b1s2 = "Oxygen2_b1s2";
 
   public const string Lambda_b2s1 = "Lambda_b2s1";
 
-  public const string Oxygen_b2s1_1 = "Oxygen_b2s1";
+  public const string Oxygen2_b2s1 = "Oxygen2_b2s1";
 
   public const string Lambda_b2s2 = "Lambda_b2s2";
 
-  public const string Oxygen_b2s2_1 = "Oxygen_b2s2";
+  public const string Oxygen2_b2s2 = "Oxygen2_b2s2";
 
   public const string Lambda_b3s1 = "Lambda_b3s1";
 
-  public const string Oxygen_b3s1 = "Oxygen_b3s1";
+  public const string Oxygen2_b3s1 = "Oxygen2_b3s1";
 
   public const string Lambda_b3s2 = "Lambda_b3s2";
 
-  public const string Oxygen_b3s2 = "Oxygen_b3s2";
+  public const string Oxygen2_b3s2 = "Oxygen2_b3s2";
 
   public const string Lambda_b4s1 = "Lambda_b4s1";
 
-  public const string Oxygen_b4s1 = "Oxygen_b4s1";
+  public const string Oxygen2_b4s1 = "Oxygen2_b4s1";
 
   public const string Lambda_b4s2 = "Lambda_b4s2";
 
-  public const string Oxygen_b4s2 = "Oxygen_b4s2";
+  public const string Oxygen2_b4s2 = "Oxygen2_b4s2";
 
   public const string OBDSupport = "OBDSupport";
 
@@ -1383,21 +1383,21 @@ public class OBD2Sensors : SensorProvider
   - Oxygen_b2s4 - Oxygen b2s4 - Oxygen Sensor Output Voltage bank 2 sensor 4 - V
   - Oxygen_b2s4_stft - Oxygen b2s4 STFT - STFT for Oxygen bank 2 sensor 4 - %
   - Lambda_b1s1 - Lambda b1s1 - Equivalence ratio (Lambda) bank 1 sensor 1 - 
-  - Oxygen_b1s1 - Oxygen b1s1 - Oxygen sensor voltage bank 1 sensor 1 - V
+  - Oxygen2_b1s1 - Oxygen b1s1 - Oxygen sensor voltage bank 1 sensor 1 - V
   - Lambda_b1s2 - Lambda b1s2 - Equivalence ratio (Lambda) bank 1 sensor 2 - 
-  - Oxygen_b1s2 - Oxygen b1s2 - Oxygen sensor voltage bank 1 sensor 2 - V
+  - Oxygen2_b1s2 - Oxygen b1s2 - Oxygen sensor voltage bank 1 sensor 2 - V
   - Lambda_b2s1 - Lambda b2s1 - Equivalence ratio (Lambda) bank 2 sensor 1 - 
-  - Oxygen_b2s1 - Oxygen b2s1 - Oxygen sensor voltage bank 2 sensor 1 - V
+  - Oxygen2_b2s1 - Oxygen b2s1 - Oxygen sensor voltage bank 2 sensor 1 - V
   - Lambda_b2s2 - Lambda b2s2 - Equivalence ratio (Lambda) bank 2 sensor 2 - 
-  - Oxygen_b2s2 - Oxygen b2s2 - Oxygen sensor voltage bank 2 sensor 2 - V
+  - Oxygen2_b2s2 - Oxygen b2s2 - Oxygen sensor voltage bank 2 sensor 2 - V
   - Lambda_b3s1 - Lambda b3s1 - Equivalence ratio (Lambda) bank 3 sensor 1 - 
-  - Oxygen_b3s1 - Oxygen b3s1 - Oxygen sensor voltage bank 3 sensor 1 - V
+  - Oxygen2_b3s1 - Oxygen b3s1 - Oxygen sensor voltage bank 3 sensor 1 - V
   - Lambda_b3s2 - Lambda b3s2 - Equivalence ratio (Lambda) bank 3 sensor 2 - 
-  - Oxygen_b3s2 - Oxygen b3s2 - Oxygen sensor voltage bank 3 sensor 2 - V
+  - Oxygen2_b3s2 - Oxygen b3s2 - Oxygen sensor voltage bank 3 sensor 2 - V
   - Lambda_b4s1 - Lambda b4s1 - Equivalence ratio (Lambda) bank 4 sensor 1 - 
-  - Oxygen_b4s1 - Oxygen b4s1 - Oxygen sensor voltage bank 4 sensor 1 - V
+  - Oxygen2_b4s1 - Oxygen b4s1 - Oxygen sensor voltage bank 4 sensor 1 - V
   - Lambda_b4s2 - Lambda b4s2 - Equivalence ratio (Lambda) bank 4 sensor 2 - 
-  - Oxygen_b4s2 - Oxygen b4s2 - Oxygen sensor voltage bank 4 sensor 2 - V
+  - Oxygen2_b4s2 - Oxygen b4s2 - Oxygen sensor voltage bank 4 sensor 2 - V
   - OBDSupport - OBD Support -  - 
   - RunTime - Run time - Run time since engine start - sec
   - DistanceMIL - Distance with MIL - Distance traveled with malfunction indicator lamp - km
