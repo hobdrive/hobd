@@ -76,6 +76,16 @@ public class SensorRegistry
         sensor.SetRegistry(this);
     }
 
+    public void Remove(Sensor sensor)
+    {
+        sensors.Remove(sensor.ID);
+
+        if (sensor.Name != null)
+        {
+            sensorNames.Remove(sensor.Name);
+        }
+    }
+
     /**
      * Returns enumeration of all the available registered sensors
      */
