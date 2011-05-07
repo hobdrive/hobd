@@ -11,7 +11,7 @@ public class LitersPerHourSensor : CoreSensor
 {
     public int ListenInterval{get; set;}
 
-    double load_consumption_coeff = 0.02;
+    double engine_load_coeff = 1;
     string default_matrix = "0.010, 0.011, 0.025, 0.050, 0.055, 0.06, 0.06, 0.06, 0.06, 0.06";
 
     double[] rpm_matrix = null;
@@ -29,9 +29,9 @@ public class LitersPerHourSensor : CoreSensor
         base.SetRegistry(registry);
         
         try{
-            this.load_consumption_coeff = double.Parse(registry.VehicleParameters["load-consumption-coeff"], UnitsConverter.DefaultNumberFormat);
-        }catch(Exception e){
-            Logger.info("LitersPerHourSensor", "Using default coefficient", e);
+            this.engine_load_coeff = double.Parse(registry.VehicleParameters["engine-load-coeff"], UnitsConverter.DefaultNumberFormat);
+        }catch(Exception){
+            Logger.info("LitersPerHourSensor", "Using default coefficient");
         }
         
         if (registry.VehicleParameters.ContainsKey("rpm-consumption-coeff"))
@@ -67,14 +67,12 @@ public class LitersPerHourSensor : CoreSensor
     public void OnSensorChange(Sensor s)
     {
         TimeStamp = s.TimeStamp;
-        if (rpm_matrix != null)
-        {
-            int lowidx = (int) (rpm.Value / rpm_step);
-            int nextidx = rpm_matrix.Length-1 == lowidx ? lowidx : lowidx + 1;
-            var coeff = rpm_matrix[lowidx] +  (rpm_matrix[nextidx]-rpm_matrix[lowidx]) * (rpm.Value - lowidx*rpm_step) / rpm_step;
-            Value = load.Value * coeff;
-        }else
-            Value = load.Value * load_consumption_coeff;
+        
+        int lowidx = (int) (rpm.Value / rpm_step);
+        int nextidx = rpm_matrix.Length-1 == lowidx ? lowidx : lowidx + 1;
+        var coeff = rpm_matrix[lowidx] +  (rpm_matrix[nextidx]-rpm_matrix[lowidx]) * (rpm.Value - lowidx*rpm_step) / rpm_step;
+        Value = load.Value * coeff * engine_load_coeff;
+
         registry.TriggerListeners(this);
     }
 
