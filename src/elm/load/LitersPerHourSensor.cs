@@ -12,7 +12,7 @@ public class LitersPerHourSensor : CoreSensor
     public int ListenInterval{get; set;}
 
     double engine_load_coeff = 1;
-    string default_matrix = "0.010, 0.011, 0.025, 0.050, 0.055, 0.06, 0.06, 0.06, 0.06, 0.06";
+    string default_matrix = "0.025, 0.025, 0.10, 0.20, 0.3, 0.4, 0.3, 0.3, 0.3, 0.3";
 
     double[] rpm_matrix = null;
     double rpm_step;
