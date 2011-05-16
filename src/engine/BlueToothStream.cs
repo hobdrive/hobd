@@ -66,7 +66,11 @@ public class BluetoothStream: IStream
             var parsed_url = ParseUrl(url);
             Logger.trace("BluetoothStream", "Open " + parsed_url[URL_ADDR] + " serviceid " + parsed_url[URL_SVC] + " pin " + parsed_url[URL_PIN]);
 
-            BluetoothRadio.PrimaryRadio.Mode = RadioMode.Discoverable;
+            try{
+                BluetoothRadio.PrimaryRadio.Mode = RadioMode.Discoverable;
+            }catch(Exception e){
+                Logger.error("BluetoothStream", "set_Mode", e);
+            }
 
             BluetoothAddress address = BluetoothAddress.Parse(parsed_url[URL_ADDR]);
 
