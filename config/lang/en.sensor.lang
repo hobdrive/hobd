@@ -214,12 +214,6 @@ sdesc.FuelConsumed = Total fuel consumed
 sname.FuelEconomy_trip  = Fuel Economy
 sdesc.FuelEconomy_trip = Total fuel economy on trip
 
-sname.FuelEconomy_short  = Fuel Economy short
-sdesc.FuelEconomy_short = Short term fuel economy
-
-sname.FuelEconomy_instant  = Fuel Economy instant
-sdesc.FuelEconomy_instant = Short term fuel economy
-
 sname.TripTime  = Trip Time
 sdesc.TripTime = Total trip time
 

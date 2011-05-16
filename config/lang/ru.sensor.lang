@@ -382,12 +382,6 @@ sdesc.FuelConsumed = Общий расход топлива за поездку
 sname.FuelEconomy_trip  = Расход топлива
 sdesc.FuelEconomy_trip = Топливная эффективность за поездку
 
-sname.FuelEconomy_short  = Кратковр. расход
-sdesc.FuelEconomy_short = Кратковременная топливная эффективность
-
-sname.FuelEconomy_instant  = Мгновенный расход
-sdesc.FuelEconomy_instant = Мгновенная топливная эффективность
-
 sname.TripTime  = Время в пути
 sdesc.TripTime = Общее время в пути
 
