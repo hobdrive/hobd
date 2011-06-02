@@ -75,8 +75,13 @@ public class BluetoothStream: IStream
             BluetoothAddress address = BluetoothAddress.Parse(parsed_url[URL_ADDR]);
 
             bluetoothClient = new BluetoothClient();
-            if (parsed_url[URL_PIN] != null)
-                bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
+
+            try{
+                if (parsed_url[URL_PIN] != null)
+                    bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
+            }catch(Exception e){
+                Logger.error("BluetoothStream", "SetPin");
+            }
             BluetoothEndPoint btep;
 
             // force serviceid for some popular china BT adapters
