@@ -15,6 +15,7 @@ public class ConfigVehicleData
     
     public string Name{get; set;}
     public string ECUEngine{get; set;}
+    public string EngineInit{get; set;}
     
     public List<string> Sensors{ get; set;}
     
@@ -56,7 +57,7 @@ public class ConfigData
     {
         this.Port = "COM1";
         this.LogLevel = "ERROR";
-        this.Vehicle = "OBD-II compatible, 1.6l";
+        this.Vehicle = "OBD-II compatible";
 
         this.file = Path.Combine(HOBD.AppPath, "config.xml");
         
@@ -172,11 +173,24 @@ public class ConfigData
             reader.ReadStartElement();
             if ( reader.IsStartElement("obd") ){
                 reader.ReadStartElement();
-                v.ECUEngine = reader.ReadElementString("engine");
-                while(reader.NodeType == XmlNodeType.Element)
-                {
-                    v.Sensors.Add(reader.ReadElementString("sensors"));
-                }
+                    while(reader.NodeType == XmlNodeType.Element)
+                    {
+                        switch(reader.Name)
+                        {
+                            case "engine":
+                                v.ECUEngine = reader.ReadElementString("engine");
+                                break;
+                            case "engine-init":
+                                v.EngineInit = reader.ReadElementString("engine-init");
+                                break;
+                            case "sensors":
+                                v.Sensors.Add(reader.ReadElementString("sensors"));
+                                break;
+                            default:
+                                reader.ReadElementString();
+                                break;
+                        }
+                    }
                 reader.ReadEndElement();
             }
             while (reader.NodeType != XmlNodeType.EndElement){

@@ -244,11 +244,27 @@ namespace hobd
                     reader.ReadStartElement("section");
                     
                     if (reader.IsStartElement("grid")){
+
                         var rows = reader.GetAttribute("rows");
                         var cols = reader.GetAttribute("cols");
 
-                        var rows_a = rows.Split(seps).Select(r => int.Parse(r.Trim()));
-                        var cols_a = cols.Split(seps).Select(r => int.Parse(r.Trim()));
+                        var rows_a = rows.Split(seps).Select(r => r.Trim().Length == 0 ? 0 : int.Parse(r.Trim()));
+                        var cols_a = cols.Split(seps).Select(r => r.Trim().Length == 0 ? 0 : int.Parse(r.Trim()));
+
+                        var converted = new IEnumerable<int>[]{rows_a, cols_a}.Select( arr => {
+                            var arr_s = arr.Sum();
+                            if (arr_s < 100){
+                                var count = arr.Count(r => r == 0);
+                                if (count > 0){
+                                    int autosize = (100-arr_s) / count;
+                                    arr = arr.Select( r => r == 0 ? autosize : r);
+                                }
+                            }
+                            return arr;
+                        }).ToList();
+
+                        rows_a = converted[0].Select(r => r * this.layoutY / 100);
+                        cols_a = converted[1].Select(r => r * this.layoutX / 100);
                         
                         var grid = new Grid
                            {
