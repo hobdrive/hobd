@@ -83,19 +83,48 @@ public class UnitsConverter{
 
     public double Convert(string fromUnits, double value)
     {
+        if (fromUnits == null)
+            return value;
         if (this.Units == "metric"){
-            return metric[fromUnits](value);
+            if (!metric.ContainsKey(fromUnits))
+                return value;
+            else
+                return metric[fromUnits](value);
         }else{
-            return imperial[fromUnits](value);
+            if (!imperial.ContainsKey(fromUnits))
+                return value;
+            else
+                return imperial[fromUnits](value);
         }
+    }
+
+    public static double Invert(string fromUnits, double value)
+    {
+        if (fromUnits == null)
+            return value;
+        
+        if (metric.ContainsKey(fromUnits))
+            return metric[fromUnits](value);
+        if (imperial.ContainsKey(fromUnits))
+            return imperial[fromUnits](value);
+
+        return value;
     }
 
     public string ConvertUnits(string fromUnits)
     {
+        if (fromUnits == null)
+            return null;
         if (this.Units == "metric"){
-            return metric_s[fromUnits];
+            if (!metric_s.ContainsKey(fromUnits))
+                return fromUnits;
+            else
+                return metric_s[fromUnits];
         }else{
-            return imperial_s[fromUnits];
+            if (!imperial_s.ContainsKey(fromUnits))
+                return fromUnits;
+            else
+                return imperial_s[fromUnits];
         }
     }
 

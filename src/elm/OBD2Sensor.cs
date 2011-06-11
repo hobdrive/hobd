@@ -95,6 +95,15 @@ public class OBD2Sensor : CoreSensor
     {
         return (dataraw[data_offset+2+idx] & (1<<bit)) != 0 ? 1 : 0;
     }
+
+    public double getab()
+    {
+        return get(0)*255 + get(1);
+    }
+    public double getcd()
+    {
+        return get(2)*255 + get(3);
+    }
     
 }
 

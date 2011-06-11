@@ -4,6 +4,8 @@
   <!-- Means all the sensors which are currently displayed are also logged -->
   <track-passive>true</track-passive>
 
+  <track-accumulator>true</track-accumulator>
+
   <!-- Extra sensor tracking with minimum period. Each recording lasts for 20 seconds, with gap between recordings 5 minutes -->
   <track sensor="STFT1" period='0' gap='5min' length='20sec'/>
 

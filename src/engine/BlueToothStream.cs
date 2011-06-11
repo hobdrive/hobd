@@ -19,7 +19,21 @@ public class BluetoothStream: IStream
     public BluetoothStream()
     {}
 
-    /**
+    public static string ConstructUrl(string url, string svc, string pin)
+    {
+        string str = "btspp://" + url;
+        if (svc != null)
+        {
+            str = str + ":" + svc;
+        }
+        if (pin != null)
+        {
+            str = str + ";pin=" + pin;
+        }
+        return str;
+    }
+
+ /**
      * returns string array of {address, serviceid, pin}
      */
     public static string[] ParseUrl(string url)
@@ -52,13 +66,22 @@ public class BluetoothStream: IStream
             var parsed_url = ParseUrl(url);
             Logger.trace("BluetoothStream", "Open " + parsed_url[URL_ADDR] + " serviceid " + parsed_url[URL_SVC] + " pin " + parsed_url[URL_PIN]);
 
-            BluetoothRadio.PrimaryRadio.Mode = RadioMode.Discoverable;
+            try{
+                BluetoothRadio.PrimaryRadio.Mode = RadioMode.Discoverable;
+            }catch(Exception e){
+                Logger.error("BluetoothStream", "set_Mode", e);
+            }
 
             BluetoothAddress address = BluetoothAddress.Parse(parsed_url[URL_ADDR]);
 
             bluetoothClient = new BluetoothClient();
-            if (parsed_url[URL_PIN] != null)
-                bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
+
+            try{
+                if (parsed_url[URL_PIN] != null)
+                    bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
+            }catch(Exception e){
+                Logger.error("BluetoothStream", "SetPin");
+            }
             BluetoothEndPoint btep;
 
             // force serviceid for some popular china BT adapters

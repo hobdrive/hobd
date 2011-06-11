@@ -12,8 +12,8 @@ namespace hobd.elm.injector
 public class LitersPerHourSensor : CoreSensor
 {
     public int ListenInterval{get; set;}
-    int cylinders = 0;
-    double injectorccpm = 0;
+    int cylinders = 4;
+    double injectorccpm = 134.23;
     Sensor ipw, rpm;
         
     public LitersPerHourSensor()

@@ -38,6 +38,11 @@ public class FuelConsumedSensor : PersistentSensor
         registry.TriggerListeners(this);
     }
 
+    public void SetValue(double value)
+    {
+        this.Value = value;
+    }
+
 }
 
 }

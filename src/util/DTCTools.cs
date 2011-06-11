@@ -24,7 +24,7 @@ public class DTCTools
                     var line = sr.ReadLine();
                     if (line == null)
                         break;
-                    if (line.Length < 5 || line[5] != ' ')
+                    if (line.Length < 6 || line[5] != ' ')
                         continue;
                     
                     var cur_dtc = line.Substring(0, 5);
@@ -37,7 +37,9 @@ public class DTCTools
                 }
                 sr.Close();
             });
-        }catch(Exception){}
+        }catch(Exception e){
+            Logger.error("DTCTools", "failed", e);
+        }
 
         return result;
     }

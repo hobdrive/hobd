@@ -24,6 +24,8 @@ public class Engine
      */
     public string Error {get; protected set;}
     
+    public string StateDetails { get; protected set; }
+
     public static Engine CreateInstance(string engineclass)
     {
         return (Engine)Assembly.GetExecutingAssembly().CreateInstance(engineclass);

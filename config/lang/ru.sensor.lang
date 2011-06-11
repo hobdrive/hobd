@@ -1,5 +1,5 @@
-sname.PID_02  = PID_02
-sdesc.PID_02 = Ошибка ECU
+sname.DTCFRZF  = DTCFRZF
+sdesc.DTCFRZF = Ошибка ECU
 
 sname.FuelSystemStatus  = Fuel system status
 sdesc.FuelSystemStatus = Топливная система, статус
@@ -157,8 +157,8 @@ sdesc.PID_E1 = -
 sname.PID_E2  = PID_E2
 sdesc.PID_E2 = -
 
-sname.FuelPressure  = PID_E3
-sdesc.FuelPressure = Давление топлива
+sname.FuelPressureExt  = FuelPressure
+sdesc.FuelPressureExt = Давление топлива
 
 sname.InjectorPulseWidth  = Имп. форсунки
 sdesc.InjectorPulseWidth = Длительность импульса открытия форсунки
@@ -381,12 +381,6 @@ sdesc.FuelConsumed = Общий расход топлива за поездку
 
 sname.FuelEconomy_trip  = Расход топлива
 sdesc.FuelEconomy_trip = Топливная эффективность за поездку
-
-sname.FuelEconomy_short  = Кратковр. расход
-sdesc.FuelEconomy_short = Кратковременная топливная эффективность
-
-sname.FuelEconomy_instant  = Мгновенный расход
-sdesc.FuelEconomy_instant = Мгновенная топливная эффективность
 
 sname.TripTime  = Время в пути
 sdesc.TripTime = Общее время в пути

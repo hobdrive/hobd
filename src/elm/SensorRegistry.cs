@@ -12,6 +12,7 @@ public class SensorListener
     public Sensor sensor;
     public List<Action<Sensor>> listeners = new List<Action<Sensor>>();
     public int period = 0;
+    public long nextReading;
 }
 /**
  * Active set of sensors.
@@ -75,12 +76,29 @@ public class SensorRegistry
         sensor.SetRegistry(this);
     }
 
+    public void Remove(Sensor sensor)
+    {
+        sensors.Remove(sensor.ID);
+
+        if (sensor.Name != null)
+        {
+            sensorNames.Remove(sensor.Name);
+        }
+    }
+
     /**
      * Returns enumeration of all the available registered sensors
      */
     public IEnumerable<Sensor> EnumerateSensors()
     {
         return sensors.Values;
+    }
+
+    public IEnumerable<Sensor> Sensors
+    {
+        get {
+            return sensors.Values;
+        }
     }
     
     /**
@@ -117,9 +135,12 @@ public class SensorRegistry
             }else{
                 SensorListener sl = null;
                 var sensor = triggerQueue.Dequeue();
-                activeSensors.TryGetValue(sensor, out sl);
-                
+                if (sensor != null)
+                {
+                    activeSensors.TryGetValue(sensor, out sl);
+                }
                 if (sl != null) {
+                    sl.nextReading = DateTimeMs.Now + sl.period;
                     foreach(Action<Sensor> l in sl.listeners.ToArray()) {
                         try{
                             l(sensor);
@@ -144,8 +165,12 @@ public class SensorRegistry
 
     public void TriggerListeners(Sensor sensor)
     {
-        if (sensor == null) throw new ArgumentNullException();
-        triggerQueue.Enqueue(sensor);
+        if (sensor == null)
+            throw new ArgumentNullException();
+        SensorListener sl = null;
+        activeSensors.TryGetValue(sensor, out sl);
+        if (sl != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
+            triggerQueue.Enqueue(sensor);
     }
     /**
      * Triggers sensor suspend event for all sensors that supports it

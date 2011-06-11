@@ -456,9 +456,9 @@ BYTE 3(b7) - Fail Safe Drive (Main CPU)
     </value>
   </parameter>
 
-  <parameter id="FuelPressure">
+  <parameter id="FuelPressureExt">
     <description lang="ru">
-      <name>PID_E3</name>
+      <name>FuelPressure</name>
       <unit>МПа</unit>
       <description>Давление топлива</description>
     </description>

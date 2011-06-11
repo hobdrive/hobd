@@ -39,9 +39,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_A1",
                 Name = "PID_A1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xA1,
                 
             };
@@ -54,9 +55,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_A2",
                 Name = "PID_A2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xA2,
                 
             };
@@ -69,9 +71,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_A3",
                 Name = "PID_A3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xA3,
                 
             };
@@ -84,9 +87,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_A8",
                 Name = "PID_A8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xA8,
                 
             };
@@ -99,9 +103,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_A9",
                 Name = "PID_A9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xA9,
                 
             };
@@ -114,9 +119,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_AA",
                 Name = "PID_AA",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xAA,
                 
             };
@@ -129,9 +135,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_AC",
                 Name = "PID_AC",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xAC,
                 
             };
@@ -144,9 +151,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B1",
                 Name = "PID_B1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xB1,
                 
             };
@@ -159,9 +167,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -174,9 +183,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x01);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x01);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -189,9 +199,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x02);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x02);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -204,9 +215,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x03);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x03);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -219,9 +231,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x04);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x04);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -234,9 +247,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B2",
                 Name = "PID_B2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x05);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x05);
+                      },
+                  
                 Command = 0xB2,
                 
             };
@@ -249,9 +263,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 1);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -264,9 +279,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 2);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 2);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -279,9 +295,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 3);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 3);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -294,9 +311,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 4);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 4);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -309,9 +327,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 5);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 5);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -324,9 +343,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 6);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 6);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -339,9 +359,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x02);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x02);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -354,9 +375,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x03);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x03);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -369,9 +391,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x04);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x04);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -384,9 +407,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_B3",
                 Name = "PID_B3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x05);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x05);
+                      },
+                  
                 Command = 0xB3,
                 
             };
@@ -399,9 +423,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.ATFTemp",
                 Name = "ATFTemp",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x0) - 40;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x0) - 40;
+                      },
+                  
                 Command = 0xB4,
                 
             };
@@ -414,9 +439,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_C3",
                 Name = "PID_C3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xC3,
                 
             };
@@ -429,9 +455,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_D1",
                 Name = "PID_D1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xD1,
                 
             };
@@ -444,9 +471,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_DA",
                 Name = "PID_DA",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00) * 2.5;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00) * 2.5;
+                      },
+                  
                 Command = 0xDA,
                 
             };
@@ -459,9 +487,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_DA",
                 Name = "PID_DA",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x02) * 2.5;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x02) * 2.5;
+                      },
+                  
                 Command = 0xDA,
                 
             };
@@ -474,9 +503,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_DA",
                 Name = "PID_DA",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x04) * 2.5;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x04) * 2.5;
+                      },
+                  
                 Command = 0xDA,
                 
             };
@@ -489,9 +519,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E1",
                 Name = "PID_E1",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xE1,
                 
             };
@@ -504,24 +535,26 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E2",
                 Name = "PID_E2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xE2,
                 
             };
         
         registry.Add(s);
 
-        // ToyotaFuelPressure
+        // ToyotaFuelPressureExt
         s = new OBD2Sensor()
             {
-                ID = "Toyota.FuelPressure",
-                Name = "FuelPressure",
+                ID = "Toyota.FuelPressureExt",
+                Name = "FuelPressureExt",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00) * 816 / 255;
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00) * 816 / 255;
+                      },
+                  
                 Command = 0xE3,
                 
             };
@@ -534,9 +567,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.InjectorPulseWidth",
                 Name = "InjectorPulseWidth",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0x00) * (32.60/255));
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0x00) * (32.60/255));
+                      },
+                  
                 Command = 0xE4,
                 
             };
@@ -551,9 +585,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.IdleDutyCycle",
                 Name = "IdleDutyCycle",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return (get(0x00) * (99.4/255));
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0x00) * (99.4/255));
+                      },
+                  
                 Command = 0xE6,
                 
             };
@@ -568,9 +603,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E7",
                 Name = "PID_E7",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xE7,
                 
             };
@@ -583,9 +619,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 1);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -598,9 +635,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 2);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 2);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -613,9 +651,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 3);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 3);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -628,9 +667,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_NP",
                 Name = "AT_NP",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 4);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 4);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -643,9 +683,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 5);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 5);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -658,9 +699,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 6);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 6);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -673,9 +715,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 7);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 7);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -688,9 +731,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 0);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -703,9 +747,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 1);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -718,9 +763,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x02, 0);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x02, 0);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -733,9 +779,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x02, 6);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x02, 6);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -748,9 +795,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_E8",
                 Name = "PID_E8",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x02, 7);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x02, 7);
+                      },
+                  
                 Command = 0xE8,
                 
             };
@@ -763,9 +811,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EC",
                 Name = "PID_EC",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xEC,
                 
             };
@@ -778,9 +827,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_ED",
                 Name = "PID_ED",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xED,
                 
             };
@@ -793,9 +843,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x01);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x01);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -808,9 +859,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x02);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x02);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -823,9 +875,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x03);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x03);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -838,9 +891,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x04);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x04);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -853,9 +907,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x05);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x05);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -868,9 +923,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x06);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x06);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -883,9 +939,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x07);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x07);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -898,9 +955,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x08);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x08);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -913,9 +971,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x11);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x11);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -928,9 +987,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x12);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x12);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -943,9 +1003,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x13);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x13);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -958,9 +1019,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x14);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x14);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -973,9 +1035,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x15);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x15);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -988,9 +1051,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x16);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x16);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1003,9 +1067,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x17);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x17);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1018,9 +1083,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x18);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x18);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1033,9 +1099,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x21);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x21);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1048,9 +1115,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x22);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x22);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1063,9 +1131,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x24);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x24);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1078,9 +1147,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x25);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x25);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1093,9 +1163,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x26);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x26);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1108,9 +1179,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x27);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x27);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1123,9 +1195,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x28);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x28);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1138,9 +1211,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x31);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x31);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1153,9 +1227,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x32);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x32);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1168,9 +1243,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x33);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x33);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1183,9 +1259,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x34);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x34);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1198,9 +1275,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x35);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x35);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1213,9 +1291,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x36);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x36);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1228,9 +1307,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x37);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x37);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1243,9 +1323,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_EF",
                 Name = "PID_EF",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x38);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x38);
+                      },
+                  
                 Command = 0xEF,
                 
             };
@@ -1258,9 +1339,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F7",
                 Name = "PID_F7",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xF7,
                 
             };
@@ -1273,9 +1355,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.ShiftPosition",
                 Name = "ShiftPosition",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get(0x00);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get(0x00);
+                      },
+                  
                 Command = 0xF8,
                 
             };
@@ -1288,9 +1371,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_L",
                 Name = "AT_L",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 1-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 1-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1303,9 +1387,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_2",
                 Name = "AT_2",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 2-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 2-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1318,9 +1403,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_R",
                 Name = "AT_R",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 3-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 3-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1333,9 +1419,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 4-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 4-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1348,9 +1435,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_OD",
                 Name = "AT_OD",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 5-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 5-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1363,9 +1451,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_Kickdown",
                 Name = "AT_Kickdown",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 6-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 6-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1378,9 +1467,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.StopSignals",
                 Name = "StopSignals",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 7-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 7-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1393,9 +1483,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 8-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 8-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1408,9 +1499,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_3",
                 Name = "AT_3",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 1-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 1-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1423,9 +1515,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.AT_D",
                 Name = "AT_D",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 3-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 3-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1438,9 +1531,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 4-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 4-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1453,9 +1547,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 5-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 5-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1468,9 +1563,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 6-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 6-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1483,9 +1579,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_F9",
                 Name = "PID_F9",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x01, 7-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x01, 7-1);
+                      },
+                  
                 Command = 0xF9,
                 
             };
@@ -1498,9 +1595,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 1-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 1-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1513,9 +1611,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 2-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 2-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1528,9 +1627,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 3-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 3-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1543,9 +1643,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 4-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 4-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1558,9 +1659,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 5-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 5-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1573,9 +1675,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 6-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 6-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1588,9 +1691,10 @@ public class ToyotaSensors : SensorProvider
                 ID = "Toyota.PID_FB",
                 Name = "PID_FB",
                 
-                obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
-                                    return get_bit(0x00, 7-1);
-                                  },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return get_bit(0x00, 7-1);
+                      },
+                  
                 Command = 0xFB,
                 
             };
@@ -1664,7 +1768,7 @@ public class ToyotaSensors : SensorProvider
 
   public const string PID_E2 = "PID_E2";
 
-  public const string FuelPressure = "FuelPressure";
+  public const string FuelPressureExt = "FuelPressureExt";
 
   public const string InjectorPulseWidth = "InjectorPulseWidth";
 
@@ -1846,7 +1950,7 @@ public class ToyotaSensors : SensorProvider
   - PID_DA - PID_DA - OVC Duty Ratio - °
   - PID_E1 - PID_E1 - - - HEX
   - PID_E2 - PID_E2 - - - HEX
-  - FuelPressure - PID_E3 - Давление топлива - МПа
+  - FuelPressureExt - FuelPressure - Давление топлива - МПа
   - InjectorPulseWidth - Inj.pulse - Injector Pulse Width - ms
   - IdleDutyCycle - Idle Cycle - Idle Air Control Duty Cycle - %
   - PID_E7 - PID_E7 - Шаг системы EGR - HEX

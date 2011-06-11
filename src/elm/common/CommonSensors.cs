@@ -81,32 +81,6 @@ public class CommonSensors : SensorProvider
   
         registry.Add(s);
 
-        // CommonFuelEconomy_short
-        s = new hobd.FuelEconomyTripSensor()
-            {
-                ID = "Common.FuelEconomy_short",
-                Name = "FuelEconomy_short",
-                ResetPeriod = 40,
-
-            };
-        
-        s.Units = "lph";
-  
-        registry.Add(s);
-
-        // CommonFuelEconomy_instant
-        s = new hobd.FuelEconomyTripSensor()
-            {
-                ID = "Common.FuelEconomy_instant",
-                Name = "FuelEconomy_instant",
-                ResetPeriod = 4,
-
-            };
-        
-        s.Units = "lph";
-  
-        registry.Add(s);
-
         // CommonTripTime
         s = new hobd.TripTime()
             {
@@ -142,10 +116,6 @@ public class CommonSensors : SensorProvider
 
   public const string FuelEconomy_trip = "FuelEconomy_trip";
 
-  public const string FuelEconomy_short = "FuelEconomy_short";
-
-  public const string FuelEconomy_instant = "FuelEconomy_instant";
-
   public const string TripTime = "TripTime";
 
   public const string IdleTime = "IdleTime";
@@ -160,8 +130,6 @@ public class CommonSensors : SensorProvider
   - Acceleration - Acceleration - Current Acceleration - m/s^2
   - FuelConsumed - Fuel Consumed - Total fuel consumed - liters
   - FuelEconomy_trip - Fuel Economy - Total fuel economy on trip - lph
-  - FuelEconomy_short - Fuel Economy short - Short term fuel economy - lph
-  - FuelEconomy_instant - Fuel Economy instant - Short term fuel economy - lph
   - TripTime - Trip Time - Total trip time - seconds
   - IdleTime - Idle Time - Idle time (with speed less 5km) - seconds
 */

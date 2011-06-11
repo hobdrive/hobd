@@ -93,6 +93,7 @@ public class OBD2Engine : Engine
         
         State = state2;
         stateTS = DateTime.Now;
+        StateDetails = state2;
         lastReceiveTS = DateTimeMs.Now;
         
         if (Logger.TRACE) Logger.trace("OBD2Engine", " -> " + State);
@@ -100,14 +101,14 @@ public class OBD2Engine : Engine
         switch(State){
             case ST_INIT:
                 Error = null;
-                fireStateNotify(STATE_INIT);
                 try{
                     stream.Close();
                     Logger.info("OBD2Engine", "Open "+url);
+                    Thread.Sleep(100);
                     stream.Open(url);
                 }catch(Exception e){
                     Error = e.Message;
-                    Logger.error("OBD2Engine", Error, e);
+                    Logger.error("OBD2Engine", "Init Error", e);
                     SetState(ST_ERROR);
                     break;
                 }
@@ -140,18 +141,17 @@ public class OBD2Engine : Engine
                     SetState(ST_SENSOR_INIT);
                 }else{
                     SendCommand(extraInitCommands[extraInitIndex]);
+                    StateDetails = StateDetails + " " + this.extraInitCommands[this.extraInitIndex];
                     extraInitIndex++;
                 }
                 break;
             case ST_SENSOR_INIT:
-                SendCommand("0101");
+                SendCommand("0100");
                 break;
             case ST_QUERY_PROTOCOL:
                 SendCommand("ATDPN");
                 break;
             case ST_SENSOR:
-                
-                fireStateNotify(STATE_READ);
 
                 var sls = Registry.ActiveSensors;
                 
@@ -203,12 +203,22 @@ public class OBD2Engine : Engine
                         break;
                 }
                 break;
+        }
+
+        switch(State)
+        {
+            case ST_SENSOR:
+                fireStateNotify(STATE_READ);
+                break;
             case ST_SENSOR_ACK:
                 fireStateNotify(STATE_READ_DONE);
                 break;
             case ST_ERROR:
                 fireStateNotify(STATE_ERROR);
                 break;                
+            default:
+                fireStateNotify(STATE_INIT);
+                break;
         }
     }
         
@@ -250,7 +260,14 @@ public class OBD2Engine : Engine
                 SetState(ST_EXTRAINIT);
                 break;
             case ST_SENSOR_INIT:
-                SetState(ST_QUERY_PROTOCOL);
+                Error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
+                if (Error != null) {
+                    Logger.error("OBD2Engine", "Critical error:" + smsg);
+                    SetState(ST_ERROR);
+                }else{
+                    Logger.log("INFO", "OBD2Engine", "Sensor Init:" + smsg, null);
+                    SetState(ST_QUERY_PROTOCOL);
+                }
                 break;
             case ST_QUERY_PROTOCOL:
                 try{

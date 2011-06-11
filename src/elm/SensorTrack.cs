@@ -35,6 +35,7 @@ public class SensorTrack
     protected SensorRegistry Registry;
     protected string DataPath;
 
+    public bool TrackAccum = false;
     public bool TrackPassive = false;
     Dictionary<string, SensorTrackData> Settings = new Dictionary<string, SensorTrackData>();
 
@@ -42,11 +43,15 @@ public class SensorTrack
 
     public const string VersionID = "track0.";
 
-
-    public SensorTrack(string dataPath, string configPath)
+    public SensorTrack(string dataPath)
     {
         this.DataPath = dataPath;
+        if (!Directory.Exists(DataPath))
+            Directory.CreateDirectory(DataPath);
+    }
 
+    public void LoadConfig(string configPath)
+    {
         XmlReaderSettings xrs = new XmlReaderSettings();
         xrs.IgnoreWhitespace = true;
         xrs.IgnoreComments = true;
@@ -68,6 +73,9 @@ public class SensorTrack
                     case "track-passive":
                         this.TrackPassive = "true" == reader.ReadElementContentAsString();
                         break;
+                    case "track-accumulator":
+                        this.TrackAccum = "true" == reader.ReadElementContentAsString();
+                        break;
                     case "track":
                         SensorTrackData set = new SensorTrackData();
                         set.id = reader.GetAttribute("sensor");
@@ -84,9 +92,7 @@ public class SensorTrack
                 }
             }
             reader.Close();
-
-            if (!Directory.Exists(dataPath))
-                Directory.CreateDirectory(dataPath);
+        }catch(FileNotFoundException){
         }catch(Exception e){
             Logger.error("SensorHistory", "failed init", e);
             Settings.Clear();
@@ -140,6 +146,12 @@ public class SensorTrack
         if (this.TrackPassive)
         {
             Registry.AddPassiveListener(this.SensorChanged);
+        }
+        if (this.TrackAccum)
+        {
+            foreach(var s in Registry.Sensors.Where(s => s is IAccumulatorSensor)){
+                Registry.AddListener(s, this.SensorChanged);
+            }
         }
     }
 
@@ -201,15 +213,18 @@ public class SensorTrack
     
     protected virtual void StoreSensorData(SensorTrackData set)
     {
-         var sw = new BinaryWriter(new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append));
-
-         for(int i = 0; i < set.history_t.Count(); i++)
+         lock(this)
          {
-             sw.Write(set.history_t[i]);
-             sw.Write(set.history_v[i]);
+             var sw = new BinaryWriter(new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append));
+
+             for(int i = 0; i < set.history_t.Count(); i++)
+             {
+                 sw.Write(set.history_t[i]);
+                 sw.Write(set.history_v[i]);
+             }
+             set.history_t.Clear();
+             set.history_v.Clear();
          }
-         set.history_t.Clear();
-         set.history_v.Clear();
     }
 
     public virtual void Detach()
