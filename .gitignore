@@ -9,3 +9,9 @@ test/TestResult.xml
 lib/.net
 hobd.pidb
 hobd.userprefs
+
+*.ReSharper
+*.suo
+*.ReSharper.user
+*_ReSharper*
+*.stackdump

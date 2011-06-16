@@ -138,7 +138,6 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
 
     public void HandleTap(System.Drawing.Point point)
     {
-    	   
         //drawingGraphics.Style(this.Style).Bold(true).DrawText(this.text + n);
         if (this.HandleTapAction != null)
         {
