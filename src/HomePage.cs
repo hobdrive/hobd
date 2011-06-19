@@ -14,6 +14,7 @@ using Fleux.Core.Scaling;
 using Fleux.Styles;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
+using hobd.src.ui;
 
 namespace hobd
 {
@@ -329,7 +330,12 @@ namespace hobd
                 var sensor = HOBD.Registry.Sensor(id);
                 if (sensor != null)
                 {
-                    var sensorItem = new SensorTextElement(sensor, attrs);
+                    SensorTextElement sensorItem;
+                    if (id == "Speed")
+                        sensorItem = new VerticalBarElement(sensor, attrs);
+                    else 
+                        sensorItem = new SensorTextElement(sensor, attrs);
+
                     sensorItem.HandleTapAction = () => { sensorItem.Text = HOBD.t("sdesc."+sensor.Name); Redraw(); };
                     
                     List<SensorTextElement> ui_list = null;

@@ -50,8 +50,9 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         }
     }
 
-    int width;
-    int height;
+    protected int width;
+    protected int height;
+
 
     public SensorTextElement(Sensor sensor, Dictionary<string, string> attrs)
     {
@@ -104,14 +105,8 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
 
     public Action HandleTapAction { get; set; }
     
-    public void Draw(IDrawingGraphics drawingGraphics)
+    public virtual void Draw(IDrawingGraphics drawingGraphics)
     {
-        //drawingGraphics.Color(Color.FromArgb(100,100,100));
-        //drawingGraphics.DrawRectangle(0, 0, width, height);
-        
-        //drawingGraphics.Style(this.Style);
-        //drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
-
         if (panorama != null && !panorama.IsPanoramaAnimating)
         {
             if (this.Name != null)
@@ -127,13 +122,16 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
                   .DrawCenterText(this.TUnits, width, 20);
             }
         }
-        if (this.Text != null)
+        DrawText(drawingGraphics);
+    }
+
+    protected virtual void DrawText(IDrawingGraphics drawingGraphics)
+    {
+        if (Text != null)
             drawingGraphics
               .MoveTo(0, 0)
-              .Style(this.Style)
-              .DrawCenterText(this.Text, width, height);
-
-        //drawingGraphics.MoveTo(0, height-20).Style(HOBD.theme.PhoneTextNormalStyle).DrawText(this.Units);
+              .Style(Style)
+              .DrawCenterText(Text, width, height);
     }
 
     public void HandleTap(System.Drawing.Point point)
