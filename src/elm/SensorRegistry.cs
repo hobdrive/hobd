@@ -40,6 +40,8 @@ public class SensorRegistry
     
     public SensorRegistry()
     {
+        VehicleParameters = new Dictionary<string,string>();
+
         listenThread = new Thread(this.ListenerHandler);
         listenThread.Priority = ThreadPriority.AboveNormal;
         listenThread.Start();

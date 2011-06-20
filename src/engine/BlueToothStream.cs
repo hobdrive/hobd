@@ -79,7 +79,7 @@ public class BluetoothStream: IStream
             try{
                 if (parsed_url[URL_PIN] != null)
                     bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
-            }catch(Exception e){
+            }catch(Exception){
                 Logger.error("BluetoothStream", "SetPin");
             }
             BluetoothEndPoint btep;

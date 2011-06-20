@@ -215,15 +215,23 @@ public class SensorTrack
     {
          lock(this)
          {
-             var sw = new BinaryWriter(new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append));
-
-             for(int i = 0; i < set.history_t.Count(); i++)
+             try
              {
-                 sw.Write(set.history_t[i]);
-                 sw.Write(set.history_v[i]);
+                 var fs = new FileStream(Path.Combine(DataPath, VersionID + set.id), FileMode.Append);
+                 var sw = new BinaryWriter(fs);
+
+                 for(int i = 0; i < set.history_t.Count(); i++)
+                 {
+                     sw.Write(set.history_t[i]);
+                     sw.Write(set.history_v[i]);
+                 }
+                 set.history_t.Clear();
+                 set.history_v.Clear();
+                 sw.Close();
+                 fs.Close();
+             }catch(Exception e){
+                 Logger.error("StoreSensorData", "fail", e);
              }
-             set.history_t.Clear();
-             set.history_v.Clear();
          }
     }
 
