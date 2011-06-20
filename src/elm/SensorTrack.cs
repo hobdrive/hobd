@@ -194,7 +194,7 @@ public class SensorTrack
 
         set.LastTimeStamp = sensor.TimeStamp;
         // TODO: very rough.. extract logic via IAdaptable?
-        if (sensor is IAccumulatorSensor && set.history_t.Count > 0 && set.history_v[set.history_t.Count-1] < sensor.Value)
+        if (sensor is IAccumulatorSensor && set.history_t.Count > 0 && set.history_v[set.history_t.Count-1] <= sensor.Value)
         {
             set.history_t[set.history_t.Count-1] = sensor.TimeStamp;
             set.history_v[set.history_t.Count-1] = sensor.Value;
