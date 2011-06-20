@@ -19,7 +19,7 @@
     </value>
   </parameter>
 
-  <parameter id="FuelSystemStatus">
+  <parameter id="FuelSystemStatus" display="FUELSYS">
     <description lang="ru">
       <name>Fuel system status</name>
       <description>Топливная система, статус</description>
@@ -27,12 +27,10 @@
     <address>
       <byte>0x03</byte>
     </address>
-    <value>
-      get(0)
-    </value>
+    <valueab>1</valueab>
   </parameter>
 
-  <parameter id="EngineLoad">
+  <parameter id="EngineLoad" display="LOAD_PCT">
     <description lang="en">
       <name>Engine Load</name><unit>%</unit><description>Calculated engine load value</description>
     </description>
@@ -43,7 +41,7 @@
     <value> get(0) * 100 / 255 </value>
   </parameter>
 
-  <parameter id="CoolantTemp">
+  <parameter id="CoolantTemp" display="ECT">
     <description>
       <name>CoolantTemp</name>
       <unit>celsius</unit>

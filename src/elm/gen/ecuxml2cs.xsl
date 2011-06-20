@@ -73,19 +73,13 @@ public class <xsl:value-of select='$class'/> : SensorProvider
                       },
                   </xsl:if>
                   <xsl:if test="valuea">
-                      obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
-                        return p.get(0)*<xsl:value-of select='normalize-space(valuea)'/>;
-                      },
+                      obdValue = (p) => { return p.get(0)*<xsl:value-of select='normalize-space(valuea)'/>; },
                   </xsl:if>
                   <xsl:if test="valueab">
-                      obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
-                        return p.getab()*<xsl:value-of select='normalize-space(valueab)'/>;
-                      },
+                      obdValue = (p) => { return p.getab()*<xsl:value-of select='normalize-space(valueab)'/>; },
                   </xsl:if>
                   <xsl:if test="valuecd">
-                      obdValue = (p) => { Func&lt;int, double&gt; get = p.get; Func&lt;int, int, double&gt; get_bit = p.get_bit;
-                        return p.getcd()*<xsl:value-of select='normalize-space(valuecd)'/>;
-                      },
+                      obdValue = (p) => { return p.getcd()*<xsl:value-of select='normalize-space(valuecd)'/>; },
                   </xsl:if>
                 Command = <xsl:value-of select='address/byte'/>,
                 </xsl:if>
