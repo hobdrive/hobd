@@ -21,8 +21,8 @@ public class SpeedSensor : OBD2Sensor
         
         try{
             this.correction = double.Parse(registry.VehicleParameters["speed-correction"], UnitsConverter.DefaultNumberFormat);
-        }catch(Exception e){
-            Logger.info("SpeedSensor", "Using default coefficient", e);
+        }catch(Exception){
+            Logger.info("SpeedSensor", "Using default coefficient");
         }
     }
 

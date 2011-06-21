@@ -18,10 +18,13 @@ public class DistanceSensor : PersistentSensor
         ListenInterval = 5000;
     }
 
-    public override void SetRegistry(SensorRegistry registry)
+    public override void Activate()
     {
-        base.SetRegistry(registry);
         registry.AddListener(OBD2Sensors.Speed, OnSpeedChange, ListenInterval);
+    }
+    public override void Deactivate()
+    {
+        registry.RemoveListener(OBD2Sensors.Speed, OnSpeedChange);
     }
 
     public void OnSpeedChange(Sensor speed)

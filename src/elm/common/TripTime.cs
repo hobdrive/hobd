@@ -7,15 +7,21 @@ namespace hobd
 public class TripTime : PersistentSensor
 {
     long prevStamp;
+
+    public int ListenInterval{get; set;}
         
     public TripTime()
     {
+        ListenInterval = 2000;
     }
 
-    public override void SetRegistry(SensorRegistry registry)
+    public override void Activate()
     {
-        base.SetRegistry(registry);
-        registry.AddListener(OBD2Sensors.Speed, OnChange, 2000);
+        registry.AddListener(OBD2Sensors.Speed, OnChange, ListenInterval);
+    }
+    public override void Deactivate()
+    {
+        registry.RemoveListener(OBD2Sensors.Speed, OnChange);
     }
 
     public void OnChange(Sensor s)
