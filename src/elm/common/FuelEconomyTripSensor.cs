@@ -4,14 +4,13 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-public class FuelEconomyTripSensor : CoreSensor, IAccumulatorSensor
+public class FuelEconomyTripSensor : CoreSensor
 {
     Sensor distance, fuel;
     string DistanceId;
     string FuelId;
 
     public int ListenInterval{get; set;}
-    public int ResetPeriod{get; set;}
 
     public FuelEconomyTripSensor(string distance_id, string fuel_id) : this()
     {
@@ -20,13 +19,10 @@ public class FuelEconomyTripSensor : CoreSensor, IAccumulatorSensor
     }
 
     int cscan = 0;
-    double h_fuel = 0;
-    double h_distance = 0;
 
     public FuelEconomyTripSensor()
     {
         ListenInterval = 2000;
-        ResetPeriod = 0;
         Value = Double.PositiveInfinity;
         DistanceId = "DistanceRun";
         FuelId = "FuelConsumed";
@@ -50,32 +46,16 @@ public class FuelEconomyTripSensor : CoreSensor, IAccumulatorSensor
     {
         TimeStamp = s.TimeStamp;
         
-        if (distance.Value - h_distance <= 0 || fuel.Value - h_fuel <= 0)
+        if (distance.Value <= 0 || fuel.Value <= 0)
         {
             Value = Double.PositiveInfinity;
         }else{
-            Value = (fuel.Value - h_fuel)  * 100 / (distance.Value - h_distance);
+            Value = fuel.Value * 100 / distance.Value;
         }
         if (s != distance)
             return;
         registry.TriggerListeners(this);
         cscan++;
-        if (ResetPeriod != 0 && cscan >= ResetPeriod){
-            cscan = 0;
-            //h_fuel = (h_fuel + fuel.Value) / 2;
-            //h_distance = (h_distance + distance.Value) / 2;
-            h_fuel = fuel.Value;
-            h_distance = distance.Value;
-        }
-    }
-
-    public virtual void Reset()
-    {
-        h_fuel = 0;
-        h_distance = 0;
-    }
-    public virtual void Suspend()
-    {
     }
 
 }
