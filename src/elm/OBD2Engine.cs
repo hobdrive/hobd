@@ -32,6 +32,8 @@ public class OBD2Engine : Engine
     public int ProtocolId{get; protected set;}
 
     public const int ErrorThreshold = 10;
+
+    public int ReadDelay = 0;
     
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
@@ -357,6 +359,11 @@ public class OBD2Engine : Engine
                 position = 0;
             }
             if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
+            if (ReadDelay > 0)
+            {
+                if (Logger.TRACE) Logger.trace("OBD2Engine", "Sleeping "+ReadDelay+" ms");
+                Thread.Sleep(ReadDelay);
+            }
             data = null;
             lastReceiveTS = DateTimeMs.Now;
         }
