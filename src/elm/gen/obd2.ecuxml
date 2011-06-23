@@ -246,7 +246,37 @@
     <value> (((get(0)*256)+get(1)) * 10) </value>
   </parameter>
 
-  <parameter id="FuelLevel">
+  <parameter id="CommandedEGR" display="EGR_PCT">
+    <description>
+      <name>CommandedEGR</name>
+      <description>Commanded EGR</description>
+      <unit>%</unit>
+    </description>
+    <address> <byte>0x2C</byte> </address>
+    <valuea> 100/255 </valuea>
+  </parameter>
+
+  <parameter id="EGRError" display="EGR_ERR">
+    <description>
+      <name>EGRError</name>
+      <description>EGR Error</description>
+      <unit>%</unit>
+    </description>
+    <address> <byte>0x2D</byte> </address>
+    <value> (get(0)-128)*100/128 </value>
+  </parameter>
+
+  <parameter id="Commanded_EVAP" display="EVAP_PCT">
+    <description>
+      <name>Commanded_EVAP</name>
+      <description>Commanded Evaporative Purge</description>
+      <unit>%</unit>
+    </description>
+    <address> <byte>0x2E</byte> </address>
+    <valuea> 100/255 </valuea>
+  </parameter>
+
+  <parameter id="FuelLevel" display="FLI">
     <description>
       <name>Fuel Level</name>
       <unit>%</unit>

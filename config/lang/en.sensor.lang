@@ -151,6 +151,15 @@ sdesc.FuelRailPressure_rel = Fuel Rail Pressure relative
 sname.FuelRailPressure_diesel  = FRP diesel
 sdesc.FuelRailPressure_diesel = Fuel Rail Pressure diesel
 
+sname.CommandedEGR  = CommandedEGR
+sdesc.CommandedEGR = Commanded EGR
+
+sname.EGRError  = EGRError
+sdesc.EGRError = EGR Error
+
+sname.Commanded_EVAP  = Commanded_EVAP
+sdesc.Commanded_EVAP = Commanded Evaporative Purge
+
 sname.FuelLevel  = Fuel Level
 sdesc.FuelLevel = 
 

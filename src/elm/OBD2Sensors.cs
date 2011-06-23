@@ -931,6 +931,56 @@ public class OBD2Sensors : SensorProvider
   
         registry.Add(s);
 
+        // OBD2CommandedEGR
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.CommandedEGR",
+                Name = "CommandedEGR",
+                
+                      obdValue = (p) => { return p.get(0)*100/255; },
+                  
+                Command = 0x2C,
+                
+            };
+        
+        s.Units = "%";
+  
+        registry.Add(s);
+
+        // OBD2EGRError
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.EGRError",
+                Name = "EGRError",
+                
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return (get(0)-128)*100/128;
+                      },
+                  
+                Command = 0x2D,
+                
+            };
+        
+        s.Units = "%";
+  
+        registry.Add(s);
+
+        // OBD2Commanded_EVAP
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.Commanded_EVAP",
+                Name = "Commanded_EVAP",
+                
+                      obdValue = (p) => { return p.get(0)*100/255; },
+                  
+                Command = 0x2E,
+                
+            };
+        
+        s.Units = "%";
+  
+        registry.Add(s);
+
         // OBD2FuelLevel
         s = new OBD2Sensor()
             {
@@ -1266,6 +1316,12 @@ public class OBD2Sensors : SensorProvider
 
   public const string FuelRailPressure_diesel = "FuelRailPressure_diesel";
 
+  public const string CommandedEGR = "CommandedEGR";
+
+  public const string EGRError = "EGRError";
+
+  public const string Commanded_EVAP = "Commanded_EVAP";
+
   public const string FuelLevel = "FuelLevel";
 
   public const string DistanceMILCleared = "DistanceMILCleared";
@@ -1353,6 +1409,9 @@ public class OBD2Sensors : SensorProvider
   - DistanceMIL - Distance with MIL - Distance traveled with malfunction indicator lamp - km
   - FuelRailPressure_rel - FRP rel - Fuel Rail Pressure relative - kPa
   - FuelRailPressure_diesel - FRP diesel - Fuel Rail Pressure diesel - kPa
+  - CommandedEGR - CommandedEGR - Commanded EGR - %
+  - EGRError - EGRError - EGR Error - %
+  - Commanded_EVAP - Commanded_EVAP - Commanded Evaporative Purge - %
   - FuelLevel - Fuel Level -  - %
   - DistanceMILCleared - MIL Cleared distance - Distance traveled since MIL is cleared - km
   - VaporPressure - Evaporative Pressure - Evaporative system vapor pressure - Pa
