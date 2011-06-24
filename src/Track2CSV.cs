@@ -10,7 +10,6 @@
         {
             using (FileStream stream = new FileStream(file, FileMode.Open))
             {
-                bool flag;
                 BinaryReader reader = new BinaryReader(stream);
                 FileStream stream2 = new FileStream(file + ".csv", FileMode.Create);
                 StreamWriter writer = new StreamWriter(stream2);
@@ -21,7 +20,7 @@
                 {
                     long num2 = reader.ReadInt64();
                     double num3 = reader.ReadDouble();
-                    string str = new DateTime(num2 * 0x2710L).ToString("yyyy MM d HH:mm:ss.ffff");
+                    string str = new DateTime(num2 * 0x2710L).ToString("yyyy MM dd HH:mm:ss.ffff");
                     if (num == 0L)
                     {
                         num = num2;
@@ -34,7 +33,6 @@
                     goto Label_00A4;
                 }
             Label_009F:
-                flag = true;
                 goto Label_0030;
             Label_00A4:
                 reader.Close();
