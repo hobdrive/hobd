@@ -75,12 +75,14 @@ public class Logger
             e = e.GetBaseException();
             msg +=  "BaseException:\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
         }
-        System.Console.WriteLine(msg);
-        if (fs != null)
-        {
-            fs.Write(msg+"\n");
-            fs.Flush();    
-        }
+        try{
+            System.Console.WriteLine(msg);
+            if (fs != null)
+            {
+                fs.Write(msg+"\n");
+                fs.Flush();    
+            }
+        }catch(Exception){}
     }
 
     
