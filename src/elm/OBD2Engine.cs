@@ -330,12 +330,14 @@ public class OBD2Engine : Engine
         }
     }
         
+    public int SleepOnError = 500;
+
     void HandleState()
     {
         
         if (State == ST_ERROR)
         {
-            Thread.Sleep(50);
+            Thread.Sleep(SleepOnError);
             return;
         }
 
