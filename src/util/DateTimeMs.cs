@@ -25,6 +25,11 @@ public class DateTimeMs
            break;
          }
        }
+       Reset();
+    }
+
+    public static void Reset()
+    {
        systemStartMS = (DateTime.Now - new TimeSpan((long)(Environment.TickCount)*10000)).Ticks / 10000;
     }
 
@@ -57,8 +62,8 @@ public class DateTimeMs
     {
        get
        {
-         //return systemStartMS + Environment.TickCount;
-         return NowMs.Ticks / 10000;
+         return systemStartMS + Environment.TickCount;
+         //return NowMs.Ticks / 10000;
        }
     }
 
