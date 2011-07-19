@@ -395,7 +395,6 @@ public class OBD2Engine : Engine
 
     public int PingTimeout = 1000;
     public int NoResponseTimeout = 5000;
-    public int ReconnectTimeout = 10000;
     
     void Run()
     {

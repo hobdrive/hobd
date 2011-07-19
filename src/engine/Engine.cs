@@ -19,6 +19,8 @@ public class Engine
     
     public event Action<int> StateNotify;
 
+    public virtual int ReconnectTimeout{ get; set; }
+
     /**
      * Reason of the last error condition
      */
@@ -33,7 +35,7 @@ public class Engine
 
     public Engine()
     {
-    
+        this.ReconnectTimeout = 10000;
     }
     
     public virtual void Init(IStream stream, string url, string initData)
