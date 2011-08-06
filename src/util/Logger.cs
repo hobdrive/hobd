@@ -77,6 +77,9 @@ public class Logger
         }
         try{
             System.Console.WriteLine(msg);
+#if __ANDROID__
+            Android.Util.Log.Error("", msg);
+#endif
             if (fs != null)
             {
                 fs.Write(msg+"\n");

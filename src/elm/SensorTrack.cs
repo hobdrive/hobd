@@ -237,6 +237,8 @@ public class SensorTrack
 
     public virtual void Detach()
     {
+        if (Registry == null) return;
+
         Registry.RemoveListener(this.SensorChanged);
         Registry.RemovePassiveListener(this.SensorChanged);
         foreach(var id in Settings.Keys)
