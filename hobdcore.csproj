@@ -137,6 +137,7 @@
     <Compile Include="src\util\StaticHelpers.cs" />
     <Compile Include="src\util\UnitsConverter.cs" />
     <Compile Include="src\util\DTCTools.cs" />
+    <Compile Include="src\stream\TCPStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
