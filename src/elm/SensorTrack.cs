@@ -168,7 +168,7 @@ public class SensorTrack
         if (set.LastTimeStamp == sensor.TimeStamp)
             return;
 
-        if (Logger.TRACE) Logger.trace("SensorTrack", "SensorChanged " +sensor.ID);
+        if (Logger.DUMP) Logger.dump("SensorTrack", "SensorChanged " +sensor.ID);
 
         lock(set)
         {
