@@ -104,6 +104,15 @@ public class OBD2Sensor : CoreSensor
     {
         return get(2)*256 + get(3);
     }
+
+    public double getbc()
+    {
+        return get(1)*256 + get(2);
+    }
+    public double getde()
+    {
+        return get(3)*256 + get(4);
+    }
     
 }
 

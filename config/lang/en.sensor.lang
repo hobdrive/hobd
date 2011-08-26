@@ -193,6 +193,24 @@ sdesc.FuelInjectionTiming =
 sname.LitersPerHour  = Fuel Flow Rate
 sdesc.LitersPerHour = 
 
+sname.TCA_CINP  = TC Pressure A
+sdesc.TCA_CINP = Turbocharger Compressor Inlet Pressure A
+
+sname.TCB_CINP  = TC Pressure B
+sdesc.TCB_CINP = Turbocharger Compressor Inlet Pressure B
+
+sname.EP_1  = Exhaust Pressure B1
+sdesc.EP_1 = 
+
+sname.EP_2  = Exhaust Pressure B2
+sdesc.EP_2 = 
+
+sname.TCA_RPM  = TC RPM A
+sdesc.TCA_RPM = Turbocharger RPM A
+
+sname.TCB_RPM  = TC RPM B
+sdesc.TCB_RPM = Turbocharger RPM B
+
 sname.MIL  = MIL
 sdesc.MIL = List of DTC codes
 

@@ -1173,7 +1173,103 @@ public class OBD2Sensors : SensorProvider
                 
             };
         
-        s.Units = "lph";
+        s.Units = "lphour";
+  
+        registry.Add(s);
+
+        // OBD2TCA_CINP
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.TCA_CINP",
+                Name = "TCA_CINP",
+                
+                      obdValue = (p) => { return p.get(1)*1; },
+                  
+                Command = 0x6F,
+                
+            };
+        
+        s.Units = "kPa";
+  
+        registry.Add(s);
+
+        // OBD2TCB_CINP
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.TCB_CINP",
+                Name = "TCB_CINP",
+                
+                      obdValue = (p) => { return p.get(2)*1; },
+                  
+                Command = 0x6F,
+                
+            };
+        
+        s.Units = "kPa";
+  
+        registry.Add(s);
+
+        // OBD2EP_1
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.EP_1",
+                Name = "EP_1",
+                
+                      obdValue = (p) => { return p.getbc()*0.01; },
+                  
+                Command = 0x73,
+                
+            };
+        
+        s.Units = "kPa";
+  
+        registry.Add(s);
+
+        // OBD2EP_2
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.EP_2",
+                Name = "EP_2",
+                
+                      obdValue = (p) => { return p.getde()*0.01; },
+                  
+                Command = 0x73,
+                
+            };
+        
+        s.Units = "kPa";
+  
+        registry.Add(s);
+
+        // OBD2TCA_RPM
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.TCA_RPM",
+                Name = "TCA_RPM",
+                
+                      obdValue = (p) => { return p.getbc()*1; },
+                  
+                Command = 0x74,
+                
+            };
+        
+        s.Units = "rpm";
+  
+        registry.Add(s);
+
+        // OBD2TCB_RPM
+        s = new OBD2Sensor()
+            {
+                ID = "OBD2.TCB_RPM",
+                Name = "TCB_RPM",
+                
+                      obdValue = (p) => { return p.getde()*1; },
+                  
+                Command = 0x74,
+                
+            };
+        
+        s.Units = "rpm";
   
         registry.Add(s);
 
@@ -1344,6 +1440,18 @@ public class OBD2Sensors : SensorProvider
 
   public const string LitersPerHour = "LitersPerHour";
 
+  public const string TCA_CINP = "TCA_CINP";
+
+  public const string TCB_CINP = "TCB_CINP";
+
+  public const string EP_1 = "EP_1";
+
+  public const string EP_2 = "EP_2";
+
+  public const string TCA_RPM = "TCA_RPM";
+
+  public const string TCB_RPM = "TCB_RPM";
+
   public const string MIL = "MIL";
 
   public const string PMIL = "PMIL";
@@ -1422,7 +1530,13 @@ public class OBD2Sensors : SensorProvider
   - AirTemp - Air Temp - Outside air temperature - celsius
   - EngineOilTemp - Engine Oil Temperature -  - celsius
   - FuelInjectionTiming - Fuel Injection Timing -  - degree
-  - LitersPerHour - Fuel Flow Rate -  - lph
+  - LitersPerHour - Fuel Flow Rate -  - lphour
+  - TCA_CINP - TC Pressure A - Turbocharger Compressor Inlet Pressure A - kPa
+  - TCB_CINP - TC Pressure B - Turbocharger Compressor Inlet Pressure B - kPa
+  - EP_1 - Exhaust Pressure B1 -  - kPa
+  - EP_2 - Exhaust Pressure B2 -  - kPa
+  - TCA_RPM - TC RPM A - Turbocharger RPM A - rpm
+  - TCB_RPM - TC RPM B - Turbocharger RPM B - rpm
   - MIL - MIL - List of DTC codes - 
   - PMIL - PMIL - List of Pending DTC codes - 
   - ClearDTC - ClearDTC - Clear DTC request - 

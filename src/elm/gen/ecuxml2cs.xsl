@@ -75,11 +75,23 @@ public class <xsl:value-of select='$class'/> : SensorProvider
                   <xsl:if test="valuea">
                       obdValue = (p) => { return p.get(0)*<xsl:value-of select='normalize-space(valuea)'/>; },
                   </xsl:if>
+                  <xsl:if test="valueb">
+                      obdValue = (p) => { return p.get(1)*<xsl:value-of select='normalize-space(valueb)'/>; },
+                  </xsl:if>
+                  <xsl:if test="valuec">
+                      obdValue = (p) => { return p.get(2)*<xsl:value-of select='normalize-space(valuec)'/>; },
+                  </xsl:if>
                   <xsl:if test="valueab">
                       obdValue = (p) => { return p.getab()*<xsl:value-of select='normalize-space(valueab)'/>; },
                   </xsl:if>
                   <xsl:if test="valuecd">
                       obdValue = (p) => { return p.getcd()*<xsl:value-of select='normalize-space(valuecd)'/>; },
+                  </xsl:if>
+                  <xsl:if test="valuebc">
+                      obdValue = (p) => { return p.getbc()*<xsl:value-of select='normalize-space(valuebc)'/>; },
+                  </xsl:if>
+                  <xsl:if test="valuede">
+                      obdValue = (p) => { return p.getde()*<xsl:value-of select='normalize-space(valuede)'/>; },
                   </xsl:if>
                 Command = <xsl:value-of select='address/byte'/>,
                 </xsl:if>

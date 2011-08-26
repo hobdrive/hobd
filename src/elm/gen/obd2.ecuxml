@@ -380,12 +380,85 @@
   <parameter id="LitersPerHour">
     <description>
       <name>Fuel Flow Rate</name>
-      <unit>lph</unit>
+      <unit>lphour</unit>
     </description>
     <address> <byte>0x5E</byte> </address>
     <value> (((get(0)*256)+get(1)) * 0.05) </value>
   </parameter>
 
+  <parameter id="TCA_CINP">
+    <description>
+      <name>TC Pressure A</name>
+      <description>Turbocharger Compressor Inlet Pressure A</description>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x6F</byte> </address>
+    <valueb> 1 </valueb>
+  </parameter>
+  <parameter id="TCB_CINP">
+    <description>
+      <name>TC Pressure B</name>
+      <description>Turbocharger Compressor Inlet Pressure B</description>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x6F</byte> </address>
+    <valuec> 1 </valuec>
+  </parameter>
+
+  <parameter id="EP_1">
+    <description>
+      <name>Exhaust Pressure B1</name>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x73</byte> </address>
+    <valuebc> 0.01 </valuebc>
+  </parameter>
+
+  <parameter id="EP_2">
+    <description>
+      <name>Exhaust Pressure B2</name>
+      <unit>kPa</unit>
+    </description>
+    <address> <byte>0x73</byte> </address>
+    <valuede> 0.01 </valuede>
+  </parameter>
+
+  <parameter id="TCA_RPM">
+    <description>
+      <name>TC RPM A</name>
+      <description>Turbocharger RPM A</description>
+      <unit>rpm</unit>
+    </description>
+    <address> <byte>0x74</byte> </address>
+    <valuebc> 1 </valuebc>
+  </parameter>
+  <parameter id="TCB_RPM">
+    <description>
+      <name>TC RPM B</name>
+      <description>Turbocharger RPM B</description>
+      <unit>rpm</unit>
+    </description>
+    <address> <byte>0x74</byte> </address>
+    <valuede> 1 </valuede>
+  </parameter>
+<!--
+  <parameter id="TCA_CINT">
+    <description>
+      <name>Turbocharger A Temperature</name>
+      <unit>celsius</unit>
+    </description>
+    <address> <byte>0x74</byte> </address>
+    <valuebc> 1 </valuebc>
+  </parameter>
+  <parameter id="TCB_CINT">
+    <description>
+      <name>Turbocharger B Temperature</name>
+      <unit>celsius</unit>
+    </description>
+    <address> <byte>0x74</byte> </address>
+    <valuede> 1 </valuede>
+  </parameter>
+-->
   <parameter id="MIL">
     <description>
       <name>MIL</name><description>List of DTC codes</description>
