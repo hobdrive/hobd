@@ -25,8 +25,12 @@ public class LitersPerHourSensor : CoreSensor
     {
         base.SetRegistry(registry);
         
-        this.cylinders = int.Parse(registry.VehicleParameters["cylinders"]);
-        this.injectorccpm = double.Parse(registry.VehicleParameters["injector-ccpm"], UnitsConverter.DefaultNumberFormat);
+        try{
+            this.cylinders = int.Parse(registry.VehicleParameters["cylinders"]);
+        }catch(Exception){}
+        try{
+            this.injectorccpm = double.Parse(registry.VehicleParameters["injector-ccpm"], UnitsConverter.DefaultNumberFormat);
+        }catch(Exception){}
     }
 
     public override void Activate()
