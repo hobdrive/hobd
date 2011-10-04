@@ -179,16 +179,16 @@ public class SensorRegistry
      */
     public void TriggerSuspend()
     {
-        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ).ToList() )
-            ((IAccumulatorSensor)s).Suspend();
+        foreach( var s in sensors.Values.Where( (s) => s is IAggregatorSensor ).ToList() )
+            ((IAggregatorSensor)s).Suspend();
     }
     /**
      * Triggers sensor reset event for all sensors that supports it
      */
     public void TriggerReset()
     {
-        foreach( var s in sensors.Values.Where( (s) => s is IAccumulatorSensor ).ToList() )
-            ((IAccumulatorSensor)s).Reset();
+        foreach( var s in sensors.Values.Where( (s) => s is IAggregatorSensor ).ToList() )
+            ((IAggregatorSensor)s).Reset();
     }
 
 	public void AddListener(string sensor, Action<Sensor> listener)
