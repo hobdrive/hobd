@@ -26,6 +26,8 @@ public class Engine
      */
     public string Error {get; protected set;}
     
+    public int StateCode { get; protected set;}
+
     public string StateDetails { get; protected set; }
 
     public static Engine CreateInstance(string engineclass)
@@ -69,6 +71,7 @@ public class Engine
     protected void fireStateNotify(int state)
     {        
         try{
+            this.StateCode = state;
             if (this.StateNotify != null)
                 this.StateNotify(state);
         }catch(Exception e){
