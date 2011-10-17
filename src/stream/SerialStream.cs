@@ -20,7 +20,7 @@ public class SerialStream: IStream
      */
     public static string[] ParseUrl(string url)
     {
-        Regex rx = new Regex(@"^([\d\w]+) (\;baud=(\d+))? (\;parity=(none|odd|even|mark|space))? (\;handshake=(none|x|rts|xrts))? $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+        Regex rx = new Regex(@"^([^;]+) (\;baud=(\d+))? (\;parity=(none|odd|even|mark|space))? (\;handshake=(none|x|rts|xrts))? $", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
         
         var match = rx.Match(url);
         
