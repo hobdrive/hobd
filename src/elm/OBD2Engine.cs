@@ -99,6 +99,22 @@ public class OBD2Engine : Engine
         lastReceiveTS = DateTimeMs.Now;
         
         if (Logger.TRACE) Logger.trace("OBD2Engine", " -> " + State);
+
+        switch(State)
+        {
+            case ST_SENSOR:
+                fireStateNotify(STATE_READ);
+                break;
+            case ST_SENSOR_ACK:
+                fireStateNotify(STATE_READ_DONE);
+                break;
+            case ST_ERROR:
+                fireStateNotify(STATE_ERROR);
+                break;                
+            default:
+                fireStateNotify(STATE_INIT);
+                break;
+        }
         
         switch(State){
             case ST_INIT:
@@ -204,22 +220,6 @@ public class OBD2Engine : Engine
                     if (currentSensorIndex == scanSensorIndex)
                         break;
                 }
-                break;
-        }
-
-        switch(State)
-        {
-            case ST_SENSOR:
-                fireStateNotify(STATE_READ);
-                break;
-            case ST_SENSOR_ACK:
-                fireStateNotify(STATE_READ_DONE);
-                break;
-            case ST_ERROR:
-                fireStateNotify(STATE_ERROR);
-                break;                
-            default:
-                fireStateNotify(STATE_INIT);
                 break;
         }
     }
