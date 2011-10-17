@@ -62,7 +62,7 @@ public class MILSensor : OBD2Sensor
 
                 int idx = 0;
 
-                while ((dataraw[idx]&0xF0) != 0x40)
+                while (idx < dataraw.Length && (dataraw[idx]&0xF0) != 0x40)
                     idx++;
 
                 if (registry.ProtocolId >= 6)
