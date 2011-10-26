@@ -94,11 +94,11 @@ public class MILSensor : OBD2Sensor
 
                         string mil = (new string[]{"P", "C", "B", "U"})[a>>6];
 
-                        mil += (char)(0x30 + ((a>>4)&0x3));
-                        mil += (char)(0x30 + ((a>>0)&0xF));
+                        mil += ToChar(((a>>4)&0x3));
+                        mil += ToChar(((a>>0)&0xF));
                         
-                        mil += (char)(0x30 + ((b>>4)&0xF));
-                        mil += (char)(0x30 + ((b>>0)&0xF));
+                        mil += ToChar(((b>>4)&0xF));
+                        mil += ToChar(((b>>0)&0xF));
                         l.Add(mil);
                         len--;
                     }
@@ -120,11 +120,11 @@ public class MILSensor : OBD2Sensor
 
                         string mil = (new string[]{"P", "C", "B", "U"})[a>>6];
 
-                        mil += (char)(0x30 + ((a>>4)&0x3));
-                        mil += (char)(0x30 + ((a>>0)&0xF));
+                        mil += ToChar(((a>>4)&0x3));
+                        mil += ToChar(((a>>0)&0xF));
                         
-                        mil += (char)(0x30 + ((b>>4)&0xF));
-                        mil += (char)(0x30 + ((b>>0)&0xF));
+                        mil += ToChar(((b>>4)&0xF));
+                        mil += ToChar(((b>>0)&0xF));
                         l.Add(mil);
                     }
                 }
@@ -133,6 +133,11 @@ public class MILSensor : OBD2Sensor
             }
             return mil_value;
         }
+    }
+
+    char ToChar(int c)
+    {
+        return c < 0xA ? (char)(0x30+c) : (char)('A'+(char)(c-0xA));
     }
 
 }
