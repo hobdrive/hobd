@@ -33,6 +33,11 @@ public class DateTimeMs
        systemStartMS = (DateTime.Now - new TimeSpan((long)(Environment.TickCount)*10000)).Ticks / 10000;
     }
 
+    public static void ResetTo(DateTime to)
+    {
+       systemStartMS = (to.Ticks/10000 - (long)Environment.TickCount);
+    }
+
     public static DateTime NowMs
     {
        get
