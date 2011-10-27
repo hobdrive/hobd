@@ -14,7 +14,6 @@ namespace hobd
 public class OBD2Engine : Engine
 {
     private bool thread_active = false;
-    private DateTime stateTS;
     private long lastReceiveTS;
     Thread worker;
 
@@ -32,6 +31,7 @@ public class OBD2Engine : Engine
     public int ProtocolId{get; protected set;}
 
     public const int ErrorThreshold = 10;
+    bool CriticalError = false;
 
     public int ReadDelay = 0;
     
@@ -94,7 +94,6 @@ public class OBD2Engine : Engine
     {
         
         State = state2;
-        stateTS = DateTime.Now;
         StateDetails = state2;
         lastReceiveTS = DateTimeMs.Now;
         
@@ -132,10 +131,16 @@ public class OBD2Engine : Engine
                 }
                 PurgeStream();
 
-                if (initData != null){
-                    extraInitCommands.Clear();
-                    extraInitIndex = 0;
-
+                extraInitCommands.Clear();
+                extraInitIndex = 0;
+                if (CriticalError)
+                {
+                    CriticalError = false;
+                    // trigger protocol autosearch
+                    extraInitCommands.Add("ATSP 0");
+                }
+                if (initData != null)
+                {
                     initData.Split(new char[]{';'}).ToList().ForEach((s) => {
                         var cmd = s.Trim();
                         if (cmd.Length > 0)
@@ -314,6 +319,8 @@ public class OBD2Engine : Engine
                 	}else{
                 	    error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
                 	    if (error != null) {
+                	        this.Error = error;
+                	        this.CriticalError = true;
                             Logger.error("OBD2Engine", "Critical error:" + smsg);
                             SetState(ST_INIT);
                             subsequentErrors = 0;
