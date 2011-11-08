@@ -133,6 +133,7 @@
     <Compile Include="src\stream\BlueToothStream.cs" />
     <Compile Include="src\stream\IStream.cs" />
     <Compile Include="src\stream\SerialStream.cs" />
+    <Compile Include="src\stream\SerialRawStream.cs" />
     <Compile Include="src\util\DateTimeMs.cs" />
     <Compile Include="src\util\Logger.cs" />
     <Compile Include="src\util\StaticHelpers.cs" />
