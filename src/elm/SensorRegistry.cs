@@ -171,7 +171,7 @@ public class SensorRegistry
             throw new ArgumentNullException();
         SensorListener sl = null;
         activeSensors.TryGetValue(sensor, out sl);
-        if (sl != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
+        if (sl != null && triggerQueue != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
             triggerQueue.Enqueue(sensor);
     }
     /**
