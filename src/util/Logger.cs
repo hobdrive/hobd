@@ -66,19 +66,21 @@ public class Logger
         var ts = nowms.ToShortDateString().PadLeft(10) + " " + nowms.ToLongTimeString().PadLeft(8) + "." + nowms.Millisecond.ToString().PadLeft(3, '0');
 
         msg = "["+level+"] "+ ts + "["+comp+"]  " + msg;
-        if (e != null)
-        {
-            msg +=  "\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
-        }
-        if (e != null && e.GetBaseException() != null && e.GetBaseException() != e)
-        {
-            e = e.GetBaseException();
-            msg +=  "BaseException:\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
-        }
+        try{
+            if (e != null)
+            {
+                msg +=  "\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
+            }
+            if (e != null && e.GetBaseException() != null && e.GetBaseException() != e)
+            {
+                e = e.GetBaseException();
+                msg +=  "BaseException:\n" + e.GetType().ToString() + ": " + e.Message +"\n"+ e.StackTrace;
+            }
+        }catch(Exception){}
         try{
             System.Console.WriteLine(msg);
 #if __ANDROID__
-            Android.Util.Log.Error("", msg);
+            Android.Util.Log.Error("HOBD", msg);
 #endif
             if (fs != null)
             {
