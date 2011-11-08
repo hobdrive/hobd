@@ -26,6 +26,7 @@ public class OBD2Engine : Engine
 
     List<string> extraInitCommands = new List<string>();
     int extraInitIndex;
+    int SensorInitIndex;
     
     public string VersionInfo = "";
     public int ProtocolId{get; protected set;}
@@ -48,7 +49,7 @@ public class OBD2Engine : Engine
 
     string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", };
     // Error messages to immediately reset ELM
-    string[] criticalErrors = new string[]{ "ELM327", "BUS BUSY", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
+    string[] criticalErrors = new string[]{ "ELM327", "BUS BUSY", "BUS INIT: ...ERROR", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
 
     int subsequentErrors = 0;
 
@@ -147,6 +148,8 @@ public class OBD2Engine : Engine
                             extraInitCommands.Add(cmd);
                     });
                 }
+
+                SensorInitIndex = 0;
                 SetState(ST_ATZ);
                 break;
             case ST_ATZ:
@@ -169,7 +172,7 @@ public class OBD2Engine : Engine
                 }
                 break;
             case ST_SENSOR_INIT:
-                SendCommand("0100");
+                SendCommand("01" + SensorInitIndex.ToString("X2"));
                 break;
             case ST_QUERY_PROTOCOL:
                 SendCommand("ATDPN");
@@ -305,33 +308,34 @@ public class OBD2Engine : Engine
                     this.Error = null;
                 }else{
                     // search for known errors, increment counters
-                	string error = dataErrors.FirstOrDefault(e => smsg.Contains(e));
-                	if (error != null)
-                	{
+                    string error = dataErrors.FirstOrDefault(e => smsg.Contains(e));
+                    if (error != null)
+                    {
                         this.Error = this.Error == null ? error : this.Error + " " + error;
-                	    // increase period for this 'bad' sensor
-                	    if (subsequentErrors == 0)
-                	    {
+                        // increase period for this 'bad' sensor
+                        if (subsequentErrors == 0)
+                        {
                             Logger.info("OBD2Engine", "sensor not responding, increasing period: "+osensor.ID);
-                	        lsl.period = (lsl.period +100) * 2;
-                	    }
-                	    subsequentErrors++;
-                	}else{
-                	    error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
-                	    if (error != null) {
-                	        this.Error = error;
-                	        this.CriticalError = true;
+                            lsl.period = unchecked((lsl.period +100) * 2);
+                        }
+                        subsequentErrors++;
+                    }else{
+                        error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
+                        if (error != null) {
+                            this.Error = error;
+                            this.CriticalError = true;
                             Logger.error("OBD2Engine", "Critical error:" + smsg);
                             SetState(ST_INIT);
                             subsequentErrors = 0;
                         }
-                	}
+                    }
                 }
                 // act on too much errors
                 if (subsequentErrors > ErrorThreshold) {
                     Logger.error("OBD2Engine", "Connection error threshold");
-                    SetState(ST_INIT);
                     subsequentErrors = 0;
+                    this.CriticalError = true;
+                    SetState(ST_INIT);
                 }
                 break;
         }
@@ -432,7 +436,7 @@ public class OBD2Engine : Engine
             var diff_ms = DateTimeMs.Now - lastReceiveTS;
             if (diff_ms > NoResponseTimeout) {
                 // If ERROR, wait for a longer period before retrying
-                if ((this.State != ST_SENSOR_INIT && this.State != ST_ERROR) || diff_ms > ReconnectTimeout)
+                if ((this.State == ST_SENSOR || this.State == ST_SENSOR_ACK) || diff_ms > ReconnectTimeout)
                 {
                     SetState(ST_INIT);
                 }
@@ -460,3 +464,5 @@ public class OBD2Engine : Engine
 }
 
 }
+
+
