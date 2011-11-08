@@ -22,7 +22,7 @@ public class ELMVoltageSensor : OBD2Sensor
     {
         var val = Encoding.ASCII.GetString(msg, 0, msg.Length);
         try{
-            val = val.Replace("V", "");
+            val = val.Replace("ATRV", "").Replace("V", "").Trim();
             this.Value = double.Parse(val, UnitsConverter.DefaultNumberFormat);
             this.TimeStamp = DateTimeMs.Now;
             registry.TriggerListeners(this);
