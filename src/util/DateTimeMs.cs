@@ -11,48 +11,65 @@ public class DateTimeMs
     private static int m_offset = 0;
     private static long systemStartMS = 0;
      
+    /* ticks correction constant (*1000). Default is 1000 - no correction */
+    public static long TimeScaleThousands{ get; set; }
+
     static DateTimeMs()
     {
-       int s = DateTime.Now.Second;
-       while (true)
-       {
-         int s2 = DateTime.Now.Second;
-     
-         // wait for a rollover
-         if (s != s2)
-         {
-           m_offset = Environment.TickCount % 1000;
-           break;
-         }
-       }
+       DateTimeMs.TimeScaleThousands = 1000;
        Reset();
+    }
+
+    public static long TickCount
+    {
+        get{
+            return ((long)Environment.TickCount) * DateTimeMs.TimeScaleThousands / 1000;
+        }
+    }
+
+    public static void CalculateOffset()
+    {
+        int s = DateTime.Now.Second;
+        while (true)
+        {
+          int s2 = DateTime.Now.Second;
+      
+          // wait for a rollover
+          if (s != s2)
+          {
+            m_offset = (int)(DateTimeMs.TickCount % 1000);
+            break;
+          }
+        }
     }
 
     public static void Reset()
     {
-       systemStartMS = (DateTime.Now - new TimeSpan((long)(Environment.TickCount)*10000)).Ticks / 10000;
+        systemStartMS = (DateTime.Now - new TimeSpan((long)(DateTimeMs.TickCount)*10000)).Ticks / 10000;
+        CalculateOffset();
     }
 
     public static void ResetTo(DateTime to)
     {
-       systemStartMS = (to.Ticks/10000 - (long)Environment.TickCount);
+        systemStartMS = (to.Ticks/10000 - (long)DateTimeMs.TickCount);
+        CalculateOffset();
     }
 
     public static DateTime NowMs
     {
-       get
-       {
-         // find where we are based on the os tick
-         int tick = Environment.TickCount % 1000;
-     
-         // calculate our ms shift from our base m_offset
-         int ms = (tick >= m_offset) ? (tick - m_offset) : (1000 - (m_offset - tick));
-     
-         // build a new DateTime with our calculated ms
-         // we use a new DateTime because some devices fill ms with a non-zero garbage value
-         DateTime now = DateTime.Now;
-         return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, ms);
-       }
+        get
+        {
+            // find where we are based on the os tick
+            int tick = (int)(DateTimeMs.TickCount % 1000);
+        
+            // calculate our ms shift from our base m_offset
+            int ms = (tick >= m_offset) ? (tick - m_offset) : (1000 - (m_offset - tick));
+        
+            // build a new DateTime with our calculated ms
+            // we use a new DateTime because some devices fill ms with a non-zero garbage value
+            DateTime now = DateTime.Now;
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, ms);
+        }
     }
 
     public static DateTime ToDateTime(long ts)
@@ -67,8 +84,8 @@ public class DateTimeMs
     {
        get
        {
-         return systemStartMS + Environment.TickCount;
-         //return NowMs.Ticks / 10000;
+           return systemStartMS + DateTimeMs.TickCount;
+           //return NowMs.Ticks / 10000;
        }
     }
 
