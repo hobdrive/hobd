@@ -56,9 +56,20 @@ public class SensorRegistry
         }
     }
     
+    /**
+     Provider should be either a SensorProvider full class name, or special string
+     ecuxml://path/to/file.ecuxml
+     for dynamic sensor definitions
+     */
     public void RegisterProvider(string provider)
     {
-        this.RegisterProvider( (SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
+        if (provider.StartsWith("ecuxml://")){
+            provider = provider.Replace("ecuxml://", "");
+            var prov = new ECUXMLSensorProvider(provider);
+            this.RegisterProvider(prov);
+        }else{
+            this.RegisterProvider( (SensorProvider)Assembly.GetExecutingAssembly().CreateInstance(provider));
+        }
     }
 
     public void RegisterProvider(SensorProvider provider)

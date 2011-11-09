@@ -34,12 +34,12 @@ public class ECUXMLSensorProvider : SensorProvider
         if (reader == null)
             throw new Exception("Can't do double init");
 
-        Namespace = Description = "Default";
+        reader.Read();
+
+        this.Namespace = reader.GetAttribute("namespace") ?? "Default";
+        this.Description = reader.GetAttribute("description") ?? "";
 
         reader.ReadStartElement("parameters");
-
-        this.Namespace = reader.GetAttribute("namespace");
-        this.Description = reader.GetAttribute("description");
 
         while( reader.IsStartElement("parameter") ){
 
@@ -53,7 +53,11 @@ public class ECUXMLSensorProvider : SensorProvider
             string basename = null;
             string units = null;
             string valuea = null;
+            string valueb = null;
+            string valuec = null;
+            string valued = null;
             string valueab = null;
+            string valuebc = null;
             string valuecd = null;
             double offset = 0;
 
@@ -63,36 +67,60 @@ public class ECUXMLSensorProvider : SensorProvider
                 {
                     case "address":
                         reader.ReadStartElement();
-                        var hexval = reader.ReadElementString("byte");
+                        var hexval = reader.ReadElementString("byte").Trim();
                         if (hexval.StartsWith("0x"))
                             hexval = hexval.Substring(2);
                         command = int.Parse(hexval, NumberStyles.HexNumber);
                         reader.ReadEndElement();
                         break;
                     case "raw":
-                        rawcommand = reader.ReadElementString();
+                        rawcommand = reader.ReadElementString().Trim();
                         break;
                     case "base":
-                        basename = reader.ReadElementString();
+                        basename = reader.ReadElementString().Trim();
                         break;
 
                     case "valuea":
                         valuea = reader.ReadElementString();
                         break;
+                    case "valueb":
+                        valueb = reader.ReadElementString();
+                        break;
+                    case "valuec":
+                        valuec = reader.ReadElementString();
+                        break;
+                    case "valued":
+                        valued = reader.ReadElementString();
+                        break;
+
                     case "valueab":
                         valueab = reader.ReadElementString();
+                        break;
+                    case "valuebc":
+                        valuebc = reader.ReadElementString();
                         break;
                     case "valuecd":
                         valuecd = reader.ReadElementString();
                         break;
+
                     case "offset":
                         offset = double.Parse(reader.ReadElementString(), UnitsConverter.DefaultNumberFormat);
                         break;
                     case "description":
-                        reader.ReadElementString();
-                        break;
-                    case "units":
-                        units = reader.ReadElementString();
+                        reader.ReadStartElement();
+                        while(reader.NodeType == XmlNodeType.Element)
+                        {
+                            switch(reader.Name)
+                            {
+                                case "unit":
+                                    units = reader.ReadElementString().Trim();
+                                    break;
+                                default:
+                                    reader.ReadElementString();
+                                    break;
+                            }
+                        }
+                        reader.ReadEndElement();
                         break;
                     default:
                         throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
@@ -114,10 +142,30 @@ public class ECUXMLSensorProvider : SensorProvider
                     var val = double.Parse(valuea, UnitsConverter.DefaultNumberFormat);
                     s.obdValue = (p) => p.get(0) * val + offset;
                 }
+                if (valueb != null)
+                {
+                    var val = double.Parse(valueb, UnitsConverter.DefaultNumberFormat);
+                    s.obdValue = (p) => p.get(1) * val + offset;
+                }
+                if (valuec != null)
+                {
+                    var val = double.Parse(valuec, UnitsConverter.DefaultNumberFormat);
+                    s.obdValue = (p) => p.get(2) * val + offset;
+                }
+                if (valued != null)
+                {
+                    var val = double.Parse(valued, UnitsConverter.DefaultNumberFormat);
+                    s.obdValue = (p) => p.get(3) * val + offset;
+                }
                 if (valueab != null)
                 {
                     var val = double.Parse(valueab, UnitsConverter.DefaultNumberFormat);
                     s.obdValue = (p) => p.getab() * val + offset;
+                }
+                if (valuebc != null)
+                {
+                    var val = double.Parse(valuebc, UnitsConverter.DefaultNumberFormat);
+                    s.obdValue = (p) => p.getbc() * val + offset;
                 }
                 if (valuecd != null)
                 {
