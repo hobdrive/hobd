@@ -18,9 +18,16 @@ public class OBD2Sensor : CoreSensor
     
     public override double Value { get; protected set; }
     
+    string rawcommand;
     public virtual string RawCommand {
         get{
-            return "01" + this.Command.ToString("X2");
+            if (rawcommand == null)
+                return "01" + this.Command.ToString("X2");
+            else
+                return rawcommand;
+        }
+        set{
+            rawcommand = value;
         }
     }
 
