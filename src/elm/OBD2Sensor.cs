@@ -75,17 +75,19 @@ public class OBD2Sensor : CoreSensor
             data_offset++;
         }
         if (data_offset >= dataraw.Length-1)
-            return false;
+        {
+            data_offset = 0;
+        }
 
         this.dataraw = dataraw;
 
         try{
             this.Value = obdValue(this);
-        }catch(Exception e){
+        }catch(Exception){
             string r = "";
             for (int i = 0; i < dataraw.Length; i++)
                r += dataraw[i].ToString("X2") + " ";
-            Logger.error("OBD2Sensor", "Fail parsing sensor value: " + this.ID + " " + r, e);
+            Logger.error("OBD2Sensor", "Fail parsing sensor value: " + this.ID + " " + r);
             return false;
         }
         this.TimeStamp = DateTimeMs.Now;
