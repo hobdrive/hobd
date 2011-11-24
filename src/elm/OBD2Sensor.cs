@@ -12,6 +12,7 @@ public class OBD2Sensor : CoreSensor
     
     public OBD2Sensor()
     {
+        Command = -1;
     }
 
     public int Command { get; set; }
@@ -77,6 +78,13 @@ public class OBD2Sensor : CoreSensor
         if (data_offset >= dataraw.Length-1)
         {
             data_offset = 0;
+            /*
+               If we set OBD2 command explicitly,
+               this means we should find this command in response.
+               In case command was not found - response is assumed to be invalid.
+            */
+            if (Command != -1)
+                return false;
         }
 
         this.dataraw = dataraw;
