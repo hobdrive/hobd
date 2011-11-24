@@ -204,10 +204,12 @@ public class SensorRegistry
 
 	public void AddListener(string sensor, Action<Sensor> listener)
 	{
-	    this.AddListener(Sensor(sensor), listener, 0);
+	    this.AddListener(sensor, listener, 0);
 	}
 	public void AddListener(string sensor, Action<Sensor> listener, int period)
 	{
+        if (Sensor(sensor) == null)
+            throw new NullReferenceException("No such sensor: "+sensor);
 	    this.AddListener(Sensor(sensor), listener, period);
 	}
 	public void AddListener(Sensor sensor, Action<Sensor> listener)
@@ -223,8 +225,8 @@ public class SensorRegistry
 	{
 	    lock(sync_listener)
 	    {
-    	    if (sensor == null)
-    	        throw new NullReferenceException("No such sensor");
+            if (sensor == null)
+                throw new NullReferenceException("Null sensor");
     	    SensorListener sl = null;
     	    try{
     	        sl = activeSensors[sensor];
