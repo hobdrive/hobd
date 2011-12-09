@@ -9,8 +9,6 @@ namespace hobd
  */
 public class DistanceSensor : PersistentSensor
 {
-    long prevStamp;
-
     public int ListenInterval{get; set;}
         
     public DistanceSensor()
@@ -30,13 +28,13 @@ public class DistanceSensor : PersistentSensor
     public void OnSpeedChange(Sensor speed)
     {
         TimeStamp = speed.TimeStamp;
-        if (firstRun){
-            prevStamp = TimeStamp;
-            firstRun = false;
+        if (FirstRun){
+            PrevStamp = TimeStamp;
+            FirstRun = false;
             return;
         }
-        Value += speed.Value * 1000 / 3600 * ((double)(TimeStamp-prevStamp)) / 1000 / 1000;
-        prevStamp = TimeStamp;
+        Value += speed.Value * 1000 / 3600 * ((double)(TimeStamp-PrevStamp)) / 1000 / 1000;
+        PrevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
 

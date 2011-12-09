@@ -10,8 +10,6 @@ namespace hobd
  */
 public class FuelConsumedSensor : PersistentSensor
 {
-    long prevStamp;
-
     public int ListenInterval{get; set;}
         
     public FuelConsumedSensor()
@@ -32,13 +30,13 @@ public class FuelConsumedSensor : PersistentSensor
     void OnChange(Sensor lph)
     {
         TimeStamp = lph.TimeStamp;
-        if (firstRun){
-            prevStamp = TimeStamp;
-            firstRun = false;
+        if (FirstRun){
+            PrevStamp = TimeStamp;
+            FirstRun = false;
             return;
         }
-        Value += lph.Value / 3600 * ((double)(TimeStamp-prevStamp)) / 1000;
-        prevStamp = TimeStamp;
+        Value += lph.Value / 3600 * ((double)(TimeStamp-PrevStamp)) / 1000;
+        PrevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
 

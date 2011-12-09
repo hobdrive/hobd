@@ -11,7 +11,23 @@ namespace hobd
  */
 public class PersistentSensor : CoreSensor, IPersistentSensor, IAccumulatorSensor
 {
-    protected bool firstRun = true;
+    
+    const int MAX_TIME_INTERVAL = 1*60*1000;
+
+    protected long PrevStamp;
+
+    bool firstRun = true;
+
+    protected virtual bool FirstRun
+    {
+        get{
+            return firstRun || (this.TimeStamp - this.PrevStamp) < 0 || (this.TimeStamp - this.PrevStamp) > MAX_TIME_INTERVAL;
+        }
+        set{
+            firstRun = value;
+        }
+    }
+
     public virtual void Reset()
     {
         Value = 0;

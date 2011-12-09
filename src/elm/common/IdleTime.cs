@@ -6,7 +6,6 @@ namespace hobd
 
 public class IdleTime : PersistentSensor
 {
-    long prevStamp;
     public int ListenInterval{get; set;}
     public double IdleSpeed{get; set;}
                 
@@ -36,17 +35,17 @@ public class IdleTime : PersistentSensor
     public void OnSpeedChange(Sensor speed)
     {
         TimeStamp = speed.TimeStamp;
-        if (firstRun) {
-            prevStamp = TimeStamp;
-            firstRun = false;
+        if (FirstRun) {
+            PrevStamp = TimeStamp;
+            FirstRun = false;
             return;
         }
         if (speed.Value > IdleSpeed){
-            firstRun = true;
+            FirstRun = true;
             return;
         }
-        Value += (TimeStamp-prevStamp) / 1000f;
-        prevStamp = TimeStamp;
+        Value += (TimeStamp-PrevStamp) / 1000f;
+        PrevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
 

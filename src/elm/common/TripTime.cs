@@ -6,8 +6,6 @@ namespace hobd
 
 public class TripTime : PersistentSensor
 {
-    long prevStamp;
-
     public int ListenInterval{get; set;}
         
     public TripTime()
@@ -27,13 +25,13 @@ public class TripTime : PersistentSensor
     public void OnChange(Sensor s)
     {
         TimeStamp = s.TimeStamp;
-        if (firstRun) {
-            prevStamp = TimeStamp;
-            firstRun = false;
+        if (FirstRun) {
+            PrevStamp = TimeStamp;
+            FirstRun = false;
             return;
         }
-        Value += (TimeStamp-prevStamp) / 1000f;
-        prevStamp = TimeStamp;
+        Value += (TimeStamp-PrevStamp) / 1000f;
+        PrevStamp = TimeStamp;
         registry.TriggerListeners(this);
     }
 
