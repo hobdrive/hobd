@@ -41,8 +41,14 @@ public class ECUXMLSensorProvider : SensorProvider
 
         reader.ReadStartElement("parameters");
 
-        while( reader.IsStartElement("parameter") ){
+        while( reader.NodeType == XmlNodeType.Element ){
 
+            if (reader.Name != "parameter")
+            {
+                reader.ReadElementString();
+                continue;
+            }
+            
             var id = reader.GetAttribute("id");
             var display = reader.GetAttribute("display");
 
@@ -51,6 +57,8 @@ public class ECUXMLSensorProvider : SensorProvider
             int command = 0;
             string rawcommand = null;
             string basename = null;
+            string basenameraw = null;
+            int    basenamerawindex = 0;
             string units = null;
             string valuea = null;
             string valueb = null;
@@ -78,6 +86,9 @@ public class ECUXMLSensorProvider : SensorProvider
                         break;
                     case "base":
                         basename = reader.ReadElementString().Trim();
+                        break;
+                    case "base-raw":
+                        basenameraw = reader.ReadElementString().Trim();
                         break;
 
                     case "valuea":
@@ -123,13 +134,43 @@ public class ECUXMLSensorProvider : SensorProvider
                         reader.ReadEndElement();
                         break;
                     default:
-                        throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
+                        if (reader.Name.Contains("value-"))
+                        {
+                            basenamerawindex = int.Parse(reader.Name.Replace("value-",""));
+                            valuea = reader.ReadElementContentAsString();
+                        }else
+                        {
+                            throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
+                        }
+                        break;
                 }
             }
 
             CoreSensor sensor = null;
             // OBD2 sensor
-            if (basename == null)
+            if (basename != null)
+            {
+                // Custom derived sensor
+                var s = new DerivedSensor("", basename, null);
+                if (valuea != null)
+                {
+                    var val = double.Parse(valuea, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => a.Value * val + offset;
+                }
+                sensor = s;                
+            }
+            else if (basenameraw != null)
+            {
+                // Custom derived sensor
+                var s = new DerivedSensor("", basenameraw, null);
+                if (valuea != null)
+                {
+                    var val = double.Parse(valuea, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => (a as OBD2Sensor).getraw(basenamerawindex) * val + offset;
+                }
+                sensor = s;                
+            }
+            else if (basename == null)
             {
                 var s = new OBD2Sensor();
                 if (rawcommand != null)
@@ -173,15 +214,6 @@ public class ECUXMLSensorProvider : SensorProvider
                     s.obdValue = (p) => p.getcd() * val + offset;
                 }
                 sensor = s;
-            }else{
-                // Custom derived sensor
-                var s = new DerivedSensor("", basename, null);
-                if (valuea != null)
-                {
-                    var val = double.Parse(valuea, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => a.Value * val + offset;
-                }
-                sensor = s;                
             }
             sensor.ID = this.Namespace+"."+id;
             sensor.Name = id;

@@ -103,6 +103,11 @@ public class OBD2Sensor : CoreSensor
         return true;
     }
     
+    public double getraw(int idx)
+    {
+        return dataraw[idx];
+    }
+
     public double get(int idx)
     {
         return dataraw[data_offset+2+idx];
