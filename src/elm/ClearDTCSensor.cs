@@ -16,12 +16,7 @@ public class ClearDTCSensor : OBD2Sensor
     public ClearDTCSensor()
     {
         Active = false;
-    }
-
-    public override string RawCommand {
-        get{
-            return "04";
-        }
+        RawCommand = "04";
     }
 
     public override bool SetValue(byte[] dataraw)

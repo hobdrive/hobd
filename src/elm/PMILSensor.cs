@@ -12,12 +12,7 @@ public class PMILSensor : MILSensor
 
     public PMILSensor()
     {
-    }
-
-    public override string RawCommand {
-        get{
-            return "07";
-        }
+        RawCommand = "07";
     }
 }
 

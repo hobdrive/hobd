@@ -15,6 +15,7 @@ public class MILSensor : OBD2Sensor
 
     public MILSensor()
     {
+        RawCommand = "03";
     }
 
     public const int ReadInterval = 5*60*1000;
@@ -22,12 +23,6 @@ public class MILSensor : OBD2Sensor
     public override double Value { get{ return 0; } }
 
     protected string[] mil_value;
-    
-    public override string RawCommand {
-        get{
-            return "03";
-        }
-    }
 
     public override bool SetValue(byte[] dataraw)
     {
