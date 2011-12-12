@@ -39,8 +39,6 @@ public class SensorTrack
     public bool TrackPassive = false;
     Dictionary<string, SensorTrackData> Settings = new Dictionary<string, SensorTrackData>();
 
-    public int StorageInterval = 5 * 60 * 1000;
-
     public const string VersionID = "track0.";
 
     public SensorTrack(string dataPath)
@@ -202,18 +200,23 @@ public class SensorTrack
             set.history_t.Add(sensor.TimeStamp);
             set.history_v.Add(sensor.Value);
         }
-
-        if (set.last_stored + this.StorageInterval < sensor.TimeStamp)
-        {
-            StoreSensorData(set);
-            set.last_stored = sensor.TimeStamp;
-        }
     }
 
+    public virtual void Store()
+    {
+        lock(this)
+        {
+            foreach(var id in Settings.Keys)
+            {
+                var set = Settings[id];
+                StoreSensorData(set);
+            }
+        }
+    }
     
     protected virtual void StoreSensorData(SensorTrackData set)
     {
-         lock(this)
+         lock(set)
          {
              try
              {
@@ -241,13 +244,7 @@ public class SensorTrack
 
         Registry.RemoveListener(this.SensorChanged);
         Registry.RemovePassiveListener(this.SensorChanged);
-        foreach(var id in Settings.Keys)
-        {
-            var set = Settings[id];
-            lock(set){
-                StoreSensorData(set);
-            }
-        };
+        Store();
         this.Registry = null;
     }
 
