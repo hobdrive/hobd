@@ -60,6 +60,7 @@ public class ECUXMLSensorProvider : SensorProvider
             string basenameraw = null;
             int    basenamerawindex = 0;
             string units = null;
+
             string valuea = null;
             string valueb = null;
             string valuec = null;
@@ -67,7 +68,13 @@ public class ECUXMLSensorProvider : SensorProvider
             string valueab = null;
             string valuebc = null;
             string valuecd = null;
+
+            string value = null;
+            string word = null;
+            string dword = null;
+
             double offset = 0;
+            int bit = -1;
 
             while(reader.NodeType == XmlNodeType.Element)
             {
@@ -117,6 +124,9 @@ public class ECUXMLSensorProvider : SensorProvider
                     case "offset":
                         offset = double.Parse(reader.ReadElementString(), UnitsConverter.DefaultNumberFormat);
                         break;
+                    case "bit":
+                        bit = int.Parse(reader.ReadElementString());
+                        break;
                     case "description":
                         reader.ReadStartElement();
                         while(reader.NodeType == XmlNodeType.Element)
@@ -134,10 +144,20 @@ public class ECUXMLSensorProvider : SensorProvider
                         reader.ReadEndElement();
                         break;
                     default:
-                        if (reader.Name.Contains("value-"))
+                        if (reader.Name.StartsWith("value-"))
                         {
                             basenamerawindex = int.Parse(reader.Name.Replace("value-",""));
-                            valuea = reader.ReadElementContentAsString();
+                            value = reader.ReadElementContentAsString();
+                        }else
+                        if (reader.Name.StartsWith("word-"))
+                        {
+                            basenamerawindex = int.Parse(reader.Name.Replace("word-",""));
+                            word = reader.ReadElementContentAsString();
+                        }else
+                        if (reader.Name.StartsWith("dword-"))
+                        {
+                            basenamerawindex = int.Parse(reader.Name.Replace("dword-",""));
+                            dword = reader.ReadElementContentAsString();
                         }else
                         {
                             throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
@@ -163,10 +183,35 @@ public class ECUXMLSensorProvider : SensorProvider
             {
                 // Custom derived sensor
                 var s = new DerivedSensor("", basenameraw, null);
-                if (valuea != null)
+                if (value != null)
                 {
-                    var val = double.Parse(valuea, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => (a as OBD2Sensor).getraw(basenamerawindex) * val + offset;
+                    var val = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => {
+                        var v = (a as OBD2Sensor).getraw(basenamerawindex) * val + offset;
+                        if (bit != -1)
+                            v = ((int)v >> bit)&1;
+                        return v;
+                    };
+                }
+                if (word != null)
+                {
+                    var val = double.Parse(word, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => {
+                        var v = (a as OBD2Sensor).getraw_word(basenamerawindex) * val + offset;
+                        if (bit != -1)
+                            v = ((int)v >> bit)&1;
+                        return v;
+                    };
+                }
+                if (dword != null)
+                {
+                    var val = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => {
+                        var v = (a as OBD2Sensor).getraw_dword(basenamerawindex) * val + offset;
+                        if (bit != -1)
+                            v = ((int)v >> bit)&1;
+                        return v;
+                    };
                 }
                 sensor = s;                
             }

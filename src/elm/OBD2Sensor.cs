@@ -107,10 +107,19 @@ public class OBD2Sensor : CoreSensor
     {
         return dataraw[idx];
     }
+    public double getraw_word(int idx)
+    {
+        return (dataraw[idx]<<8) + dataraw[idx+1];
+    }
+
+    public double getraw_dword(int idx)
+    {
+        return (dataraw[idx+0]<<24) + (dataraw[idx+1]<<16) + (dataraw[idx+2]<<8) + (dataraw[idx+3]<<0);
+    }
 
     public double get(int idx)
     {
-        return dataraw[data_offset+2+idx];
+        return getraw(data_offset+2+idx);
     }
 
     public double get_bit(int idx, int bit)
@@ -120,20 +129,19 @@ public class OBD2Sensor : CoreSensor
 
     public double getab()
     {
-        return get(0)*256 + get(1);
+        return getraw_word(data_offset+2+0);
+    }
+    public double getbc()
+    {
+        return getraw_word(data_offset+2+1);
     }
     public double getcd()
     {
-        return get(2)*256 + get(3);
-    }
-
-    public double getbc()
-    {
-        return get(1)*256 + get(2);
+        return getraw_word(data_offset+2+2);
     }
     public double getde()
     {
-        return get(3)*256 + get(4);
+        return getraw_word(data_offset+2+3);
     }
     
 }
