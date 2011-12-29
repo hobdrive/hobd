@@ -239,8 +239,10 @@ public class SensorRegistry
     	        sl.period = period;
     	        activeSensors.Add(sensor, sl);
     	    }
-    	    if (sl.period > period)
+    	    if (sl.period > period){
     	        sl.period = period;
+    	        sl.nextReading = 0;
+    	    }
             sl.listeners.Add(listener);
             sensor.NotifyAddListener(listener);
             activeSensors_array = null;
