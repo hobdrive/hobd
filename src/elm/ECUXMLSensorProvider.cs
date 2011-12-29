@@ -71,7 +71,9 @@ public class ECUXMLSensorProvider : SensorProvider
 
             string value = null;
             string word = null;
+            string wordle = null;
             string dword = null;
+            string dwordle = null;
 
             double offset = 0;
             int bit = -1;
@@ -154,10 +156,20 @@ public class ECUXMLSensorProvider : SensorProvider
                             basenamerawindex = int.Parse(reader.Name.Replace("word-",""));
                             word = reader.ReadElementContentAsString();
                         }else
+                        if (reader.Name.StartsWith("wordle-"))
+                        {
+                            basenamerawindex = int.Parse(reader.Name.Replace("wordle-",""));
+                            wordle = reader.ReadElementContentAsString();
+                        }else
                         if (reader.Name.StartsWith("dword-"))
                         {
                             basenamerawindex = int.Parse(reader.Name.Replace("dword-",""));
                             dword = reader.ReadElementContentAsString();
+                        }else
+                        if (reader.Name.StartsWith("dwordle-"))
+                        {
+                            basenamerawindex = int.Parse(reader.Name.Replace("dwordle-",""));
+                            dwordle = reader.ReadElementContentAsString();
                         }else
                         {
                             throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
@@ -203,11 +215,31 @@ public class ECUXMLSensorProvider : SensorProvider
                         return v;
                     };
                 }
+                if (wordle != null)
+                {
+                    var val = double.Parse(wordle, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => {
+                        var v = (a as OBD2Sensor).getraw_wordle(basenamerawindex) * val + offset;
+                        if (bit != -1)
+                            v = ((int)v >> bit)&1;
+                        return v;
+                    };
+                }
                 if (dword != null)
                 {
                     var val = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
                     s.DerivedValue = (a,b) => {
                         var v = (a as OBD2Sensor).getraw_dword(basenamerawindex) * val + offset;
+                        if (bit != -1)
+                            v = ((int)v >> bit)&1;
+                        return v;
+                    };
+                }
+                if (dwordle != null)
+                {
+                    var val = double.Parse(dwordle, UnitsConverter.DefaultNumberFormat);
+                    s.DerivedValue = (a,b) => {
+                        var v = (a as OBD2Sensor).getraw_dwordle(basenamerawindex) * val + offset;
                         if (bit != -1)
                             v = ((int)v >> bit)&1;
                         return v;

@@ -112,9 +112,19 @@ public class OBD2Sensor : CoreSensor
         return (dataraw[idx]<<8) + dataraw[idx+1];
     }
 
+    public double getraw_wordle(int idx)
+    {
+        return (dataraw[idx]) + (dataraw[idx+1]<<8);
+    }
+
     public double getraw_dword(int idx)
     {
         return (dataraw[idx+0]<<24) + (dataraw[idx+1]<<16) + (dataraw[idx+2]<<8) + (dataraw[idx+3]<<0);
+    }
+
+    public double getraw_dwordle(int idx)
+    {
+        return (dataraw[idx+0]<<0) + (dataraw[idx+1]<<8) + (dataraw[idx+2]<<16) + (dataraw[idx+3]<<24);
     }
 
     public double get(int idx)
