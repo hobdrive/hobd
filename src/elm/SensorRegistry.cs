@@ -154,6 +154,7 @@ public class SensorRegistry
                 }
                 if (sl != null) {
                     sl.nextReading = DateTimeMs.Now + sl.period;
+                    if (Logger.DUMP) Logger.dump("SensorRegistry", "ListenerHandler " +sensor.ID+" "+sl.nextReading);
                     foreach(Action<Sensor> l in sl.listeners.ToArray()) {
                         try{
                             l(sensor);
@@ -182,6 +183,7 @@ public class SensorRegistry
             throw new ArgumentNullException();
         SensorListener sl = null;
         activeSensors.TryGetValue(sensor, out sl);
+        if (Logger.DUMP && sl != null) Logger.dump("SensorRegistry", "TriggerListeners " +sensor.ID+" "+sl.nextReading);
         if (sl != null && triggerQueue != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
             triggerQueue.Enqueue(sensor);
     }
@@ -223,6 +225,7 @@ public class SensorRegistry
      */
 	public void AddListener(Sensor sensor, Action<Sensor> listener, int period)
 	{
+	    if (Logger.DUMP) Logger.dump("SensorRegistry", "AddListener "+ sensor.ID + " " + listener.ToString() + " " + period);
 	    lock(sync_listener)
 	    {
             if (sensor == null)

@@ -183,6 +183,7 @@ public class OBD2Engine : Engine
                 
                 if (sls.Length == 0)
                 {
+                    if (Logger.TRACE) Logger.trace("OBD2Engine", " no active sensors ");
                     break;
                 }
                 
@@ -219,7 +220,7 @@ public class OBD2Engine : Engine
                             }
                         }
                     }else{
-                        //if (Logger.TRACE) Logger.trace("OBD2Engine", " Skipped " + currentSensorListener.sensor.ID + " with "+ (nextReading - DateTimeMs.Now));
+                        if (Logger.DUMP) Logger.dump("OBD2Engine", " Skipped " + currentSensorListener.sensor.ID + " with "+ (nextReading - DateTimeMs.Now));
                     }
                     
                     currentSensorIndex++;
