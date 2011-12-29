@@ -33,6 +33,9 @@ public class CoreSensor : Sensor
         this.registry = null;
     }
         
+    public virtual bool Active{
+        get{ return listenerCount != 0; }
+    }
     
     public virtual void NotifyAddListener(Action<Sensor> listener)
     {

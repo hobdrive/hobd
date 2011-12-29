@@ -23,23 +23,42 @@
             this.ID = this.Name = id;
         }
 
+        public virtual void LoadBaseSensors()
+        {
+            if (this.aid != null && this.a == null)
+                this.a = base.registry.Sensor(this.aid);
+            if (this.bid != null && this.b == null)
+                this.b = base.registry.Sensor(this.bid);
+        }
+
         public override void Activate()
         {
-            if (this.aid != null)
-            {
-                this.a = base.registry.Sensor(this.aid);
+            LoadBaseSensors();
+            if (this.a != null)
                 base.registry.AddListener(this.a, this.OnSensorChange, Interval);
-            }
-            if (this.bid != null)
-            {
-                this.b = base.registry.Sensor(this.bid);
+            if (this.b != null)
                 base.registry.AddListener(this.b, this.OnSensorChange, Interval);
-            }
         }
 
         public override void Deactivate()
         {
             base.registry.RemoveListener(this.OnSensorChange);
+        }
+    
+        double value;
+        public override double Value {
+            get{
+                if (this.Active){
+                    return this.value;
+                }else{
+                    LoadBaseSensors();
+                    this.value = this.DerivedValue(this.a, this.b);
+                    return this.value;
+                }
+            }
+            protected set{
+                this.value = value;
+            }
         }
 
         protected virtual void OnSensorChange(Sensor s)
