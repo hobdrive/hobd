@@ -18,6 +18,7 @@ public class DateTimeMs
     {
        DateTimeMs.TimeScaleThousands = 1000;
        Reset();
+       CalculateOffset();
     }
 
     public static long TickCount
@@ -46,13 +47,11 @@ public class DateTimeMs
     public static void Reset()
     {
         systemStartMS = (DateTime.Now - new TimeSpan((long)(DateTimeMs.TickCount)*10000)).Ticks / 10000;
-        CalculateOffset();
     }
 
     public static void ResetTo(DateTime to)
     {
         systemStartMS = (to.Ticks/10000 - (long)DateTimeMs.TickCount);
-        CalculateOffset();
     }
 
     public static DateTime NowMs
