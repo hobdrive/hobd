@@ -43,28 +43,36 @@
         public override void Deactivate()
         {
             base.registry.RemoveListener(this.OnSensorChange);
+            this.a = this.b = null;
         }
     
         double value;
+        bool changed = false;
         public override double Value {
             get{
-                if (this.Active){
+                if (this.Active && changed){
                     return this.value;
                 }else{
-                    LoadBaseSensors();
-                    this.value = this.DerivedValue(this.a, this.b);
+                    // First time init
+                    try{
+                        LoadBaseSensors();
+                        OnSensorChange(null);
+                    }catch(Exception){
+                        // ignore it - there could be problems on init stage
+                    }
                     return this.value;
                 }
             }
             protected set{
                 this.value = value;
+                this.changed = true;
             }
         }
 
         protected virtual void OnSensorChange(Sensor s)
         {
             this.Value = this.DerivedValue(this.a, this.b);
-            base.TimeStamp = s.TimeStamp;
+            base.TimeStamp = s != null ? s.TimeStamp : DateTimeMs.Now;
             base.registry.TriggerListeners(this);
         }
     }
