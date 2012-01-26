@@ -4,58 +4,27 @@ using System.Collections.Generic;
 namespace hobd
 {
 
-public class FuelEconomyTripSensor : CoreSensor
+public class FuelEconomyTripSensor : DerivedSensor
 {
-    Sensor distance, fuel;
-    string DistanceId;
-    string FuelId;
-
-    public int ListenInterval{get; set;}
-
-    public FuelEconomyTripSensor(string distance_id, string fuel_id) : this()
+    public FuelEconomyTripSensor(string distance_id, string fuel_id) : base("", distance_id, fuel_id, 2000)
     {
-        this.DistanceId = distance_id;
-        this.FuelId = fuel_id;
+        base.DerivedValue = FEValue;
     }
 
-    int cscan = 0;
-
-    public FuelEconomyTripSensor()
+    public FuelEconomyTripSensor() : this("DistanceRun", "FuelConsumed")
     {
-        ListenInterval = 2000;
         Value = Double.PositiveInfinity;
-        DistanceId = "DistanceRun";
-        FuelId = "FuelConsumed";
         Units = "lph";
     }
-
-    public override void Activate()
-    {
-        distance = registry.Sensor(this.DistanceId);
-        fuel = registry.Sensor(this.FuelId);
-        registry.AddListener(distance, OnChange, ListenInterval);
-        registry.AddListener(fuel, OnChange, ListenInterval);
-    }
     
-    public override void Deactivate()
+    double FEValue(Sensor distance, Sensor fuel)
     {
-        registry.RemoveListener(OnChange);
-    }
-
-    void OnChange(Sensor s)
-    {
-        TimeStamp = s.TimeStamp;
-        
         if (distance.Value <= 0 || fuel.Value <= 0)
         {
-            Value = Double.PositiveInfinity;
+            return Double.PositiveInfinity;
         }else{
-            Value = fuel.Value * 100 / distance.Value;
+            return fuel.Value * 100 / distance.Value;
         }
-        if (s != distance)
-            return;
-        registry.TriggerListeners(this);
-        cscan++;
     }
 
 }
