@@ -34,7 +34,7 @@ public class ECUXMLSensorProvider : SensorProvider
         if (reader == null)
             throw new Exception("Can't do double init");
 
-        reader.Read();
+        reader.ReadToFollowing("parameters");
 
         this.Namespace = reader.GetAttribute("namespace") ?? "Default";
         this.Description = reader.GetAttribute("description") ?? "";
