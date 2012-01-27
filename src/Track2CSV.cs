@@ -32,6 +32,11 @@
                 {
                     goto Label_00A4;
                 }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine("Fail: ", e.Message);
+                }
+                
             Label_009F:
                 goto Label_0030;
             Label_00A4:
