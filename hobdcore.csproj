@@ -141,6 +141,8 @@
     <Compile Include="src\util\UnitsConverter.cs" />
     <Compile Include="src\util\DTCTools.cs" />
     <Compile Include="src\stream\TCPStream.cs" />
+    <Compile Include="src\NetworkHelper.cs" />
+    <Compile Include="src\NetworkDataManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
