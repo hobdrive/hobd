@@ -365,6 +365,7 @@ public class OBD2Engine : Engine
         if (stream.HasData())
         {
             byte[] data = stream.Read();
+            if (data == null) data = new byte[0];
             if (position + data.Length < buffer.Length)
             {
                 Array.Copy(data, 0, buffer, position, data.Length);

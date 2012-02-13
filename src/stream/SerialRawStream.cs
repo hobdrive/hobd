@@ -110,8 +110,11 @@ public class SerialRawStream: IStream
     
     public void Close()
     {
-        if (port != null)
-            port.Close();
+        try{
+            if (port != null)
+                port.Close();
+        }catch(Exception){}
+        port = null;
     }
     
     public bool HasData()
@@ -134,6 +137,7 @@ public class SerialRawStream: IStream
         try{
             read = port.Read(sbuf, 0, 128);
         }catch(Exception ex){
+            Close();
             Logger.error("SerialPort", "port.Read failed", ex);
             return null;
         }
@@ -147,8 +151,8 @@ public class SerialRawStream: IStream
         try{
             if(port != null)
                 port.Write(array, offset, length);
-        }catch(Exception)
-        {
+        }catch(Exception){
+            Close();
             return;
         }
     }
