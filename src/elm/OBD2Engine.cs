@@ -137,8 +137,8 @@ public class OBD2Engine : Engine
                 if (CriticalError)
                 {
                     CriticalError = false;
-                    // trigger protocol autosearch
-                    extraInitCommands.Add("ATSP 0");
+                    // trigger protocol autosearch TODO: conflicts with some settings, f.e. ATFI setup
+                    //extraInitCommands.Add("ATSP 0");
                 }
                 if (initData != null)
                 {
