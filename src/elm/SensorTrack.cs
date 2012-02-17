@@ -44,8 +44,12 @@ public class SensorTrack
     public SensorTrack(string dataPath)
     {
         this.DataPath = dataPath;
-        if (!Directory.Exists(DataPath))
-            Directory.CreateDirectory(DataPath);
+        try{
+            if (!Directory.Exists(DataPath))
+                Directory.CreateDirectory(DataPath);
+        }catch(Exception e){
+            Logger.error("SensorTrack", "CreateDirectory", e);
+        }
     }
 
     public void LoadConfig(string configPath)
