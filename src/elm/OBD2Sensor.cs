@@ -16,9 +16,7 @@ public class OBD2Sensor : CoreSensor
     }
 
     public int Command { get; set; }
-    
-    public override double Value { get; protected set; }
-    
+        
     string rawcommand;
     public virtual string RawCommand {
         get{

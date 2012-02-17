@@ -47,10 +47,9 @@
         }
     
         double value;
-        bool changed = false;
         public override double Value {
             get{
-                if (this.Active && changed){
+                if (this.Active && this.Valid){
                     return this.value;
                 }else{
                     // First time init
@@ -65,7 +64,7 @@
             }
             protected set{
                 this.value = value;
-                this.changed = true;
+                base.Valid = true;
             }
         }
 

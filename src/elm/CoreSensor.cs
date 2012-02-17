@@ -14,9 +14,20 @@ public class CoreSensor : Sensor
         // default values
     }
         
-    public virtual double Value {get; protected set;}
+    protected double value;
+    public virtual double Value {
+        get{
+            return this.value;
+        }
+        protected set{
+            this.value = value;
+            this.Valid = true;
+        }
+    }
     public long TimeStamp {get; set;}
     
+    public virtual bool Valid { get; set; }
+
     public virtual string ID { get; set; }
     
     public virtual string Name { get; set; }

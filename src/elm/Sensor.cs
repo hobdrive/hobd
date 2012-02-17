@@ -13,6 +13,9 @@ public interface Sensor
     /** Sensor current value. always double. */
     double Value{get;}
 
+    /* Whether the sensor is active and its value is correctly read */
+    bool Valid{get;}
+
     /** Sensor current value's timestamp. in ms */
     long TimeStamp{get;}
     
