@@ -46,16 +46,19 @@
             this.a = this.b = null;
         }
     
-        double value;
+        protected bool recurseValue = false;
         public override double Value {
-            get{
-                if (this.Active && this.Valid){
+            get{                    
+                if (recurseValue || (this.Active && this.Valid)){
                     return this.value;
                 }else{
                     // First time init
                     try{
                         LoadBaseSensors();
-                        OnSensorChange(null);
+                        recurseValue = true;
+                        this.Value = this.DerivedValue(this.a, this.b);
+                        recurseValue = false;
+                        base.TimeStamp = DateTimeMs.Now;
                     }catch(Exception){
                         // ignore it - there could be problems on init stage
                     }
@@ -71,7 +74,7 @@
         protected virtual void OnSensorChange(Sensor s)
         {
             this.Value = this.DerivedValue(this.a, this.b);
-            base.TimeStamp = s != null ? s.TimeStamp : DateTimeMs.Now;
+            base.TimeStamp = s.TimeStamp;
             base.registry.TriggerListeners(this);
         }
     }
