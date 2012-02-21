@@ -95,12 +95,14 @@ public class SerialRawStream: IStream
             port.Handshake = Handshake.RequestToSendXOnXOff;
             break;
         }
-        port.ReadBufferSize = 0x40;
-        port.ReceivedBytesThreshold = 1;
-        port.ReadTimeout = 2000;
-        port.WriteTimeout = 2000;
-
-        try {
+        
+        try{
+            port.ReadBufferSize = 0x40;
+            port.ReceivedBytesThreshold = 1;
+            port.ReadTimeout = 2000;
+            port.WriteTimeout = 2000;
+        }catch(Exception){}
+        try{
             port.Open();
         }catch(Exception e){
             port = null;
