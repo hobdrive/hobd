@@ -15,7 +15,7 @@ public class NetworkHelper
     {
         var p = "";
         foreach(var n in param.Keys)
-            p += Uri.EscapeUriString(n) + "=" + Uri.EscapeUriString(param[n]);
+            p += Uri.EscapeDataString(n) + "=" + Uri.EscapeDataString(param[n]);
         return SendGet(url + "?" + p);
     }
 
