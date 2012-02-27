@@ -49,7 +49,7 @@ public class OBD2Engine : Engine
 
     string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", };
     // Error messages to immediately reset ELM
-    string[] criticalErrors = new string[]{ "ELM327", "BUS BUSY", "BUS INIT: ...ERROR", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
+    string[] criticalErrors = new string[]{ "ELM327", "BUS BUSY", "BUS INIT: ERROR", "BUS INIT: .ERROR", "BUS INIT: ..ERROR", "BUS INIT: ...ERROR", "BUS ERROR", "CAN ERROR", "LV RESET", "UNABLE TO CONNECT" };
 
     int subsequentErrors = 0;
 
