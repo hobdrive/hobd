@@ -379,8 +379,9 @@ public class OBD2Engine : Engine
                 if (Logger.TRACE) Logger.trace("OBD2Engine", "Sleeping "+ReadDelay+" ms");
                 Thread.Sleep(ReadDelay);
             }
+            if (data.Length > 0)
+                lastReceiveTS = DateTimeMs.Now;
             data = null;
-            lastReceiveTS = DateTimeMs.Now;
         }
 
         // nothing to read -  wait
