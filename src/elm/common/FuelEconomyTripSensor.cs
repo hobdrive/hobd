@@ -8,13 +8,13 @@ public class FuelEconomyTripSensor : DerivedSensor
 {
     public FuelEconomyTripSensor(string distance_id, string fuel_id) : base("", distance_id, fuel_id, 2000)
     {
+        Value = Double.PositiveInfinity;
         base.DerivedValue = FEValue;
+        Units = "lph";
     }
 
     public FuelEconomyTripSensor() : this("DistanceRun", "FuelConsumed")
     {
-        Value = Double.PositiveInfinity;
-        Units = "lph";
     }
     
     double FEValue(Sensor distance, Sensor fuel)

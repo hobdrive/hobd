@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Globalization;
 
 namespace hobd{
@@ -10,11 +12,17 @@ namespace hobd{
 public class UnitsConverter{
 
     public string Units{get; private set;}
+    Dictionary<string, Func<double,double>> CurrentConversions = new Dictionary<string, Func<double,double>>();
 
-    static Dictionary<string, Func<double,double>> metric = new Dictionary<string, Func<double,double>>();
-    static Dictionary<string, Func<double,double>> imperial = new Dictionary<string, Func<double,double>>();
-    static Dictionary<string, string> metric_s = new Dictionary<string, string>();
-    static Dictionary<string, string> imperial_s = new Dictionary<string, string>();
+    /**
+      Each entry is:
+      "km-miles" (v) => v/1.61
+      "miles-km" (v) => v*1.61
+     */
+    static Dictionary<string, Func<double,double>> conversions = new Dictionary<string, Func<double,double>>();
+
+    static Dictionary<string, string> UnitTypes = new Dictionary<string, string>();
+    static Dictionary<string, List<string>> UnitTypesRaw = new Dictionary<string, List<string>>();
 
     public static NumberFormatInfo DefaultNumberFormat;
 
@@ -24,108 +32,121 @@ public class UnitsConverter{
         DefaultNumberFormat.NumberDecimalSeparator = ".";
         DefaultNumberFormat.PositiveInfinitySymbol = "∞";
         
-        var i = new Dictionary<string, Func<double, double>>();
-        var i_s = new Dictionary<string, string>();
-        var m = new Dictionary<string, Func<double, double>>();
-        var m_s = new Dictionary<string, string>();
+        conversions.Add("fahrenheit-celsius",    (v) => v*9/5 + 32);
+        conversions.Add("celsius-fahrenheit", (v) => (v-32)*5/9);
 
-        i.Add("celsius",    (v) => v*9/5 + 32);
-        m.Add("fahrenheit", (v) => (v-32)*5/9);
-        i_s.Add("celsius", "fahrenheit");
-        m_s.Add("fahrenheit", "celsius");
+        conversions.Add("km-miles", (v) => v/1.609);
+        conversions.Add("miles-km", (v) => v*1.609);
 
-        i.Add("kph", (v) => v/1.61);
-        m.Add("mph", (v) => v*1.61);
-        i_s.Add("kph", "mph");
-        m_s.Add("mph", "kph");
-        
-        i.Add("lph", (v) => 100 / (v*0.425));
-        m.Add("mpg", (v) => 100 / (v*0.425));
-        i_s.Add("lph", "mpg");
-        m_s.Add("mpg", "lph");
+        conversions.Add("mph-kph", conversions["miles-km"]);
+        conversions.Add("kph-mph", conversions["km-miles"]);
 
-        i.Add("lphour", (v) => v / 3.785);
-        m.Add("ghour",  (v) => v*3.785);
-        i_s.Add("lphour", "ghour");
-        m_s.Add("ghour", "lphour");
 
-        i.Add("km", (v) => v/1.61);
-        m.Add("miles", (v) => v*1.61);
-        i_s.Add("km", "miles");
-        m_s.Add("miles", "km");
+        // volume
+        conversions.Add("liters-gallons", (v) => v / 3.785);
+        conversions.Add("gallons-liters", (v) => v*3.785);
 
-        i.Add("liters", (v) => v / 3.785);
-        m.Add("gallons", (v) => v*3.785);
-        i_s.Add("liters", "gallons");
-        m_s.Add("gallons", "liters");
+        conversions.Add("liters-ukgallons", (v) => v / 4.546);
+        conversions.Add("ukgallons-liters", (v) => v * 4.546);
 
-        UnitsConverter.metric = m;
-        UnitsConverter.imperial = i;
-        UnitsConverter.metric_s = m_s;
-        UnitsConverter.imperial_s = i_s;
+        // FE
+        // km per liter
+        conversions.Add("lph-kmpl", (v) => 100 / v);
+        conversions.Add("kmpl-lph", (v) => 100 / v);
+
+        conversions.Add("mpg-lph", (v) => 100 / (v*1.609/3.785));
+        conversions.Add("lph-mpg", (v) => 100 / (v*1.609/3.785));
+
+        conversions.Add("ukmpg-lph", (v) => 100 / (v*1.609/4.546));
+        conversions.Add("lph-ukmpg", (v) => 100 / (v*1.609/4.546));
+
+        // FE instant
+        conversions.Add("ghour-lphour", conversions["gallons-liters"]);
+        conversions.Add("lphour-ghour",  conversions["liters-gallons"]);
+
+        conversions.Add("ukghour-lphour", conversions["ukgallons-liters"]);
+        conversions.Add("lphour-ukghour",  conversions["liters-ukgallons"]);
+
+        UnitTypes["metric"]   = "celsius km kph lph liters lphour";
+        UnitTypes["imperial"] = "fahrenheit miles mph mpg gallons ghour";
+        UnitTypes["uk"]       = "celsius miles mph ukmpg ukgallons ukghour";
+        UnitTypes["africa"]   = "celsius km kph kmpl liters lphour";
+
+        UpdateUnitTypes();
+
+    }
+
+    public static void UpdateUnitTypes()
+    {
+        foreach(var u in UnitTypes.Keys){
+            UnitTypesRaw[u] = UnitTypes[u].Split(new char[]{' '}).ToList();
+        }
+    }
+
+    public static IEnumerable<string> AvailableTypes{
+        get{
+            return UnitTypes.Keys;
+        }
     }
 
     public UnitsConverter(string units)
     {
        this.Units = units;
+       
+       foreach(var u in UnitTypesRaw[Units]){
+           foreach(var u2 in conversions.Keys.Where((k) => k.EndsWith("-"+u))){
+               var fromu = u2.Substring(0, u2.IndexOf("-"));
+               CurrentConversions[fromu] = conversions[u2];
+           }
+       }
     }
 
     public bool NeedConversion(string fromUnits)
     {
         if (fromUnits == null) return false;
 
-        if (this.Units == "metric"){
-            return metric.ContainsKey(fromUnits);
-        }else{
-            return imperial.ContainsKey(fromUnits);
-        }
+        return CurrentConversions.ContainsKey(fromUnits);
     }
-
+    /*
+    public static Func<double, double> SearchMapping(string unitsType, string fromUnits)
+    {
+        var myUnits = UnitsTypesRaw(unitsType);
+        var toUnits = myUnits.FirstOrDefault((u) => conversions.ContainsKey(fromUnits+"-"+u));
+        
+        return conversions.Keys.FirstOrDefault((k) => k == fromUnits);
+    }
+    */
     public double Convert(string fromUnits, double value)
     {
         if (fromUnits == null)
             return value;
-        if (this.Units == "metric"){
-            if (!metric.ContainsKey(fromUnits))
-                return value;
-            else
-                return metric[fromUnits](value);
-        }else{
-            if (!imperial.ContainsKey(fromUnits))
-                return value;
-            else
-                return imperial[fromUnits](value);
-        }
+        if (!NeedConversion(fromUnits))
+            return value;
+        return CurrentConversions[fromUnits](value);
     }
 
-    public static double Invert(string fromUnits, double value)
+    public static double Convert(string fromUnits, string toUnits, double value)
     {
-        if (fromUnits == null)
+        if (fromUnits == null || toUnits == null)
             return value;
         
-        if (metric.ContainsKey(fromUnits))
-            return metric[fromUnits](value);
-        if (imperial.ContainsKey(fromUnits))
-            return imperial[fromUnits](value);
+        if (!conversions.ContainsKey(fromUnits+"-"+toUnits))
+            return value;
 
-        return value;
+        return conversions[fromUnits+"-"+toUnits](value);
     }
-
+    
     public string ConvertUnits(string fromUnits)
     {
         if (fromUnits == null)
             return null;
-        if (this.Units == "metric"){
-            if (!metric_s.ContainsKey(fromUnits))
-                return fromUnits;
-            else
-                return metric_s[fromUnits];
-        }else{
-            if (!imperial_s.ContainsKey(fromUnits))
-                return fromUnits;
-            else
-                return imperial_s[fromUnits];
-        }
+        if (UnitTypesRaw[Units].Contains(fromUnits))
+            return fromUnits;
+        var result = conversions.Keys
+              .Where((k) => k.StartsWith(fromUnits+"-"))
+              .Select( (u2) => u2.Substring(u2.IndexOf("-")+1) )
+              .Where( (u2) => UnitTypesRaw[Units].Contains(u2)  ).FirstOrDefault();
+       return result == null ? fromUnits : result;
     }
 
 }
