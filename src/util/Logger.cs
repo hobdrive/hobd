@@ -78,7 +78,9 @@ public class Logger
             }
         }catch(Exception){}
         try{
+#if !__ANDROID__
             System.Console.WriteLine(msg);
+#endif
 #if __ANDROID__
             Android.Util.Log.Error("HOBD", msg);
 #endif
