@@ -74,7 +74,9 @@ public class OBD2Engine : Engine
         Thread.Sleep(50);
         while(stream.HasData())
         {
-            stream.Read();
+            var buf = stream.Read();
+            // hack against infinite null stream
+            if (buf == null) break;
         }
     }
     
@@ -365,22 +367,24 @@ public class OBD2Engine : Engine
         if (stream.HasData())
         {
             byte[] data = stream.Read();
-            if (data == null) data = new byte[0];
-            if (position + data.Length < buffer.Length)
+            if (data != null)
             {
-                Array.Copy(data, 0, buffer, position, data.Length);
-                position = position + data.Length;
-            }else{
-                position = 0;
+                if (position + data.Length < buffer.Length)
+                {
+                    Array.Copy(data, 0, buffer, position, data.Length);
+                    position = position + data.Length;
+                }else{
+                    position = 0;
+                }
+                if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
+                if (ReadDelay > 0)
+                {
+                    if (Logger.TRACE) Logger.trace("OBD2Engine", "Sleeping "+ReadDelay+" ms");
+                    Thread.Sleep(ReadDelay);
+                }
+                if (data.Length > 0)
+                    lastReceiveTS = DateTimeMs.Now;
             }
-            if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
-            if (ReadDelay > 0)
-            {
-                if (Logger.TRACE) Logger.trace("OBD2Engine", "Sleeping "+ReadDelay+" ms");
-                Thread.Sleep(ReadDelay);
-            }
-            if (data.Length > 0)
-                lastReceiveTS = DateTimeMs.Now;
             data = null;
         }
 
