@@ -32,8 +32,8 @@ public class UnitsConverter{
         DefaultNumberFormat.NumberDecimalSeparator = ".";
         DefaultNumberFormat.PositiveInfinitySymbol = "∞";
         
-        conversions.Add("fahrenheit-celsius",    (v) => v*9/5 + 32);
-        conversions.Add("celsius-fahrenheit", (v) => (v-32)*5/9);
+        conversions.Add("fahrenheit-celsius",    (v) => (v-32)*5/9);
+        conversions.Add("celsius-fahrenheit", (v) => v*9/5 + 32);
 
         conversions.Add("km-miles", (v) => v/1.609);
         conversions.Add("miles-km", (v) => v*1.609);
