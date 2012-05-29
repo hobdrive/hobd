@@ -44,8 +44,12 @@ public class SensorStorage
 
                 var sensor = Registry.Sensor(sname);
                 if (sensor != null && sensor is IPersistentSensor){
-                    ((IPersistentSensor)sensor).RestoreState(value);
-                    Registry.TriggerListeners(sensor);
+                    try{
+                        ((IPersistentSensor)sensor).RestoreState(value);
+                        Registry.TriggerListeners(sensor);
+                    }catch(Exception e){
+                        Logger.error("SensorStorage", "fail on RestoreState: "+sname, e);
+                    }
                 }else{
                     Logger.error("SensorStorage", "bad sensor: "+sname);
                 }

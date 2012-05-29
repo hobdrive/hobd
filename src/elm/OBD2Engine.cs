@@ -418,6 +418,11 @@ public class OBD2Engine : Engine
     {
         thread_active = true;
         
+        if (stream == null)
+        {
+            SetState(ST_ERROR);
+            return;
+        }
         SetState(ST_INIT);
         
         while(this.active){

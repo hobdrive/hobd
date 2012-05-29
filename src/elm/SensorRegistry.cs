@@ -183,7 +183,7 @@ public class SensorRegistry
             throw new ArgumentNullException();
         SensorListener sl = null;
         activeSensors.TryGetValue(sensor, out sl);
-        if (Logger.DUMP && sl != null) Logger.dump("SensorRegistry", "TriggerListeners " +sensor.ID+" "+sl.nextReading);
+        if (Logger.DUMP && sl != null) Logger.dump("SensorRegistry", "TriggerListeners " +sensor.ID+"="+sensor.Value+" nr="+sl.nextReading);
         if (sl != null && triggerQueue != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
             triggerQueue.Enqueue(sensor);
     }

@@ -77,6 +77,8 @@ public class TCPStream: IStream
         lock(this)
         {
             var len = sock.Receive(buf);
+            if (len == 0)
+                return null;
             byte[] outputData_ = new byte[len];
             Array.Copy(buf, 0, outputData_, 0, len);
             return outputData_;
