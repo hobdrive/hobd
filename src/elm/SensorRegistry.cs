@@ -89,6 +89,13 @@ public class SensorRegistry
         sensor.SetRegistry(this);
     }
 
+    public void AddAlias(Sensor sensor, string alias)
+    {
+        sensorNames.Remove(alias);
+        sensorNames.Add(alias, sensor);
+        sensor.SetRegistry(this);
+    }
+
     public void Remove(Sensor sensor)
     {
         sensors.Remove(sensor.ID);
