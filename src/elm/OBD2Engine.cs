@@ -21,7 +21,7 @@ public class OBD2Engine : Engine
     SensorListener currentSensorListener = null;
     long[] nextReadings = null;
 
-    byte[] buffer = new byte[256];
+    byte[] buffer = new byte[1024];
     int position = 0;
 
     List<string> extraInitCommands = new List<string>();
