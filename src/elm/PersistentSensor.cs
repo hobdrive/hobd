@@ -54,6 +54,8 @@ public class PersistentSensor : CoreSensor, IPersistentSensor, IAccumulatorSenso
         value = value.Replace(",", ".");
         
         this.Value = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+        if (Double.IsNaN(this.Value) || Double.IsInfinity(this.Value))
+            this.Value = 0;
         this.TimeStamp = ts;
 
         firstRun = true;
