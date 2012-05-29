@@ -110,6 +110,7 @@
     <Compile Include="src\elm\load\EngineLoadSensors.cs" />
     <Compile Include="src\elm\load\LitersPerHourSensor.cs" />
     <Compile Include="src\elm\CoreSensor.cs" />
+    <Compile Include="src\elm\CoreSensorEx.cs" />
     <Compile Include="src\elm\IAccumulatorSensor.cs" />
     <Compile Include="src\elm\IAggregatorSensor.cs" />
     <Compile Include="src\elm\IPersistentSensor.cs" />

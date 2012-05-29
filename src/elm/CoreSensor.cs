@@ -26,7 +26,7 @@ public class CoreSensor : Sensor
     }
     public long TimeStamp {get; set;}
     
-    public virtual bool Valid { get; set; }
+    public virtual bool Valid { get; protected set; }
 
     public virtual string ID { get; set; }
     

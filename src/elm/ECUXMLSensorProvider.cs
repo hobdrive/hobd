@@ -179,7 +179,7 @@ public class ECUXMLSensorProvider : SensorProvider
             }
 
             CoreSensor sensor = null;
-            // OBD2 sensor
+            // OBD2 derived sensor
             if (basename != null)
             {
                 // Custom derived sensor
@@ -191,6 +191,7 @@ public class ECUXMLSensorProvider : SensorProvider
                 }
                 sensor = s;                
             }
+            // RAW data from base sensor
             else if (basenameraw != null)
             {
                 // Custom derived sensor
@@ -247,6 +248,7 @@ public class ECUXMLSensorProvider : SensorProvider
                 }
                 sensor = s;                
             }
+            // command / raw command
             else if (basename == null)
             {
                 var s = new OBD2Sensor();
