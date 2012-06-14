@@ -6,7 +6,7 @@ namespace hobd
 
 public class FuelEconomyTripSensor : DerivedSensor
 {
-    public FuelEconomyTripSensor(string distance_id, string fuel_id) : base("", distance_id, fuel_id, 2000)
+    public FuelEconomyTripSensor(string distance_id, string fuel_id) : base("", distance_id, fuel_id, true, false, 2000)
     {
         Value = Double.PositiveInfinity;
         base.DerivedValue = FEValue;

@@ -8,6 +8,7 @@
         protected string aid;
         private Sensor b;
         protected string bid;
+        protected bool triggerA, triggerB;
         protected int Interval;
         public Func<Sensor, Sensor, double> DerivedValue = (a, b) => 0.0;
 
@@ -15,10 +16,19 @@
         {
         }
 
-        public DerivedSensor(string id, string a, string b, int interval)
+        public DerivedSensor(string id, string a, string b, int interval) : this(id, a, b, true, true, interval)
+        {
+        }
+
+        public DerivedSensor(string id, string a, string b, bool triggerA, bool triggerB) : this(id, a,b, triggerA, triggerB, 0)
+        {
+        }
+        public DerivedSensor(string id, string a, string b, bool triggerA, bool triggerB, int interval)
         {
             this.aid = a;
             this.bid = b;
+            this.triggerA = triggerA;
+            this.triggerB = triggerB;
             this.Interval = interval;
             this.ID = this.Name = id;
         }
@@ -75,7 +85,8 @@
         {
             this.Value = this.DerivedValue(this.a, this.b);
             base.TimeStamp = s.TimeStamp;
-            base.registry.TriggerListeners(this);
+            if ((triggerA && s == this.a) || (triggerB && s == this.b))
+                base.registry.TriggerListeners(this);
         }
     }
 }
