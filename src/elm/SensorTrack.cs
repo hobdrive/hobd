@@ -142,7 +142,11 @@ public class SensorTrack
                 Settings.Add(set.id, set);
             }
             Logger.trace("SensorTrack", "attach " +set.id + " period " + set.period + " length " + set.length + " gap "+ set.gap);
-            Registry.AddListener(sensor, this.SensorChanged, set.period);
+            try{
+                Registry.AddListener(sensor, this.SensorChanged, set.period);
+            }catch(Exception e){
+                Logger.trace("SensorTrack", "attach failed" +sensor.ID);
+            }
         });
 
         if (this.TrackPassive)
@@ -152,7 +156,11 @@ public class SensorTrack
         if (this.TrackAccum)
         {
             foreach(var s in Registry.Sensors.Where(s => s is IAccumulatorSensor)){
-                Registry.AddListener(s, this.SensorChanged);
+                try{
+                    Registry.AddListener(s, this.SensorChanged);
+                }catch(Exception){
+                    Logger.trace("SensorTrack", "attach failed" +s.ID);
+                }
             }
         }
     }
@@ -246,8 +254,12 @@ public class SensorTrack
     {
         if (Registry == null) return;
 
-        Registry.RemoveListener(this.SensorChanged);
-        Registry.RemovePassiveListener(this.SensorChanged);
+        try{
+            Registry.RemoveListener(this.SensorChanged);
+            Registry.RemovePassiveListener(this.SensorChanged);
+        }catch(Exception e){
+            Logger.error("SensorTrack", "Detach fail", e);
+        }
         Store();
         this.Registry = null;
     }

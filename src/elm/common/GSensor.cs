@@ -18,7 +18,7 @@ public class GSensor : CoreSensor
         
     public GSensor()
     {
-        ListenInterval = 3000;
+        ListenInterval = 0;
     }
 
     public override void Activate()

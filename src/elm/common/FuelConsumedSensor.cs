@@ -11,6 +11,7 @@ namespace hobd
 public class FuelConsumedSensor : PersistentSensor
 {
     public int ListenInterval{get; set;}
+    Sensor lph;
         
     public FuelConsumedSensor()
     {
@@ -19,12 +20,13 @@ public class FuelConsumedSensor : PersistentSensor
 
     public override void Activate()
     {
-        Logger.trace("FCS", "lph: "+registry.Sensor(OBD2Sensors.LitersPerHour).ID);
-        registry.AddListener(OBD2Sensors.LitersPerHour, OnChange, ListenInterval);
+        lph = registry.Sensor(OBD2Sensors.LitersPerHour);
+        Logger.trace("FCS", "lph: "+lph.ID);
+        registry.AddListener(lph, OnChange, ListenInterval);
     }
     public override void Deactivate()
     {
-        registry.RemoveListener(OBD2Sensors.LitersPerHour, OnChange);
+        registry.RemoveListener(lph, OnChange);
     }
 
     void OnChange(Sensor lph)

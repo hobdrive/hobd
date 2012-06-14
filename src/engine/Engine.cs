@@ -84,7 +84,8 @@ public class Engine
         if (state == STATE_INIT || state == Engine.STATE_ERROR){
             // Tells sensor that engine operation was delayed
             // TriggerReset is possible too, but is a user-controlled action
-            Registry.TriggerSuspend();
+            // This is done in application
+            // Registry.TriggerSuspend();
         }
     }
     
