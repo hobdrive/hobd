@@ -31,6 +31,7 @@ public class UnitsConverter{
         DefaultNumberFormat = new NumberFormatInfo();
         DefaultNumberFormat.NumberDecimalSeparator = ".";
         DefaultNumberFormat.PositiveInfinitySymbol = "∞";
+        DefaultNumberFormat.NaNSymbol = "-";
         
         conversions.Add("fahrenheit-celsius",    (v) => (v-32)*5/9);
         conversions.Add("celsius-fahrenheit", (v) => v*9/5 + 32);
@@ -41,6 +42,11 @@ public class UnitsConverter{
         conversions.Add("mph-kph", conversions["miles-km"]);
         conversions.Add("kph-mph", conversions["km-miles"]);
 
+        conversions.Add("kw-hp", (v) => v/0.745);
+        conversions.Add("hp-kw", (v) => v*0.745);
+
+        conversions.Add("Nm-lbft", (v) => v*0.7375621);
+        conversions.Add("lbft-Nm", (v) => v/0.7375621);
 
         // volume
         conversions.Add("liters-gallons", (v) => v / 3.785);
@@ -67,10 +73,10 @@ public class UnitsConverter{
         conversions.Add("ukghour-lphour", conversions["ukgallons-liters"]);
         conversions.Add("lphour-ukghour",  conversions["liters-ukgallons"]);
 
-        UnitTypes["metric"]   = "celsius km kph lph liters lphour";
-        UnitTypes["imperial"] = "fahrenheit miles mph mpg gallons ghour";
-        UnitTypes["uk"]       = "celsius miles mph ukmpg ukgallons ukghour";
-        UnitTypes["africa"]   = "celsius km kph kmpl liters lphour";
+        UnitTypes["metric"]   = "celsius km kph lph liters lphour hp Nm";
+        UnitTypes["imperial"] = "fahrenheit miles mph mpg gallons ghour hp lbft";
+        UnitTypes["uk"]       = "celsius miles mph ukmpg ukgallons ukghour kw lbft";
+        UnitTypes["africa"]   = "celsius km kph kmpl liters lphour kw Nm";
 
         UpdateUnitTypes();
 
