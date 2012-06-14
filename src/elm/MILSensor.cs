@@ -130,7 +130,7 @@ public class MILSensor : OBD2Sensor
         }
     }
 
-    char ToChar(int c)
+    public static char ToChar(int c)
     {
         return c < 0xA ? (char)(0x30+c) : (char)('A'+(char)(c-0xA));
     }

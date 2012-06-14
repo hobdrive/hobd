@@ -130,6 +130,11 @@ public class OBD2Sensor : CoreSensor
         return getraw(data_offset+2+idx);
     }
 
+    public double get_word(int idx)
+    {
+        return getraw_word(data_offset+2+idx);
+    }
+
     public double get_bit(int idx, int bit)
     {
         return (dataraw[data_offset+2+idx] & (1<<bit)) != 0 ? 1 : 0;

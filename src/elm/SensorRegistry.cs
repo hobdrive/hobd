@@ -33,6 +33,8 @@ public class SensorRegistry
     Thread listenThread;
     Queue<Sensor> triggerQueue = new Queue<Sensor>();
     public int QueueSize { get{ return triggerQueue.Count; } }
+
+    static IList<Func<string, object>> ObjectCreators = new List<Func<string, object>>();
     
     public IDictionary<string, string> VehicleParameters {get;set;}
 
@@ -76,6 +78,22 @@ public class SensorRegistry
 	{
 	    provider.Activate(this);
 	}
+
+    public object CreateObject(string clazz)
+    {
+        foreach(var oc in ObjectCreators)
+        {
+            var obj = oc(clazz);
+            if (obj != null)
+                return obj;
+        }
+        return null;
+    }
+    
+    public static void RegisterObjectCreator(Func<string, object> creator)
+    {        
+        ObjectCreators.Add(creator);
+    }
 
     public void Add(Sensor sensor)
     {
@@ -270,6 +288,8 @@ public class SensorRegistry
 	{
 	    lock(sync_listener)
 	    {
+    	    if (!activeSensors.ContainsKey(sensor))
+    	        return; // TODO: handle errors?
     	    SensorListener sl = activeSensors[sensor];
 	        var removed = sl.listeners.RemoveAll((g) => {return g == listener;});
 	        if (removed > 0)
