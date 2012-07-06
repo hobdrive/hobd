@@ -35,7 +35,7 @@ public class SensorRegistry
     Queue<Sensor> triggerQueue = new Queue<Sensor>();
     public int QueueSize { get{ return triggerQueue.Count; } }
 
-    static IList<Func<string, object>> ObjectCreators = new List<Func<string, object>>();
+    IList<Func<string, object>> ObjectCreators = new List<Func<string, object>>();
     
     public IDictionary<string, string> VehicleParameters {get;set;}
 
@@ -91,7 +91,7 @@ public class SensorRegistry
         return null;
     }
     
-    public static void RegisterObjectCreator(Func<string, object> creator)
+    public void RegisterObjectCreator(Func<string, object> creator)
     {        
         ObjectCreators.Add(creator);
     }
@@ -287,6 +287,7 @@ public class SensorRegistry
      */
 	public void RemoveListener(Sensor sensor, Action<Sensor> listener)
 	{
+	    if (Logger.DUMP) Logger.dump("SensorRegistry", "RemoveListener "+ sensor.ID + " " + listener.ToString());
 	    lock(sync_listener)
 	    {
     	    if (!activeSensors.ContainsKey(sensor))
@@ -306,6 +307,7 @@ public class SensorRegistry
      */
 	public void RemoveListener(Action<Sensor> listener)
 	{
+	    if (Logger.DUMP) Logger.dump("SensorRegistry", "RemoveListener " + listener.ToString());
 	    lock(sync_listener)
 	    {
 	        foreach (var sl in activeSensors.Values.ToArray()) {

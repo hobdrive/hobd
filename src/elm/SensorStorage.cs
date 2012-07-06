@@ -62,6 +62,9 @@ public class SensorStorage
 
     public void StoreState()
     {
+        if (Registry == null)
+            return;
+
         var sensors = Registry.EnumerateSensors().Where(s => s is IPersistentSensor).ToList();
 
         try{

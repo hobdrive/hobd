@@ -43,6 +43,7 @@
 
         public override void Activate()
         {
+            Logger.dump("DerivedSensor", "Activate: "+this.ID);
             LoadBaseSensors();
             if (this.a != null)
                 base.registry.AddListener(this.a, this.OnSensorChange, Interval);
