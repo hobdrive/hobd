@@ -23,6 +23,7 @@ public class OBD2Engine : Engine
 
     byte[] buffer = new byte[1024];
     int position = 0;
+    int LinesSent;
 
     List<string> extraInitCommands = new List<string>();
     int extraInitIndex;
@@ -80,11 +81,14 @@ public class OBD2Engine : Engine
         }
     }
     
-    void SendCommand(string command)
+    int SendCommand(string command)
     {
         if (Logger.TRACE) Logger.trace("OBD2Engine", "SendCommand:" + command);
-        byte[] arr = Encoding.ASCII.GetBytes(command+"\r");
+        var realcmd = command+"\r";
+        int csize = realcmd.Count(c => c == '\r');
+        byte[] arr = Encoding.ASCII.GetBytes(realcmd);
         stream.Write(arr, 0, arr.Length);
+        return csize;
     }
     void SendRaw(string command)
     {
@@ -214,7 +218,7 @@ public class OBD2Engine : Engine
                             var cmd = osensor.RawCommand;
                             if (cmd != null)
                             {
-                                SendCommand(cmd);
+                                LinesSent = SendCommand(cmd);
                                 SetState(ST_SENSOR_ACK);
                                 break;
                             }else{
@@ -279,6 +283,7 @@ public class OBD2Engine : Engine
                     SetState(ST_ERROR);
                 }else{
                     Logger.log("INFO", "OBD2Engine", "Sensor Init:" + smsg, null);
+                    //PIDSupported.SetValue(msg);
                     SetState(ST_QUERY_PROTOCOL);
                 }
                 break;
@@ -377,6 +382,7 @@ public class OBD2Engine : Engine
                     Array.Copy(data, 0, buffer, position, data.Length);
                     position = position + data.Length;
                 }else{
+                    Logger.error("OBD2Engine", "BUFFER OVERFLOW! " + position+data.Length);
                     position = 0;
                 }
                 if (Logger.DUMP) Logger.dump("OBD2Engine", "BUFFER: "+Encoding.ASCII.GetString(buffer, 0, position));
