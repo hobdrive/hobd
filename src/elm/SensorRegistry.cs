@@ -12,6 +12,7 @@ public class SensorListener
     public Sensor sensor;
     public List<Action<Sensor>> listeners = new List<Action<Sensor>>();
     public int period = 0;
+    public int failures;
     public long nextReading;
 }
 /**

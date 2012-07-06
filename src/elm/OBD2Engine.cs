@@ -299,7 +299,7 @@ public class OBD2Engine : Engine
 
                 var osensor = (OBD2Sensor)lsl.sensor;
 
-                nextReadings[currentSensorIndex] = DateTimeMs.Now + lsl.period;
+                nextReadings[currentSensorIndex] = DateTimeMs.Now + lsl.period + (1000*Math.Min(10, lsl.failures));
                 
                 // proactively read next sensor!
                 SetState(ST_SENSOR);
@@ -308,6 +308,7 @@ public class OBD2Engine : Engine
                 if (osensor.SetRawValue(msg))
                 {
                     subsequentErrors = 0;
+                    lsl.failures = 0;
                     this.Error = null;
                 }else{
                     // search for known errors, increment counters
@@ -319,7 +320,9 @@ public class OBD2Engine : Engine
                         if (subsequentErrors == 0)
                         {
                             Logger.info("OBD2Engine", "sensor not responding, increasing period: "+osensor.ID);
-                            lsl.period = unchecked((lsl.period +100) * 2);
+                            // !!!! VAZ.Core fail otherwise
+                            lsl.failures++;
+                            //lsl.period = unchecked((lsl.period +100) * 2);
                         }
                         subsequentErrors++;
                     }else{
