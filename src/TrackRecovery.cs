@@ -11,14 +11,51 @@
         //public const double VALUE_THRES = 100000;
 
         public static Dictionary<string, double> collects = new Dictionary<string, double>();
+        public static Dictionary<string, double[]> fcollects = new Dictionary<string, double[]>();
+
+
+        static bool SameDayFilter(long csTimeStamp, long thatTimeStamp)
+        {
+            if (DateTimeMs.ToDateTime(csTimeStamp).Date != DateTimeMs.ToDateTime(thatTimeStamp).Date )
+                return true;
+            else
+                return false;
+        }
+
+        static bool SameWeekFilter(long csTimeStamp, long thatTimeStamp)
+        {
+            var d1 = DateTimeMs.ToDateTime(csTimeStamp);
+            var d2 = DateTimeMs.ToDateTime(thatTimeStamp);
+            var jan1 = (int)new DateTime(d1.Year, 1, 1, 0,0,0).DayOfWeek;
+            int wk1 = (d1.DayOfYear + jan1 - 2) / 7;
+            int wk2 = (d2.DayOfYear + jan1 - 2) / 7;
+            return (wk1 != wk2);
+        }
+        
+        static bool SameMonthFilter(long csTimeStamp, long thatTimeStamp)
+        {
+            var d1 = DateTimeMs.ToDateTime(csTimeStamp).Month;
+            var d2 = DateTimeMs.ToDateTime(thatTimeStamp).Month;
+            return (d1 != d2);
+        }
+
 
         private static string Collect(string file)
         {
             var sname = Path.GetFileName(file).Replace("track0.", "");
 
+            if ( (new String[]{ "maximum","_fueling","_fueling","_tank","Efficiency" }).FirstOrDefault( e => sname.Contains(e) ) != null)
+                return null;
+
+            if ( sname.Contains("Filtered") )
+                return null;
+
             double value = 0;
             if (collects.ContainsKey(sname))
                 value = collects[sname];
+            
+            double vDay, vWeek, vMonth;
+            vDay = vWeek = vMonth = 0;
 
             using (FileStream stream = new FileStream(file, FileMode.Open))
             {
@@ -48,7 +85,7 @@
                                 restart = true;
                             if (cValue-pValue < 0 || (averageIncreaseCount > 10 && (cValue-pValue > averageIncrease*(cTS-pTS)*100)))
                             {
-                                System.Console.WriteLine("JUMP " + (double)(cValue - pValue) + " " + str + " - " + averageIncrease*100);
+                                System.Console.WriteLine("RESTART " + (double)(cValue - pValue) + " " + str + " - " + averageIncrease*100);
                                 restart = true;
                             }
                         }
@@ -62,6 +99,13 @@
                         
                         var diff = (cValue - pValue);
                         value += diff;
+
+                        if (!SameDayFilter(DateTimeMs.Now, cTS) && vDay == 0)
+                            vDay = value;
+                        if (!SameWeekFilter(DateTimeMs.Now, cTS) && vWeek == 0)
+                            vWeek = value;
+                        if (!SameMonthFilter(DateTimeMs.Now, cTS) && vMonth == 0)
+                            vMonth = value;
 
                         if (cTS > pTS)
                         {
@@ -84,6 +128,7 @@
                 reader.Close();
             }
             collects[sname] = value;
+            fcollects[sname] = new[]{ vDay, vWeek, vMonth };
             return sname;
         }
 
@@ -98,6 +143,8 @@
                 RecoverDir(dir);
             foreach(var k in collects.Keys)
                 System.Console.WriteLine(k +" "+collects[k]);
+            foreach(var k in fcollects.Keys)
+                System.Console.WriteLine("Filtered."+k +" day="+fcollects[k][0]+" week="+fcollects[k][1] + " month="+fcollects[k][2]);
         }
 
         public static void RecoverDir(string dir)
