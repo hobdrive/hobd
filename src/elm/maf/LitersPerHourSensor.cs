@@ -27,12 +27,12 @@ public class LitersPerHourSensor : CoreSensor
         }
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         registry.AddListener("MAF", OnSensorChange, ListenInterval);
     }
     
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(OnSensorChange);
     }

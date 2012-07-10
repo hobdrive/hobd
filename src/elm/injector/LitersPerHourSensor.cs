@@ -33,7 +33,7 @@ public class LitersPerHourSensor : CoreSensor
         }catch(Exception){}
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         ipw = registry.Sensor("InjectorPulseWidth");
         rpm = registry.Sensor("RPM");
@@ -41,7 +41,7 @@ public class LitersPerHourSensor : CoreSensor
         registry.AddListener(rpm, OnSensorChange, ListenInterval);
     }
     
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(OnSensorChange);
     }

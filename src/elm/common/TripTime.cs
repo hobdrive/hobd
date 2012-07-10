@@ -13,11 +13,11 @@ public class TripTime : PersistentSensor
         ListenInterval = 2000;
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         registry.AddListener(OBD2Sensors.Speed, OnChange, ListenInterval);
     }
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(OBD2Sensors.Speed, OnChange);
     }

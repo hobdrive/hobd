@@ -35,7 +35,7 @@ public class LitersPerHourSensor : CoreSensor
         }
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         map = registry.Sensor(OBD2Sensors.IntakeManifoldPressure);
         registry.AddListener(map, OnSensorChange, ListenInterval);
@@ -47,7 +47,7 @@ public class LitersPerHourSensor : CoreSensor
         registry.AddListener(iat, OnSensorChange, 3000 + ListenInterval);
     }
     
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(OnSensorChange);
     }

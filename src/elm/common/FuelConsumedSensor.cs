@@ -18,13 +18,13 @@ public class FuelConsumedSensor : PersistentSensor
         ListenInterval = 2000;
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         lph = registry.Sensor(OBD2Sensors.LitersPerHour);
         Logger.trace("FCS", "lph: "+lph.ID);
         registry.AddListener(lph, OnChange, ListenInterval);
     }
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(lph, OnChange);
     }

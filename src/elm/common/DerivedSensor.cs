@@ -1,7 +1,9 @@
 ﻿namespace hobd
 {
     using System;
-
+    /// <summary>
+    /// Derived sensor is a simplified implementation of a sensor, which value depends on one or two other sensors
+    /// </summary>
     public class DerivedSensor : CoreSensor
     {
         private Sensor a;
@@ -12,6 +14,18 @@
         protected int Interval;
         public Func<Sensor, Sensor, double> DerivedValue = (a, b) => 0.0;
 
+        /// <summary>
+        /// Constructs a derived sensor
+        /// </summary>
+        /// <param name="id">
+        /// A <see cref="System.String"/> ID of this sensor
+        /// </param>
+        /// <param name="a">
+        /// A <see cref="System.String"/> ID of sensor A, which this sensor is listening
+        /// </param>
+        /// <param name="b">
+        /// A <see cref="System.String"/> ID of sensor B, which this sensor is listening
+        /// </param>
         public DerivedSensor(string id, string a, string b) : this(id, a,b,0)
         {
         }
@@ -33,7 +47,7 @@
             this.ID = this.Name = id;
         }
 
-        public virtual void LoadBaseSensors()
+        protected virtual void LoadBaseSensors()
         {
             if (this.aid != null && this.a == null)
                 this.a = base.registry.Sensor(this.aid);
@@ -41,7 +55,7 @@
                 this.b = base.registry.Sensor(this.bid);
         }
 
-        public override void Activate()
+        protected override void Activate()
         {
             Logger.dump("DerivedSensor", "Activate: "+this.ID);
             LoadBaseSensors();
@@ -51,13 +65,19 @@
                 base.registry.AddListener(this.b, this.OnSensorChange, Interval);
         }
 
-        public override void Deactivate()
+        protected override void Deactivate()
         {
             base.registry.RemoveListener(this.OnSensorChange);
             this.a = this.b = null;
         }
     
         protected bool recurseValue = false;
+        /// <summary>
+        /// Implementation of a value for Derived Sensor
+        /// </summary>
+        /// <description>
+        /// Getter is auto implemented using <c>DerivedValue</c> Action
+        /// </description>
         public override double Value {
             get{                    
                 if (recurseValue || (this.Active && this.Valid)){
@@ -82,7 +102,7 @@
             }
         }
 
-        protected virtual void OnSensorChange(Sensor s)
+        void OnSensorChange(Sensor s)
         {
             this.Value = this.DerivedValue(this.a, this.b);
             base.TimeStamp = s.TimeStamp;

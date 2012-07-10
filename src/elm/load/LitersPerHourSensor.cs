@@ -48,7 +48,7 @@ public class LitersPerHourSensor : CoreSensor
         }
     }
 
-    public override void Activate()
+    protected override void Activate()
     {
         load = registry.Sensor(OBD2Sensors.EngineLoad);
         registry.AddListener(load, OnSensorChange, ListenInterval);
@@ -59,7 +59,7 @@ public class LitersPerHourSensor : CoreSensor
         }
     }
     
-    public override void Deactivate()
+    protected override void Deactivate()
     {
         registry.RemoveListener(OnSensorChange);
     }

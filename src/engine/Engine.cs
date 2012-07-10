@@ -4,6 +4,11 @@ using System.Reflection;
 namespace hobd
 {
 
+/// <summary>
+/// Engine is a base abstract class for proposed sensor engine
+/// </summary>
+/// Engine could be started (begin sensor reading), stopped (stops sensor readings)
+/// It can notify listeners on its status 
 public class Engine
 {
 

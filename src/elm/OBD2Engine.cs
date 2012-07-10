@@ -9,7 +9,7 @@ namespace hobd
 {
 
 /// <summary>
-/// Description of OBD2Engine.
+/// OBD2Engine implements ELM327 protocol interfac for sensor fetching 
 /// </summary>
 public class OBD2Engine : Engine
 {
