@@ -354,7 +354,7 @@ public class SensorRegistry
 	        foreach (var sl in activeSensors.Values.ToArray()) {
                 var removed = sl.listeners.RemoveAll((g) => {return g == listener;});
                 if (removed > 0)
-                    sensor.NotifyRemoveListener(listener);
+                    sl.sensor.NotifyRemoveListener(listener);
     	        if(sl.listeners.Count == 0)
     	            activeSensors.Remove(sl.sensor);
 	        }
