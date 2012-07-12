@@ -14,6 +14,9 @@ public class SensorListener
     public int period = 0;
     public int failures;
     public long nextReading;
+#if DEBUG
+    public string bt = "";
+#endif
 }
 /**
  * Active set of sensors.
@@ -163,6 +166,23 @@ public class SensorRegistry
             return activeSensors_array;
         }
     }
+        
+    public void DumpState()
+    {
+        var act = "";
+        foreach(var sl in activeSensors.Values){
+            act += sl.sensor.ID+" \n";
+        }
+        Logger.error("SensorRegistry", "========================== active: "+act);
+        foreach(var sl in activeSensors.Values){
+            act = sl.sensor.ID+" \n";
+#if DEBUG
+            act += sl.bt;
+#endif
+            Logger.error("SensorRegistry", "========================== active: "+act);
+        }
+        
+    }
     
     void ListenerHandler()
     {
@@ -269,8 +289,14 @@ public class SensorRegistry
     	        sl.period = period;
     	        sl.nextReading = 0;
     	    }
-            sl.listeners.Add(listener);
-            sensor.NotifyAddListener(listener);
+            if (!sl.listeners.Contains(listener))
+            {
+                sl.listeners.Add(listener);
+#if DEBUG
+                sl.bt += Environment.StackTrace;
+#endif
+                sensor.NotifyAddListener(listener);
+            }
             activeSensors_array = null;
 	    }
 	}
