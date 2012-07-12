@@ -29,7 +29,7 @@ public class IdleTime : PersistentSensor
     }
     protected override void Deactivate()
     {
-        registry.RemoveListener(OBD2Sensors.Speed, OnSpeedChange);
+        registry.RemoveListener(OnSpeedChange);
     }
 
     public void OnSpeedChange(Sensor speed)

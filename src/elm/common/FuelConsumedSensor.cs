@@ -26,7 +26,7 @@ public class FuelConsumedSensor : PersistentSensor
     }
     protected override void Deactivate()
     {
-        registry.RemoveListener(lph, OnChange);
+        registry.RemoveListener(OnChange);
     }
 
     void OnChange(Sensor lph)

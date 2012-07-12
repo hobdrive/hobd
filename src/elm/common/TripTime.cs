@@ -19,7 +19,7 @@ public class TripTime : PersistentSensor
     }
     protected override void Deactivate()
     {
-        registry.RemoveListener(OBD2Sensors.Speed, OnChange);
+        registry.RemoveListener(OnChange);
     }
 
     public void OnChange(Sensor s)
