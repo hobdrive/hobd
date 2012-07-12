@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace hobd
 {
-    
+    /// <summary>
+    /// Simple coresensor with ability to be updated from external logic
+    /// </summary>
     public class CoreSensorEx : CoreSensor
     {
     

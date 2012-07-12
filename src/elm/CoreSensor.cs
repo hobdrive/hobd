@@ -5,7 +5,9 @@ namespace hobd
 {
 
 /// <summary>Implementation of a simple sensor</summary>
+/// <remarks>
 /// Sensor value could only be changed by derived classses
+/// </remarks>
 public class CoreSensor : Sensor
 {
     protected SensorRegistry registry;

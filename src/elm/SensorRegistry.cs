@@ -7,6 +7,9 @@ using System.Linq;
 namespace hobd
 {
 
+/// <summary>
+/// Information about sensor listener
+/// </summary>
 public class SensorListener
 {
     public Sensor sensor;
@@ -18,10 +21,11 @@ public class SensorListener
     public string bt = "";
 #endif
 }
-/**
- * Active set of sensors.
- * Provides ability to listen to sensor changes
- */
+
+/// <summary>
+/// Registry with active set of sensors
+/// </summary>
+/// Provides ability to listen to sensor changes, to fetch sensor list, etc
 public class SensorRegistry
 {
     object sync_listener = new object();
@@ -62,11 +66,12 @@ public class SensorRegistry
         }
     }
     
-    /**
-     Provider should be either a SensorProvider full class name, or special string
-     ecuxml://path/to/file.ecuxml
-     for dynamic sensor definitions
-     */
+
+    /// <summary>
+    /// Provider should be either a SensorProvider full class name, or special string
+    /// </summary>
+    /// ecuxml://path/to/file.ecuxml
+    /// for dynamic sensor definitions
     public void RegisterProvider(string provider)
     {
         if (provider.StartsWith("ecuxml://")){
@@ -128,9 +133,12 @@ public class SensorRegistry
         }
     }
 
-    /**
-     * Returns enumeration of all the available registered sensors
-     */
+    /// <summary>
+    /// Returns enumeration of all the available registered sensors
+    /// </summary>
+    /// <returns>
+    /// A <see cref="IEnumerable<Sensor>"/> list of all currently avaialable sensors
+    /// </returns>
     public IEnumerable<Sensor> EnumerateSensors()
     {
         return sensors.Values;
@@ -143,9 +151,9 @@ public class SensorRegistry
         }
     }
     
-    /**
-     * Gets the sensor with the specified ID or alias
-     */
+    /// <summary>
+    /// Gets the sensor with the specified ID or alias
+    /// </summary>
     public Sensor Sensor(string id)
     {
         Sensor value;
@@ -203,6 +211,7 @@ public class SensorRegistry
                     if (Logger.DUMP) Logger.dump("SensorRegistry", "ListenerHandler " +sensor.ID+" "+sl.nextReading);
                     foreach(Action<Sensor> l in sl.listeners.ToArray()) {
                         try{
+                            if (Logger.DUMP) Logger.dump("SensorRegistry", "Listener: " +l);
                             l(sensor);
                         }catch(Exception e)
                         {
@@ -229,21 +238,21 @@ public class SensorRegistry
             throw new ArgumentNullException();
         SensorListener sl = null;
         activeSensors.TryGetValue(sensor, out sl);
-        if (Logger.DUMP && sl != null) Logger.dump("SensorRegistry", "TriggerListeners " +sensor.ID+"="+sensor.Value+" nr="+sl.nextReading);
+        if (Logger.DUMP && sl != null) Logger.dump("SensorRegistry", "TriggerListeners " +sensor.ID+"="+sensor.Value+" listeners:" + sl.listeners.Count + " nr="+(sl.nextReading-DateTimeMs.Now));
         if (sl != null && triggerQueue != null && (sl.nextReading == 0 || sl.nextReading <= DateTimeMs.Now))
             triggerQueue.Enqueue(sensor);
     }
-    /**
-     * Triggers sensor suspend event for all sensors that supports it
-     */
+    /// <summary>
+    /// Triggers sensor suspend event for all sensors that supports it
+    /// </summary>
     public void TriggerSuspend()
     {
         foreach( var s in sensors.Values.Where( (s) => s is IAggregatorSensor ).ToList() )
             ((IAggregatorSensor)s).Suspend();
     }
-    /**
-     * Triggers sensor reset event for all sensors that supports it
-     */
+    /// <summary>
+    /// Triggers sensor reset event for all sensors that supports it
+    /// </summary>
     public void TriggerReset()
     {
         foreach( var s in sensors.Values.Where( (s) => s is IAggregatorSensor ).ToList() )
@@ -265,10 +274,13 @@ public class SensorRegistry
 	    this.AddListener(sensor, listener, 0);
 	}
 
-    /**
-     * Adds listener for the specified sensor. Use period of milliseconds to
-     * update the reading. Default is 0 - means update as fast as possible
-     */
+    /// <summary>
+    /// Adds listener for the specified sensor
+    /// </summary>
+    /// <remarks>
+    /// Use period of milliseconds to
+    /// update the reading. Default is 0 - means update as fast as possible
+    /// </remarks>
 	public void AddListener(Sensor sensor, Action<Sensor> listener, int period)
 	{
 	    if (Logger.DUMP) Logger.dump("SensorRegistry", "AddListener "+ sensor.ID + " " + listener.ToString() + " " + period);
@@ -301,16 +313,16 @@ public class SensorRegistry
 	    }
 	}
 	
-    /**
-     * alias for RemoveListener
-     */
+    /// <summary>
+    /// alias for RemoveListener
+    /// </summary>
 	public void RemoveListener(string sensor, Action<Sensor> listener)
 	{
 	    this.RemoveListener(Sensor(sensor), listener);
 	}
-    /**
-     * Removes the listener for the specified sensor
-     */
+    /// <summary>
+    /// Removes the listener for the specified sensor
+    /// </summary>
 	public void RemoveListener(Sensor sensor, Action<Sensor> listener)
 	{
 	    if (Logger.DUMP) Logger.dump("SensorRegistry", "RemoveListener "+ sensor.ID + " " + listener.ToString());
@@ -328,9 +340,12 @@ public class SensorRegistry
 	    }
 	}
 	
-    /**
-     * Detaches the specifed listener for all sensors
-     */
+    /// <summary>
+    /// Detaches the specifed listener for all sensors
+    /// </summary>
+    /// <param name="listener">
+    /// A <see cref="Action<Sensor>"/>
+    /// </param>
 	public void RemoveListener(Action<Sensor> listener)
 	{
 	    if (Logger.DUMP) Logger.dump("SensorRegistry", "RemoveListener " + listener.ToString());
@@ -338,8 +353,8 @@ public class SensorRegistry
 	    {
 	        foreach (var sl in activeSensors.Values.ToArray()) {
                 var removed = sl.listeners.RemoveAll((g) => {return g == listener;});
-    	        if (removed > 0)
-                    sl.sensor.NotifyRemoveListener(listener);
+                if (removed > 0)
+                    sensor.NotifyRemoveListener(listener);
     	        if(sl.listeners.Count == 0)
     	            activeSensors.Remove(sl.sensor);
 	        }
@@ -347,10 +362,15 @@ public class SensorRegistry
 	    }
 	}
 
-	/**
-	 * Passive listeners are the listeners who listen for all currently active sensors.
-	 * These listeners make no impact on the list of the sensors to fetch.
-	 */
+    /// <summary>
+    /// Passive listeners are the listeners who listen for all currently active sensors
+    /// </summary>
+    ///
+    /// These listeners make no impact on the list of the sensors to fetch.
+    ///
+    /// <param name="listener">
+    /// A <see cref="Action<Sensor>"/>
+    /// </param>
 	public void AddPassiveListener(Action<Sensor> listener)
 	{
 	    if (!PassiveListeners.Contains(listener))
