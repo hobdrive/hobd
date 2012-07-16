@@ -78,10 +78,25 @@ public class BluetoothStream: IStream
 
             try{
                 if (parsed_url[URL_PIN] != null)
+                {
                     bluetoothClient.SetPin(address, parsed_url[URL_PIN]);
+                }
             }catch(Exception){
                 Logger.error("BluetoothStream", "SetPin");
             }
+
+            if (parsed_url[URL_PIN] != null)
+            try{
+                for(var i = 0; i < 3; i++){
+                    var res = BluetoothSecurity.PairRequest(address, parsed_url[URL_PIN]);
+                    if (res)
+                        break;
+                    Logger.error("BluetoothStream", "PairRequest failed, retry "+i);
+                }
+            }catch(Exception){
+                Logger.error("BluetoothStream", "PairRequest");
+            }
+
             BluetoothEndPoint btep;
 
             // force serviceid for some popular china BT adapters
