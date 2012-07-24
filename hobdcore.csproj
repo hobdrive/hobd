@@ -120,6 +120,7 @@
     <Compile Include="src\elm\ELMVoltageSensor.cs" />
     <Compile Include="src\elm\OBD2Sensors.cs" />
     <Compile Include="src\elm\Sensor.cs" />
+    <Compile Include="src\elm\SensorExtra.cs" />
     <Compile Include="src\elm\SensorRegistry.cs" />
     <Compile Include="src\elm\SensorStorage.cs" />
     <Compile Include="src\elm\SensorTrack.cs" />
