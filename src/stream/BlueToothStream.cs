@@ -85,6 +85,8 @@ public class BluetoothStream: IStream
                 Logger.error("BluetoothStream", "SetPin");
             }
 
+#if xxBLUETOOTH_USE_PAIRREQUEST
+// advice from some user - but was useless. other user reported "unable to connecte because of this"
             if (parsed_url[URL_PIN] != null)
             try{
                 for(var i = 0; i < 3; i++){
@@ -96,6 +98,7 @@ public class BluetoothStream: IStream
             }catch(Exception){
                 Logger.error("BluetoothStream", "PairRequest");
             }
+#endif
 
             BluetoothEndPoint btep;
 
