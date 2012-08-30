@@ -99,6 +99,7 @@ public class ECUXMLSensorProvider : SensorProvider
                         basenameraw = reader.ReadElementString().Trim();
                         break;
 
+                    case "value":
                     case "valuea":
                         value = reader.ReadElementString();
                         replyoffset = 0;

@@ -144,7 +144,7 @@ public class SensorTrack
             Logger.trace("SensorTrack", "attach " +set.id + " period " + set.period + " length " + set.length + " gap "+ set.gap);
             try{
                 Registry.AddListener(sensor, this.SensorChanged, set.period);
-            }catch(Exception e){
+            }catch(Exception){
                 Logger.trace("SensorTrack", "attach failed" +sensor.ID);
             }
         });

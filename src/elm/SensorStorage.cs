@@ -55,6 +55,8 @@ public class SensorStorage
                 }
             }
             reader.Close();
+        }catch(FileNotFoundException){
+            Logger.error("SensorStorage", "File not found");
         }catch(Exception e){
             Logger.error("SensorStorage", "error reading", e);
         }
