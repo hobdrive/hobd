@@ -247,6 +247,13 @@ public class SensorRegistry
     /// </summary>
     public void TriggerSuspend()
     {
+        // we should wait until notify queue is empty, because otherwise some sensors may receive events after they get into suspend.
+        int tqTMO = 10;
+        while (triggerQueue.Count != 0 && tqTMO > 0)
+        {
+            Thread.Sleep(10);
+            tqTMO--;
+        }
         foreach( var s in sensors.Values.Where( (s) => s is IAggregatorSensor ).ToList() )
             ((IAggregatorSensor)s).Suspend();
     }
