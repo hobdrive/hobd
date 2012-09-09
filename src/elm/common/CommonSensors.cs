@@ -105,6 +105,16 @@ public class CommonSensors : SensorProvider
   
         registry.Add(s);
 
+        // CommonSpeed
+        s = new hobd.SpeedCorrectionSensor()
+            {
+                ID = "Common.Speed",
+                Name = "Speed",
+                
+            };
+        
+        registry.Add(s);
+
     }
 
     
@@ -120,6 +130,8 @@ public class CommonSensors : SensorProvider
 
   public const string IdleTime = "IdleTime";
 
+  public const string Speed = "Speed";
+
 }
 
 }
@@ -132,4 +144,5 @@ public class CommonSensors : SensorProvider
   - FuelEconomy_trip - Fuel Economy - Total fuel economy on trip - lph
   - TripTime - Trip Time - Total trip time - seconds
   - IdleTime - Idle Time - Idle time (with speed less 5km) - seconds
+  - Speed -  -  - 
 */

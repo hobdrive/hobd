@@ -6,10 +6,11 @@
     /// </summary>
     public class DerivedSensor : CoreSensor
     {
-        private Sensor a;
+        protected Sensor a;
         protected string aid;
-        private Sensor b;
+        protected Sensor b;
         protected string bid;
+        
         protected bool triggerA, triggerB;
         protected int Interval;
         public Func<Sensor, Sensor, double> DerivedValue = (a, b) => 0.0;

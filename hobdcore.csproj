@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</ProjectGuid>
@@ -126,7 +126,6 @@
     <Compile Include="src\elm\SensorTrack.cs" />
     <Compile Include="src\elm\OBD2Engine.cs" />
     <Compile Include="src\elm\OBD2Sensor.cs" />
-    <Compile Include="src\elm\SpeedSensor.cs" />
     <Compile Include="src\elm\ToyotaSensors.cs" />
     <Compile Include="src\elm\ClearDTCSensor.cs" />
     <Compile Include="src\elm\MILSensor.cs" />
@@ -145,6 +144,7 @@
     <Compile Include="src\stream\TCPStream.cs" />
     <Compile Include="src\NetworkHelper.cs" />
     <Compile Include="src\NetworkDataManager.cs" />
+    <Compile Include="src\elm\common\SpeedCorrectionSensor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

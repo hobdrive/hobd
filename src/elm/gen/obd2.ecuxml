@@ -139,7 +139,6 @@
     <description lang="ru">
       <name>Скорость</name><description>Скорость автомобиля</description>
     </description>
-    <class>hobd.SpeedSensor</class>
     <address> <byte>0x0D</byte> </address>
     <value> get(0x00) </value>
   </parameter>

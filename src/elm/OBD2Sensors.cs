@@ -226,7 +226,7 @@ public class OBD2Sensors : SensorProvider
         registry.Add(s);
 
         // OBD2Speed
-        s = new hobd.SpeedSensor()
+        s = new OBD2Sensor()
             {
                 ID = "OBD2.Speed",
                 Name = "Speed",

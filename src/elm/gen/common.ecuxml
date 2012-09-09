@@ -79,5 +79,8 @@
     <class>hobd.IdleTime</class>
   </parameter>
 
+  <parameter id="Speed">
+    <class>hobd.SpeedCorrectionSensor</class>
+  </parameter>
 
 </parameters>
