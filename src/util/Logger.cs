@@ -11,6 +11,11 @@ public class Logger
     public static bool WARN = false;
     public static bool ERROR = true;
 
+    public const string ERROR_TAG = "ERROR";
+    public const string INFO_TAG = "INFO ";
+    public const string TRACE_TAG = "TRACE";
+    public const string DUMP_TAG = "DUMP ";
+
     static StreamWriter fs;
     
     public static void Init(string path)
@@ -28,32 +33,32 @@ public class Logger
 
     public static void error(String comp, String msg, Exception e)
     {
-        if (ERROR) log("ERROR", comp, msg, e);
+        if (ERROR) log(ERROR_TAG, comp, msg, e);
     }
 
     public static void info(String comp, String msg)
     {
-        if (INFO) log("INFO ", comp, msg, null);
+        if (INFO) log(INFO_TAG, comp, msg, null);
     }
 
     public static void info(String comp, String msg, Exception e)
     {
-        if (INFO) log("INFO ", comp, msg, e);
+        if (INFO) log(INFO_TAG, comp, msg, e);
     }
 
     public static void trace(String comp, String msg)
     {
-        if (TRACE) log("TRACE", comp, msg, null);
+        if (TRACE) log(TRACE_TAG, comp, msg, null);
     }
 
     public static void trace(String msg)
     {
-        if (TRACE) log("TRACE", "", msg, null);
+        if (TRACE) log(TRACE_TAG, "", msg, null);
     }
     
     public static void dump(String comp, String msg)
     {
-        if (DUMP) log("DUMP ", comp, msg, null);
+        if (DUMP) log(DUMP_TAG, comp, msg, null);
     }
 
 
