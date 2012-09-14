@@ -96,8 +96,7 @@ public class SensorTrack
             reader.Close();
         }catch(FileNotFoundException){
         }catch(Exception e){
-            Logger.error("SensorHistory", "failed init", e);
-            Settings.Clear();
+            Logger.error("SensorTrack", "failed init", e);
         }
     }
 
