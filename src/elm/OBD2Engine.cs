@@ -248,7 +248,7 @@ public class OBD2Engine : Engine
             case ST_INIT:
                 break;
             case ST_ATZ:
-                if (smsg.Contains("ATZ"))
+                if (smsg.Contains("ATZ") || smsg.Contains("ELM"))
                 {
                     VersionInfo = smsg.Replace("ATZ", "").Replace("\r", "").Replace("\n", "").Trim();
                     Logger.log("INFO", "OBD2Engine", "VersionInfo: " + VersionInfo, null);
