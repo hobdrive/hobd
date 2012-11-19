@@ -21,6 +21,7 @@ public class Engine
     public const int STATE_READ = 1;
     public const int STATE_READ_DONE = 2;
     public const int STATE_ERROR = 3;
+    public const int STATE_UNKNOWN = 4;
     
     public event Action<int> StateNotify;
 
