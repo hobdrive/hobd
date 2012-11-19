@@ -96,6 +96,11 @@ public class SensorRegistry
             if (obj != null)
                 return obj;
         }
+        try{
+            return Assembly.GetExecutingAssembly().CreateInstance(clazz);
+        }catch(Exception e){
+            Logger.error("SensorRegistry", "CreateObject failed: "+clazz);
+        }
         return null;
     }
     
