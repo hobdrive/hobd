@@ -9,12 +9,17 @@ namespace hobd
 
     public class SpeedCorrectionSensor : DerivedSensor
     {
+
+        public const string PARAM = "speed-correction";
     
         double correction = 1;
     
         public SpeedCorrectionSensor() : base(CommonSensors.Speed, OBD2Sensors.Speed, null)
         {
-             base.DerivedValue = (s,x) => s.Value * correction;
+            ID = "Common.Speed";
+            Name = OBD2Sensors.Speed;
+            Units = "kph";
+            base.DerivedValue = (s,x) => s.Value * correction;
         }
     
         public override void SetRegistry(SensorRegistry registry)
@@ -26,9 +31,11 @@ namespace hobd
             // Force override
             base.aid = speed.ID;
             base.a = speed;
+            // This is not necessary, but good?
+            this.Units = speed.Units;
             
             try{
-                this.correction = double.Parse(registry.VehicleParameters["speed-correction"], UnitsConverter.DefaultNumberFormat);
+                this.correction = double.Parse(registry.VehicleParameters[PARAM], UnitsConverter.DefaultNumberFormat);
             }catch(Exception){
                 Logger.info("SpeedCorrectionSensor", "Using default coefficient");
             }
