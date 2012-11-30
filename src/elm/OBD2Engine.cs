@@ -37,6 +37,7 @@ public class OBD2Engine : Engine
 
     public int ReadDelay = 0;
     
+    public const string ST_INIT_HW = "INITHW";
     public const string ST_INIT = "INIT";
     public const string ST_ATZ = "ATZ";
     public const string ST_ATE0 = "ATE0";
@@ -46,6 +47,7 @@ public class OBD2Engine : Engine
     public const string ST_QUERY_PROTOCOL = "QUERY_PROTOCOL";
     public const string ST_SENSOR = "SENSOR";
     public const string ST_SENSOR_ACK = "SENSOR_ACK";
+    public const string ST_ERROR_SOFT = "ERROR_SOFT";
     public const string ST_ERROR = "ERROR";
 
     string[] dataErrors = new string[]{ "NO DATA", "DATA ERROR", };
@@ -115,6 +117,7 @@ public class OBD2Engine : Engine
                 fireStateNotify(STATE_READ_DONE);
                 break;
             case ST_ERROR:
+            case ST_ERROR_SOFT:
                 fireStateNotify(STATE_ERROR);
                 break;                
             default:
@@ -123,7 +126,7 @@ public class OBD2Engine : Engine
         }
         
         switch(State){
-            case ST_INIT:
+            case ST_INIT_HW:
                 Error = null;
                 try{
                     stream.Close();
@@ -137,7 +140,9 @@ public class OBD2Engine : Engine
                     break;
                 }
                 PurgeStream();
-
+                SetState(ST_INIT);
+                break;
+            case ST_INIT:
                 extraInitCommands.Clear();
                 extraInitIndex = 0;
                 if (CriticalError)
@@ -173,7 +178,7 @@ public class OBD2Engine : Engine
                     SetState(ST_SENSOR_INIT);
                 }else{
                     SendCommand(extraInitCommands[extraInitIndex]);
-                    StateDetails = StateDetails + " " + this.extraInitCommands[this.extraInitIndex];
+                    StateDetails = State + " " + this.extraInitCommands[this.extraInitIndex];
                     extraInitIndex++;
                 }
                 break;
@@ -279,8 +284,10 @@ public class OBD2Engine : Engine
             case ST_SENSOR_INIT:
                 Error = criticalErrors.FirstOrDefault(e => smsg.Contains(e));
                 if (Error != null) {
-                    Logger.error("OBD2Engine", "Critical error:" + smsg);
-                    SetState(ST_ERROR);
+                    Logger.error("OBD2Engine", "Critical error on sensor init:" + smsg);
+                    // Wait and then do soft reconnect
+                    SetState(ST_ERROR_SOFT);
+                    StateDetails = State + " " + Error;
                 }else{
                     Logger.log("INFO", "OBD2Engine", "Sensor Init:" + smsg, null);
                     //PIDSupported.SetValue(msg);
@@ -336,7 +343,7 @@ public class OBD2Engine : Engine
                             this.Error = error;
                             this.CriticalError = true;
                             Logger.error("OBD2Engine", "Critical error:" + smsg);
-                            SetState(ST_INIT);
+                            SetState(ST_ERROR_SOFT);
                             subsequentErrors = 0;
                         }
                     }
@@ -344,9 +351,10 @@ public class OBD2Engine : Engine
                 // act on too much errors
                 if (subsequentErrors > ErrorThreshold) {
                     Logger.error("OBD2Engine", "Connection error threshold");
+                    this.Error = "Connection error threshold";
                     subsequentErrors = 0;
                     this.CriticalError = true;
-                    SetState(ST_INIT);
+                    SetState(ST_ERROR_SOFT);
                 }
                 break;
         }
@@ -432,7 +440,7 @@ public class OBD2Engine : Engine
             SetState(ST_ERROR);
             return;
         }
-        SetState(ST_INIT);
+        SetState(ST_INIT_HW);
         
         while(this.active){
         
@@ -457,9 +465,17 @@ public class OBD2Engine : Engine
             var diff_ms = DateTimeMs.Now - lastReceiveTS;
             if (diff_ms > NoResponseTimeout) {
                 // If ERROR, wait for a longer period before retrying
-                if ((this.State == ST_SENSOR || this.State == ST_SENSOR_ACK) || diff_ms > ReconnectTimeout)
+                if (this.State == ST_SENSOR || this.State == ST_SENSOR_ACK)
+                {
+                    SetState(ST_INIT_HW);
+                }
+                else if (this.State == ST_ERROR_SOFT)
                 {
                     SetState(ST_INIT);
+                }
+                else if (diff_ms > ReconnectTimeout)
+                {
+                    SetState(ST_INIT_HW);
                 }
             }
         }
