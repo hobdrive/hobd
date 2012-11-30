@@ -55,7 +55,9 @@ public class OBD2Sensors : SensorProvider
                 ID = "OBD2.FuelSystemStatus",
                 Name = "FuelSystemStatus",
                 
-                      obdValue = (p) => { return p.getab()*1; },
+                      obdValue = (p) => { Func<int, double> get = p.get; Func<int, int, double> get_bit = p.get_bit;
+                        return ((int)get(0)<<8) + (p.len() > 1 ? get(1) : 0);
+                      },
                   
                 Command = 0x03,
                 

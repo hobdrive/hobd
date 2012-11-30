@@ -27,7 +27,8 @@
     <address>
       <byte>0x03</byte>
     </address>
-    <valueab>1</valueab>
+    <!-- custom handling against incompatible vehicles -->
+    <value> ((int)get(0)&lt;&lt;8) + (p.len() > 1 ? get(1) : 0)</value>
   </parameter>
 
   <parameter id="EngineLoad" display="LOAD_PCT">

@@ -101,6 +101,11 @@ public class OBD2Sensor : CoreSensor
         return true;
     }
     
+    public int len()
+    {
+        return dataraw.Length - (data_offset+2);
+    }
+
     public double getraw(int idx)
     {
         return dataraw[idx];
