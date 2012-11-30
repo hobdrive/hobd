@@ -62,6 +62,7 @@ public class ECUXMLSensorProvider : SensorProvider
             string rawcommand = null;
             string basename = null;
             string basenameraw = null;
+            
             int    replyoffset = 0;
             string units = null;
 
@@ -71,6 +72,8 @@ public class ECUXMLSensorProvider : SensorProvider
             string dword = null;
             string dwordle = null;
 
+            bool signed = false;
+            double scale = 1;
             double offset = 0;
             int bit = -1;
 
@@ -102,34 +105,45 @@ public class ECUXMLSensorProvider : SensorProvider
                     case "value":
                     case "valuea":
                         value = reader.ReadElementString();
+                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 0;
                         break;
                     case "valueb":
                         value = reader.ReadElementString();
+                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 1;
                         break;
                     case "valuec":
                         value = reader.ReadElementString();
+                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 2;
                         break;
                     case "valued":
                         value = reader.ReadElementString();
+                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 3;
                         break;
 
                     case "valueab":
                         word = reader.ReadElementString();
+                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 0;
                         break;
                     case "valuebc":
                         word = reader.ReadElementString();
+                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 1;
                         break;
                     case "valuecd":
                         word = reader.ReadElementString();
+                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
                         replyoffset = 2;
                         break;
 
+                    case "signed":
+                        signed = true;
+                        reader.ReadElementString();
+                        break;
                     case "offset":
                         offset = double.Parse(reader.ReadElementString(), UnitsConverter.DefaultNumberFormat);
                         break;
@@ -157,26 +171,31 @@ public class ECUXMLSensorProvider : SensorProvider
                         {
                             replyoffset = int.Parse(reader.Name.Replace("value-",""));
                             value = reader.ReadElementContentAsString();
+                            scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
                         }else
                         if (reader.Name.StartsWith("word-"))
                         {
                             replyoffset = int.Parse(reader.Name.Replace("word-",""));
                             word = reader.ReadElementContentAsString();
+                            scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
                         }else
                         if (reader.Name.StartsWith("wordle-"))
                         {
                             replyoffset = int.Parse(reader.Name.Replace("wordle-",""));
                             wordle = reader.ReadElementContentAsString();
+                            scale = double.Parse(wordle, UnitsConverter.DefaultNumberFormat);
                         }else
                         if (reader.Name.StartsWith("dword-"))
                         {
                             replyoffset = int.Parse(reader.Name.Replace("dword-",""));
                             dword = reader.ReadElementContentAsString();
+                            scale = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
                         }else
                         if (reader.Name.StartsWith("dwordle-"))
                         {
                             replyoffset = int.Parse(reader.Name.Replace("dwordle-",""));
                             dwordle = reader.ReadElementContentAsString();
+                            scale = double.Parse(dwordle, UnitsConverter.DefaultNumberFormat);
                         }else
                         {
                             throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
@@ -184,6 +203,21 @@ public class ECUXMLSensorProvider : SensorProvider
                         break;
                 }
             }
+
+            Func<double, double> evaluator = (v) => {
+                if (signed){
+                    if (dword != null || dwordle != null)
+                        v = (double)(int)((uint)v);
+                    else if (word != null || wordle != null)
+                        v = (double)(short)((ushort)v);
+                    else
+                        v = (double)(sbyte)((byte)v);
+                }
+                var res = v * scale + offset;
+                if (bit != -1)
+                    res = ((int)res >> bit)&1;
+                return res;
+            };
 
             CoreSensor sensor = null;
             if (clazz != null)
@@ -197,13 +231,7 @@ public class ECUXMLSensorProvider : SensorProvider
                 var s = new DerivedSensor("", basename, null);
                 if (value != null)
                 {
-                    var val = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = a.Value * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator(a.Value);
                 }
                 sensor = s;                
             }
@@ -214,53 +242,23 @@ public class ECUXMLSensorProvider : SensorProvider
                 var s = new DerivedSensor("", basenameraw, null);
                 if (value != null)
                 {
-                    var val = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = (a as OBD2Sensor).getraw(replyoffset) * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator((a as OBD2Sensor).getraw(replyoffset));
                 }
                 if (word != null)
                 {
-                    var val = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = (a as OBD2Sensor).getraw_word(replyoffset) * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator((a as OBD2Sensor).getraw_word(replyoffset));
                 }
                 if (wordle != null)
                 {
-                    var val = double.Parse(wordle, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = (a as OBD2Sensor).getraw_wordle(replyoffset) * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator((a as OBD2Sensor).getraw_wordle(replyoffset));
                 }
                 if (dword != null)
                 {
-                    var val = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = (a as OBD2Sensor).getraw_dword(replyoffset) * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator((a as OBD2Sensor).getraw_dword(replyoffset));
                 }
                 if (dwordle != null)
                 {
-                    var val = double.Parse(dwordle, UnitsConverter.DefaultNumberFormat);
-                    s.DerivedValue = (a,b) => {
-                        var v = (a as OBD2Sensor).getraw_dwordle(replyoffset) * val + offset;
-                        if (bit != -1)
-                            v = ((int)v >> bit)&1;
-                        return v;
-                    };
+                    s.DerivedValue = (a,b) => evaluator((a as OBD2Sensor).getraw_dwordle(replyoffset));
                 }
                 sensor = s;                
             }
@@ -275,13 +273,11 @@ public class ECUXMLSensorProvider : SensorProvider
                     
                 if (value != null)
                 {
-                    var val = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                    s.obdValue = (p) => p.get(replyoffset) * val + offset;
+                    s.obdValue = (p) => evaluator(p.get(replyoffset));
                 }
                 if (word != null)
                 {
-                    var val = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                    s.obdValue = (p) => p.get_word(replyoffset) * val + offset;
+                    s.obdValue = (p) => evaluator(p.get_word(replyoffset));
                 }
                 sensor = s;
             }
