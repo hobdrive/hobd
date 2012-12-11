@@ -266,10 +266,6 @@ public class ECUXMLSensorProvider : SensorProvider
             else if (basename == null)
             {
                 var s = new OBD2Sensor();
-                if (rawcommand != null)
-                    s.RawCommand = rawcommand;
-                else
-                    s.Command = command;
                     
                 if (value != null)
                 {
@@ -281,6 +277,15 @@ public class ECUXMLSensorProvider : SensorProvider
                 }
                 sensor = s;
             }
+            
+            if (sensor != null && sensor is OBD2Sensor)
+            {
+                if (rawcommand != null)
+                    (sensor as OBD2Sensor).RawCommand = rawcommand;
+                else if (command != 0)
+                    (sensor as OBD2Sensor).Command = command;
+            }
+            
             if (sensor != null)
             {
                 sensor.ID = this.Namespace+"."+id;

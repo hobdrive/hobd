@@ -42,33 +42,21 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DebugType>none</DebugType>
     <WarningLevel>4</WarningLevel>
-    <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|WINCE' ">
     <OutputPath>bin\Debug_ce\</OutputPath>
     <DefineConstants>WINCE</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|WINCE' ">
     <OutputPath>bin\Release_ce\</OutputPath>
     <DefineConstants>WINCE</DefineConstants>
-    <DebugType>none</DebugType>
     <WarningLevel>4</WarningLevel>
-    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="InTheHand.Net.Personal, Version=2.5.0.0, Culture=neutral, PublicKeyToken=null">
