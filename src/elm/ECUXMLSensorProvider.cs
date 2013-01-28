@@ -79,128 +79,132 @@ public class ECUXMLSensorProvider : SensorProvider
 
             while(reader.NodeType == XmlNodeType.Element)
             {
-                switch(reader.Name)
-                {
-                    case "class":
-                        clazz = reader.ReadElementString().Trim();
-                        break;
-                    case "address":
-                        reader.ReadStartElement();
-                        var hexval = reader.ReadElementString("byte").Trim();
-                        if (hexval.StartsWith("0x"))
-                            hexval = hexval.Substring(2);
-                        command = int.Parse(hexval, NumberStyles.HexNumber);
-                        reader.ReadEndElement();
-                        break;
-                    case "raw":
-                        rawcommand = reader.ReadElementString().Trim().Replace(";", "\r");
-                        break;
-                    case "base":
-                        basename = reader.ReadElementString().Trim();
-                        break;
-                    case "base-raw":
-                        basenameraw = reader.ReadElementString().Trim();
-                        break;
-
-                    case "value":
-                    case "valuea":
-                        value = reader.ReadElementString();
-                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 0;
-                        break;
-                    case "valueb":
-                        value = reader.ReadElementString();
-                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 1;
-                        break;
-                    case "valuec":
-                        value = reader.ReadElementString();
-                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 2;
-                        break;
-                    case "valued":
-                        value = reader.ReadElementString();
-                        scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 3;
-                        break;
-
-                    case "valueab":
-                        word = reader.ReadElementString();
-                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 0;
-                        break;
-                    case "valuebc":
-                        word = reader.ReadElementString();
-                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 1;
-                        break;
-                    case "valuecd":
-                        word = reader.ReadElementString();
-                        scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                        replyoffset = 2;
-                        break;
-
-                    case "signed":
-                        signed = true;
-                        reader.ReadElementString();
-                        break;
-                    case "offset":
-                        offset = double.Parse(reader.ReadElementString(), UnitsConverter.DefaultNumberFormat);
-                        break;
-                    case "bit":
-                        bit = int.Parse(reader.ReadElementString());
-                        break;
-                    case "description":
-                        reader.ReadStartElement();
-                        while(reader.NodeType == XmlNodeType.Element)
-                        {
-                            switch(reader.Name)
-                            {
-                                case "unit":
-                                    units = reader.ReadElementString().Trim();
-                                    break;
-                                default:
-                                    reader.ReadElementString();
-                                    break;
-                            }
-                        }
-                        reader.ReadEndElement();
-                        break;
-                    default:
-                        if (reader.Name.StartsWith("value-"))
-                        {
-                            replyoffset = int.Parse(reader.Name.Replace("value-",""));
-                            value = reader.ReadElementContentAsString();
+                try{
+                    switch(reader.Name)
+                    {
+                        case "class":
+                            clazz = reader.ReadElementString().Trim();
+                            break;
+                        case "address":
+                            reader.ReadStartElement();
+                            var hexval = reader.ReadElementString("byte").Trim();
+                            if (hexval.StartsWith("0x"))
+                                hexval = hexval.Substring(2);
+                            command = int.Parse(hexval, NumberStyles.HexNumber);
+                            reader.ReadEndElement();
+                            break;
+                        case "raw":
+                            rawcommand = reader.ReadElementString().Trim().Replace(";", "\r");
+                            break;
+                        case "base":
+                            basename = reader.ReadElementString().Trim();
+                            break;
+                        case "base-raw":
+                            basenameraw = reader.ReadElementString().Trim();
+                            break;
+    
+                        case "value":
+                        case "valuea":
+                            value = reader.ReadElementString();
                             scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
-                        }else
-                        if (reader.Name.StartsWith("word-"))
-                        {
-                            replyoffset = int.Parse(reader.Name.Replace("word-",""));
-                            word = reader.ReadElementContentAsString();
+                            replyoffset = 0;
+                            break;
+                        case "valueb":
+                            value = reader.ReadElementString();
+                            scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+                            replyoffset = 1;
+                            break;
+                        case "valuec":
+                            value = reader.ReadElementString();
+                            scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+                            replyoffset = 2;
+                            break;
+                        case "valued":
+                            value = reader.ReadElementString();
+                            scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+                            replyoffset = 3;
+                            break;
+    
+                        case "valueab":
+                            word = reader.ReadElementString();
                             scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
-                        }else
-                        if (reader.Name.StartsWith("wordle-"))
-                        {
-                            replyoffset = int.Parse(reader.Name.Replace("wordle-",""));
-                            wordle = reader.ReadElementContentAsString();
-                            scale = double.Parse(wordle, UnitsConverter.DefaultNumberFormat);
-                        }else
-                        if (reader.Name.StartsWith("dword-"))
-                        {
-                            replyoffset = int.Parse(reader.Name.Replace("dword-",""));
-                            dword = reader.ReadElementContentAsString();
-                            scale = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
-                        }else
-                        if (reader.Name.StartsWith("dwordle-"))
-                        {
-                            replyoffset = int.Parse(reader.Name.Replace("dwordle-",""));
-                            dwordle = reader.ReadElementContentAsString();
-                            scale = double.Parse(dwordle, UnitsConverter.DefaultNumberFormat);
-                        }else
-                        {
-                            throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
-                        }
-                        break;
+                            replyoffset = 0;
+                            break;
+                        case "valuebc":
+                            word = reader.ReadElementString();
+                            scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
+                            replyoffset = 1;
+                            break;
+                        case "valuecd":
+                            word = reader.ReadElementString();
+                            scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
+                            replyoffset = 2;
+                            break;
+    
+                        case "signed":
+                            signed = true;
+                            reader.ReadElementString();
+                            break;
+                        case "offset":
+                            offset = double.Parse(reader.ReadElementString(), UnitsConverter.DefaultNumberFormat);
+                            break;
+                        case "bit":
+                            bit = int.Parse(reader.ReadElementString());
+                            break;
+                        case "description":
+                            reader.ReadStartElement();
+                            while(reader.NodeType == XmlNodeType.Element)
+                            {
+                                switch(reader.Name)
+                                {
+                                    case "unit":
+                                        units = reader.ReadElementString().Trim();
+                                        break;
+                                    default:
+                                        reader.ReadElementString();
+                                        break;
+                                }
+                            }
+                            reader.ReadEndElement();
+                            break;
+                        default:
+                            if (reader.Name.StartsWith("value-"))
+                            {
+                                replyoffset = int.Parse(reader.Name.Replace("value-",""));
+                                value = reader.ReadElementContentAsString();
+                                scale = double.Parse(value, UnitsConverter.DefaultNumberFormat);
+                            }else
+                            if (reader.Name.StartsWith("word-"))
+                            {
+                                replyoffset = int.Parse(reader.Name.Replace("word-",""));
+                                word = reader.ReadElementContentAsString();
+                                scale = double.Parse(word, UnitsConverter.DefaultNumberFormat);
+                            }else
+                            if (reader.Name.StartsWith("wordle-"))
+                            {
+                                replyoffset = int.Parse(reader.Name.Replace("wordle-",""));
+                                wordle = reader.ReadElementContentAsString();
+                                scale = double.Parse(wordle, UnitsConverter.DefaultNumberFormat);
+                            }else
+                            if (reader.Name.StartsWith("dword-"))
+                            {
+                                replyoffset = int.Parse(reader.Name.Replace("dword-",""));
+                                dword = reader.ReadElementContentAsString();
+                                scale = double.Parse(dword, UnitsConverter.DefaultNumberFormat);
+                            }else
+                            if (reader.Name.StartsWith("dwordle-"))
+                            {
+                                replyoffset = int.Parse(reader.Name.Replace("dwordle-",""));
+                                dwordle = reader.ReadElementContentAsString();
+                                scale = double.Parse(dwordle, UnitsConverter.DefaultNumberFormat);
+                            }else
+                            {
+                                throw new Exception("unknown tag `"+reader.Name+"` while creating PID "+id);
+                            }
+                            break;
+                    }
+                }catch(Exception e){
+                    Logger.error("ECUXMLSensorProvider", "bad sensor param: "+id, e);
                 }
             }
 
