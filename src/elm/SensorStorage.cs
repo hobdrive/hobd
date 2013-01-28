@@ -19,6 +19,17 @@ public class SensorStorage
     {
         this.FilePath = filePath;
     }
+    
+    /// <summary>
+    /// Cleanups this instance. Removes all data (basically removes storage file)
+    /// </summary>
+    public void Cleanup()
+    {
+        try{
+            File.Delete(FilePath);
+        }catch(Exception){
+        }
+    }
 
     public void Attach(SensorRegistry registry)
     {
