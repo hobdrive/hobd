@@ -79,49 +79,57 @@ public class SerialRawStream: IStream
             break;
         }
         
-        port = new SerialPort(u[URL_PORT], baudRate, parity, dataBits, stopBits);
-
-        switch (u[URL_HANDSHAKE]){
-            case "none":
-            port.Handshake = Handshake.None;
-            break;
-            case "x":
-            port.Handshake = Handshake.XOnXOff;
-            break;
-            case "rts":
-            port.Handshake = Handshake.RequestToSend;
-            break;
-            case "xrts":
-            port.Handshake = Handshake.RequestToSendXOnXOff;
-            break;
-        }
-        
-        try{
+        try
+        {
+            port = new SerialPort(u[URL_PORT], baudRate, parity, dataBits, stopBits);
+            switch (u[URL_HANDSHAKE])
+            {
+                case "none":
+                    port.Handshake = Handshake.None;
+                    break;
+                case "x":
+                    port.Handshake = Handshake.XOnXOff;
+                    break;
+                case "rts":
+                    port.Handshake = Handshake.RequestToSend;
+                    break;
+                case "xrts":
+                    port.Handshake = Handshake.RequestToSendXOnXOff;
+                    break;
+            }
             port.ReadBufferSize = 0x40;
             port.ReceivedBytesThreshold = 1;
             port.ReadTimeout = 2000;
             port.WriteTimeout = 2000;
-        }catch(Exception){}
-        try{
+        }
+        catch (Exception){}
+
+        try
+        {
             port.Open();
-        }catch(Exception e){
-            port = null;
-            throw e;
+        }
+        catch (Exception)
+        {
+            Close();
+            throw;
         }
     }
     
     public void Close()
     {
-        try{
+        try
+        {
             if (port != null)
                 port.Close();
-        }catch(Exception){}
+        }
+        catch (Exception)
+        {}
         port = null;
     }
     
     public bool HasData()
     {
-        if (port == null)
+        if (port == null || !port.IsOpen)
             return false;
         try{
             return port.BytesToRead != 0;
@@ -151,11 +159,10 @@ public class SerialRawStream: IStream
     public void Write(byte[] array, int offset, int length)
     {
         try{
-            if(port != null)
+            if(port != null && port.IsOpen)
                 port.Write(array, offset, length);
         }catch(Exception){
             Close();
-            return;
         }
     }
 }

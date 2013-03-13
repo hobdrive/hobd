@@ -47,15 +47,19 @@ public class TCPStream: IStream
 
         Logger.trace("TCPStream", "TCP Stream: "+ host + ":"+port);
 
-        sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        sock.Connect(new IPEndPoint(IPAddress.Parse(host), port));
-        if (sock.Connected)
+        try
+        {
+            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            sock.Connect(new IPEndPoint(IPAddress.Parse(host), port));
+        }
+        catch (Exception){}
+        if (sock != null && sock.Connected)
         {
             //sock.ReceiveTimeout = 50;
             //sock.ReceiveBufferSize = 128;
         }else{
             sock = null;
-            throw new Exception("Can't connect socket "+url);
+            throw new Exception("Can't connect socket " + url);
         }
     }
     
@@ -68,7 +72,14 @@ public class TCPStream: IStream
     public bool HasData()
     {
         if (sock == null) return false;
-        return sock.Poll(0, SelectMode.SelectRead);
+        try
+        {
+            return sock.Poll(0, SelectMode.SelectRead);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
     
     byte[] buf = new byte[128];
@@ -88,12 +99,11 @@ public class TCPStream: IStream
     public void Write(byte[] array, int offset, int length)
     {
         try{
-            if(sock != null)
+            if (sock != null)
+            {
                 sock.Send(array, offset, length, SocketFlags.None);
-        }catch(Exception)
-        {
-            return;
-        }
+            }
+        }catch(Exception){}
     }
 }
 

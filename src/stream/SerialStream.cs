@@ -98,13 +98,14 @@ public class SerialStream: IStream
         port.ReadTimeout = 2000;
         port.WriteTimeout = 2000;
 
-        port.DataReceived += new SerialDataReceivedEventHandler(DataReceviedHandler);
+        port.DataReceived += DataReceviedHandler;
 
         try {
             port.Open();
         }catch(Exception e){
+            Close();
             port = null;
-            throw e;
+            throw;
         }
     }
     
@@ -127,7 +128,10 @@ public class SerialStream: IStream
     public void Close()
     {
         if (port != null)
+        {
+            port.DataReceived -= DataReceviedHandler;
             port.Close();
+        }
     }
     
     public bool HasData()
@@ -144,12 +148,11 @@ public class SerialStream: IStream
     public void Write(byte[] array, int offset, int length)
     {
         try{
-            if(port != null)
+            if (port != null && port.IsOpen)
+            {
                 port.Write(array, offset, length);
-        }catch(Exception)
-        {
-            return;
-        }
+            }
+        }catch(Exception){}
     }
 }
 

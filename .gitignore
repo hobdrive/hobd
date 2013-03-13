@@ -9,3 +9,5 @@ test/TestResult.xml
 lib/.net
 hobd.pidb
 hobd.userprefs
+/*.user
+/*.ReSharper

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 using System.Net.Sockets;
@@ -32,6 +33,8 @@ public class BluetoothStream: IStream
         }
         return str;
     }
+
+    
 
  /**
      * returns string array of {address, serviceid, pin}
@@ -133,7 +136,7 @@ public class BluetoothStream: IStream
                 Open(url);
                 return;
             }
-            throw e;
+            throw;
         }
     }
     
