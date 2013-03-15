@@ -51,9 +51,9 @@
         protected virtual void LoadBaseSensors()
         {
             if (this.aid != null && this.a == null)
-                this.a = base.registry.Sensor(this.aid);
+                this.a = base.registry.Sensor(this.aid, this);
             if (this.bid != null && this.b == null)
-                this.b = base.registry.Sensor(this.bid);
+                this.b = base.registry.Sensor(this.bid, this);
         }
 
         protected override void Activate()

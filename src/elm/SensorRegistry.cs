@@ -161,14 +161,23 @@ public class SensorRegistry
     /// </summary>
     public Sensor Sensor(string id)
     {
+        return Sensor(id, null);
+    }
+    
+    public Sensor Sensor(string id, Sensor notthis)
+    {
         Sensor value;
         if (sensors.TryGetValue(id, out value))
             return value;
         else if (sensorNames.TryGetValue(id, out value))
+        {
+            if (value == notthis)
+                value = sensors.Values.FirstOrDefault( (s) => s.Name == id && s != notthis);
             return value;
-        else
+        }else
             return null;
     }
+    
     public SensorListener[] ActiveSensors
     {
         get{
