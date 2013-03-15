@@ -76,6 +76,8 @@ public class ECUXMLSensorProvider : SensorProvider
             double scale = 1;
             double offset = 0;
             int bit = -1;
+            int? cutlow = null;
+            int? cuthigh = null;
 
             while(reader.NodeType == XmlNodeType.Element)
             {
@@ -151,6 +153,12 @@ public class ECUXMLSensorProvider : SensorProvider
                         case "bit":
                             bit = int.Parse(reader.ReadElementString());
                             break;
+                        case "cut-low":
+                            cutlow = int.Parse(reader.ReadElementString());
+                            break;
+                        case "cut-high":
+                            cuthigh = int.Parse(reader.ReadElementString());
+                            break;
                         case "description":
                             reader.ReadStartElement();
                             while(reader.NodeType == XmlNodeType.Element)
@@ -220,6 +228,10 @@ public class ECUXMLSensorProvider : SensorProvider
                 var res = v * scale + offset;
                 if (bit != -1)
                     res = ((int)res >> bit)&1;
+                if (cutlow != null)
+                    res = res < cutlow ? 0 : res;
+                if (cuthigh != null)
+                    res = res > cuthigh ? 0 : res;
                 return res;
             };
 
