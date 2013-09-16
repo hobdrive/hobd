@@ -3,6 +3,7 @@
 Hobdrive runs on multiple platform, with C# as a major development language.
 
 ### Windows/CE Build env:
+  *  windows sdk
   * .net compact framework 3.5
   * .net power toys
   * windows sdk + visual studio express (heavy option)
@@ -11,12 +12,7 @@ Hobdrive runs on multiple platform, with C# as a major development language.
 ### Android Build env:
   * [closed source]
 
-## Build env
-
-    windows sdk,
-    .net cf 3.5
-    monodevelop/sharpdevelop/visual studio express
-
+### Build
   
 1. Checkout **github.com/cail/hobd** into **/hobdcore**
 
