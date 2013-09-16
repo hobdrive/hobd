@@ -1,53 +1,71 @@
+## Build
 
-Build
-=========================
+Hobdrive runs on multiple platform, with C# as a major development language.
 
-  Build env:
+### Windows/CE Build env:
+  * .net compact framework 3.5
+  * .net power toys
+  * windows sdk + visual studio express (heavy option)
+  * Alternative light option: monodevelop 3.x, mono (on linux)
+
+### Android Build env:
+  * [closed source]
+
+## Build env
+
     windows sdk,
     .net cf 3.5
     monodevelop/sharpdevelop/visual studio express
 
-  Checkout or download fleux mod:
-    lib/fleuxdesktop2/README
+  
+1. Checkout **github.com/cail/hobd** into **/hobdcore**
 
-  Checkout or download wmautoupdate:
-    github.com/cail/wmautoupdate
+3. Checkout or download fleux **github.com/cail/fleux** into **/hobdcore/lib/fleuxdesktop2**
 
-  Checkout or download hobdcore into:
-    ../hobdcore
-  from
-    github.com/cail/hobd/
+2.  Checkout or download wmautoupdate **github.com/cail/wmautoupdate** into **/hobdcore/lib/wmautoupdate**
 
-  To build both win32 and wince builds:
+4.  To build both win32 and wince builds:
+    
+    cd hobdcore
     build.bat
 
+5. Use /hobdcore/hobd.csproj for the development under MSVC or MonoDevelop (recommended)
 
-Simulator installation
-=========================
+    
+## OBD2 Data Simulator installation
 
-  com0com null modem should be installed (com0com.sourceforge.net)
-
-  CNCB0 and COM7 (or other names) mapping should be created there
-
-  Run:
+1.  Run:
       
-      lib/obdsim.bat
+      lib/obdsim_tcp.bat
 
   to start obd simulator.
 
-  HOBD then will connect to COM7 (or your name) normally
+2.  To connect hobdrive to simulator, enter
+      tcp://127.0.0.1:1234
+  in connection port settings
 
 
-WINCE simulator
-=========================
+## WINCE simulator
 
-  Device emulator (wince):
+1.  Easy way: Prepared wince5/6 simulators, ready to run:
+
+  http://hobdrive.com/download/DeviceEmulator.zip
+
+  Use *.bat files to run, fix path to attach external storage
+
+2. Hard way:
+  2.1 Device emulator (wince):
     http://www.microsoft.com/downloads/en/details.aspx?FamilyID=a6f6adaf-12e3-4b2f-a394-356e2c2fb114
-  Device images:
+  
+  2.1 Device images:
     http://www.microsoft.com/downloads/en/details.aspx?FamilyID=38C46AA8-1DD7-426F-A913-4F370A65A582&displaylang=en#filelist
 
-  Win mobile emulator:
+  2.1 Win mobile emulator:
     http://www.microsoft.com/downloads/en/details.aspx?FamilyID=83a52af2-f524-4ec5-9155-717cbe5d25ed
-
+    
+3. Run    
+  To run hobdrive on simulator without .net installation, use 'standalone' version files, or:
+    1) copy content of /lib/.net/* into hobdrive's folder
+    2) remove hobdrive.exe.config file
+    
   Tests should be done both in vga and qvga modes (PDA and Windows Phone modes)!
-
