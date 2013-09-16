@@ -19,6 +19,8 @@
   *  http://play.google.com/store/apps/details?id=hobd.android
   *  http://play.google.com/store/apps/details?id=hobdrive.android
 
+### More details
+
   ![Screenshot](https://github.com/downloads/cail/hobd/s2_e.png)
 
   Runs on desktop PC, WinCE (PDA, PNA, noname chinese 'gps navigator'-titled stuff), Android smartphone and tablets.
