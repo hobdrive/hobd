@@ -1,17 +1,29 @@
- /hobd
-==============
-  This code is a core part of HOBD. It responsible for working with OBD2 PIDs and sensors.
+# hobDrive
 
-  /hobd is a trip computer piece of software
-  which utilize OBD-II link (USB or Bluetooth) to fetch and analyze vehicle data in realtime.
+  This code is a core part of hobDrive software trip computer.
+  It responsible for working with OBD2 PIDs and sensors.
+  hobDrive utilize OBD-II link (ELM327 USB, Bluetooth, WiFi) to fetch and analyze vehicle data in realtime.
+
+## Introduction
+
+###  Read on hobdrive
+  
+  *  http://hobdrive.com
+  *  http://hobdrive.ru
+  *  http://hobdrive.com/download/user-manual-en.pdf
+  *  http://hobdrive.com/download/user-manual-ru.pdf
+  *  http://hobdrive.com/forum
+    
+### hobdrive android
+
+  *  http://play.google.com/store/apps/details?id=hobd.android
+  *  http://play.google.com/store/apps/details?id=hobdrive.android
 
   ![Screenshot](https://github.com/downloads/cail/hobd/s2_e.png)
 
-  Runs both under desktop pc, or on any WinCE based platform
-  (PDA, PNA, noname chinese 'gps navigator'-titled stuff)
+  Runs on desktop PC, WinCE (PDA, PNA, noname chinese 'gps navigator'-titled stuff), Android smartphone and tablets.
 
-  Beside all the stuff you may find in tons of OBDII scanner tools, here are some
-  Unique features:
+  Beside all the stuff you may find in tons of OBDII scanner tools, here are some unique features:
 
   - Concentration on trip data: MPG, distance run, total fuel consumption, run time, time spent in jams, etc.
   - Precise MPG (fuel consumption) analysis and calculations.
@@ -27,13 +39,9 @@
  Links
 ==============
 
-  hobDrive: http://hobdrive.com
-
-  Downloads: http://hobdrive.com/hobd/
-
   Issues: http://github.com/cail/hobd/issues
 
-  Fork me on github: http://github.com/cail/hobd
+  Github: http://github.com/cail/hobd
 
  Author
 ==============
