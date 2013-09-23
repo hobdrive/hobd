@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -16,6 +16,11 @@
     <AssemblyName>hobd</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SourceAnalysisOverrideSettingsFile>C:\Users\papa\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,7 +58,6 @@
       <HintPath>lib\wince\InTheHand.Net.Personal.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -95,12 +99,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Folder Include="config" />
     <Folder Include="src" />
     <Folder Include="src\ui" />
-    <ProjectReference Include="fleuxdesktop\trunk\Fleux.Net\Fleux\Fleux.csproj">
-      <Project>{8526293A-9C66-48F6-A90D-FB2B7128BF08}</Project>
+    <ProjectReference Include="fleuxdesktop\Fleux\Fleux.csproj">
+      <Project>{8526293a-9c66-48f6-a90d-fb2b7128bf08}</Project>
       <Name>Fleux</Name>
     </ProjectReference>
   </ItemGroup>

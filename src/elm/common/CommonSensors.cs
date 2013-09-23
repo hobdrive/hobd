@@ -81,6 +81,18 @@ public class CommonSensors : SensorProvider
   
         registry.Add(s);
 
+        // CommonFuelEconomy_short
+        s = new hobd.IntegrationSensor("FuelConsumed", 60000)
+        {
+            ID = "Common.FuelEconomy_short",
+            Name = "FuelEconomy_short",
+
+        };
+
+        s.Units = "lph";
+
+        registry.Add(s);
+
         // CommonTripTime
         s = new hobd.TripTime()
             {

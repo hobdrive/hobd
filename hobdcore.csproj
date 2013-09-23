@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</ProjectGuid>
@@ -84,6 +84,7 @@
     <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
     <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />
     <Compile Include="src\elm\common\IdleTime.cs" />
+    <Compile Include="src\elm\common\IntegrationSensor.cs" />
     <Compile Include="src\elm\common\TripTime.cs" />
     <Compile Include="src\elm\common\DerivedSensor.cs" />
     <Compile Include="src\elm\common\DistanceCostSensor.cs" />
