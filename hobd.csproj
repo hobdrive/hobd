@@ -100,16 +100,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="config" />
-    <Folder Include="src" />
-    <Folder Include="src\ui" />
-    <ProjectReference Include="fleuxdesktop\Fleux\Fleux.csproj">
+    <ProjectReference Include="fleuxdesktop2\Fleux\Fleux.csproj">
       <Project>{8526293a-9c66-48f6-a90d-fb2b7128bf08}</Project>
       <Name>Fleux</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="hobdcore.csproj">
       <Project>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</Project>
       <Name>hobdcore</Name>

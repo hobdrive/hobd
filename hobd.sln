@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobd", "hobd.csproj", "{E0F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobdcore", "hobdcore.csproj", "{E0F56424-BEBA-4BD9-8B06-20571D599CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "fleuxdesktop\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "fleuxdesktop2\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
