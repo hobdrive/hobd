@@ -17,9 +17,16 @@ namespace hobd
         /// 
         /// </summary>
         public int SlotsCount{get;set;}
-        public double Value{get{return getValue();} private set{}}
+        public double Value { get; private set; }
         //
         #endregion PROP
+
+        #region CLS
+        private struct Readings
+        {
+            public static double Displacement { get; set; }
+        }
+        #endregion CLS
 
         #region FLD
         /// <summary>
@@ -29,7 +36,7 @@ namespace hobd
         /// <summary>
         /// base sensor whose value is accumulated
         /// </summary>
-        private Sensor fuelConsumed;
+        private Sensor BaseSensor;
         /// <summary>
         /// summary value
         /// </summary>
@@ -38,24 +45,22 @@ namespace hobd
         /// value read at each timeslot according to the slotcount
         /// </summary>
         private double[] timeslots;
-        private double[] updateCountSlots;
         #endregion FLD
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="baseSensor"></param>
-        /// <param name="interval"></param>
+        /// <param name="baseSensor">sensor we are accumlating</param>
+        /// <param name="interval">interval on which to aggregate base sensor readings</param>
         /// <param name="slotsCount"></param>
-        public IntegrationSensor(string baseSensor, int interval, int slotsCount = 50)
+        public IntegrationSensor(string baseSensorName, int interval, int slotsCount = 50)
         {
-            fuelConsumed = registry.Sensors.FirstOrDefault( s => s.Name == baseSensor && s.ID != this.ID);
+            BaseSensor = registry.Sensors.FirstOrDefault(s => s.Name == baseSensorName && s.ID != this.ID);
             timeslots = new double[slotsCount];
-            updateCountSlots = new double[slotsCount];
 
             this.Interval = interval;
         }
-        
+
         #region API
         /// <summary>
         /// 
@@ -72,18 +77,69 @@ namespace hobd
         public void Suspend()
         {
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="registry"></param>
+        public override void SetRegistry(SensorRegistry registry)
+        {
+            base.SetRegistry(registry);
+
+            try
+            {
+                Readings.Displacement = double.Parse(registry.VehicleParameters["liters"], UnitsConverter.DefaultNumberFormat);
+            }
+            catch (Exception)
+            {
+                Logger.info("LitersPerHourSensor", "Using default displacement and VE ratio");
+            }
+        }
+        protected override void Activate()
+        {
+            /*
+            map = registry.Sensor(OBD2Sensors.IntakeManifoldPressure);
+            registry.AddListener(map, OnSensorChange, ListenInterval);
+
+            rpm = registry.Sensor(OBD2Sensors.RPM);
+            registry.AddListener(rpm, OnSensorChange, ListenInterval);
+
+            iat = registry.Sensor(OBD2Sensors.IntakeAirTemp);
+            registry.AddListener(iat, OnSensorChange, 3000 + ListenInterval);
+             */
+
+
+            //not sure if i should invoke OBD2Sensors or they are encapsulated in hobd.Sensor?
+            registry.AddListener(BaseSensor, OnSensorChange);
+        }
+        protected override void Deactivate()
+        {
+            registry.RemoveListener(OnSensorChange);
+        }
+
         #endregion API
+
+        #region EVT
+        public void OnSensorChange(Sensor s)
+        {
+            TimeStamp = s.TimeStamp;
+
+            Value = getValue();
+            timeslots[updateCount] = Value;
+            registry.TriggerListeners(this);
+        }
+        #endregion EVT
 
         #region UTL
         private double getValue()
         {
+            //Unlimited sum
             if (Interval == 0)
             {
-                sum = sum + fuelConsumed.Value;
+                sum = sum + BaseSensor.Value;
                 updateCount++;
                 return sum;
             }
-            else
+            else //Limited sum
             {
                 return timeslots.Sum();
             }
