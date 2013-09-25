@@ -17,15 +17,20 @@ namespace hobd
         /// 
         /// </summary>
         public int SlotsCount{get;set;}
+        /// <summary>
+        /// 
+        /// </summary>
         public double Value { get; private set; }
         //
         #endregion PROP
 
         #region CLS
+        /*
         private struct Readings
         {
             public static double Displacement { get; set; }
         }
+         */
         #endregion CLS
 
         #region FLD
@@ -55,8 +60,9 @@ namespace hobd
         /// <param name="slotsCount"></param>
         public IntegrationSensor(string baseSensorName, int interval, int slotsCount = 50)
         {
+            SlotsCount = slotsCount;
             BaseSensor = registry.Sensors.FirstOrDefault(s => s.Name == baseSensorName && s.ID != this.ID);
-            timeslots = new double[slotsCount];
+            timeslots = new double[SlotsCount];
 
             this.Interval = interval;
         }
@@ -69,6 +75,9 @@ namespace hobd
         {
             this.value = 0;
             this.updateCount = 0;
+            timeslots = new double[SlotsCount];
+
+            //Interval & BaseSensor remain the same values as from the constructor
         }
         /// <summary>Suspend event indication for the sensor</summary>
         /// Means timebased calculation should be restarted
@@ -85,6 +94,8 @@ namespace hobd
         {
             base.SetRegistry(registry);
 
+            /*
+             * //NOT SURE WHETHERE I NEED TO REFER TO BASE SENSORS BY NAME
             try
             {
                 Readings.Displacement = double.Parse(registry.VehicleParameters["liters"], UnitsConverter.DefaultNumberFormat);
@@ -93,6 +104,8 @@ namespace hobd
             {
                 Logger.info("LitersPerHourSensor", "Using default displacement and VE ratio");
             }
+             */
+
         }
         protected override void Activate()
         {
