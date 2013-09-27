@@ -25,12 +25,6 @@ namespace hobd
         #endregion PROP
 
         #region CLS
-        /*
-        private struct Readings
-        {
-            public static double Displacement { get; set; }
-        }
-         */
         #endregion CLS
 
         #region FLD
@@ -42,6 +36,7 @@ namespace hobd
         /// base sensor whose value is accumulated
         /// </summary>
         private Sensor BaseSensor;
+        private string BaseSensorName;
         /// <summary>
         /// summary value
         /// </summary>
@@ -53,6 +48,14 @@ namespace hobd
         #endregion FLD
 
         /// <summary>
+        /// 60 Sec. default for interval
+        /// </summary>
+        /// <param name="baseSensorName"></param>
+        public IntegrationSensor(string baseSensorName):
+            this(baseSensorName, 60)
+        {
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="baseSensor">sensor we are accumlating</param>
@@ -61,9 +64,8 @@ namespace hobd
         public IntegrationSensor(string baseSensorName, int interval, int slotsCount = 50)
         {
             SlotsCount = slotsCount;
-            BaseSensor = registry.Sensors.FirstOrDefault(s => s.Name == baseSensorName && s.ID != this.ID);
             timeslots = new double[SlotsCount];
-
+            BaseSensorName = baseSensorName;
             this.Interval = interval;
         }
 
@@ -93,42 +95,16 @@ namespace hobd
         public override void SetRegistry(SensorRegistry registry)
         {
             base.SetRegistry(registry);
-
-            /*
-             * //NOT SURE WHETHERE I NEED TO REFER TO BASE SENSORS BY NAME
-            try
-            {
-                Readings.Displacement = double.Parse(registry.VehicleParameters["liters"], UnitsConverter.DefaultNumberFormat);
-            }
-            catch (Exception)
-            {
-                Logger.info("LitersPerHourSensor", "Using default displacement and VE ratio");
-            }
-             */
-
+            BaseSensor = registry.Sensors.FirstOrDefault(s => s.Name == BaseSensorName && s.ID != this.ID);
         }
         protected override void Activate()
         {
-            /*
-            map = registry.Sensor(OBD2Sensors.IntakeManifoldPressure);
-            registry.AddListener(map, OnSensorChange, ListenInterval);
-
-            rpm = registry.Sensor(OBD2Sensors.RPM);
-            registry.AddListener(rpm, OnSensorChange, ListenInterval);
-
-            iat = registry.Sensor(OBD2Sensors.IntakeAirTemp);
-            registry.AddListener(iat, OnSensorChange, 3000 + ListenInterval);
-             */
-
-
-            //not sure if i should invoke OBD2Sensors or they are encapsulated in hobd.Sensor?
-            registry.AddListener(BaseSensor, OnSensorChange);
+            registry.AddListener(BaseSensor, OnSensorChange, Interval);
         }
         protected override void Deactivate()
         {
             registry.RemoveListener(OnSensorChange);
         }
-
         #endregion API
 
         #region EVT
@@ -136,14 +112,14 @@ namespace hobd
         {
             TimeStamp = s.TimeStamp;
 
-            Value = getValue();
+            Value = ComputeNewValue();
             timeslots[updateCount] = Value;
             registry.TriggerListeners(this);
         }
         #endregion EVT
 
         #region UTL
-        private double getValue()
+        private double ComputeNewValue()
         {
             //Unlimited sum
             if (Interval == 0)

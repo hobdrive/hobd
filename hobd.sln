@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobdcore", "hobdcore.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "fleuxdesktop2\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobdCoreTest", "hobdCoreTest\hobdCoreTest.csproj", "{5B6C7988-08FC-4107-B0D6-EACD95BB575B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,18 @@ Global
 		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|Linux.Build.0 = Release|Linux
 		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.ActiveCfg = Release|WINCE
 		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.Build.0 = Release|WINCE
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|Linux.ActiveCfg = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Debug|WINCE.ActiveCfg = Debug|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|Linux.ActiveCfg = Release|Any CPU
+		{5B6C7988-08FC-4107-B0D6-EACD95BB575B}.Release|WINCE.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
