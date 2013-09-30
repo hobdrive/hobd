@@ -1,0 +1,1 @@
+com2tcp.exe --telnet --ignore-dsr \\.\COM7 23
