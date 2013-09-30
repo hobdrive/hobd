@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using Fleux.Controls.Panorama;
 using Fleux.Core;
 using Fleux.Core.Scaling;
 using Fleux.UIElements;
@@ -17,11 +16,12 @@ using Fleux.Styles;
 
 using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
+using Fleux.UIElements.Panorama;
 
 namespace hobd
 {
 
-    public class ConfigurationSection : TouchPanoramaSection
+    public class ConfigurationSection : PanoramaSection
     {
 		private static BluetoothDeviceInfo[] bluetoothDeviceInfo = { };
 		Thread discoverBThread = null;
@@ -33,10 +33,10 @@ namespace hobd
 		Grid grid;
 		IconTextElement uiBTScan;
 
-		Dictionary<IUIElement, string> portMapping = new Dictionary<IUIElement, string>();
+		Dictionary<UIElement, string> portMapping = new Dictionary<UIElement, string>();
 		
         public ConfigurationSection(int layoutX, int layoutY) :
-               base(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(HOBD.t("Connection port settings")))
+               base(HOBD.t("Connection port settings"))
         {
             LayoutX = layoutX;
             LayoutY = layoutY;
@@ -77,7 +77,7 @@ namespace hobd
             var style = new TextStyle(HOBD.theme.PhoneTextNormalStyle);
 
             if (grid != null) {
-                this.Remove(grid);
+                this.RemoveElement(grid);
             }
 
             int height = LayoutY/6;
@@ -138,10 +138,11 @@ namespace hobd
                 if (idx2 >= grid.Columns.Length)
                     return;
             }
-            this.Add(grid, 0, 0, LayoutX, LayoutY);
+            this.AddElement(grid);
+            // , 0, 0, LayoutX, LayoutY
         }
 
-        void OnBluetoothScan(IUIElement e)
+        void OnBluetoothScan(UIElement e)
         {
             if (discoverBThread == null){
                 discoverBThread = new Thread(this.DiscoverBT);
@@ -149,7 +150,7 @@ namespace hobd
             }            
         }
 
-        void OnChoosePort(IUIElement e)
+        void OnChoosePort(UIElement e)
         {
             string p = null;
             if (portMapping.TryGetValue(e, out p))

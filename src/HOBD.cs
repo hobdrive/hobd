@@ -39,6 +39,8 @@ namespace hobd
                 if (appPath == null){
                     appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
                     if (appPath.StartsWith("file:\\")) appPath = appPath.Substring(6);
+                    if (appPath.StartsWith("file://")) appPath = appPath.Substring(7);
+                    if (appPath.StartsWith("file:")) appPath = appPath.Substring(5);
                 }
                 return appPath;
             }
@@ -158,12 +160,18 @@ namespace hobd
 
         public static void EngineConnect()
         {
+			var veh = config.GetVehicle(config.Vehicle);
+			
+			if (veh == null) veh = new ConfigVehicleData();
+        
             if (HOBD.engine == null)
-                HOBD.engine = Engine.CreateInstance(config.GetVehicle(config.Vehicle).ECUEngine);
+                HOBD.engine = Engine.CreateInstance(veh.ECUEngine);
             
             IStream stream = null;
             if (config.Port.StartsWith("btspp"))
                 stream = new BluetoothStream();
+            else if (config.Port.StartsWith("tcp"))
+                stream = new TCPStream();
             else
                 stream = new SerialStream();
             
@@ -175,6 +183,9 @@ namespace hobd
         public static bool Init()
         {
             Logger.Init(Path.Combine(HOBD.AppPath, "log.txt"));
+            
+            try{
+            
             int handle = FindWindow(null, HomePage.Title);
             if (handle != 0)
             {
@@ -182,6 +193,7 @@ namespace hobd
                 SetForegroundWindow(handle);
                 return false;
             }
+            }catch(Exception e){}
                 
             try{
                 Logger.log("INFO", "HOBD", "App start", null);
@@ -202,7 +214,14 @@ namespace hobd
                 ReloadVehicle();
                 
                 int dpi_value;
-                dpi_value = (int) (96f / Screen.PrimaryScreen.Bounds.Width * 480f);
+                
+                var bwidth = Screen.PrimaryScreen.Bounds.Width;
+                if (bwidth > 1920) bwidth = 800;
+                
+                dpi_value = (int) (96f / bwidth * 480f);
+                
+                Logger.trace ("HOBD", "Bounds.Width: "+bwidth);
+                
                 if (config.DPI != 0)
                     dpi_value = config.DPI;
                 FleuxApplication.TargetDesignDpi = dpi_value;

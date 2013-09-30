@@ -8,18 +8,22 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Fleux.Controls.Panorama;
 using Fleux.Core;
 using Fleux.Core.Scaling;
 using Fleux.Styles;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
+using Fleux.UIElements.Panorama;
+using Fleux.Controls;
 
 namespace hobd
 {
 
-    public class HomePage : PanoramaPage
+    public class HomePage : FleuxControlPage
     {
+
+		PanoramaElement panorama;
+		int SectionContentDelta = 30;
 
         public static string Title = "/hobd";
         public static string DefaultBackground = "banner.jpg";
@@ -27,12 +31,12 @@ namespace hobd
         protected int layoutY = 272;
         
         protected Dictionary<Sensor, List<SensorTextElement>> sensorUIMap = new Dictionary<Sensor, List<SensorTextElement>>();
-        protected Dictionary<IPanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<IPanoramaSection, List<SensorListener>>();
+        protected Dictionary<PanoramaSection, List<SensorListener>> sectionSensorMap = new Dictionary<PanoramaSection, List<SensorListener>>();
         
         DynamicElement statusField;
-        protected IPanoramaSection menuSection;
+        protected PanoramaSection menuSection;
         protected Grid menuGrid;
-        protected IPanoramaSection volatileSection;
+        protected PanoramaSection volatileSection;
             
         public HomePage()
         {
@@ -46,14 +50,17 @@ namespace hobd
 
         protected virtual void InitializePanorama()
         {
-            
+			panorama = new PanoramaElement();
+			panorama.Sections.Location = new Point(0, 0);
+			panorama.Sections.Size = new Size(layoutX, layoutY - SectionContentDelta);
+                        
             Fleux.Controls.Gestures.GestureDetectionParameters.Current.TapTimePeriod = 150;
             Fleux.Controls.Gestures.GestureDetectionParameters.Current.TapDistance = 50;
 
+/*
             panorama.SectionTitleDelta = 0;
             panorama.SectionContentDelta = 40;
             panorama.TitleWidth = 400;
-            
             panorama.SectionsPadding = 30;
             
            
@@ -68,7 +75,7 @@ namespace hobd
                        panorama.TitleWidth = FleuxApplication.ScaleFromLogic(gr.Right);
                    }
                };
-            
+*/
             Bitmap original;
             if (HOBD.theme.Background != null){
                 original = new Bitmap(Path.Combine( Path.GetDirectoryName(HOBD.theme.File), HOBD.theme.Background));
@@ -86,9 +93,9 @@ namespace hobd
             }
             //var target = original;
             
-            panorama.BackgroundImage = target;
+//            panorama.BackgroundImage = target;
 
-            panorama.ClearSections();
+//            panorama.ClearSections();
 
             this.LoadSections();
 
@@ -104,7 +111,9 @@ namespace hobd
             this.SectionChanged(this.panorama, this.panorama.CurrentSection);
             
             statusField = new DynamicElement("///hobd") { Style = HOBD.theme.PhoneTextStatusStyle };
-            panorama.Add(statusField, 10, (layoutY-20), layoutX, 20);
+            statusField.Location = new Point(10, (layoutY-20));
+            statusField.Size = new Size(layoutX, 20);
+            panorama.AddElement(statusField);
             HOBD.engine.StateNotify += StateChanged;
 
             this.theForm.Text = HomePage.Title;
@@ -122,6 +131,8 @@ namespace hobd
                 this.theForm.Width = layoutX.ToPixels();
                 this.theForm.Height = layoutY.ToPixels()+30;
             }
+            
+            this.Control.AddElement(panorama);
 
             Logger.info("HomePage", "System DPI: " + this.theForm.CreateGraphics().DpiX);
             Logger.info("HomePage", "App DPI: " + FleuxApplication.TargetDesignDpi);
@@ -140,7 +151,6 @@ namespace hobd
         
         public override void Dispose()
         {
-            base.Dispose();
             HOBD.engine.StateNotify -= StateChanged;
             HOBD.Registry.RemoveListener(SensorChanged);
         }
@@ -192,13 +202,13 @@ namespace hobd
             }
         }
         
-        protected virtual void SectionChanged(SnappingPanoramaControl panorama, IPanoramaSection section)
+        protected virtual void SectionChanged(PanoramaElement panorama, PanoramaSection section)
         {
             if (section == menuSection)
             {
                 if (volatileSection != null)
                 {
-                    panorama.Invoke(new Action(() => panorama.RemoveSection(volatileSection)));
+                    panorama.RemoveSection(volatileSection);
                     volatileSection = null;
                 }
                 return;
@@ -218,9 +228,8 @@ namespace hobd
         
         public virtual void Redraw()
         {
-            if (panorama.IsDisposed) return;
             //if (panorama.animating) return;
-            panorama.Invoke(new Action(panorama.Invalidate));
+            base.Control.Invalidate();
         }
 
         char[] seps = {','};
@@ -268,8 +277,8 @@ namespace hobd
                         
                         var grid = new Grid
                            {
-                               Columns = cols_a.Select(r => new MeasureDefinition(r)).ToArray(),
-                               Rows = rows_a.Select(r => new MeasureDefinition(r)).ToArray(),
+                               Columns = cols_a.Select(r => (MeasureDefinition)r).ToArray(),
+                               Rows = rows_a.Select(r => (MeasureDefinition)r).ToArray(),
                            };
                         
                         int crow = 0, ccol = 0;
@@ -304,7 +313,9 @@ namespace hobd
                             }
                             
                         }
-                        section.Add(grid, 10, 0, layoutX, layoutY-panorama.SectionContentDelta);
+                        grid.Location = new Point(10, 0);
+                        grid.Size = new Size(layoutX, layoutY-SectionContentDelta);
+                        section.AddElement(grid);
                         
                         reader.ReadEndElement();
                     }
@@ -319,7 +330,7 @@ namespace hobd
             
         }
         
-        protected virtual IUIElement CreateItem(Dictionary<string, string> attrs, IPanoramaSection section)
+        protected virtual UIElement CreateItem(Dictionary<string, string> attrs, PanoramaSection section)
         {
             string id = "";
             try{
@@ -378,7 +389,7 @@ namespace hobd
         
         
         
-        protected virtual IPanoramaSection CreateMenuSection()
+        protected virtual PanoramaSection CreateMenuSection()
         {
            
             var section = CreateCommonSection(t("Settings"));
@@ -386,7 +397,7 @@ namespace hobd
             var style = new TextStyle(HOBD.theme.PhoneTextNormalStyle);
             //style.FontSize = HOBD.theme.PhoneFontSizeLarge;
 
-            var height0 = (layoutY - panorama.SectionContentDelta);
+            var height0 = (layoutY - SectionContentDelta);
             var height = height0/6;
 
             menuGrid = new Grid
@@ -422,13 +433,13 @@ namespace hobd
             menuGrid[4, 1] = new DynamicElement(t("Display Units")) {
                 Style = style,
                 HandleTapAction = (e) => this.PushVolatileSection(
-                    new ListSection(t("Display Units"), null, layoutX, layoutY-panorama.SectionContentDelta)
+                    new ListSection(t("Display Units"), null, layoutX, layoutY-SectionContentDelta)
                     {
                         Selected = HOBD.config.Units,
                         Content  = new string[]{ "metric", "imperial" }.Select((s) => (object)s),
                         UIContent = (l) => t((string)l),
                         ChooseAction = (l) => {
-                            panorama.ScrollSection(-1);
+                            panorama.CurrentSectionIndex -= 1;
                             HOBD.config.Units = (string)l;
                             HOBD.config.Save();
                             HOBD.ReloadUnits();
@@ -443,7 +454,8 @@ namespace hobd
                 HandleTapAction = (e) => CreateSensorPushSection()
             };
 
-            section.Add(menuGrid, 10, 0, layoutX, height0);
+            section.AddElement(menuGrid);
+            //, 10, 0, layoutX, height0
 
             var link = t("hobdrive.com");
             var info = new DynamicElement(link) {
@@ -455,22 +467,28 @@ namespace hobd
                 }
             };
 
-            section.Add(info, 10, height0 - 40, layoutX, 20);
+            section.AddElement(info);
+            //, 10, height0 - 40, layoutX, 20
 
             return section;
         }
 
-        protected virtual TouchPanoramaSection CreateCommonSection(string title)
+        protected virtual PanoramaSection CreateCommonSection(string title)
         {
-            var s = new TouchPanoramaSection(dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title));
+            var s = new PanoramaSection(title) { Location = new Point(0,0), Size = new Size(layoutX, layoutY) };
+            
+            s.Body.Location = new Point(0, this.SectionContentDelta);
+            s.Body.Size = new Size(layoutX, layoutY - this.SectionContentDelta);
+            
+            //dg => dg.Style(HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(
             return s;
         }
 
         protected virtual void CreatePortSection()
         {
-            var section = new ConfigurationSection(layoutX, layoutY-panorama.SectionContentDelta){
+            var section = new ConfigurationSection(layoutX, layoutY-SectionContentDelta){
                 ChoosePortAction = () => {
-                    panorama.ScrollSection(-1);
+                    panorama.CurrentSectionIndex -= 1;
                     HOBD.config.Save();
                     HOBD.EngineConnect();
                     HOBD.engine.Activate();
@@ -478,15 +496,15 @@ namespace hobd
             };
             panorama.AddSection(section);
             this.volatileSection = section;
-            panorama.ScrollSection(+1);
+            panorama.CurrentSectionIndex += 1;
         }
 
-        protected virtual void PushVolatileSection(IPanoramaSection section)
+        protected virtual void PushVolatileSection(PanoramaSection section)
         {
             if (this.volatileSection == null) {
                 panorama.AddSection(section);
                 this.volatileSection = section;
-                panorama.ScrollSection(+1);
+                panorama.CurrentSectionIndex += 1;
             }
         }
 
@@ -500,13 +518,13 @@ namespace hobd
             }catch(Exception e){
                 Logger.error("HomePage", "No themes found", e);
             }
-            var section = new ListSection(t("Choose Theme"), null, layoutX, layoutY-panorama.SectionContentDelta)
+            var section = new ListSection(t("Choose Theme"), null, layoutX, layoutY-SectionContentDelta)
             {
                 Selected = HOBD.config.Theme,
                 Content  = fileList,
                 UIContent = (f) => Path.GetFileNameWithoutExtension((string)f),
                 ChooseAction = (path) => {
-                    panorama.ScrollSection(-1);
+                    panorama.CurrentSectionIndex -= 1;
                     HOBD.config.Theme = "themes/"+path;
                     HOBD.config.Save();
                     HOBD.ReloadTheme();
@@ -522,13 +540,13 @@ namespace hobd
                                                 .Select( (f) => (object)Path.GetFileNameWithoutExtension(f) )
                                                 .OrderBy(s => s);
 
-            var section = new ListSection(t("Language"), null, layoutX, layoutY-panorama.SectionContentDelta)
+            var section = new ListSection(t("Language"), null, layoutX, layoutY-SectionContentDelta)
             {
                 Selected = HOBD.config.Language,
                 Content  = codesList,
                 UIContent = (l) => t((string)l),
                 ChooseAction = (l) => {
-                    panorama.ScrollSection(-1);
+                    panorama.CurrentSectionIndex -= 1;
                     HOBD.config.Language = (string)l;
                     HOBD.config.Save();
                     HOBD.ReloadLang();
@@ -541,13 +559,13 @@ namespace hobd
         protected virtual void CreateVehicleSection()
         {
             this.PushVolatileSection(
-                new ListSection(t("Vehicle Type"), null, layoutX, layoutY-panorama.SectionContentDelta)
+                new ListSection(t("Vehicle Type"), null, layoutX, layoutY-SectionContentDelta)
                 {
                     Selected = HOBD.config.Vehicle,
                     Content  = HOBD.config.Vehicles.Select((s) => (object)s.Name),
                     UIContent = s => (string)s,
                     ChooseAction = (v) => {
-                        panorama.ScrollSection(-1);
+                        panorama.CurrentSectionIndex -= 1;
                         HOBD.config.Vehicle = (string)v;
                         HOBD.config.Save();
                         HOBD.ReloadVehicle();
@@ -568,7 +586,7 @@ namespace hobd
             Application.Exit();
         }
 
-        private IPanoramaSection CreateFeaturedSection()
+        private PanoramaSection CreateFeaturedSection()
         {
             var img1 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("thumbnail.png");
             var img2 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("squareimg.png");
@@ -578,7 +596,7 @@ namespace hobd
             var subtitleStyle = HOBD.theme.PhoneTextBlockBase;
             var moreStyle = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
 
-            var section = new TouchPanoramaSection("small");
+            var section = new PanoramaSection("small");
 
             var grid = new Grid
             {
@@ -600,12 +618,13 @@ namespace hobd
 
             grid[6, 1] = new TextElement("more") { Style = moreStyle };
 
-            section.Add(grid, 0, 0, 300, 700);
+            section.AddElement(grid);
+            // , 0, 0, 300, 700
 
             return section;
         }
 
-        private IPanoramaSection CreateHorizontalFeaturedSection()
+        private PanoramaSection CreateHorizontalFeaturedSection()
         {
             var img1 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("thumbnail.png");
             var img2 = ResourceManager.Instance.GetBitmapFromEmbeddedResource("squareimg.png");
@@ -628,8 +647,9 @@ namespace hobd
             grid[1, 2] = new ImageElement(img1) { Size = imageSize };
             grid[1, 3] = new ImageElement(img2) { Size = imageSize };
 
-            var section = new TouchPanoramaSection("features") { DoubleWidthSection = true };
-            section.Add(grid, 0, 0, 480, 320);
+            var section = new PanoramaSection("features");
+            section.AddElement(grid);
+            //, 0, 0, 480, 320
             return section;
         }
     }

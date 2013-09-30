@@ -1,0 +1,3 @@
+[submodule "lib/fleuxdesktop2"]
+	path = lib/fleuxdesktop2
+	url = https://github.com/cail/fleux

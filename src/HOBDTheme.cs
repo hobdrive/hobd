@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-using Fleux.Controls.List;
 using Fleux.Core.GraphicsHelpers;
 using Fleux.Styles;
 
