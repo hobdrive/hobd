@@ -11,7 +11,7 @@ using Fleux.UIElements.Grid;
 
 namespace hobd{
 
-public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElement
+public class DynamicElement : UIElement
 {
     protected int width;
     protected int height;
@@ -27,13 +27,11 @@ public class DynamicElement : Fleux.UIElements.IUIElement, IDimensionAwareElemen
 
     public string Text {get; set; }
 
-    public TouchableElementState TouchableState { get; set; }
-
     public TextStyle Style { get; set; }
 
-    public Action<IUIElement> HandleTapAction { get; set; }
+    public Action<UIElement> HandleTapAction { get; set; }
     
-    public virtual void Draw(IDrawingGraphics g)
+    public override void Draw(IDrawingGraphics g)
     {
         g.Style(this.Style);
         if (clickTimer != null){

@@ -139,7 +139,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\elm\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition=" '$(Platform)' == 'AnyCPU' " />
 </Project>

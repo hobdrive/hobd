@@ -4,17 +4,17 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Fleux.Core.GraphicsHelpers;
-using Fleux.Controls.Panorama;
 using Fleux.Styles;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
+using Fleux.UIElements.Panorama;
 
 namespace hobd
 {
 
-public class SensorTextElement: IUIElement, IDimensionAwareElement
+public class SensorTextElement: UIElement
 {
-    PanoramaControl panorama;
+    HomePage homePage;
     public string Text {get; set;}
     public string Name = "";
     public string Units = "";
@@ -98,13 +98,11 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         //var style = new TextStyle(HOBD.theme.PhoneTextLargeStyle.FontFamily, HOBD.theme.PhoneFontSizeMediumLarge, HOBD.theme.PanoramaNormalBrush);
     }
 
-    public TouchableElementState TouchableState { get; set; }
-
     public TextStyle Style { get; set; }
 
     public Action HandleTapAction { get; set; }
     
-    public void Draw(IDrawingGraphics drawingGraphics)
+    public override void Draw(IDrawingGraphics drawingGraphics)
     {
         //drawingGraphics.Color(Color.FromArgb(100,100,100));
         //drawingGraphics.DrawRectangle(0, 0, width, height);
@@ -112,7 +110,7 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         //drawingGraphics.Style(this.Style);
         //drawingGraphics.MoveTo(2,2).Color(Color.FromArgb(64, 64, 64)).DrawText(this.Text);
 
-        if (panorama != null && !panorama.IsPanoramaAnimating)
+        //if (homePage != null)
         {
             if (this.Name != null)
                 drawingGraphics
@@ -152,12 +150,7 @@ public class SensorTextElement: IUIElement, IDimensionAwareElement
         this.height = height;
     }
 
-    public void NotifyAttach(Control control)
-    {
-        if (control is PanoramaControl)
-            this.panorama = (PanoramaControl)control;
-    }
-    
+   
 }
 
 }

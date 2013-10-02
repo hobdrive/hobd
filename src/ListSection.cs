@@ -8,17 +8,17 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using Fleux.Controls.Panorama;
 using Fleux.Core;
 using Fleux.Core.Scaling;
 using Fleux.UIElements;
 using Fleux.UIElements.Grid;
 using Fleux.Styles;
+using Fleux.UIElements.Panorama;
 
 namespace hobd
 {
 
-    public class ListSection : TouchPanoramaSection
+    public class ListSection : PanoramaSection
     {
 		IEnumerable<object> content;
 		Func<object, string> uiContent;
@@ -51,10 +51,10 @@ namespace hobd
 		public int LayoutY{get; set;}
 		public Action<object> ChooseAction;
 
-		Dictionary<IUIElement, object> uiMapping = new Dictionary<IUIElement, object>();
+		Dictionary<UIElement, object> uiMapping = new Dictionary<UIElement, object>();
 		
         public ListSection(string title, TextStyle style, int layoutX, int layoutY) :
-               base(dg => dg.Style(style ?? HOBD.theme.PhoneTextPanoramaSectionTitleStyle).DrawText(title))
+               base(title)
         {
             LayoutX = layoutX;
             LayoutY = layoutY;
@@ -97,10 +97,11 @@ namespace hobd
                     return;
             }
 
-            this.Add(grid, 0, 0, LayoutX, LayoutY);
+            this.AddElement(grid);
+            // , 0, 0, LayoutX, LayoutY
         }
 
-        void OnChoose(IUIElement e)
+        void OnChoose(UIElement e)
         {
             object p = null;
             if (uiMapping.TryGetValue(e, out p))

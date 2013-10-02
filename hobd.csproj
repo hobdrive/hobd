@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">WINCE</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
     <PlatformFamilyName>PocketPC</PlatformFamilyName>
     <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
@@ -11,11 +11,13 @@
     <DeployDirSuffix>hobd</DeployDirSuffix>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
-    <ApplicationIcon>Images/hobd.ico</ApplicationIcon>
+    <ApplicationIcon>Images\hobd.ico</ApplicationIcon>
     <RootNamespace>hobd</RootNamespace>
     <AssemblyName>hobd</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SourceAnalysisOverrideSettingsFile>C:\Users\papa\AppData\Roaming\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -41,17 +43,21 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|WINCE' ">
     <OutputPath>bin\Debug_ce\</OutputPath>
     <DefineConstants>WINCE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|WINCE' ">
     <OutputPath>bin\Release_ce\</OutputPath>
     <DefineConstants>WINCE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="InTheHand.Net.Personal">
@@ -90,25 +96,24 @@
     <None Include="config\default.vehicles" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\banner.jpg" />
-    <EmbeddedResource Include="Images\config.jpg" />
-    <EmbeddedResource Include="Images\icon_bt.png" />
-    <EmbeddedResource Include="Images\icon_com.png" />
-    <EmbeddedResource Include="Images\hobd.ico" />
+    <EmbeddedResource Include="images\banner.jpg" />
+    <EmbeddedResource Include="images\config.jpg" />
+    <EmbeddedResource Include="images\icon_bt.png" />
+    <EmbeddedResource Include="images\icon_com.png" />
+    <EmbeddedResource Include="images\hobd.ico" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="fleuxdesktop2\Fleux\Fleux.csproj">
-      <Project>{8526293a-9c66-48f6-a90d-fb2b7128bf08}</Project>
-      <Name>Fleux</Name>
-    </ProjectReference>
     <ProjectReference Include="hobdcore.csproj">
       <Project>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</Project>
       <Name>hobdcore</Name>
+    </ProjectReference>
+    <ProjectReference Include="fleuxdesktop2\Fleux\Fleux.csproj">
+      <Project>{8526293A-9C66-48F6-A90D-FB2B7128BF08}</Project>
+      <Name>Fleux</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />

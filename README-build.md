@@ -27,18 +27,19 @@ Hobdrive runs on multiple platform, with C# as a major development language.
 
 5. Use /hobdcore/hobd.csproj for the development under MSVC or MonoDevelop (recommended)
 
-    
+
 ## OBD2 Data Simulator installation
 
 1.  Run:
       
-      lib/obdsim_tcp.bat
+      lib/obdsim/obdsim_tcp.bat
+      lib/obdsim/obdsim_linux.exe -k 1234 -g Random
 
   to start obd simulator.
 
 2.  To connect hobdrive to simulator, enter
       tcp://127.0.0.1:1234
-  in connection port settings
+  in connection port settings (config.xml/port)
 
 
 ## WINCE simulator
