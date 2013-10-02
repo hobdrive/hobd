@@ -29,27 +29,27 @@ namespace hobdCoreTest
             speedSensor.Update(100);
             rpmSensor.Update(3000);
             tmpResult = distanceSensor.GetShiftPos(speedSensor, rpmSensor);
-            Assert.AreEqual(Math.Round(tmpResult, 2), 0.75);       //According to the Excel sheet "shiftposition.ods"
+            Assert.AreEqual(tmpResult, 4);       //According to the Excel sheet "shiftposition.ods"
 
             speedSensor.Update(80);// Set new speed value
             rpmSensor.Update(3000);
             tmpResult = distanceSensor.GetShiftPos(speedSensor, rpmSensor);
-            Assert.AreEqual(Math.Round(tmpResult, 2), 0.94);
+            Assert.AreEqual(tmpResult, 3);
 
             speedSensor.Update(80);// Set new speed value
             rpmSensor.Update(6000);
             tmpResult = distanceSensor.GetShiftPos(speedSensor, rpmSensor);
-            Assert.AreEqual(Math.Round(tmpResult, 2), 1.87);
+            Assert.AreEqual(tmpResult, 2);
 
             speedSensor.Update(40);// Set new speed value
             rpmSensor.Update(6000);
             tmpResult = distanceSensor.GetShiftPos(speedSensor, rpmSensor);
-            Assert.AreEqual(Math.Round(tmpResult, 2), 3.74);
+            Assert.AreEqual(tmpResult, 1);
 
             speedSensor.Update(10);// Set new speed value
             rpmSensor.Update(1000);
             tmpResult = distanceSensor.GetShiftPos(speedSensor, rpmSensor);
-            Assert.AreEqual(Math.Round(tmpResult, 2), 2.49);
+            Assert.AreEqual(tmpResult, 1);
         }
     }
 }
