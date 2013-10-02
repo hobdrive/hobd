@@ -115,6 +115,16 @@ public class CommonSensors : SensorProvider
         
         registry.Add(s);
 
+        // ShiftPosition
+        s = new hobd.ShiftPositionSensor()
+        {
+            ID = "Common.ShiftPosition",
+            Name = "ShiftPosition",
+
+        };
+
+        registry.Add(s);
+
     }
 
     
@@ -131,6 +141,8 @@ public class CommonSensors : SensorProvider
   public const string IdleTime = "IdleTime";
 
   public const string Speed = "Speed";
+
+  public const string ShiftPosition = "ShiftPosition";
 
 }
 
