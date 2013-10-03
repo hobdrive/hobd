@@ -27,13 +27,16 @@ namespace hobd
             double dTmp;
             if ((false == speed.Valid) || (false == rpm.Valid))
             {
+                this.Valid = false;
                 return 0;
             }
             if (speed.Value <= 0 || rpm.Value <= 0 || WheelCirc <= 0)
             {
+                this.Valid = false;
                 return 0;
             }
-            
+
+            this.Valid = true;
             dTmp = ((rpm.Value / 60) / (speed.Value * 1000 / 3600 / WheelCirc)) / mainGear;
             dTmp = Math.Round(dTmp, 2);
             if (dTmp < 0.94)
