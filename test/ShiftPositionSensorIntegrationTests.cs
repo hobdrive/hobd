@@ -1,14 +1,64 @@
-using System;
-using System.Threading;
+using System.Diagnostics;
 using hobd;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace hobdCoreTest
 {
     [TestClass]
-    public class IntegrationSensorTest
+    public class ShiftPositionSensorIntegrationTests
     {
+        private CoreSensorEx _speedSensor;
+        private SensorRegistry _registry;
+        private CoreSensorEx _rpmSensor;
+        private ShiftPositionSensor _sensor;
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            _registry = new SensorRegistry();
+         
+            _speedSensor = new CoreSensorEx("Test", "Speed", "km/h"){ID = CommonSensors.Speed};
+            _registry.Add(_speedSensor);
+
+            _rpmSensor = new CoreSensorEx("Test", "RPM", ""){ID = CommonSensors.Rpm};
+            _registry.Add(_rpmSensor);
+
+            _sensor = new ShiftPositionSensor();
+            _registry.Add(_sensor);
         
+        }
+
+        [TestMethod]
+        public void Valid_should_be_false_when_rpm_invalid()
+        {
+            _rpmSensor.Update(false, double.NaN);
+
+            Assert.IsFalse(_sensor.Valid);
+        }
+
+        [TestMethod]
+        public void Valid_should_be_false_when_speed_invalid()
+        {
+            _speedSensor.Update(false, double.NaN);
+
+            Assert.IsFalse(_sensor.Valid);
+        }
+
+        [TestMethod]
+        public void Valid_should_be_true_when_speed_and_rpm_valid()
+        {
+            _speedSensor.Update(true, 10);
+            _rpmSensor.Update(true, 25);
+
+            ActivateSensor();
+
+            Assert.IsTrue(_sensor.Valid);
+        }
+
+        private void ActivateSensor()
+        {
+            _sensor.NotifyAddListener(sensor => Debug.Print(sensor.Value.ToString()));
+        }
 
         [TestMethod]
         public void TestGearShiftPositionSensor()
