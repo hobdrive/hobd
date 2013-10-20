@@ -23,8 +23,8 @@ namespace hobd
 
         public void Update(bool valid, double value)
         {
-            this.Valid = valid;
             this.Value = value;
+            this.Valid = valid;
             this.TimeStamp = DateTimeMs.Now;
             registry.TriggerListeners(this);
         }
