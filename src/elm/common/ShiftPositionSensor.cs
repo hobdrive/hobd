@@ -5,83 +5,52 @@ namespace hobd
 {
     public class ShiftPositionSensor : DerivedSensor
     {
+        private const double DefaultMainGear = 2.9;
         private double WheelCirc = 1.20576; // default value
-        private double mainGear = 2.9; // default value
+        private double mainGear = DefaultMainGear; // default value
+        private GearShiftCoefficients _gearShiftCoefficent;
 
         public ShiftPositionSensor()
             : base(CommonSensors.ShiftPosition, null, null)
         {
-            ID = "Common.ShiftPosition";
             Units = "";
-
-            base.DerivedValue = GetShiftPos;
+            base.DerivedValue = (speed, rpm) => MapGear(CalculateGearCoefficient(speed, rpm));
         }
 
         // Speed: KM/H
         // RPM: Rotation speed of the Engine
-        public double GetShiftPos(Sensor speed, Sensor rpm)
-        {
-            if (!Validate(speed, rpm))
-                return 0;
-
-            var gearCoefficient = CalculateGearCoefficient(speed, rpm);
-
-            return MapGear(gearCoefficient);
-        }
-
         private double CalculateGearCoefficient(Sensor speed, Sensor rpm)
         {
-            var result = ((rpm.Value / 60) / (speed.Value * 1000 /3600 / WheelCirc)) / mainGear;
-            result = Math.Round(result, 2);
-            return result;
+            var result = ((rpm.Value / 60)/(speed.Value*1000/3600/WheelCirc))/mainGear;
+            return Math.Round(result, 2);
         }
 
-        private static double MapGear(double dTmp)
+        private double MapGear(double dTmp)
         {
-            double dGear;
-            if (dTmp < 0.94)
-            {
-                dGear = 4;
-            }
-            else if ((dTmp >= 0.94) && (dTmp < 1.87))
-            {
-                dGear = 3;
-            }
-            else if ((dTmp >= 1.87) && (dTmp < 2.49))
-            {
-                dGear = 2;
-            }
-            else
-            {
-                dGear = 1;
-            }
-            return dGear;
+            return _gearShiftCoefficent.GearCoefficients
+                                       .Where(coefficient => coefficient.Value.Contains(dTmp))
+                                       .Select(c => Convert.ToDouble(c.Key)).Single();
         }
 
         private bool Validate(Sensor speed, Sensor rpm)
         {
             if ((false == speed.Valid) || (false == rpm.Valid))
             {
-                this.Valid = false;
-                {
-                    value = 0;
-                    return (Valid = false);
-                }
+                return false;
             }
             if (speed.Value <= 0 || rpm.Value <= 0 || WheelCirc <= 0)
             {
-                this.Valid = false;
-                {
-                    value = 0;
-                    return (Valid = false);
-                }
+
+                return false;
             }
 
-            return Valid = true;
+            return true;
         }
 
         protected override void Activate()
         {
+            _gearShiftCoefficent = new GearShiftCoefficients(registry);
+
             var speedSensor = GetSpeedSensor();
             if (speedSensor == null)
             {
@@ -124,7 +93,32 @@ namespace hobd
 
         private void CalculateGear(Sensor speedSensor, Sensor rpmSensor)
         {
-            Value = GetShiftPos(speedSensor, rpmSensor);
+            if (!Validate(speedSensor, rpmSensor))
+            {
+                Valid = false;
+                return;
+            }
+
+            var gearCoefficient = CalculateGearCoefficient(speedSensor, rpmSensor);
+
+            Value = MapGear(gearCoefficient);
+        }
+
+        public class Range
+        {
+            public Range(double lowValue, double upValue)
+            {
+                LowValue = lowValue;
+                UpValue = upValue;
+            }
+
+            public double UpValue { get;private set; }
+            public double LowValue { get;private set; }
+
+            public bool Contains(double value)
+            {
+                return value >= LowValue && value < UpValue;
+            }
         }
     }
 }

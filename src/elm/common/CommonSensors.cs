@@ -142,6 +142,8 @@ public class CommonSensors : SensorProvider
 
   public const string Speed = "Speed";
 
+  public const string Rpm = "RPM";
+
   public const string ShiftPosition = "ShiftPosition";
 
 }
