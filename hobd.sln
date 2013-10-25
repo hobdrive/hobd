@@ -7,28 +7,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hobdcore", "hobdcore.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "lib\fleuxdesktop2\Fleux\Fleux.csproj", "{8526293A-9C66-48F6-A90D-FB2B7128BF08}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{0C269A15-446A-4483-B987-49A000339BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationSensorTest", "IntegrationSensorTest\IntegrationSensorTest\IntegrationSensorTest.csproj", "{647DB67D-60B1-401B-8124-11C1ABEC86E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|AnyCPU = Debug|AnyCPU
-		Release|AnyCPU = Release|AnyCPU
-		Debug|WINCE = Debug|WINCE
-		Release|WINCE = Release|WINCE
 		Debug|Any CPU = Debug|Any CPU
+		Debug|AnyCPU = Debug|AnyCPU
+		Debug|WINCE = Debug|WINCE
 		Release|Any CPU = Release|Any CPU
+		Release|AnyCPU = Release|AnyCPU
+		Release|WINCE = Release|WINCE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.Build.0 = Debug|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.ActiveCfg = Debug|WINCE
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.Build.0 = Debug|WINCE
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.ActiveCfg = Release|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.Build.0 = Release|Any CPU
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.ActiveCfg = Release|WINCE
-		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.Build.0 = Release|WINCE
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC3}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
@@ -53,6 +45,32 @@ Global
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC4}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC4}.Release|WINCE.ActiveCfg = Release|WINCE
 		{E0F56424-BEBA-4BD9-8B06-20571D599CC4}.Release|WINCE.Build.0 = Release|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.ActiveCfg = Debug|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Debug|WINCE.Build.0 = Debug|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.ActiveCfg = Release|WINCE
+		{8526293A-9C66-48F6-A90D-FB2B7128BF08}.Release|WINCE.Build.0 = Release|WINCE
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Debug|WINCE.ActiveCfg = Debug|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4}.Release|WINCE.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{647DB67D-60B1-401B-8124-11C1ABEC86E4} = {0C269A15-446A-4483-B987-49A000339BA1}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = hobd.csproj

@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define DEBUG_LIMITED
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -198,19 +200,29 @@ namespace hobd
         {
             get
             {
-                double avgSpeeds = 0;
-                long avgTimeIntervals = 0;
                 if (Interval > 0)
                 {
+                    double avgSpeeds = 0;
+                    long avgTimeIntervals = 0;
+                    double valueLocal;
+                    long previouseTimeLocal;
+
+                    lock (_syncObject)
+                    {
+                        valueLocal = _value;
+                        previouseTimeLocal = _previouseTime;
+                    }
+                    
+
                     var bufferedData = _sensorDataBuffer.Get();
                     var currentTime = DateTimeMs.Now;
                     var satisfiedTime = currentTime - Interval;
                     foreach (var sensorData in bufferedData)
                     {
-                        if (sensorData.TimeStampEnd < satisfiedTime)
+                        if (sensorData.TimeStampEnd <= satisfiedTime)
                             continue;
-                        var t0 = sensorData.TimeStampStart > satisfiedTime
-                                      ? sensorData.TimeStampEnd - sensorData.TimeStampStart
+                        var t0 = sensorData.TimeStampStart >= satisfiedTime
+                                      ? sensorData.TimeStampStart
                                       : satisfiedTime;
                         var t1 = sensorData.TimeStampEnd;
 
@@ -218,17 +230,27 @@ namespace hobd
                         avgTimeIntervals += (t1 - t0);
                     }
 
-                    _sum = avgSpeeds/avgTimeIntervals;
-                    lock (_syncObject)
-                    {
-                        return (_sum + (_value * (DateTimeMs.Now - _previouseTime))) / (_avgTime + (DateTimeMs.Now - _previouseTime));    
-                    }
+                    #if DEBUG_LIMITED
+
+                    var deltaTime = currentTime - previouseTimeLocal;
+                    double tmpValue = valueLocal * deltaTime;
+                    avgSpeeds += tmpValue;
+                    long tmpTime = avgTimeIntervals + deltaTime;
+                    double v = avgSpeeds / tmpTime;
+                    return v;
+
+                    #else
+
+                    return (avgSpeeds + (valueLocal * (currentTime - previouseTimeLocal))) / (avgTimeIntervals + (currentTime - previouseTimeLocal));    
+
+                    #endif
                 }
                 else
                 {
                     lock (_syncObject)
                     {
-                        return (_sum + (_value * (DateTimeMs.Now - _previouseTime))) / (_avgTime + (DateTimeMs.Now - _previouseTime));
+                        var currentTime = DateTimeMs.Now;
+                        return (_sum + (_value * (currentTime - _previouseTime))) / (_avgTime + (currentTime - _previouseTime));
                     }    
                 }
             }
@@ -264,6 +286,7 @@ namespace hobd
             {
                 _value = s.Value;
                 _previouseTime = s.TimeStamp;
+                FirstRun = false;
                 SuspendCalculations = false;
                 return;
             }

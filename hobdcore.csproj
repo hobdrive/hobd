@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</ProjectGuid>
@@ -15,7 +15,7 @@
     <RootNamespace>hobd</RootNamespace>
     <AssemblyName>hobdcore</AssemblyName>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -70,6 +70,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -82,7 +83,6 @@
     <Compile Include="src\elm\common\DistanceSensor.cs" />
     <Compile Include="src\elm\common\GSensor.cs" />
     <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
-    <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />
     <Compile Include="src\elm\common\IdleTime.cs" />
     <Compile Include="src\elm\common\TripTime.cs" />
     <Compile Include="src\elm\common\DerivedSensor.cs" />
@@ -136,10 +136,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="src\elm\" />
+    <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />
+    <Compile Include="src\elm\common\IntegrationSensor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition=" '$(Platform)' == 'AnyCPU' " />
