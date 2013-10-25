@@ -21,7 +21,7 @@ namespace hobdCoreTest
             _speedSensor = new CoreSensorEx("Test", "Speed", "km/h"){ID = CommonSensors.Speed};
             _registry.Add(_speedSensor);
 
-            _rpmSensor = new CoreSensorEx("Test", "RPM", ""){ID = CommonSensors.Rpm};
+            _rpmSensor = new CoreSensorEx("Test", "RPM", "") { ID = OBD2Sensors.RPM };
             _registry.Add(_rpmSensor);
 
             _sensor = new ShiftPositionSensor();

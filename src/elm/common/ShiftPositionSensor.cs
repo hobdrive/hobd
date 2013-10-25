@@ -86,7 +86,7 @@ namespace hobd
 
         private Sensor GetRpmSensor()
         {
-            return registry.Sensors.FirstOrDefault(rpm => rpm.ID == CommonSensors.Rpm);
+            return registry.Sensors.FirstOrDefault(rpm => rpm.ID == OBD2Sensors.RPM);
         }
 
         private void OnRpmChanged(Sensor rpmSensor)
@@ -120,8 +120,8 @@ namespace hobd
                 UpValue = upValue;
             }
 
-            public double UpValue { get;private set; }
-            public double LowValue { get;private set; }
+            public double UpValue { get; private set; }
+            public double LowValue { get; private set; }
 
             public bool Contains(double value)
             {
