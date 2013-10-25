@@ -81,6 +81,7 @@
     <Compile Include="src\elm\common\CommonSensors.cs" />
     <Compile Include="src\elm\common\DistanceSensor.cs" />
     <Compile Include="src\elm\common\GearShiftCoefficients.cs" />
+    <Compile Include="src\elm\common\GearShiftCoefficientsParser.cs" />
     <Compile Include="src\elm\common\GSensor.cs" />
     <Compile Include="src\elm\common\FuelConsumedSensor.cs" />
     <Compile Include="src\elm\common\FuelEconomyTripSensor.cs" />
@@ -139,10 +140,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="src\elm\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" Condition=" '$(Platform)' == 'WINCE' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition=" '$(Platform)' == 'AnyCPU' " />
 </Project>

@@ -5,14 +5,14 @@ namespace hobd
 {
     public class ShiftPositionSensor : DerivedSensor
     {
-        private const double DefaultMainGear = 2.9;
         private double WheelCirc = 1.20576; // default value
-        private double mainGear = DefaultMainGear; // default value
-        private GearShiftCoefficients _gearShiftCoefficent;
-
+        public const string GearShiftParameterName = "gearshift-coefficients";
+        private readonly GearShiftCoefficientsParser _gearShiftCoefficentParser;
+        private GearShiftCoefficients _gearShiftCoefficients;
         public ShiftPositionSensor()
             : base(CommonSensors.ShiftPosition, null, null)
         {
+            _gearShiftCoefficentParser = new GearShiftCoefficientsParser();
             Units = "";
             base.DerivedValue = (speed, rpm) => MapGear(CalculateGearCoefficient(speed, rpm));
         }
@@ -21,15 +21,15 @@ namespace hobd
         // RPM: Rotation speed of the Engine
         private double CalculateGearCoefficient(Sensor speed, Sensor rpm)
         {
-            var result = ((rpm.Value / 60)/(speed.Value*1000/3600/WheelCirc))/mainGear;
+            var result = ((rpm.Value / 60) / (speed.Value * 1000 / 3600 / WheelCirc)) / _gearShiftCoefficients.MainGear;
             return Math.Round(result, 2);
         }
 
         private double MapGear(double dTmp)
         {
-            return _gearShiftCoefficent.GearCoefficients
-                                       .Where(coefficient => coefficient.Value.Contains(dTmp))
-                                       .Select(c => Convert.ToDouble(c.Key)).Single();
+            return _gearShiftCoefficients.Coefficients
+                                         .Where(coefficient => coefficient.Value.Contains(dTmp))
+                                         .Select(c => Convert.ToDouble(c.Key)).Single();
         }
 
         private bool Validate(Sensor speed, Sensor rpm)
@@ -49,7 +49,15 @@ namespace hobd
 
         protected override void Activate()
         {
-            _gearShiftCoefficent = new GearShiftCoefficients(registry);
+            if (registry.VehicleParameters.ContainsKey(GearShiftParameterName))
+            {
+                var coefficientSource = registry.VehicleParameters[GearShiftParameterName];
+                _gearShiftCoefficients = _gearShiftCoefficentParser.Parse(coefficientSource);
+            }
+            else
+            {
+                _gearShiftCoefficients = _gearShiftCoefficentParser.GetDefault();
+            }
 
             var speedSensor = GetSpeedSensor();
             if (speedSensor == null)

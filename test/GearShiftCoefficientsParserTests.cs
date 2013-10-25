@@ -4,45 +4,42 @@ using hobd;
 namespace hobdCoreTest
 {
     [TestClass]
-    public class GearShiftCoefficientsTests
+    public class GearShiftCoefficientsParserTests
     {
-        private SensorRegistry _registry;
-        private GearShiftCoefficients _coefficients;
+        private GearShiftCoefficientsParser _coefficientsParser;
         private const string DefaultCoefficientValue = "2.962; 3.643; 2.008; 1.296; 0.892";
 
         [TestInitialize]
         public void SetUp()
         {
-            _registry = new SensorRegistry();
-            _coefficients = new GearShiftCoefficients(_registry);
+            _coefficientsParser = new GearShiftCoefficientsParser();
         }
 
         [TestMethod]
         public void should_return_default_coefficient_when_not_exists()
         {
-            Assert.AreEqual(_coefficients.MainGear, 2.9);
+            var defaultCoefficients = _coefficientsParser.GetDefault();
+            Assert.AreEqual(defaultCoefficients.MainGear, 2.9);
 
-            Assert.AreEqual(_coefficients.GearCoefficients.Count, 4);
+            Assert.AreEqual(defaultCoefficients.Coefficients.Count, 4);
         }
 
         [TestMethod]
         public void should_return_MainGear()
         {
-            _registry.VehicleParameters.Add(GearShiftCoefficients.GearShiftParameterName, DefaultCoefficientValue);
+            var coefficients = _coefficientsParser.Parse(DefaultCoefficientValue);
 
-            Assert.AreEqual(_coefficients.MainGear, 2.962);
+            Assert.AreEqual(coefficients.MainGear, 2.962);
         }
 
         [TestMethod]
         public void should_return_Coefficients()
         {
-            _registry.VehicleParameters.Add(GearShiftCoefficients.GearShiftParameterName, DefaultCoefficientValue);
-
-            var coefficients = _coefficients.GearCoefficients;
+            var coefficients = _coefficientsParser.Parse(DefaultCoefficientValue).Coefficients;
             Assert.AreEqual(0, coefficients[5].LowValue);
-            Assert.AreEqual(0.892,coefficients[5].UpValue);
+            Assert.AreEqual(0.892, coefficients[5].UpValue);
 
-            Assert.AreEqual(0.892,coefficients[4].LowValue);
+            Assert.AreEqual(0.892, coefficients[4].LowValue);
             Assert.AreEqual(1.296, coefficients[4].UpValue);
 
             Assert.AreEqual(1.296, coefficients[3].LowValue);
