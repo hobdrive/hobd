@@ -111,22 +111,5 @@ namespace hobd
 
             Value = MapGear(gearCoefficient);
         }
-
-        public class Range
-        {
-            public Range(double lowValue, double upValue)
-            {
-                LowValue = lowValue;
-                UpValue = upValue;
-            }
-
-            public double UpValue { get; private set; }
-            public double LowValue { get; private set; }
-
-            public bool Contains(double value)
-            {
-                return value >= LowValue && value < UpValue;
-            }
-        }
     }
 }

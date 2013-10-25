@@ -36,20 +36,20 @@ namespace hobdCoreTest
         public void should_return_Coefficients()
         {
             var coefficients = _coefficientsParser.Parse(DefaultCoefficientValue).Coefficients;
-            Assert.AreEqual(0, coefficients[5].LowValue);
-            Assert.AreEqual(0.892, coefficients[5].UpValue);
+            Assert.AreEqual(0, coefficients[5].Low);
+            Assert.AreEqual(0.892, coefficients[5].Up);
 
-            Assert.AreEqual(0.892, coefficients[4].LowValue);
-            Assert.AreEqual(1.296, coefficients[4].UpValue);
+            Assert.AreEqual(0.892, coefficients[4].Low);
+            Assert.AreEqual(1.296, coefficients[4].Up);
 
-            Assert.AreEqual(1.296, coefficients[3].LowValue);
-            Assert.AreEqual(2.008, coefficients[3].UpValue);
+            Assert.AreEqual(1.296, coefficients[3].Low);
+            Assert.AreEqual(2.008, coefficients[3].Up);
 
-            Assert.AreEqual(2.008, coefficients[2].LowValue);
-            Assert.AreEqual(3.643, coefficients[2].UpValue);
+            Assert.AreEqual(2.008, coefficients[2].Low);
+            Assert.AreEqual(3.643, coefficients[2].Up);
 
-            Assert.AreEqual(3.643, coefficients[1].LowValue);
-            Assert.AreEqual(double.MaxValue, coefficients[1].UpValue);
+            Assert.AreEqual(3.643, coefficients[1].Low);
+            Assert.AreEqual(double.MaxValue, coefficients[1].Up);
         }
     }
 }
