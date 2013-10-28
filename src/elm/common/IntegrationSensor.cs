@@ -89,7 +89,7 @@ namespace hobd
         bool _firstRun = true;
         bool _suspendCalculations;
         long _previouseTime;
-        long _avgTime;
+        long _totalTime;
         double _sum;
         //
         double _currentValue;
@@ -125,7 +125,12 @@ namespace hobd
         public void Reset()
         {
             _currentValue = 0;
+            _sum = 0;
+            _totalTime = 0;
             _firstRun = true;
+            _previouseTime = 0;
+            this.TimeStamp = 0;
+            //
             if (_interval > 0)
             {
                 _sensorDataBuffer = new CircularBuffer(_slotsCount);
@@ -210,14 +215,14 @@ namespace hobd
             }
         }
 
-        public long AvgTime
+        public long TotalTime
         {
             get
             {
                 // There is no need to update value regarding current time just return value
                 lock (_syncObject)
                 {
-                    return _avgTime;
+                    return _totalTime;
                 }
             }
         }
@@ -270,6 +275,7 @@ namespace hobd
         {
             if (FirstRun)
             {
+                Reset();
                 _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
                 _firstRun = false;
                 _suspendCalculations = false;
@@ -282,8 +288,8 @@ namespace hobd
                     _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
                 }
                 //
-                double avgValues = 0;
-                long avgTimeIntervals = 0;
+                double totalValue = 0;
+                long totalTimeIntervals = 0;
                 //
                 var bufferedData = _sensorDataBuffer.Get();
                 //
@@ -305,13 +311,13 @@ namespace hobd
                                   : satisfiedTime;
                     var t1 = sensorDataNext.TimeStamp;
 
-                    avgValues += sensorData.Value * (t1 - t0);
-                    avgTimeIntervals += (t1 - t0);
+                    totalValue += sensorData.Value * (t1 - t0);
+                    totalTimeIntervals += (t1 - t0);
                 }
                 lock (_syncObject)
                 {
-                    this.value = avgValues;
-                    _avgTime = avgTimeIntervals;
+                    this.value = totalValue;
+                    _totalTime = totalTimeIntervals;
                 }
             }
         }
@@ -320,12 +326,14 @@ namespace hobd
         {
             if (FirstRun)
             {
-                _currentValue = s.Value;
+                Reset();
+                //_currentValue = s.Value;
+                _sum = s.Value;
                 _previouseTime = s.TimeStamp;
+                this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
-                this.TimeStamp = s.TimeStamp;
-                return;
+                //return;
             }
             //
             if (!_suspendCalculations)
@@ -334,10 +342,12 @@ namespace hobd
                 {
                     // Calculate sum for all sensor values excluding new value
                     // time interval for new value is unknown, we just got it
-                    _sum += _currentValue * (s.TimeStamp - _previouseTime);
-                    _avgTime += s.TimeStamp - _previouseTime;
+                    //
+                    //_sum += _currentValue * (s.TimeStamp - _previouseTime);
+                    _sum += s.Value * (s.TimeStamp - _previouseTime);
+                    _totalTime += s.TimeStamp - _previouseTime;
                     _previouseTime = s.TimeStamp;
-                    _currentValue = s.Value;
+                    //_currentValue = s.Value;
                     this.value = _sum;
                     this.TimeStamp = s.TimeStamp;
                 }

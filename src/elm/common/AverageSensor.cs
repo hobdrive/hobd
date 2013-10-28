@@ -16,7 +16,7 @@ namespace hobd.src.elm.common
             
         }
 
-        AverageSensor(string baseSensorId, int interval)
+        public AverageSensor(string baseSensorId, int interval)
             :this(baseSensorId, interval, IntegrationSensor.DEFAULT_SLOTS_COUNT)
         {
             
@@ -43,26 +43,14 @@ namespace hobd.src.elm.common
             }
         }
 
-        public void Reset()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void Suspend()
-        {
-            //throw new NotImplementedException();
-        }
-
         protected override void Activate()
         {
-            Reset();
             registry.Add(_integratedSensor);
             registry.AddListener(_integratedSensor, OnIntegratedSensorChange);
         }
 
         protected override void Deactivate()
         {
-            Reset();
             registry.RemoveListener(OnIntegratedSensorChange);
         }
 
@@ -70,7 +58,7 @@ namespace hobd.src.elm.common
         {
             lock (_syncObject)
             {
-                base.value = _integratedSensor.Value / _integratedSensor.AvgTime;    
+                base.value = _integratedSensor.Value / _integratedSensor.TotalTime;    
             }
             registry.TriggerListeners(this);
         }
