@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleux", "lib\fleuxdesktop2\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{0C269A15-446A-4483-B987-49A000339BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationSensorTest", "IntegrationSensorTest\IntegrationSensorTest\IntegrationSensorTest.csproj", "{647DB67D-60B1-401B-8124-11C1ABEC86E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorsTests", "UnitTests\SensorsTests.csproj", "{647DB67D-60B1-401B-8124-11C1ABEC86E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

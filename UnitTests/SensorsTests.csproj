@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\hobdcore.csproj">
+    <ProjectReference Include="..\hobdcore.csproj">
       <Project>{E0F56424-BEBA-4BD9-8B06-20571D599CC4}</Project>
       <Name>hobdcore</Name>
     </ProjectReference>

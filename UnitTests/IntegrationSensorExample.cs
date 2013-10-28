@@ -13,7 +13,7 @@ namespace IntegrationSensorTest
             var registry = new SensorRegistry();
 
             var speedSensor = new CoreSensorEx("Test", "Speed", "km");
-            var integratedSpeedSensor = new IntegrationSensor("Speed",60000)
+            var integratedSpeedSensor = new IntegrationSensor("Speed"/*,60000*/)
                 {
                     ID = "IntegrationSensor"
                 };

@@ -1,6 +1,4 @@
-﻿//#define DEBUG_LIMITED
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +8,12 @@ namespace hobd
     internal struct SensorData
     {
         public double Value { get; set; }
-        
-        public long TimeStampStart { get; set; }
-        public long TimeStampEnd { get; set; }
+        public long TimeStamp { get; set; }
     }
 
     internal class CircularBuffer
     {
-        private List<SensorData> _buffer;
+        private SensorData[] _buffer;
         private int _bufferPtr;
         private object _syncObject;
         private int _bufferSize;
@@ -31,30 +27,23 @@ namespace hobd
         {
             lock (_syncObject)
             {
-                if (_buffer.Count < _bufferSize)
-                {
-                    _buffer.Add(sensorData);
-                }
-                else
-                {
-                    _buffer[_bufferPtr] = sensorData;
-                    ShiftPtr(ref _bufferPtr);
-                }
+                _buffer[_bufferPtr] = sensorData;
+                ShiftPtr(ref _bufferPtr);
             }
         }
 
-        public List<SensorData> Get()
+        public SensorData[] Get()
         {
-            var resBuf= new List<SensorData>();
+            var resBuf= new SensorData[_bufferSize];
 
             lock (_syncObject)
             {
-                int count = (_bufferSize < _buffer.Count) ? _bufferSize : _buffer.Count;
+                int count = (_bufferSize < _buffer.Count()) ? _bufferSize : _buffer.Count();
                 int shift = _bufferPtr;
 
                 for (int i = 0; i < count; i++)
                 {
-                    resBuf.Add(_buffer[shift]);
+                    resBuf[i]=_buffer[shift];
                     ShiftPtr(ref shift);
                 }
             }
@@ -69,7 +58,7 @@ namespace hobd
                 throw new ArgumentOutOfRangeException(msg);
             }
 
-            _buffer = new List<SensorData>();
+            _buffer = new SensorData[bufferSize];
             _bufferSize = bufferSize;
             _bufferPtr = 0;
             _syncObject = new object();
@@ -92,37 +81,37 @@ namespace hobd
         readonly object _syncObject = new object();
         //
         private CircularBuffer _sensorDataBuffer;
-        const int DEFAULT_SLOTS_COUNT = 50;
+        public const int DEFAULT_SLOTS_COUNT = 50;
         //
-        Sensor baseSensor;
-        readonly string BaseSensorId;
+        Sensor _baseSensor;
+        readonly string _baseSensorId;
         //
-        bool FirstRun = true;
-        bool SuspendCalculations = false;
+        bool _firstRun = true;
+        bool _suspendCalculations;
         long _previouseTime;
         long _avgTime;
         double _sum;
         //
-        double _value;
-        int _interval;
-        int _slotsCount;
+        double _currentValue;
+        readonly int _interval;
+        readonly int _slotsCount;
 
 
-        public IntegrationSensor(string baseSensor_Id)
-            : this(baseSensor_Id, 0, DEFAULT_SLOTS_COUNT)
+        public IntegrationSensor(string baseSensorId)
+            : this(baseSensorId, 0, DEFAULT_SLOTS_COUNT)
         {
 
         }
 
-        public IntegrationSensor(string baseSensor_Id, int interval)
-            : this(baseSensor_Id, interval, DEFAULT_SLOTS_COUNT)
+        public IntegrationSensor(string baseSensorId, int interval)
+            : this(baseSensorId, interval, DEFAULT_SLOTS_COUNT)
         {
             
         }
 
-        public IntegrationSensor(string baseSensor_Id, int interval, int slotsCount)
+        public IntegrationSensor(string baseSensorId, int interval, int slotsCount)
         {
-            BaseSensorId = baseSensor_Id;
+            _baseSensorId = baseSensorId;
             _interval = interval;
             _slotsCount = slotsCount;
 
@@ -135,72 +124,32 @@ namespace hobd
 
         public void Reset()
         {
-            _value = 0;
-            FirstRun = true;
-            if (Interval > 0)
+            _currentValue = 0;
+            _firstRun = true;
+            if (_interval > 0)
             {
-                _sensorDataBuffer = new CircularBuffer(SlotsCount);
+                _sensorDataBuffer = new CircularBuffer(_slotsCount);
             }
         }
 
         public void Suspend()
         {
-            FirstRun = true;
+            _firstRun = true;
         }
 
-        public int Interval 
-        {
-            get { return this._interval; }
-            set { this._interval = value; }
-        }
-
-        public int SlotsCount
-        {
-            get { return this._slotsCount; }
-            set { this._slotsCount = value; }
-
-        }
-
-        public SensorRegistry Registry
-        {
-            get
-            {
-                if (registry == null)
-                {
-                    throw new NullReferenceException("Null registry");
-                }
-                return registry;
-            }
-        }
-
-        public Sensor BaseSensor
-        {
-            get
-            {
-                if (baseSensor == null)
-                {
-                    try
-                    {
-                        baseSensor = Registry.Sensor(BaseSensorId, this);
-                    }
-                    catch (Exception)
-                    {
-                        throw new NullReferenceException("Null sensor");
-                    }
-                    
-                }
-                return baseSensor;
-            }
-            set { 
-                baseSensor = value;
-            }
-        }
-        
         public override double Value
         {
             get
             {
-                if (Interval > 0)
+                lock (_syncObject)
+                {
+                    return this.value;
+                }
+                // There is no need to update value relatively current time, just return value
+                // move this calculations into Limited and Unlimited calculations logic
+                #region unused code
+                /*
+                if (_interval > 0)
                 {
                     double avgSpeeds = 0;
                     long avgTimeIntervals = 0;
@@ -216,17 +165,20 @@ namespace hobd
 
                     var bufferedData = _sensorDataBuffer.Get();
                     var currentTime = DateTimeMs.Now;
-                    var satisfiedTime = currentTime - Interval;
-                    foreach (var sensorData in bufferedData)
+                    var satisfiedTime = currentTime - _interval;
+                    for (var i = 0 ; i < bufferedData.Count() -1 ; i++)
                     {
-                        if (sensorData.TimeStampEnd <= satisfiedTime)
-                            continue;
-                        var t0 = sensorData.TimeStampStart >= satisfiedTime
-                                      ? sensorData.TimeStampStart
-                                      : satisfiedTime;
-                        var t1 = sensorData.TimeStampEnd;
+                        var sensorData0 = bufferedData[i];
+                        var sensorData1 = bufferedData[i + 1];
 
-                        avgSpeeds += sensorData.Value*(t1 - t0);
+                        if (sensorData1.TimeStamp <= satisfiedTime)
+                            continue;
+                        var t0 = sensorData0.TimeStamp >= satisfiedTime
+                                      ? sensorData0.TimeStamp
+                                      : satisfiedTime;
+                        var t1 = sensorData1.TimeStamp;
+
+                        avgSpeeds += sensorData0.Value*(t1 - t0);
                         avgTimeIntervals += (t1 - t0);
                     }
 
@@ -251,26 +203,59 @@ namespace hobd
                     {
                         var currentTime = DateTimeMs.Now;
                         return (_sum + (_value * (currentTime - _previouseTime))) / (_avgTime + (currentTime - _previouseTime));
-                    }    
+                    }
+                }
+                 */
+                #endregion
+            }
+        }
+
+        public long AvgTime
+        {
+            get
+            {
+                // There is no need to update value regarding current time just return value
+                lock (_syncObject)
+                {
+                    return _avgTime;
                 }
             }
+        }
+
+        protected bool FirstRun
+        {
+            get
+            {
+                return _firstRun || (this.TimeStamp - _previouseTime) < 0 ||
+                       (this.TimeStamp - _previouseTime) > _interval;
+            }
+            set { _firstRun = value; }
+
         }
 
         protected override void Activate()
         {
             Reset();
-            Registry.AddListener(BaseSensor, OnBasedSensorChange);
+            try
+            {
+                _baseSensor = registry.Sensor(_baseSensorId, this);
+            }
+            catch (Exception)
+            {
+                throw new NullReferenceException("Null sensor");
+            }
+            registry.AddListener(_baseSensor, OnBasedSensorChange);
         }
 
         protected override void Deactivate()
         {
             Reset();
-            Registry.RemoveListener(OnBasedSensorChange);
+            registry.RemoveListener(OnBasedSensorChange);
         }
 
         void OnBasedSensorChange(Sensor s)
         {
-            if (Interval > 0)
+            if (_interval > 0)
             {
                 TimeLimitedCalculation(s);
             }
@@ -278,53 +263,85 @@ namespace hobd
             {
                 TimeUnLimitedCalculation(s);
             }
+            registry.TriggerListeners(this);
         }
 
         private void TimeLimitedCalculation(Sensor s)
         {
             if (FirstRun)
             {
-                _value = s.Value;
-                _previouseTime = s.TimeStamp;
-                FirstRun = false;
-                SuspendCalculations = false;
+                _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                _firstRun = false;
+                _suspendCalculations = false;
                 return;
             }
-            if (!SuspendCalculations)
+            if (!_suspendCalculations)
             {
                 lock (_syncObject)
                 {
-                    _sensorDataBuffer.Add(new SensorData() { Value = _value,TimeStampStart = _previouseTime, TimeStampEnd = s.TimeStamp });
-                    _previouseTime = s.TimeStamp;
-                    _value = s.Value;
+                    _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                }
+                //
+                double avgValues = 0;
+                long avgTimeIntervals = 0;
+                //
+                var bufferedData = _sensorDataBuffer.Get();
+                //
+                var currentTime = s.TimeStamp;
+                var satisfiedTime = currentTime - _interval;
+                //
+                var count = bufferedData.Count();
+                for (var i = 0; i < count - 1; i++)
+                {
+                    var sensorData = bufferedData[i];
+                    // next sensor data used for time intervals calculation.
+                    // timeInterval = (TimStamp1 - TimeStamp0) 
+                    var sensorDataNext = bufferedData[i + 1];
+
+                    if (sensorDataNext.TimeStamp <= satisfiedTime)
+                        continue;
+                    var t0 = sensorData.TimeStamp >= satisfiedTime
+                                  ? sensorData.TimeStamp
+                                  : satisfiedTime;
+                    var t1 = sensorDataNext.TimeStamp;
+
+                    avgValues += sensorData.Value * (t1 - t0);
+                    avgTimeIntervals += (t1 - t0);
+                }
+                lock (_syncObject)
+                {
+                    this.value = avgValues;
+                    _avgTime = avgTimeIntervals;
                 }
             }
-            registry.TriggerListeners(this);
-            
         }
 
         private void TimeUnLimitedCalculation(Sensor s)
         {
             if (FirstRun)
             {
-                _value = s.Value;
+                _currentValue = s.Value;
                 _previouseTime = s.TimeStamp;
-                FirstRun = false;
-                SuspendCalculations = false;
+                _firstRun = false;
+                _suspendCalculations = false;
+                this.TimeStamp = s.TimeStamp;
                 return;
             }
             //
-            if (!SuspendCalculations)
+            if (!_suspendCalculations)
             {
                 lock (_syncObject)
                 {
-                    _sum += _value * (s.TimeStamp - _previouseTime);
+                    // Calculate sum for all sensor values excluding new value
+                    // time interval for new value is unknown, we just got it
+                    _sum += _currentValue * (s.TimeStamp - _previouseTime);
                     _avgTime += s.TimeStamp - _previouseTime;
                     _previouseTime = s.TimeStamp;
-                    _value = s.Value;
+                    _currentValue = s.Value;
+                    this.value = _sum;
+                    this.TimeStamp = s.TimeStamp;
                 }
             }
-            registry.TriggerListeners(this);
         }
     }
 }
