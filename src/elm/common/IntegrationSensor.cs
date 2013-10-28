@@ -276,10 +276,12 @@ namespace hobd
             if (FirstRun)
             {
                 Reset();
-                _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                //_sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                _previouseTime = s.TimeStamp;
+                this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
-                return;
+                //return;
             }
             if (!_suspendCalculations)
             {
@@ -295,29 +297,27 @@ namespace hobd
                 //
                 var currentTime = s.TimeStamp;
                 var satisfiedTime = currentTime - _interval;
+                _previouseTime = satisfiedTime;
                 //
                 var count = bufferedData.Count();
+
                 for (var i = 0; i < count - 1; i++)
                 {
-                    var sensorData = bufferedData[i];
-                    // next sensor data used for time intervals calculation.
-                    // timeInterval = (TimStamp1 - TimeStamp0) 
-                    var sensorDataNext = bufferedData[i + 1];
-
-                    if (sensorDataNext.TimeStamp <= satisfiedTime)
+                    if (bufferedData[i].TimeStamp < satisfiedTime)
                         continue;
-                    var t0 = sensorData.TimeStamp >= satisfiedTime
-                                  ? sensorData.TimeStamp
-                                  : satisfiedTime;
-                    var t1 = sensorDataNext.TimeStamp;
+                    var t0 = _previouseTime;
+                    var t1 = bufferedData[i].TimeStamp;
 
-                    totalValue += sensorData.Value * (t1 - t0);
+                    totalValue += bufferedData[i].Value * (t1 - t0);
                     totalTimeIntervals += (t1 - t0);
+
+                    _previouseTime = bufferedData[i].TimeStamp;
                 }
                 lock (_syncObject)
                 {
                     this.value = totalValue;
                     _totalTime = totalTimeIntervals;
+                    this.TimeStamp = s.TimeStamp;
                 }
             }
         }

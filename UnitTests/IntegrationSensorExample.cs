@@ -15,14 +15,16 @@ namespace IntegrationSensorTest
 
             var speedSensor = new CoreSensorEx("Test", "Speed", "km");
 
-            var integratedSpeedSensor = new IntegrationSensor("Speed")
+            var integratedSpeedSensor = new IntegrationSensor("Speed",15000)
              {
-               ID = "IntegrationSensor"
+                 Name = "IntegrationSensorSampleApp",
+                 ID = "IntegrationSensorSampleAppId"
             };
             
-            var averageSpeedSensor = new AverageSensor("Speed")
+            var averageSpeedSensor = new AverageSensor("Speed",15000)
                 {
-                    ID = "AverageSensorSampleApp"
+                    Name = "AverageSensorSampleApp",
+                    ID = "AverageSensorSampleAppId"
                 };
             
 
