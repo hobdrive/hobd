@@ -88,11 +88,10 @@ namespace hobd
         //
         bool _firstRun = true;
         bool _suspendCalculations;
-        long _previouseTime;
+        long _previouseTimeStamp;
         long _totalTime;
         double _sum;
         //
-        double _currentValue;
         readonly int _interval;
         readonly int _slotsCount;
 
@@ -124,11 +123,11 @@ namespace hobd
 
         public void Reset()
         {
-            _currentValue = 0;
+            this.value = 0;
             _sum = 0;
             _totalTime = 0;
             _firstRun = true;
-            _previouseTime = this.TimeStamp = 0;//DateTimeMs.Now;
+            _previouseTimeStamp = this.TimeStamp = 0;
             //
             if (_interval > 0)
             {
@@ -138,7 +137,7 @@ namespace hobd
 
         public void Suspend()
         {
-            _firstRun = true;
+            _suspendCalculations = true;
         }
 
         public override double Value
@@ -230,8 +229,8 @@ namespace hobd
         {
             get
             {
-                return _firstRun || (this.TimeStamp - _previouseTime) < 0 ||
-                       (this.TimeStamp - _previouseTime) > _interval;
+                return _firstRun || (this.TimeStamp - _previouseTimeStamp) < 0 ||
+                       (this.TimeStamp - _previouseTimeStamp) > _interval;
             }
             set { _firstRun = value; }
 
@@ -276,7 +275,7 @@ namespace hobd
             {
                 Reset();
                 _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
-                _previouseTime = this.TimeStamp = s.TimeStamp;
+                _previouseTimeStamp = this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
                 return;
@@ -296,7 +295,7 @@ namespace hobd
                 //
                 var currentTime = s.TimeStamp;
                 var satisfiedTime = currentTime - _interval;
-                _previouseTime = satisfiedTime;
+                _previouseTimeStamp = satisfiedTime;
                 //
                 var count = bufferedData.Count();
 
@@ -304,21 +303,22 @@ namespace hobd
                 {
                     if (bufferedData[i].TimeStamp < satisfiedTime)
                         continue;
-                    var t0 = _previouseTime;
+                    var t0 = _previouseTimeStamp;
                     var t1 = bufferedData[i].TimeStamp;
 
                     totalValue += bufferedData[i].Value * (t1 - t0);
                     totalTimeIntervals += (t1 - t0);
 
-                    _previouseTime = bufferedData[i].TimeStamp;
+                    _previouseTimeStamp = bufferedData[i].TimeStamp;
+                }
+                lock (_syncObject)
+                {
+                    this.value = totalValue;
+                    _totalTime = totalTimeIntervals;
+                    this.TimeStamp = s.TimeStamp;
                 }
             }
-            lock (_syncObject)
-            {
-                this.value = totalValue;
-                _totalTime = totalTimeIntervals;
-                this.TimeStamp = s.TimeStamp;
-            }
+            _previouseTimeStamp = s.TimeStamp;
         }
 
         private void TimeUnLimitedCalculation(Sensor s)
@@ -326,7 +326,7 @@ namespace hobd
             if (FirstRun)
             {
                 Reset();
-                _previouseTime = this.TimeStamp = s.TimeStamp;
+                _previouseTimeStamp = this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
                 return;
@@ -334,16 +334,15 @@ namespace hobd
             //
             if (!_suspendCalculations)
             {
-                _sum += s.Value * (s.TimeStamp - _previouseTime);
-                _totalTime += s.TimeStamp - _previouseTime;
-                _previouseTime = s.TimeStamp;
+                lock (_syncObject)
+                {
+                    _sum += s.Value * (s.TimeStamp - _previouseTimeStamp);
+                    _totalTime += s.TimeStamp - _previouseTimeStamp;
+                    this.TimeStamp = s.TimeStamp;
+                    this.value = _sum;
+                }
             }
-            lock (_syncObject)
-            {
-                this.value = _sum;
-                _totalTime += s.TimeStamp - _previouseTime;
-                this.TimeStamp = s.TimeStamp;
-            }
+            _previouseTimeStamp = s.TimeStamp;
         }
     }
 }
