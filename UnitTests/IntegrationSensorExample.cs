@@ -15,13 +15,13 @@ namespace IntegrationSensorTest
 
             var speedSensor = new CoreSensorEx("Test", "Speed", "km");
 
-            var integratedSpeedSensor = new IntegrationSensor("Speed",15000)
+            var integratedSpeedSensor = new IntegrationSensor("Speed")
              {
                  Name = "IntegrationSensorSampleApp",
                  ID = "IntegrationSensorSampleAppId"
             };
             
-            var averageSpeedSensor = new AverageSensor("Speed",15000)
+            var averageSpeedSensor = new AverageSensor("Speed",25000)
                 {
                     Name = "AverageSensorSampleApp",
                     ID = "AverageSensorSampleAppId"
@@ -36,33 +36,25 @@ namespace IntegrationSensorTest
             registry.AddListener(integratedSpeedSensor, OnIntegratedSpeedChanged, 0);
             registry.AddListener(averageSpeedSensor, OnAverageSpeedChanged, 0);
 
-            int testCount = 20;
             long elapsedTime = 0;
-            /*
-            for (var i = 0; i < testCount; i++)
-            {
-                speedSensor.Update(10 + i);                
-                int sleepTime = timeMs + i*50;
-                Thread.Sleep(sleepTime);                
-                elapsedTime += sleepTime;                
-                Console.WriteLine("Time interval= {0} ms", sleepTime);
-            }
-            */
+            
             speedSensor.Update(10);
             Thread.Sleep(5000);
             elapsedTime += 5000;
             speedSensor.Update(20);
             Thread.Sleep(5000);
             elapsedTime += 5000;
-            speedSensor.Update(40);
+            speedSensor.Update(30);
             Thread.Sleep(5000);
             elapsedTime += 5000;
-            speedSensor.Update(10);
-            Thread.Sleep(2000);
-            elapsedTime += 2000;
+            // Trig sensors
+            speedSensor.Update(0);
+            Thread.Sleep(5000);
+            elapsedTime += 5000;
             
             Console.WriteLine("Elapsed time = {0} ms", elapsedTime);
             Console.WriteLine("Averge speed = {0}", averageSpeedSensor.Value);
+            Console.WriteLine("Averge2 speed = {0}", integratedSpeedSensor.Value / integratedSpeedSensor.TotalTime);
             Console.ReadLine();
         }
 

@@ -128,8 +128,7 @@ namespace hobd
             _sum = 0;
             _totalTime = 0;
             _firstRun = true;
-            _previouseTime = 0;
-            this.TimeStamp = 0;
+            _previouseTime = this.TimeStamp = 0;//DateTimeMs.Now;
             //
             if (_interval > 0)
             {
@@ -276,22 +275,22 @@ namespace hobd
             if (FirstRun)
             {
                 Reset();
-                //_sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
-                _previouseTime = s.TimeStamp;
-                this.TimeStamp = s.TimeStamp;
+                _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                _previouseTime = this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
-                //return;
+                return;
             }
+            //
+            double totalValue = 0;
+            long totalTimeIntervals = 0;
+            //
             if (!_suspendCalculations)
             {
                 lock (_syncObject)
                 {
                     _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
                 }
-                //
-                double totalValue = 0;
-                long totalTimeIntervals = 0;
                 //
                 var bufferedData = _sensorDataBuffer.Get();
                 //
@@ -313,12 +312,12 @@ namespace hobd
 
                     _previouseTime = bufferedData[i].TimeStamp;
                 }
-                lock (_syncObject)
-                {
-                    this.value = totalValue;
-                    _totalTime = totalTimeIntervals;
-                    this.TimeStamp = s.TimeStamp;
-                }
+            }
+            lock (_syncObject)
+            {
+                this.value = totalValue;
+                _totalTime = totalTimeIntervals;
+                this.TimeStamp = s.TimeStamp;
             }
         }
 
@@ -327,30 +326,23 @@ namespace hobd
             if (FirstRun)
             {
                 Reset();
-                //_currentValue = s.Value;
-                _sum = s.Value;
-                _previouseTime = s.TimeStamp;
-                this.TimeStamp = s.TimeStamp;
+                _previouseTime = this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
-                //return;
+                return;
             }
             //
             if (!_suspendCalculations)
             {
-                lock (_syncObject)
-                {
-                    // Calculate sum for all sensor values excluding new value
-                    // time interval for new value is unknown, we just got it
-                    //
-                    //_sum += _currentValue * (s.TimeStamp - _previouseTime);
-                    _sum += s.Value * (s.TimeStamp - _previouseTime);
-                    _totalTime += s.TimeStamp - _previouseTime;
-                    _previouseTime = s.TimeStamp;
-                    //_currentValue = s.Value;
-                    this.value = _sum;
-                    this.TimeStamp = s.TimeStamp;
-                }
+                _sum += s.Value * (s.TimeStamp - _previouseTime);
+                _totalTime += s.TimeStamp - _previouseTime;
+                _previouseTime = s.TimeStamp;
+            }
+            lock (_syncObject)
+            {
+                this.value = _sum;
+                _totalTime += s.TimeStamp - _previouseTime;
+                this.TimeStamp = s.TimeStamp;
             }
         }
     }
