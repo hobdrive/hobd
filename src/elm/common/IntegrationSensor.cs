@@ -35,7 +35,6 @@ namespace hobd
         public SensorData[] Get()
         {
             var resBuf= new SensorData[_bufferSize];
-
             lock (_syncObject)
             {
                 int count = (_bufferSize < _buffer.Count()) ? _bufferSize : _buffer.Count();
@@ -47,7 +46,7 @@ namespace hobd
                     ShiftPtr(ref shift);
                 }
             }
-            return resBuf;
+            return resBuf.ToArray();
         }
 
         private void InitializeBuffer(int bufferSize)
@@ -80,7 +79,7 @@ namespace hobd
     {
         readonly object _syncObject = new object();
         //
-        private CircularBuffer _sensorDataBuffer;
+        //CircularBuffer _sensorDataBuffer;
         public const int DEFAULT_SLOTS_COUNT = 50;
         //
         Sensor _baseSensor;
@@ -94,7 +93,14 @@ namespace hobd
         //
         readonly int _interval;
         readonly int _slotsCount;
+        // 
+        double[] _valuesBuffer;
+        long[] _timestampsBuffer;
+        //
+        int _valuesBufferIndex = 0;
+        int _timestampsBufferIndex = 0;
 
+        #region Constructors
 
         public IntegrationSensor(string baseSensorId)
             : this(baseSensorId, 0, DEFAULT_SLOTS_COUNT)
@@ -116,22 +122,29 @@ namespace hobd
 
             if (interval > 0)
             {
-                _sensorDataBuffer = _slotsCount >= DEFAULT_SLOTS_COUNT ? new CircularBuffer(slotsCount) : new CircularBuffer(DEFAULT_SLOTS_COUNT);
+                //_sensorDataBuffer = _slotsCount >= DEFAULT_SLOTS_COUNT ? new CircularBuffer(slotsCount) : new CircularBuffer(DEFAULT_SLOTS_COUNT);
+                _timestampsBuffer = _slotsCount >= DEFAULT_SLOTS_COUNT ? new long[slotsCount] : new long[DEFAULT_SLOTS_COUNT];
+                _valuesBuffer = _slotsCount >= DEFAULT_SLOTS_COUNT ? new double[slotsCount] : new double[DEFAULT_SLOTS_COUNT];
                 
             }
         }
 
+        #endregion;
+
         public void Reset()
         {
-            this.value = 0;
-            _sum = 0;
+            this.value = 0; 
+            _sum = 0; 
             _totalTime = 0;
             _firstRun = true;
-            _previouseTimeStamp = this.TimeStamp = 0;
+            _previouseTimeStamp = 0;
+            this.TimeStamp = 0;
             //
             if (_interval > 0)
             {
-                _sensorDataBuffer = new CircularBuffer(_slotsCount);
+                //_sensorDataBuffer = new CircularBuffer(_slotsCount);
+                _valuesBuffer = new double[_interval / 1000];
+                _timestampsBuffer = new long[_interval / 1000];
             }
         }
 
@@ -252,7 +265,6 @@ namespace hobd
 
         protected override void Deactivate()
         {
-            Reset();
             registry.RemoveListener(OnBasedSensorChange);
         }
 
@@ -273,43 +285,76 @@ namespace hobd
         {
             if (FirstRun)
             {
-                Reset();
-                _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
-                _previouseTimeStamp = this.TimeStamp = s.TimeStamp;
+                _previouseTimeStamp = s.TimeStamp;
+                this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
                 return;
             }
-            //
+
+            #region this version is similar to FuelEconomyPeriodSensor
+
+            if (!_suspendCalculations)
+            {
+                this.TimeStamp = s.TimeStamp;
+                //
+                var index = (int)((TimeStamp / 1000) % _valuesBuffer.Length);
+                //
+                if (index != _valuesBufferIndex)
+                {
+                    _sum -= _valuesBuffer[index];
+                    _valuesBuffer[index] = 0;
+                    _valuesBufferIndex = index;
+                }
+                var currentValue = s.Value * ((TimeStamp - _previouseTimeStamp)) / 1000;
+                _valuesBuffer[_valuesBufferIndex] += currentValue;
+                //
+                if (index != _timestampsBufferIndex)
+                {
+                    _totalTime -= _timestampsBuffer[index];
+                    _timestampsBuffer[index] = 0;
+                    _timestampsBufferIndex = index;
+                }
+                var timeInterval = ((TimeStamp - _previouseTimeStamp)) / 1000;
+                _timestampsBuffer[_timestampsBufferIndex] += timeInterval;
+                //
+                lock (_syncObject)
+                {
+                    _sum += currentValue;
+                    this.value = _sum;
+                    _totalTime += timeInterval;    
+                }
+            }
+
+            #endregion
+            
+            #region this version calculates total time and total value for the passed interval using CircularBuffer
+            /*
             double totalValue = 0;
             long totalTimeIntervals = 0;
             //
             if (!_suspendCalculations)
             {
-                lock (_syncObject)
-                {
-                    _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
-                }
+                _sensorDataBuffer.Add(new SensorData { Value = s.Value, TimeStamp = s.TimeStamp });
+                
                 //
                 var bufferedData = _sensorDataBuffer.Get();
                 //
                 var currentTime = s.TimeStamp;
                 var satisfiedTime = currentTime - _interval;
-                _previouseTimeStamp = satisfiedTime;
+                var prevTimeStamp = satisfiedTime;
                 //
-                var count = bufferedData.Count();
-
-                for (var i = 0; i < count - 1; i++)
+                for (var i = 0; i < bufferedData.Count() - 1; i++)
                 {
                     if (bufferedData[i].TimeStamp < satisfiedTime)
                         continue;
-                    var t0 = _previouseTimeStamp;
+                    var t0 = prevTimeStamp;
                     var t1 = bufferedData[i].TimeStamp;
 
                     totalValue += bufferedData[i].Value * (t1 - t0);
                     totalTimeIntervals += (t1 - t0);
 
-                    _previouseTimeStamp = bufferedData[i].TimeStamp;
+                    prevTimeStamp = bufferedData[i].TimeStamp;
                 }
                 lock (_syncObject)
                 {
@@ -318,15 +363,19 @@ namespace hobd
                     this.TimeStamp = s.TimeStamp;
                 }
             }
+             */
+            #endregion
+            
             _previouseTimeStamp = s.TimeStamp;
+
         }
 
         private void TimeUnLimitedCalculation(Sensor s)
         {
             if (FirstRun)
             {
-                Reset();
-                _previouseTimeStamp = this.TimeStamp = s.TimeStamp;
+                _previouseTimeStamp = s.TimeStamp; 
+                this.TimeStamp = s.TimeStamp;
                 _firstRun = false;
                 _suspendCalculations = false;
                 return;
