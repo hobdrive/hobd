@@ -302,7 +302,6 @@ namespace hobd
                 //
                 if (index != _valuesBufferIndex)
                 {
-                    _sum -= _valuesBuffer[index];
                     _valuesBuffer[index] = 0;
                     _valuesBufferIndex = index;
                 }
@@ -311,7 +310,6 @@ namespace hobd
                 //
                 if (index != _timestampsBufferIndex)
                 {
-                    _totalTime -= _timestampsBuffer[index];
                     _timestampsBuffer[index] = 0;
                     _timestampsBufferIndex = index;
                 }
@@ -320,9 +318,8 @@ namespace hobd
                 //
                 lock (_syncObject)
                 {
-                    _sum += currentValue;
-                    this.value = _sum;
-                    _totalTime += timeInterval;    
+                    value = _valuesBuffer.Sum();
+                    _totalTime = _timestampsBuffer.Sum();
                 }
             }
 
@@ -365,8 +362,8 @@ namespace hobd
             }
              */
             #endregion
-            
-            _previouseTimeStamp = s.TimeStamp;
+
+            _previouseTimeStamp = this.TimeStamp;
 
         }
 
@@ -385,13 +382,13 @@ namespace hobd
             {
                 lock (_syncObject)
                 {
-                    _sum += s.Value * (s.TimeStamp - _previouseTimeStamp);
-                    _totalTime += s.TimeStamp - _previouseTimeStamp;
                     this.TimeStamp = s.TimeStamp;
+                    _sum += s.Value * (this.TimeStamp - _previouseTimeStamp);
+                    _totalTime += s.TimeStamp - _previouseTimeStamp;
                     this.value = _sum;
                 }
             }
-            _previouseTimeStamp = s.TimeStamp;
+            _previouseTimeStamp = this.TimeStamp;
         }
     }
 }
